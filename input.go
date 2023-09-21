@@ -1161,8 +1161,9 @@ type OciConfigurationOptionsInput struct {
 	Region String `json:"region"`
 	// (Required.)
 	Fingerprint String `json:"fingerprint"`
-	// (Required.)
-	PrivateKey String `json:"privateKey"`
+
+	// (Optional.)
+	PrivateKey *String `json:"privateKey,omitempty"`
 }
 
 // OktaConfigurationOptionsInput
