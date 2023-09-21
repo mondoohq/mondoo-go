@@ -60,6 +60,8 @@ func newTransport(base http.RoundTripper, settings *internal.DialSettings) (http
 			Base:   trans,
 			Source: settings.TokenSource,
 		}
+	default:
+		return nil, errors.New("no authentication configured")
 	}
 	return trans, nil
 }
