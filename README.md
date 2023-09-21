@@ -2,9 +2,9 @@
 
 Status: It is currently in beta.
 
-This is a Go client library for the Mondoo Platform API using GraphQL. Mondoo is a security, risk and compliance
+This is a Go client library for Mondoo Platform API using GraphQL. Mondoo is a security, risk and compliance
 platform that provides continuous insight into your infrastructure. This library enables you to interact
-programmatically with the Mondoo Platform to perform various tasks such as querying assets, setup integrations, and
+programmatically with Mondoo Platform to perform various tasks such as querying assets, setup integrations, and
 fetching vulnerability and policy reports.
 
 ## Features
@@ -95,5 +95,4 @@ pull request][pulls].
 This implementation is heavily inspired by the [GitHub GraphQL Go Client](https://github.com/shurcooL/githubv4).
 
 [issues]: https://github.com/mondoohq/mondoo-go/issues/new
-
 [pulls]: https://github.com/mondoohq/mondoo-go/pulls
