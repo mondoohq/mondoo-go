@@ -1,0 +1,4 @@
+Fatalln
+Getenv
+mondoogql
+Println

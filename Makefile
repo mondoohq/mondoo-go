@@ -13,5 +13,17 @@ license/headers/check:
 license/headers/apply:
 	copywrite headers
 
-test:
-	go test -cover $(shell go list ./... | grep -v '/providers/')
+test: test/go test/lint
+
+test/go:
+	go test -cover $(shell go list ./...)
+
+test/lint: test/lint/golangci-lint/run
+
+prep/tools:
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+.PHONY: test/lint/golangci-lint/run
+test/lint/golangci-lint/run: prep/tools
+	golangci-lint --version
+	golangci-lint run

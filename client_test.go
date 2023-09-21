@@ -43,7 +43,7 @@ func TestGraphQLClient(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	client, err := NewClient(option.WithEndpoint(ts.URL + "/query"))
+	client, err := NewClient(option.WithEndpoint(ts.URL+"/query"), option.WithoutAuthentication())
 	require.NoError(t, err)
 
 	var q struct {
