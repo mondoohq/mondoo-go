@@ -17,6 +17,7 @@ type DialSettings struct {
 	NoAuth         bool
 	Endpoint       string
 	TokenSource    oauth2.TokenSource
+	TokenError     error
 	UserAgent      string
 	HTTPClient     *http.Client
 }
@@ -26,6 +27,11 @@ func (ds *DialSettings) Validate() error {
 	if ds.SkipValidation {
 		return nil
 	}
+
+	if ds.TokenError != nil {
+		return ds.TokenError
+	}
+
 	hasCreds := ds.TokenSource != nil
 	if ds.NoAuth && hasCreds {
 		return errors.New("cannot use both WithoutAuthentication and WithTokenSource in combination")
