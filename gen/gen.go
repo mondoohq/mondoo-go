@@ -1,3 +1,5 @@
+// Copyright (c) Mondoo, Inc.
+// SPDX-License-Identifier: BUSL-1.1
 // This implementation is inspired from https://github.com/shurcooL/githubv4/blob/master/gen.go
 
 package main
