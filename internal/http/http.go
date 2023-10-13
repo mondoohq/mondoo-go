@@ -35,12 +35,37 @@ func NewHttpClient(opts ...option.ClientOption) (*http.Client, string, error) {
 		return nil, "", err
 	}
 
-	trans, err := newTransport(http.DefaultTransport, settings)
+	var transport http.RoundTripper
+	if settings.HTTPClient != nil {
+		transport = settings.HTTPClient.Transport
+	}
+
+	if transport == nil {
+		transport = http.DefaultTransport
+	}
+
+	trans, err := newTransport(transport, settings)
 	if err != nil {
 		return nil, "", err
 	}
 
-	return &http.Client{Transport: trans}, settings.Endpoint, nil
+	client := &http.Client{
+		Transport: trans,
+	}
+
+	if settings.HTTPClient != nil && settings.HTTPClient.Timeout > 0 {
+		client.Timeout = settings.HTTPClient.Timeout
+	}
+
+	if settings.HTTPClient != nil && settings.HTTPClient.CheckRedirect != nil {
+		client.CheckRedirect = settings.HTTPClient.CheckRedirect
+	}
+
+	if settings.HTTPClient != nil && settings.HTTPClient.Jar != nil {
+		client.Jar = settings.HTTPClient.Jar
+	}
+
+	return client, settings.Endpoint, nil
 }
 
 // newTransport creates a new http.RoundTripper based on the given options.
