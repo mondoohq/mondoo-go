@@ -52,17 +52,17 @@ func privateKeyFromBytes(bytes []byte) (*ecdsa.PrivateKey, error) {
 	}
 }
 
-func NewServiceAccountTokenSource(data []byte) (*serviceAccountTokenSource, error) {
+func NewServiceAccountTokenSource(data []byte) (*serviceAccountTokenSource, *serviceAccountCredentials, error) {
 	var credentials *serviceAccountCredentials
 	err := json.Unmarshal(data, &credentials)
 	if credentials == nil || err != nil {
-		return nil, errors.New("valid service account needs to be provided")
+		return nil, nil, errors.New("valid service account needs to be provided")
 	}
 
 	// verify that we can read the private key
 	privateKey, err := privateKeyFromBytes([]byte(credentials.PrivateKey))
 	if err != nil {
-		return nil, errors.New("cannot load retrieved key: " + err.Error())
+		return nil, nil, errors.New("cannot load retrieved key: " + err.Error())
 	}
 
 	// configure authentication plugin, since the server only accepts authenticated calls
@@ -75,7 +75,7 @@ func NewServiceAccountTokenSource(data []byte) (*serviceAccountTokenSource, erro
 
 	return &serviceAccountTokenSource{
 		cfg: cfg,
-	}, nil
+	}, credentials, nil
 }
 
 type tokenSourceConfig struct {

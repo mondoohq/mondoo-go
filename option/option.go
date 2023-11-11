@@ -45,17 +45,21 @@ func (w withHTTPClient) Apply(o *internal.DialSettings) {
 
 // WithTokenSource returns a ClientOption that specifies the oauth2.TokenSource
 func WithTokenSource(s oauth2.TokenSource) ClientOption {
-	return withTokenSource{s, nil}
+	return withTokenSource{"", s, nil}
 }
 
 type withTokenSource struct {
-	ts  oauth2.TokenSource
-	err error
+	endpoint string
+	ts       oauth2.TokenSource
+	err      error
 }
 
 func (w withTokenSource) Apply(o *internal.DialSettings) {
 	o.TokenSource = w.ts
 	o.TokenError = w.err
+	if w.endpoint != "" {
+		o.Endpoint = w.endpoint + "/query"
+	}
 }
 
 // WithAPIToken returns a ClientOption that specifies the oauth2.TokenSource with the given token.
@@ -63,24 +67,24 @@ func WithAPIToken(token string) ClientOption {
 	src := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: token},
 	)
-	return withTokenSource{src, nil}
+	return withTokenSource{"", src, nil}
 }
 
 // WithServiceAccount returns a ClientOption that specifies the credentials file to use.
 func WithServiceAccount(data []byte) ClientOption {
-	ts, err := signer.NewServiceAccountTokenSource(data)
-	return withTokenSource{ts, err}
+	ts, sa, err := signer.NewServiceAccountTokenSource(data)
+	return withTokenSource{sa.ApiEndpoint, ts, err}
 }
 
 // WithServiceAccountFile returns a ClientOption that specifies the credentials file to use.
 func WithServiceAccountFile(filename string) ClientOption {
 	data, err := os.ReadFile(filename)
 	if err != nil {
-		return withTokenSource{nil, err}
+		return withTokenSource{"", nil, err}
 	}
 
-	ts, err := signer.NewServiceAccountTokenSource(data)
-	return withTokenSource{ts, err}
+	ts, sa, err := signer.NewServiceAccountTokenSource(data)
+	return withTokenSource{sa.ApiEndpoint, ts, err}
 }
 
 // WithoutAuthentication returns a ClientOption that disables authentication.
