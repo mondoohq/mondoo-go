@@ -90,6 +90,14 @@ make test
 For any requests, bug or comments, please [open an issue][issues] or [submit a
 pull request][pulls].
 
+## Development
+
+When developing new APIs locally, you can overwrite the API endpoint.
+Specify `MONDOO_API_ENDPOINT` environment variable for the `generate` command, e.g.,:
+```
+MONDOO_API_ENDPOINT=http://127.0.0.1 make generate
+```
+
 ## Kudos
 
 This implementation is heavily inspired by the [GitHub GraphQL Go Client](https://github.com/shurcooL/githubv4).

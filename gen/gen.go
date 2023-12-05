@@ -13,6 +13,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"sort"
@@ -74,7 +75,6 @@ func generateSchema(token string, basePath string) error {
 
 // loadSchema loads the GraphQL schema from the Mondoo API.
 func loadSchema(token string) (schema interface{}, err error) {
-	apiHost := "us.api.mondoo.com"
 	introspection := `
 {
   __schema {
@@ -176,10 +176,12 @@ fragment TypeRef on __Type {
   }
 }
 `
+	apiEndpoint, apiHost := getAPIEndpoint()
+	fmt.Printf("using endpoint %s\n", apiEndpoint)
 	// do introspection query
 	req, err := http.NewRequest(
 		"POST",
-		"https://"+apiHost+"/query",
+		apiEndpoint,
 		strings.NewReader(`{"query":`+strconv.Quote(introspection)+`}`),
 	)
 	if err != nil {
@@ -337,4 +339,28 @@ func parseTemplate(text string) *template.Template {
 			return s
 		},
 	}).Parse(text))
+}
+
+func getAPIEndpoint() (string, string) {
+	apiHost := "us.api.mondoo.com"
+	apiEndpoint, err := url.JoinPath("https://", apiHost, "/query")
+	if err != nil {
+		log.Fatalf("invalid MONDOO_API_ENDPOINT: %v", err)
+	}
+	endpoint, ok := os.LookupEnv("MONDOO_API_ENDPOINT")
+	if ok {
+		if !strings.HasPrefix(endpoint, "http://") && !strings.HasPrefix(endpoint, "https://") {
+			endpoint = "https://" + endpoint
+		}
+		apiEndpoint, err = url.JoinPath(endpoint, "/query")
+		if err != nil {
+			log.Fatalf("invalid MONDOO_API_ENDPOINT: %v", err)
+		}
+	}
+	parsedUrl, err := url.Parse(apiEndpoint)
+	if err != nil {
+		log.Fatalf("invalid API url: %v", err)
+	}
+
+	return apiEndpoint, parsedUrl.Host
 }
