@@ -13,6 +13,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"sort"
@@ -176,10 +177,19 @@ fragment TypeRef on __Type {
   }
 }
 `
+	apiEndpoint := "https://" + apiHost + "/query"
+	endpoint, ok := os.LookupEnv("MONDOO_API_ENDPOINT")
+	if ok {
+		apiEndpoint, err = url.JoinPath(endpoint, "/query")
+		if err != nil {
+			log.Fatalf("invalid MONDOO_API_ENDPOINT: %v", err)
+		}
+	}
+	fmt.Printf("using endpoint %s\n", apiEndpoint)
 	// do introspection query
 	req, err := http.NewRequest(
 		"POST",
-		"https://"+apiHost+"/query",
+		apiEndpoint,
 		strings.NewReader(`{"query":`+strconv.Quote(introspection)+`}`),
 	)
 	if err != nil {
