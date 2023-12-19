@@ -117,14 +117,6 @@ const (
 	AssetOverviewReferenceTypeEnumIntegration AssetOverviewReferenceTypeEnum = "INTEGRATION"
 )
 
-// AssetReportPolicyOrderField
-type AssetReportPolicyOrderField string
-
-const (
-	AssetReportPolicyOrderFieldName  AssetReportPolicyOrderField = "NAME"
-	AssetReportPolicyOrderFieldScore AssetReportPolicyOrderField = "SCORE"
-)
-
 // AssetReportQueryOrderField
 type AssetReportQueryOrderField string
 
@@ -132,14 +124,6 @@ const (
 	AssetReportQueryOrderFieldSeverity AssetReportQueryOrderField = "SEVERITY"
 	AssetReportQueryOrderFieldTitle    AssetReportQueryOrderField = "TITLE"
 	AssetReportQueryOrderFieldScore    AssetReportQueryOrderField = "SCORE"
-)
-
-// AssetReportRecommendedActionOrderField
-type AssetReportRecommendedActionOrderField string
-
-const (
-	AssetReportRecommendedActionOrderFieldName     AssetReportRecommendedActionOrderField = "NAME"
-	AssetReportRecommendedActionOrderFieldSeverity AssetReportRecommendedActionOrderField = "SEVERITY"
 )
 
 // AssetSearchOrderField
@@ -256,6 +240,7 @@ const (
 	ClientIntegrationTypeTicketSystemJira ClientIntegrationType = "TICKET_SYSTEM_JIRA"
 	ClientIntegrationTypeAwsHosted        ClientIntegrationType = "AWS_HOSTED"
 	ClientIntegrationTypeAzureBlob        ClientIntegrationType = "AZURE_BLOB"
+	ClientIntegrationTypeHost             ClientIntegrationType = "HOST"
 )
 
 // ComplianceAssetOrderField
@@ -408,6 +393,14 @@ const (
 	ExceptionReviewActionRejected ExceptionReviewAction = "REJECTED"
 )
 
+// ExceptionType
+type ExceptionType string
+
+const (
+	ExceptionTypeCompliance ExceptionType = "COMPLIANCE"
+	ExceptionTypeSecurity   ExceptionType = "SECURITY"
+)
+
 // FormatType
 type FormatType string
 
@@ -491,6 +484,7 @@ const (
 	IntegrationTypeOci              IntegrationType = "OCI"
 	IntegrationTypeTicketSystemJira IntegrationType = "TICKET_SYSTEM_JIRA"
 	IntegrationTypeAzureBlob        IntegrationType = "AZURE_BLOB"
+	IntegrationTypeHost             IntegrationType = "HOST"
 )
 
 // InvitationOrderField
@@ -567,6 +561,7 @@ const (
 	MqueryStateEnabled  MqueryState = "ENABLED"
 	MqueryStateDisabled MqueryState = "DISABLED"
 	MqueryStateIgnored  MqueryState = "IGNORED"
+	MqueryStateSnoozed  MqueryState = "SNOOZED"
 )
 
 // MqueryType
@@ -623,13 +618,6 @@ type PolicyInputType string
 const (
 	PolicyInputTypeYaml      PolicyInputType = "YAML"
 	PolicyInputTypeBundlemap PolicyInputType = "BUNDLEMAP"
-)
-
-// PolicyOrderField
-type PolicyOrderField string
-
-const (
-	PolicyOrderFieldName PolicyOrderField = "NAME"
 )
 
 // PolicyReportEntryState
