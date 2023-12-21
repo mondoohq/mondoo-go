@@ -281,9 +281,10 @@ const (
 type ControlState string
 
 const (
-	ControlStateActive   ControlState = "ACTIVE"
-	ControlStateSnoozed  ControlState = "SNOOZED"
-	ControlStateDisabled ControlState = "DISABLED"
+	ControlStateActive     ControlState = "ACTIVE"
+	ControlStateSnoozed    ControlState = "SNOOZED"
+	ControlStateDisabled   ControlState = "DISABLED"
+	ControlStateOutOfScope ControlState = "OUT_OF_SCOPE"
 )
 
 // ControlsOrderField
@@ -380,9 +381,10 @@ const (
 type ExceptionMutationAction string
 
 const (
-	ExceptionMutationActionEnable  ExceptionMutationAction = "ENABLE"
-	ExceptionMutationActionDisable ExceptionMutationAction = "DISABLE"
-	ExceptionMutationActionSnooze  ExceptionMutationAction = "SNOOZE"
+	ExceptionMutationActionEnable     ExceptionMutationAction = "ENABLE"
+	ExceptionMutationActionDisable    ExceptionMutationAction = "DISABLE"
+	ExceptionMutationActionSnooze     ExceptionMutationAction = "SNOOZE"
+	ExceptionMutationActionOutOfScope ExceptionMutationAction = "OUT_OF_SCOPE"
 )
 
 // ExceptionReviewAction
@@ -709,15 +711,6 @@ const (
 	ScoreTypeResult   ScoreType = "RESULT"
 	ScoreTypeError    ScoreType = "ERROR"
 	ScoreTypeUnscored ScoreType = "UNSCORED"
-)
-
-// ScoringMutationAction
-type ScoringMutationAction string
-
-const (
-	ScoringMutationActionEnable  ScoringMutationAction = "ENABLE"
-	ScoringMutationActionDisable ScoringMutationAction = "DISABLE"
-	ScoringMutationActionIgnore  ScoringMutationAction = "IGNORE"
 )
 
 // ServiceAccountOrderField
