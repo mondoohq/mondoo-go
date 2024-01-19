@@ -6,7 +6,7 @@ require (
 	github.com/go-jose/go-jose/v3 v3.0.1
 	github.com/shurcooL/graphql v0.0.0-20230722043721-ed46e5a46466
 	github.com/stretchr/testify v1.8.4
-	golang.org/x/oauth2 v0.15.0
+	golang.org/x/oauth2 v0.16.0
 )
 
 require (
