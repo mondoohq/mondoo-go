@@ -707,10 +707,12 @@ const (
 type ScoreType string
 
 const (
-	ScoreTypeUnknown  ScoreType = "UNKNOWN"
-	ScoreTypeResult   ScoreType = "RESULT"
-	ScoreTypeError    ScoreType = "ERROR"
-	ScoreTypeUnscored ScoreType = "UNSCORED"
+	ScoreTypeUnknown    ScoreType = "UNKNOWN"
+	ScoreTypeResult     ScoreType = "RESULT"
+	ScoreTypeError      ScoreType = "ERROR"
+	ScoreTypeUnscored   ScoreType = "UNSCORED"
+	ScoreTypeOutOfScope ScoreType = "OUT_OF_SCOPE"
+	ScoreTypeDisabled   ScoreType = "DISABLED"
 )
 
 // ServiceAccountOrderField
