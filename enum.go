@@ -614,14 +614,6 @@ const (
 	PolicyActionIgnore PolicyAction = "IGNORE"
 )
 
-// PolicyInputType
-type PolicyInputType string
-
-const (
-	PolicyInputTypeYaml      PolicyInputType = "YAML"
-	PolicyInputTypeBundlemap PolicyInputType = "BUNDLEMAP"
-)
-
 // PolicyReportEntryState
 type PolicyReportEntryState string
 
