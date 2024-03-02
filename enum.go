@@ -62,10 +62,11 @@ const (
 type AdvisorySummaryOrderField string
 
 const (
-	AdvisorySummaryOrderFieldID        AdvisorySummaryOrderField = "ID"
-	AdvisorySummaryOrderFieldTitle     AdvisorySummaryOrderField = "TITLE"
-	AdvisorySummaryOrderFieldPublished AdvisorySummaryOrderField = "PUBLISHED"
-	AdvisorySummaryOrderFieldScore     AdvisorySummaryOrderField = "SCORE"
+	AdvisorySummaryOrderFieldID          AdvisorySummaryOrderField = "ID"
+	AdvisorySummaryOrderFieldTitle       AdvisorySummaryOrderField = "TITLE"
+	AdvisorySummaryOrderFieldPublished   AdvisorySummaryOrderField = "PUBLISHED"
+	AdvisorySummaryOrderFieldScore       AdvisorySummaryOrderField = "SCORE"
+	AdvisorySummaryOrderFieldRiskfactors AdvisorySummaryOrderField = "RISKFACTORS"
 )
 
 // AgentOrderField
@@ -326,11 +327,12 @@ const (
 type CveSummaryOrderField string
 
 const (
-	CveSummaryOrderFieldID        CveSummaryOrderField = "ID"
-	CveSummaryOrderFieldTitle     CveSummaryOrderField = "TITLE"
-	CveSummaryOrderFieldPublished CveSummaryOrderField = "PUBLISHED"
-	CveSummaryOrderFieldModified  CveSummaryOrderField = "MODIFIED"
-	CveSummaryOrderFieldScore     CveSummaryOrderField = "SCORE"
+	CveSummaryOrderFieldID          CveSummaryOrderField = "ID"
+	CveSummaryOrderFieldTitle       CveSummaryOrderField = "TITLE"
+	CveSummaryOrderFieldPublished   CveSummaryOrderField = "PUBLISHED"
+	CveSummaryOrderFieldModified    CveSummaryOrderField = "MODIFIED"
+	CveSummaryOrderFieldScore       CveSummaryOrderField = "SCORE"
+	CveSummaryOrderFieldRiskfactors CveSummaryOrderField = "RISKFACTORS"
 )
 
 // DocumentFormat
@@ -582,12 +584,22 @@ const (
 	OrderDirectionDesc OrderDirection = "DESC"
 )
 
+// PackageType
+type PackageType string
+
+const (
+	PackageTypeOsPackage   PackageType = "OS_PACKAGE"
+	PackageTypeApplication PackageType = "APPLICATION"
+)
+
 // PackagesOrderField
 type PackagesOrderField string
 
 const (
-	PackagesOrderFieldName  PackagesOrderField = "NAME"
-	PackagesOrderFieldScore PackagesOrderField = "SCORE"
+	PackagesOrderFieldName        PackagesOrderField = "NAME"
+	PackagesOrderFieldScore       PackagesOrderField = "SCORE"
+	PackagesOrderFieldFirstFound  PackagesOrderField = "FIRST_FOUND"
+	PackagesOrderFieldRiskFactors PackagesOrderField = "RISK_FACTORS"
 )
 
 // PlatformKind
