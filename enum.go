@@ -28,11 +28,14 @@ const (
 type ActionType string
 
 const (
-	ActionTypeRetrySetup ActionType = "RETRY_SETUP"
-	ActionTypeRunScan    ActionType = "RUN_SCAN"
-	ActionTypeRunExport  ActionType = "RUN_EXPORT"
-	ActionTypePause      ActionType = "PAUSE"
-	ActionTypeUnpause    ActionType = "UNPAUSE"
+	ActionTypeRetrySetup  ActionType = "RETRY_SETUP"
+	ActionTypeRunScan     ActionType = "RUN_SCAN"
+	ActionTypeRunExport   ActionType = "RUN_EXPORT"
+	ActionTypePause       ActionType = "PAUSE"
+	ActionTypeUnpause     ActionType = "UNPAUSE"
+	ActionTypeMetrics     ActionType = "METRICS"
+	ActionTypeUpdate      ActionType = "UPDATE"
+	ActionTypeDiagnostics ActionType = "DIAGNOSTICS"
 )
 
 // AdvisoryOrderField
