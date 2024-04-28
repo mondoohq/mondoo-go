@@ -94,6 +94,29 @@ const (
 	AgentStateMissing AgentState = "MISSING"
 )
 
+// AggregateScoreOrderField
+type AggregateScoreOrderField string
+
+const (
+	AggregateScoreOrderFieldRiskScore   AggregateScoreOrderField = "RISK_SCORE"
+	AggregateScoreOrderFieldRank        AggregateScoreOrderField = "RANK"
+	AggregateScoreOrderFieldBlastRadius AggregateScoreOrderField = "BLAST_RADIUS"
+	AggregateScoreOrderFieldTitle       AggregateScoreOrderField = "TITLE"
+)
+
+// AggregateScoreType
+type AggregateScoreType string
+
+const (
+	AggregateScoreTypeVulnerability AggregateScoreType = "VULNERABILITY"
+	AggregateScoreTypeAdvisory      AggregateScoreType = "ADVISORY"
+	AggregateScoreTypeCheck         AggregateScoreType = "CHECK"
+	AggregateScoreTypePolicy        AggregateScoreType = "POLICY"
+	AggregateScoreTypeRisk          AggregateScoreType = "RISK"
+	AggregateScoreTypeAsset         AggregateScoreType = "ASSET"
+	AggregateScoreTypeOther         AggregateScoreType = "OTHER"
+)
+
 // AssetLinkType
 type AssetLinkType string
 
@@ -165,6 +188,15 @@ const (
 	AssetSummaryOrderFieldPublished AssetSummaryOrderField = "PUBLISHED"
 	AssetSummaryOrderFieldModified  AssetSummaryOrderField = "MODIFIED"
 	AssetSummaryOrderFieldScore     AssetSummaryOrderField = "SCORE"
+)
+
+// AssetUrlStatsScope
+type AssetUrlStatsScope string
+
+const (
+	AssetUrlStatsScopeAll             AssetUrlStatsScope = "ALL"
+	AssetUrlStatsScopeVulnerabilities AssetUrlStatsScope = "VULNERABILITIES"
+	AssetUrlStatsScopeSecurity        AssetUrlStatsScope = "SECURITY"
 )
 
 // AuditLogOrderField
@@ -453,6 +485,75 @@ const (
 	GradeU Grade = "U"
 )
 
+// ICON_IDS
+type ICON_IDS string
+
+const (
+	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
+	ICON_IDSAix                       ICON_IDS = "AIX"
+	ICON_IDSAtlassian                 ICON_IDS = "ATLASSIAN"
+	ICON_IDSArista                    ICON_IDS = "ARISTA"
+	ICON_IDSArch                      ICON_IDS = "ARCH"
+	ICON_IDSManjaro                   ICON_IDS = "MANJARO"
+	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
+	ICON_IDSIpmi                      ICON_IDS = "IPMI"
+	ICON_IDSOpcua                     ICON_IDS = "OPCUA"
+	ICON_IDSVcd                       ICON_IDS = "VCD"
+	ICON_IDSRaspbian                  ICON_IDS = "RASPBIAN"
+	ICON_IDSKali                      ICON_IDS = "KALI"
+	ICON_IDSPop                       ICON_IDS = "POP"
+	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
+	ICON_IDSRockyLinux                ICON_IDS = "ROCKY_LINUX"
+	ICON_IDSAlmaLinux                 ICON_IDS = "ALMA_LINUX"
+	ICON_IDSScientificLinux           ICON_IDS = "SCIENTIFIC_LINUX"
+	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
+	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
+	ICON_IDSUbios                     ICON_IDS = "UBIOS"
+	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
+	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
+	ICON_IDSAws                       ICON_IDS = "AWS"
+	ICON_IDSAzure                     ICON_IDS = "AZURE"
+	ICON_IDSGcp                       ICON_IDS = "GCP"
+	ICON_IDSK8s                       ICON_IDS = "K8S"
+	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
+	ICON_IDSGitHub                    ICON_IDS = "GITHUB"
+	ICON_IDSGitLab                    ICON_IDS = "GITLAB"
+	ICON_IDSOkta                      ICON_IDS = "OKTA"
+	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
+	ICON_IDSMacos                     ICON_IDS = "MACOS"
+	ICON_IDSSlack                     ICON_IDS = "SLACK"
+	ICON_IDSWindows                   ICON_IDS = "WINDOWS"
+	ICON_IDSMs365                     ICON_IDS = "MS365"
+	ICON_IDSDNS                       ICON_IDS = "DNS"
+	ICON_IDSOci                       ICON_IDS = "OCI"
+	ICON_IDSRedhat                    ICON_IDS = "REDHAT"
+	ICON_IDSAmazon                    ICON_IDS = "AMAZON"
+	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
+	ICON_IDSUbuntu                    ICON_IDS = "UBUNTU"
+	ICON_IDSAlpine                    ICON_IDS = "ALPINE"
+	ICON_IDSOracle                    ICON_IDS = "ORACLE"
+	ICON_IDSSuse                      ICON_IDS = "SUSE"
+	ICON_IDSMicrosoft                 ICON_IDS = "MICROSOFT"
+	ICON_IDSMicrosoftEdge             ICON_IDS = "MICROSOFT_EDGE"
+	ICON_IDSMicrosoftVisualStudioCode ICON_IDS = "MICROSOFT_VISUAL_STUDIO_CODE"
+	ICON_IDSMicrosoftDotnet           ICON_IDS = "MICROSOFT_DOTNET"
+	ICON_IDSLinux                     ICON_IDS = "LINUX"
+	ICON_IDSLinuxMint                 ICON_IDS = "LINUX_MINT"
+	ICON_IDSFedora                    ICON_IDS = "FEDORA"
+	ICON_IDSCentos                    ICON_IDS = "CENTOS"
+	ICON_IDSVmware                    ICON_IDS = "VMWARE"
+	ICON_IDSVmwarePhoton              ICON_IDS = "VMWARE_PHOTON"
+	ICON_IDSMozilla                   ICON_IDS = "MOZILLA"
+	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
+	ICON_IDSMozillaFirefox            ICON_IDS = "MOZILLA_FIREFOX"
+	ICON_IDSCve                       ICON_IDS = "CVE"
+	ICON_IDSPolicy                    ICON_IDS = "POLICY"
+	ICON_IDSCheck                     ICON_IDS = "CHECK"
+	ICON_IDSOther                     ICON_IDS = "OTHER"
+	ICON_IDSRisk                      ICON_IDS = "RISK"
+	ICON_IDSAsset                     ICON_IDS = "ASSET"
+)
+
 // IntegrationMessageStatus
 type IntegrationMessageStatus string
 
@@ -517,6 +618,15 @@ type JiraTicketContextType string
 const (
 	JiraTicketContextTypeProjects JiraTicketContextType = "PROJECTS"
 	JiraTicketContextTypeUsers    JiraTicketContextType = "USERS"
+)
+
+// K8sScanNodesStyle
+type K8sScanNodesStyle string
+
+const (
+	K8sScanNodesStyleUnknown    K8sScanNodesStyle = "UNKNOWN"
+	K8sScanNodesStyleCronjob    K8sScanNodesStyle = "CRONJOB"
+	K8sScanNodesStyleDeployment K8sScanNodesStyle = "DEPLOYMENT"
 )
 
 // LibraryItemType
@@ -585,6 +695,17 @@ type OrderDirection string
 const (
 	OrderDirectionAsc  OrderDirection = "ASC"
 	OrderDirectionDesc OrderDirection = "DESC"
+)
+
+// PackageManager
+type PackageManager string
+
+const (
+	PackageManagerDpkg       PackageManager = "DPKG"
+	PackageManagerYum        PackageManager = "YUM"
+	PackageManagerDnf        PackageManager = "DNF"
+	PackageManagerZypper     PackageManager = "ZYPPER"
+	PackageManagerPowershell PackageManager = "POWERSHELL"
 )
 
 // PackageType
@@ -689,6 +810,15 @@ const (
 	RegistrationTokenOrderFieldMrn         RegistrationTokenOrderField = "MRN"
 )
 
+// RemediationScriptType
+type RemediationScriptType string
+
+const (
+	RemediationScriptTypeShell      RemediationScriptType = "SHELL"
+	RemediationScriptTypeAnsible    RemediationScriptType = "ANSIBLE"
+	RemediationScriptTypePowershell RemediationScriptType = "POWERSHELL"
+)
+
 // ReportViewedPage
 type ReportViewedPage string
 
@@ -722,6 +852,16 @@ const (
 	ScoreTypeDisabled   ScoreType = "DISABLED"
 )
 
+// SearchType
+type SearchType string
+
+const (
+	SearchTypeAsset          SearchType = "ASSET"
+	SearchTypeRegistryPolicy SearchType = "REGISTRY_POLICY"
+	SearchTypeRegistryQuery  SearchType = "REGISTRY_QUERY"
+	SearchTypeMvd            SearchType = "MVD"
+)
+
 // ServiceAccountOrderField
 type ServiceAccountOrderField string
 
@@ -740,6 +880,7 @@ const (
 	SeverityHigh     Severity = "HIGH"
 	SeverityMedium   Severity = "MEDIUM"
 	SeverityLow      Severity = "LOW"
+	SeverityNone     Severity = "NONE"
 )
 
 // SpacePlanQueryMutationDestinationType
