@@ -28,14 +28,15 @@ const (
 type ActionType string
 
 const (
-	ActionTypeRetrySetup  ActionType = "RETRY_SETUP"
-	ActionTypeRunScan     ActionType = "RUN_SCAN"
-	ActionTypeRunExport   ActionType = "RUN_EXPORT"
-	ActionTypePause       ActionType = "PAUSE"
-	ActionTypeUnpause     ActionType = "UNPAUSE"
-	ActionTypeMetrics     ActionType = "METRICS"
-	ActionTypeUpdate      ActionType = "UPDATE"
-	ActionTypeDiagnostics ActionType = "DIAGNOSTICS"
+	ActionTypeRetrySetup     ActionType = "RETRY_SETUP"
+	ActionTypeRunScan        ActionType = "RUN_SCAN"
+	ActionTypeRunExport      ActionType = "RUN_EXPORT"
+	ActionTypePause          ActionType = "PAUSE"
+	ActionTypeUnpause        ActionType = "UNPAUSE"
+	ActionTypeMetrics        ActionType = "METRICS"
+	ActionTypeUpdate         ActionType = "UPDATE"
+	ActionTypeDiagnostics    ActionType = "DIAGNOSTICS"
+	ActionTypeClearScanQueue ActionType = "CLEAR_SCAN_QUEUE"
 )
 
 // AdvisoryOrderField
@@ -463,6 +464,7 @@ type GithubIntegrationType string
 
 const (
 	GithubIntegrationTypeRepo GithubIntegrationType = "REPO"
+	GithubIntegrationTypeOrg  GithubIntegrationType = "ORG"
 )
 
 // GitlabIntegrationType
@@ -856,9 +858,7 @@ const (
 type SearchType string
 
 const (
-	SearchTypeAsset          SearchType = "ASSET"
-	SearchTypeRegistryPolicy SearchType = "REGISTRY_POLICY"
-	SearchTypeRegistryQuery  SearchType = "REGISTRY_QUERY"
+	SearchTypeAggregateScore SearchType = "AGGREGATE_SCORE"
 	SearchTypeMvd            SearchType = "MVD"
 )
 
