@@ -280,6 +280,14 @@ const (
 	ClientIntegrationTypeHost             ClientIntegrationType = "HOST"
 )
 
+// ComparisonOperator
+type ComparisonOperator string
+
+const (
+	ComparisonOperatorGt ComparisonOperator = "GT"
+	ComparisonOperatorLt ComparisonOperator = "LT"
+)
+
 // ComplianceAssetOrderField
 type ComplianceAssetOrderField string
 
@@ -595,6 +603,7 @@ const (
 	IntegrationTypeTicketSystemJira IntegrationType = "TICKET_SYSTEM_JIRA"
 	IntegrationTypeAzureBlob        IntegrationType = "AZURE_BLOB"
 	IntegrationTypeHost             IntegrationType = "HOST"
+	IntegrationTypeAwsHosted        IntegrationType = "AWS_HOSTED"
 )
 
 // InvitationOrderField
