@@ -109,13 +109,15 @@ const (
 type AggregateScoreType string
 
 const (
-	AggregateScoreTypeVulnerability AggregateScoreType = "VULNERABILITY"
-	AggregateScoreTypeAdvisory      AggregateScoreType = "ADVISORY"
-	AggregateScoreTypeCheck         AggregateScoreType = "CHECK"
-	AggregateScoreTypePolicy        AggregateScoreType = "POLICY"
-	AggregateScoreTypeRisk          AggregateScoreType = "RISK"
-	AggregateScoreTypeAsset         AggregateScoreType = "ASSET"
-	AggregateScoreTypeOther         AggregateScoreType = "OTHER"
+	AggregateScoreTypeVulnerability     AggregateScoreType = "VULNERABILITY"
+	AggregateScoreTypeAdvisory          AggregateScoreType = "ADVISORY"
+	AggregateScoreTypeCheck             AggregateScoreType = "CHECK"
+	AggregateScoreTypePolicy            AggregateScoreType = "POLICY"
+	AggregateScoreTypeRisk              AggregateScoreType = "RISK"
+	AggregateScoreTypeAsset             AggregateScoreType = "ASSET"
+	AggregateScoreTypeSoftware          AggregateScoreType = "SOFTWARE"
+	AggregateScoreTypeVersionedSoftware AggregateScoreType = "VERSIONED_SOFTWARE"
+	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
 )
 
 // AssetLinkType
@@ -719,6 +721,16 @@ const (
 	PackageManagerPowershell PackageManager = "POWERSHELL"
 )
 
+// PackageScoresOrderField
+type PackageScoresOrderField string
+
+const (
+	PackageScoresOrderFieldScore       PackageScoresOrderField = "SCORE"
+	PackageScoresOrderFieldAssetName   PackageScoresOrderField = "ASSET_NAME"
+	PackageScoresOrderFieldLastUpdated PackageScoresOrderField = "LAST_UPDATED"
+	PackageScoresOrderFieldRiskFactors PackageScoresOrderField = "RISK_FACTORS"
+)
+
 // PackageType
 type PackageType string
 
@@ -851,6 +863,23 @@ const (
 	ReviewStatusRejected    ReviewStatus = "REJECTED"
 )
 
+// ScoreState
+type ScoreState string
+
+const (
+	ScoreStateOpen   ScoreState = "OPEN"
+	ScoreStateClosed ScoreState = "CLOSED"
+)
+
+// ScoreStateFilter
+type ScoreStateFilter string
+
+const (
+	ScoreStateFilterAll    ScoreStateFilter = "ALL"
+	ScoreStateFilterOpen   ScoreStateFilter = "OPEN"
+	ScoreStateFilterClosed ScoreStateFilter = "CLOSED"
+)
+
 // ScoreType
 type ScoreType string
 
@@ -935,4 +964,21 @@ type VulnerabilityOrderType string
 const (
 	VulnerabilityOrderTypeNewest VulnerabilityOrderType = "NEWEST"
 	VulnerabilityOrderTypeSevere VulnerabilityOrderType = "SEVERE"
+)
+
+// VulnerabilityScoreOrderField
+type VulnerabilityScoreOrderField string
+
+const (
+	VulnerabilityScoreOrderFieldCvssScore     VulnerabilityScoreOrderField = "CVSS_SCORE"
+	VulnerabilityScoreOrderFieldMrn           VulnerabilityScoreOrderField = "MRN"
+	VulnerabilityScoreOrderFieldPublishedDate VulnerabilityScoreOrderField = "PUBLISHED_DATE"
+)
+
+// VulnerabilityScoreType
+type VulnerabilityScoreType string
+
+const (
+	VulnerabilityScoreTypeCve      VulnerabilityScoreType = "CVE"
+	VulnerabilityScoreTypeAdvisory VulnerabilityScoreType = "ADVISORY"
 )
