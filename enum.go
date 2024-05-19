@@ -14,9 +14,10 @@ const (
 	APITokenOrderFieldCreatedAt APITokenOrderField = "CREATED_AT"
 )
 
-// Access
+// Access represents access level of the object.
 type Access string
 
+// Access level of the object.
 const (
 	AccessAll           Access = "ALL"
 	AccessPublic        Access = "PUBLIC"
@@ -24,9 +25,10 @@ const (
 	AccessPrivate       Access = "PRIVATE"
 )
 
-// ActionType
+// ActionType represents action type used when triggering action on client integration.
 type ActionType string
 
+// Action type used when triggering action on client integration.
 const (
 	ActionTypeRetrySetup     ActionType = "RETRY_SETUP"
 	ActionTypeRunScan        ActionType = "RUN_SCAN"
@@ -39,9 +41,10 @@ const (
 	ActionTypeClearScanQueue ActionType = "CLEAR_SCAN_QUEUE"
 )
 
-// AdvisoryOrderField
+// AdvisoryOrderField represents possible advisory order fields.
 type AdvisoryOrderField string
 
+// possible advisory order fields.
 const (
 	AdvisoryOrderFieldID        AdvisoryOrderField = "ID"
 	AdvisoryOrderFieldTitle     AdvisoryOrderField = "TITLE"
@@ -49,9 +52,10 @@ const (
 	AdvisoryOrderFieldScore     AdvisoryOrderField = "SCORE"
 )
 
-// AdvisoryPlatformFilter
+// AdvisoryPlatformFilter represents possible Advisory filters.
 type AdvisoryPlatformFilter string
 
+// possible Advisory filters.
 const (
 	AdvisoryPlatformFilterRedhat AdvisoryPlatformFilter = "REDHAT"
 	AdvisoryPlatformFilterAmazon AdvisoryPlatformFilter = "AMAZON"
@@ -62,9 +66,10 @@ const (
 	AdvisoryPlatformFilterSuse   AdvisoryPlatformFilter = "SUSE"
 )
 
-// AdvisorySummaryOrderField
+// AdvisorySummaryOrderField represents possible advisory summary order fields.
 type AdvisorySummaryOrderField string
 
+// possible advisory summary order fields.
 const (
 	AdvisorySummaryOrderFieldID          AdvisorySummaryOrderField = "ID"
 	AdvisorySummaryOrderFieldTitle       AdvisorySummaryOrderField = "TITLE"
@@ -73,9 +78,10 @@ const (
 	AdvisorySummaryOrderFieldRiskfactors AdvisorySummaryOrderField = "RISKFACTORS"
 )
 
-// AgentOrderField
+// AgentOrderField represents supported sorting fields for agents.
 type AgentOrderField string
 
+// Supported sorting fields for agents.
 const (
 	AgentOrderFieldID          AgentOrderField = "ID"
 	AgentOrderFieldName        AgentOrderField = "NAME"
@@ -87,27 +93,30 @@ const (
 	AgentOrderFieldHostname    AgentOrderField = "HOSTNAME"
 )
 
-// AgentState
+// AgentState represents describes agent state.
 type AgentState string
 
+// Describes agent state.
 const (
 	AgentStateActive  AgentState = "ACTIVE"
 	AgentStateMissing AgentState = "MISSING"
 )
 
-// AggregateScoreOrderField
+// AggregateScoreOrderField represents aggregate score order field.
 type AggregateScoreOrderField string
 
+// Aggregate score order field.
 const (
-	AggregateScoreOrderFieldRiskScore   AggregateScoreOrderField = "RISK_SCORE"
-	AggregateScoreOrderFieldRank        AggregateScoreOrderField = "RANK"
-	AggregateScoreOrderFieldBlastRadius AggregateScoreOrderField = "BLAST_RADIUS"
-	AggregateScoreOrderFieldTitle       AggregateScoreOrderField = "TITLE"
+	AggregateScoreOrderFieldRiskScore   AggregateScoreOrderField = "RISK_SCORE"   // Risk score field.
+	AggregateScoreOrderFieldRank        AggregateScoreOrderField = "RANK"         // Risk rank.
+	AggregateScoreOrderFieldBlastRadius AggregateScoreOrderField = "BLAST_RADIUS" // Risk score blast radius.
+	AggregateScoreOrderFieldTitle       AggregateScoreOrderField = "TITLE"        // Title.
 )
 
-// AggregateScoreType
+// AggregateScoreType represents aggregate score type field.
 type AggregateScoreType string
 
+// Aggregate score type field.
 const (
 	AggregateScoreTypeVulnerability     AggregateScoreType = "VULNERABILITY"
 	AggregateScoreTypeAdvisory          AggregateScoreType = "ADVISORY"
@@ -115,22 +124,24 @@ const (
 	AggregateScoreTypePolicy            AggregateScoreType = "POLICY"
 	AggregateScoreTypeRisk              AggregateScoreType = "RISK"
 	AggregateScoreTypeAsset             AggregateScoreType = "ASSET"
-	AggregateScoreTypeSoftware          AggregateScoreType = "SOFTWARE"
-	AggregateScoreTypeVersionedSoftware AggregateScoreType = "VERSIONED_SOFTWARE"
+	AggregateScoreTypeSoftware          AggregateScoreType = "SOFTWARE"           // Aggregate score for a software package across all versions currently affected by a vulnerability.
+	AggregateScoreTypeVersionedSoftware AggregateScoreType = "VERSIONED_SOFTWARE" // Aggregate score for a software package with a specific version affected by a vulnerability.
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
 )
 
-// AssetLinkType
+// AssetLinkType represents asset link type.
 type AssetLinkType string
 
+// Asset link type.
 const (
 	AssetLinkTypeFleet AssetLinkType = "FLEET"
 	AssetLinkTypeCi    AssetLinkType = "CI"
 )
 
-// AssetOrderField
+// AssetOrderField represents asset order field.
 type AssetOrderField string
 
+// Asset order field.
 const (
 	AssetOrderFieldID          AssetOrderField = "ID"
 	AssetOrderFieldName        AssetOrderField = "NAME"
@@ -139,17 +150,19 @@ const (
 	AssetOrderFieldLastUpdated AssetOrderField = "LAST_UPDATED"
 )
 
-// AssetOverviewReferenceTypeEnum
+// AssetOverviewReferenceTypeEnum represents an enumeration of the possible reference types for a item for an asset overview.
 type AssetOverviewReferenceTypeEnum string
 
+// An enumeration of the possible reference types for a item for an asset overview.
 const (
 	AssetOverviewReferenceTypeEnumAsset       AssetOverviewReferenceTypeEnum = "ASSET"
 	AssetOverviewReferenceTypeEnumIntegration AssetOverviewReferenceTypeEnum = "INTEGRATION"
 )
 
-// AssetReportQueryOrderField
+// AssetReportQueryOrderField represents asset report query order field.
 type AssetReportQueryOrderField string
 
+// Asset report query order field.
 const (
 	AssetReportQueryOrderFieldSeverity AssetReportQueryOrderField = "SEVERITY"
 	AssetReportQueryOrderFieldTitle    AssetReportQueryOrderField = "TITLE"
@@ -164,9 +177,10 @@ const (
 	AssetSearchOrderFieldName AssetSearchOrderField = "NAME"
 )
 
-// AssetState
+// AssetState represents asset state.
 type AssetState string
 
+// Asset state.
 const (
 	AssetStateUnknown    AssetState = "UNKNOWN"
 	AssetStateError      AssetState = "ERROR"
@@ -182,9 +196,10 @@ const (
 	AssetStateOffline    AssetState = "OFFLINE"
 )
 
-// AssetSummaryOrderField
+// AssetSummaryOrderField represents asset summary order field.
 type AssetSummaryOrderField string
 
+// Asset summary order field.
 const (
 	AssetSummaryOrderFieldID        AssetSummaryOrderField = "ID"
 	AssetSummaryOrderFieldTitle     AssetSummaryOrderField = "TITLE"
@@ -197,9 +212,9 @@ const (
 type AssetUrlStatsScope string
 
 const (
-	AssetUrlStatsScopeAll             AssetUrlStatsScope = "ALL"
-	AssetUrlStatsScopeVulnerabilities AssetUrlStatsScope = "VULNERABILITIES"
-	AssetUrlStatsScopeSecurity        AssetUrlStatsScope = "SECURITY"
+	AssetUrlStatsScopeAll             AssetUrlStatsScope = "ALL"             // Score based on vulnerabilities and security.
+	AssetUrlStatsScopeVulnerabilities AssetUrlStatsScope = "VULNERABILITIES" // Score based on vulnerabilities.
+	AssetUrlStatsScopeSecurity        AssetUrlStatsScope = "SECURITY"        // Score based on security.
 )
 
 // AuditLogOrderField
@@ -209,18 +224,20 @@ const (
 	AuditLogOrderFieldTimestamp AuditLogOrderField = "TIMESTAMP"
 )
 
-// BucketOutputType
+// BucketOutputType represents format of the reports for the bucket.
 type BucketOutputType string
 
+// Format of the reports for the bucket.
 const (
 	BucketOutputTypeUnknown BucketOutputType = "UNKNOWN"
 	BucketOutputTypeCsv     BucketOutputType = "CSV"
 	BucketOutputTypeJsonl   BucketOutputType = "JSONL"
 )
 
-// CatalogType
+// CatalogType represents type of the object.
 type CatalogType string
 
+// Type of the object.
 const (
 	CatalogTypeAll       CatalogType = "ALL"
 	CatalogTypePolicy    CatalogType = "POLICY"
@@ -228,18 +245,20 @@ const (
 	CatalogTypeQuery     CatalogType = "QUERY"
 )
 
-// CheckState
+// CheckState represents check state.
 type CheckState string
 
+// Check state.
 const (
 	CheckStateActive   CheckState = "ACTIVE"
 	CheckStateSnoozed  CheckState = "SNOOZED"
 	CheckStateDisabled CheckState = "DISABLED"
 )
 
-// ChecksOrderField
+// ChecksOrderField represents checks order field.
 type ChecksOrderField string
 
+// Checks order field.
 const (
 	ChecksOrderFieldAssetsCount ChecksOrderField = "ASSETS_COUNT"
 	ChecksOrderFieldName        ChecksOrderField = "NAME"
@@ -253,9 +272,10 @@ const (
 	CicdProjectOrderFieldName CicdProjectOrderField = "NAME"
 )
 
-// ClientIntegrationType
+// ClientIntegrationType represents type of the client integration.
 type ClientIntegrationType string
 
+// Type of the client integration.
 const (
 	ClientIntegrationTypeUnknown          ClientIntegrationType = "UNKNOWN"
 	ClientIntegrationTypeK8s              ClientIntegrationType = "K8S"
@@ -282,17 +302,19 @@ const (
 	ClientIntegrationTypeHost             ClientIntegrationType = "HOST"
 )
 
-// ComparisonOperator
+// ComparisonOperator represents comparison operators for filtering.
 type ComparisonOperator string
 
+// Comparison operators for filtering.
 const (
-	ComparisonOperatorGt ComparisonOperator = "GT"
-	ComparisonOperatorLt ComparisonOperator = "LT"
+	ComparisonOperatorGt ComparisonOperator = "GT" // Greater than.
+	ComparisonOperatorLt ComparisonOperator = "LT" // Less than.
 )
 
-// ComplianceAssetOrderField
+// ComplianceAssetOrderField represents compliance asset order field.
 type ComplianceAssetOrderField string
 
+// Compliance asset order field.
 const (
 	ComplianceAssetOrderFieldID          ComplianceAssetOrderField = "ID"
 	ComplianceAssetOrderFieldName        ComplianceAssetOrderField = "NAME"
@@ -301,32 +323,36 @@ const (
 	ComplianceAssetOrderFieldLastUpdated ComplianceAssetOrderField = "LAST_UPDATED"
 )
 
-// ComplianceFrameworkMutationAction
+// ComplianceFrameworkMutationAction represents compliance framework mutation action.
 type ComplianceFrameworkMutationAction string
 
+// Compliance framework mutation action.
 const (
 	ComplianceFrameworkMutationActionEnable  ComplianceFrameworkMutationAction = "ENABLE"
 	ComplianceFrameworkMutationActionPreview ComplianceFrameworkMutationAction = "PREVIEW"
 )
 
-// ComplianceFrameworkState
+// ComplianceFrameworkState represents compliance framework state.
 type ComplianceFrameworkState string
 
+// Compliance framework state.
 const (
 	ComplianceFrameworkStateActive  ComplianceFrameworkState = "ACTIVE"
 	ComplianceFrameworkStatePreview ComplianceFrameworkState = "PREVIEW"
 )
 
-// ContentSearchResultItemOrderField
+// ContentSearchResultItemOrderField represents order fields for content search results.
 type ContentSearchResultItemOrderField string
 
+// Order fields for content search results.
 const (
 	ContentSearchResultItemOrderFieldName ContentSearchResultItemOrderField = "NAME"
 )
 
-// ControlState
+// ControlState represents control state.
 type ControlState string
 
+// Control state.
 const (
 	ControlStateActive     ControlState = "ACTIVE"
 	ControlStateSnoozed    ControlState = "SNOOZED"
@@ -334,9 +360,10 @@ const (
 	ControlStateOutOfScope ControlState = "OUT_OF_SCOPE"
 )
 
-// ControlsOrderField
+// ControlsOrderField represents controls order field.
 type ControlsOrderField string
 
+// Controls order field.
 const (
 	ControlsOrderFieldID         ControlsOrderField = "ID"
 	ControlsOrderFieldTitle      ControlsOrderField = "TITLE"
@@ -346,9 +373,10 @@ const (
 	ControlsOrderFieldExceptions ControlsOrderField = "EXCEPTIONS"
 )
 
-// CveOrderField
+// CveOrderField represents cVE order fields.
 type CveOrderField string
 
+// CVE order fields.
 const (
 	CveOrderFieldID        CveOrderField = "ID"
 	CveOrderFieldTitle     CveOrderField = "TITLE"
@@ -357,9 +385,10 @@ const (
 	CveOrderFieldScore     CveOrderField = "SCORE"
 )
 
-// CveState
+// CveState represents possible CVE states.
 type CveState string
 
+// Possible CVE states.
 const (
 	CveStateInvalid    CveState = "INVALID"
 	CveStatePublic     CveState = "PUBLIC"
@@ -369,9 +398,10 @@ const (
 	CveStateMergedTo   CveState = "MERGED_TO"
 )
 
-// CveSummaryOrderField
+// CveSummaryOrderField represents possible cve summary order field.
 type CveSummaryOrderField string
 
+// possible cve summary order field.
 const (
 	CveSummaryOrderFieldID          CveSummaryOrderField = "ID"
 	CveSummaryOrderFieldTitle       CveSummaryOrderField = "TITLE"
@@ -381,16 +411,18 @@ const (
 	CveSummaryOrderFieldRiskfactors CveSummaryOrderField = "RISKFACTORS"
 )
 
-// DocumentFormat
+// DocumentFormat represents document format.
 type DocumentFormat string
 
+// Document format.
 const (
 	DocumentFormatPdf DocumentFormat = "PDF"
 )
 
-// DocumentStatus
+// DocumentStatus represents document status.
 type DocumentStatus string
 
+// Document status.
 const (
 	DocumentStatusQueued    DocumentStatus = "QUEUED"
 	DocumentStatusRunning   DocumentStatus = "RUNNING"
@@ -398,17 +430,19 @@ const (
 	DocumentStatusFailed    DocumentStatus = "FAILED"
 )
 
-// DocumentType
+// DocumentType represents document type.
 type DocumentType string
 
+// Document type.
 const (
 	DocumentTypeFrameworkReport DocumentType = "FRAMEWORK_REPORT"
 	DocumentTypeControlReport   DocumentType = "CONTROL_REPORT"
 )
 
-// EOLStatus
+// EOLStatus represents end-of-life status.
 type EOLStatus string
 
+// End-of-life status.
 const (
 	EOLStatusScheduled EOLStatus = "SCHEDULED"
 	EOLStatusEol       EOLStatus = "EOL"
@@ -425,35 +459,39 @@ const (
 	EmailPreferenceListNotificationSpaceAlerts   EmailPreferenceList = "NOTIFICATION_SPACE_ALERTS"
 )
 
-// ExceptionMutationAction
+// ExceptionMutationAction represents the action to apply to the exception.
 type ExceptionMutationAction string
 
+// The action to apply to the exception.
 const (
 	ExceptionMutationActionEnable     ExceptionMutationAction = "ENABLE"
 	ExceptionMutationActionDisable    ExceptionMutationAction = "DISABLE"
 	ExceptionMutationActionSnooze     ExceptionMutationAction = "SNOOZE"
-	ExceptionMutationActionOutOfScope ExceptionMutationAction = "OUT_OF_SCOPE"
+	ExceptionMutationActionOutOfScope ExceptionMutationAction = "OUT_OF_SCOPE" // Applicable only for compliance.
 )
 
-// ExceptionReviewAction
+// ExceptionReviewAction represents the type of review action.
 type ExceptionReviewAction string
 
+// The type of review action.
 const (
 	ExceptionReviewActionApproved ExceptionReviewAction = "APPROVED"
 	ExceptionReviewActionRejected ExceptionReviewAction = "REJECTED"
 )
 
-// ExceptionType
+// ExceptionType represents the type of the exception.
 type ExceptionType string
 
+// The type of the exception.
 const (
 	ExceptionTypeCompliance ExceptionType = "COMPLIANCE"
 	ExceptionTypeSecurity   ExceptionType = "SECURITY"
 )
 
-// FormatType
+// FormatType represents output format.
 type FormatType string
 
+// Output format.
 const (
 	FormatTypeJSON FormatType = "JSON"
 	FormatTypeCsv  FormatType = "CSV"
@@ -469,25 +507,28 @@ const (
 	GitPipelineKindUnknown     GitPipelineKind = "UNKNOWN"
 )
 
-// GithubIntegrationType
+// GithubIntegrationType represents github integration type.
 type GithubIntegrationType string
 
+// Github integration type.
 const (
 	GithubIntegrationTypeRepo GithubIntegrationType = "REPO"
 	GithubIntegrationTypeOrg  GithubIntegrationType = "ORG"
 )
 
-// GitlabIntegrationType
+// GitlabIntegrationType represents gitlab configuration options.
 type GitlabIntegrationType string
 
+// Gitlab configuration options.
 const (
-	GitlabIntegrationTypeGroup GitlabIntegrationType = "GROUP"
-	GitlabIntegrationTypeNone  GitlabIntegrationType = "NONE"
+	GitlabIntegrationTypeGroup GitlabIntegrationType = "GROUP" // denotes a limiting group for the integration, we do not want to discover groups not related to this group.
+	GitlabIntegrationTypeNone  GitlabIntegrationType = "NONE"  // nothing is limited, discover all groups.
 )
 
-// Grade
+// Grade represents deprecated, use Score.grade instead.
 type Grade string
 
+// deprecated, use Score.grade instead.
 const (
 	GradeA Grade = "A"
 	GradeB Grade = "B"
@@ -497,9 +538,10 @@ const (
 	GradeU Grade = "U"
 )
 
-// ICON_IDS
+// ICON_IDS represents eNUM for icon ids.
 type ICON_IDS string
 
+// ENUM for icon ids.
 const (
 	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
 	ICON_IDSAix                       ICON_IDS = "AIX"
@@ -566,18 +608,20 @@ const (
 	ICON_IDSAsset                     ICON_IDS = "ASSET"
 )
 
-// IntegrationMessageStatus
+// IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
 type IntegrationMessageStatus string
 
+// IntegrationMessageStatus denotes the status of the message reported by the integration.
 const (
 	IntegrationMessageStatusInfo    IntegrationMessageStatus = "INFO"
 	IntegrationMessageStatusWarning IntegrationMessageStatus = "WARNING"
 	IntegrationMessageStatusError   IntegrationMessageStatus = "ERROR"
 )
 
-// IntegrationType
+// IntegrationType represents summary of client integrations.
 type IntegrationType string
 
+// Summary of client integrations.
 const (
 	IntegrationTypeUnknown          IntegrationType = "UNKNOWN"
 	IntegrationTypeManagedClient    IntegrationType = "MANAGED_CLIENT"
@@ -625,35 +669,39 @@ const (
 	InvitationStateCanceled InvitationState = "CANCELED"
 )
 
-// JiraTicketContextType
+// JiraTicketContextType represents the type of the ticket context.
 type JiraTicketContextType string
 
+// The type of the ticket context.
 const (
-	JiraTicketContextTypeProjects JiraTicketContextType = "PROJECTS"
-	JiraTicketContextTypeUsers    JiraTicketContextType = "USERS"
+	JiraTicketContextTypeProjects JiraTicketContextType = "PROJECTS" // The ticket context for Jira projects.
+	JiraTicketContextTypeUsers    JiraTicketContextType = "USERS"    // The ticket context for Jira users.
 )
 
-// K8sScanNodesStyle
+// K8sScanNodesStyle represents k8s node scanning style.
 type K8sScanNodesStyle string
 
+// K8s node scanning style.
 const (
 	K8sScanNodesStyleUnknown    K8sScanNodesStyle = "UNKNOWN"
 	K8sScanNodesStyleCronjob    K8sScanNodesStyle = "CRONJOB"
 	K8sScanNodesStyleDeployment K8sScanNodesStyle = "DEPLOYMENT"
 )
 
-// LibraryItemType
+// LibraryItemType represents libraryItemType.
 type LibraryItemType string
 
+// LibraryItemType.
 const (
 	LibraryItemTypeAdvisory LibraryItemType = "ADVISORY"
 	LibraryItemTypeCve      LibraryItemType = "CVE"
 	LibraryItemTypeExploit  LibraryItemType = "EXPLOIT"
 )
 
-// LibraryOrderField
+// LibraryOrderField represents library order field.
 type LibraryOrderField string
 
+// Library order field.
 const (
 	LibraryOrderFieldID        LibraryOrderField = "ID"
 	LibraryOrderFieldTitle     LibraryOrderField = "TITLE"
@@ -662,9 +710,10 @@ const (
 	LibraryOrderFieldScore     LibraryOrderField = "SCORE"
 )
 
-// LibraryQueryResolution
+// LibraryQueryResolution represents library query resolution.
 type LibraryQueryResolution string
 
+// Library query resolution.
 const (
 	LibraryQueryResolutionYear  LibraryQueryResolution = "YEAR"
 	LibraryQueryResolutionMonth LibraryQueryResolution = "MONTH"
@@ -677,16 +726,18 @@ const (
 	MembershipOrderFieldName MembershipOrderField = "NAME"
 )
 
-// MqueryAssetDataFormat
+// MqueryAssetDataFormat represents mquery asset data format.
 type MqueryAssetDataFormat string
 
+// Mquery asset data format.
 const (
 	MqueryAssetDataFormatJSON MqueryAssetDataFormat = "JSON"
 )
 
-// MqueryState
+// MqueryState represents mquery state.
 type MqueryState string
 
+// Mquery state.
 const (
 	MqueryStateEnabled  MqueryState = "ENABLED"
 	MqueryStateDisabled MqueryState = "DISABLED"
@@ -694,54 +745,62 @@ const (
 	MqueryStateSnoozed  MqueryState = "SNOOZED"
 )
 
-// MqueryType
+// MqueryType represents mquery type.
 type MqueryType string
 
+// Mquery type.
 const (
 	MqueryTypeData    MqueryType = "DATA"
 	MqueryTypeScoring MqueryType = "SCORING"
 )
 
-// OrderDirection
+// OrderDirection represents defines the possible directions in which to sort a list of items.
 type OrderDirection string
 
+// Defines the possible directions in which to sort a list of items.
 const (
-	OrderDirectionAsc  OrderDirection = "ASC"
-	OrderDirectionDesc OrderDirection = "DESC"
+	OrderDirectionAsc  OrderDirection = "ASC"  // Ascending order. For example, from A to Z or from lowest to highest.
+	OrderDirectionDesc OrderDirection = "DESC" // Descending order. For example, from Z to A or from highest to lowest.
 )
 
-// PackageManager
+// PackageManager represents remediation script type.
 type PackageManager string
 
+// Remediation script type.
 const (
-	PackageManagerDpkg       PackageManager = "DPKG"
-	PackageManagerYum        PackageManager = "YUM"
-	PackageManagerDnf        PackageManager = "DNF"
-	PackageManagerZypper     PackageManager = "ZYPPER"
-	PackageManagerPowershell PackageManager = "POWERSHELL"
+	PackageManagerDpkg       PackageManager = "DPKG"       // DPKG.
+	PackageManagerYum        PackageManager = "YUM"        // YUM.
+	PackageManagerDnf        PackageManager = "DNF"        // DNF.
+	PackageManagerZypper     PackageManager = "ZYPPER"     // ZYPPER.
+	PackageManagerPowershell PackageManager = "POWERSHELL" // POWERSHELL.
 )
 
-// PackageScoresOrderField
+// PackageScoresOrderField represents packageScores order fields.
 type PackageScoresOrderField string
 
+// PackageScores order fields.
 const (
 	PackageScoresOrderFieldScore       PackageScoresOrderField = "SCORE"
 	PackageScoresOrderFieldAssetName   PackageScoresOrderField = "ASSET_NAME"
 	PackageScoresOrderFieldLastUpdated PackageScoresOrderField = "LAST_UPDATED"
 	PackageScoresOrderFieldRiskFactors PackageScoresOrderField = "RISK_FACTORS"
+	PackageScoresOrderFieldFirstFound  PackageScoresOrderField = "FIRST_FOUND"
+	PackageScoresOrderFieldPackageName PackageScoresOrderField = "PACKAGE_NAME"
 )
 
-// PackageType
+// PackageType represents possible package types.
 type PackageType string
 
+// possible package types.
 const (
 	PackageTypeOsPackage   PackageType = "OS_PACKAGE"
 	PackageTypeApplication PackageType = "APPLICATION"
 )
 
-// PackagesOrderField
+// PackagesOrderField represents possible package order fields.
 type PackagesOrderField string
 
+// possible package order fields.
 const (
 	PackagesOrderFieldName        PackagesOrderField = "NAME"
 	PackagesOrderFieldScore       PackagesOrderField = "SCORE"
@@ -749,9 +808,10 @@ const (
 	PackagesOrderFieldRiskFactors PackagesOrderField = "RISK_FACTORS"
 )
 
-// PlatformKind
+// PlatformKind represents platform kind.
 type PlatformKind string
 
+// Platform kind.
 const (
 	PlatformKindUnknown             PlatformKind = "UNKNOWN"
 	PlatformKindVirtualMachineImage PlatformKind = "VIRTUAL_MACHINE_IMAGE"
@@ -765,17 +825,19 @@ const (
 	PlatformKindBareMetal           PlatformKind = "BARE_METAL"
 )
 
-// PolicyAction
+// PolicyAction represents policy action.
 type PolicyAction string
 
+// Policy action.
 const (
 	PolicyActionActive PolicyAction = "ACTIVE"
 	PolicyActionIgnore PolicyAction = "IGNORE"
 )
 
-// PolicyReportEntryState
+// PolicyReportEntryState represents policy report entry state.
 type PolicyReportEntryState string
 
+// Policy report entry state.
 const (
 	PolicyReportEntryStatePass   PolicyReportEntryState = "PASS"
 	PolicyReportEntryStateFail   PolicyReportEntryState = "FAIL"
@@ -783,9 +845,10 @@ const (
 	PolicyReportEntryStateError  PolicyReportEntryState = "ERROR"
 )
 
-// PolicyReportMquerySummaryOrderField
+// PolicyReportMquerySummaryOrderField represents policy report mquery summary order field.
 type PolicyReportMquerySummaryOrderField string
 
+// Policy report mquery summary order field.
 const (
 	PolicyReportMquerySummaryOrderFieldID          PolicyReportMquerySummaryOrderField = "ID"
 	PolicyReportMquerySummaryOrderFieldName        PolicyReportMquerySummaryOrderField = "NAME"
@@ -795,18 +858,20 @@ const (
 	PolicyReportMquerySummaryOrderFieldLastUpdated PolicyReportMquerySummaryOrderField = "LAST_UPDATED"
 )
 
-// PolicyReportScoreEntryAction
+// PolicyReportScoreEntryAction represents policy report score entry action.
 type PolicyReportScoreEntryAction string
 
+// Policy report score entry action.
 const (
 	PolicyReportScoreEntryActionUnspecified PolicyReportScoreEntryAction = "UNSPECIFIED"
 	PolicyReportScoreEntryActionIgnore      PolicyReportScoreEntryAction = "IGNORE"
 	PolicyReportScoreEntryActionDeactivate  PolicyReportScoreEntryAction = "DEACTIVATE"
 )
 
-// PolicyReportSummaryOrderField
+// PolicyReportSummaryOrderField represents policy report summary order field.
 type PolicyReportSummaryOrderField string
 
+// Policy report summary order field.
 const (
 	PolicyReportSummaryOrderFieldID        PolicyReportSummaryOrderField = "ID"
 	PolicyReportSummaryOrderFieldTitle     PolicyReportSummaryOrderField = "TITLE"
@@ -815,13 +880,14 @@ const (
 	PolicyReportSummaryOrderFieldScore     PolicyReportSummaryOrderField = "SCORE"
 )
 
-// PropertyQueryMutationAction
+// PropertyQueryMutationAction represents property query mutation action.
 type PropertyQueryMutationAction string
 
+// Property query mutation action.
 const (
-	PropertyQueryMutationActionSet   PropertyQueryMutationAction = "SET"
-	PropertyQueryMutationActionCheck PropertyQueryMutationAction = "CHECK"
-	PropertyQueryMutationActionUnset PropertyQueryMutationAction = "UNSET"
+	PropertyQueryMutationActionSet   PropertyQueryMutationAction = "SET"   // If the set action is used, the existing property MQL will be overridden.
+	PropertyQueryMutationActionCheck PropertyQueryMutationAction = "CHECK" // If the check action is used, the mutation will not take effect. We will attempt to validate the target and check the mql.
+	PropertyQueryMutationActionUnset PropertyQueryMutationAction = "UNSET" // If a property override is set for the property mrn, the UNSET action will remove it.
 )
 
 // RegistrationTokenOrderField
@@ -833,18 +899,20 @@ const (
 	RegistrationTokenOrderFieldMrn         RegistrationTokenOrderField = "MRN"
 )
 
-// RemediationScriptType
+// RemediationScriptType represents remediation script type.
 type RemediationScriptType string
 
+// Remediation script type.
 const (
-	RemediationScriptTypeShell      RemediationScriptType = "SHELL"
-	RemediationScriptTypeAnsible    RemediationScriptType = "ANSIBLE"
-	RemediationScriptTypePowershell RemediationScriptType = "POWERSHELL"
+	RemediationScriptTypeShell      RemediationScriptType = "SHELL"      // Shell script.
+	RemediationScriptTypeAnsible    RemediationScriptType = "ANSIBLE"    // Ansible playbook.
+	RemediationScriptTypePowershell RemediationScriptType = "POWERSHELL" // Powershell script.
 )
 
-// ReportViewedPage
+// ReportViewedPage represents report viewed page defines the pages that can be reported as viewed.
 type ReportViewedPage string
 
+// Report viewed page defines the pages that can be reported as viewed.
 const (
 	ReportViewedPageOrgView                ReportViewedPage = "ORG_VIEW"
 	ReportViewedPageAssetOverview          ReportViewedPage = "ASSET_OVERVIEW"
@@ -854,35 +922,39 @@ const (
 	ReportViewedPageSecurityDashboard      ReportViewedPage = "SECURITY_DASHBOARD"
 )
 
-// ReviewStatus
+// ReviewStatus represents the review status for an exception group.
 type ReviewStatus string
 
+// The review status for an exception group.
 const (
 	ReviewStatusNotReviewed ReviewStatus = "NOT_REVIEWED"
 	ReviewStatusApproved    ReviewStatus = "APPROVED"
 	ReviewStatusRejected    ReviewStatus = "REJECTED"
 )
 
-// ScoreState
+// ScoreState represents score state.
 type ScoreState string
 
+// Score state.
 const (
-	ScoreStateOpen   ScoreState = "OPEN"
-	ScoreStateClosed ScoreState = "CLOSED"
+	ScoreStateOpen   ScoreState = "OPEN"   // Fixed/Pass.
+	ScoreStateClosed ScoreState = "CLOSED" // Not fixed/Failed.
 )
 
-// ScoreStateFilter
+// ScoreStateFilter represents score state filter.
 type ScoreStateFilter string
 
+// Score state filter.
 const (
-	ScoreStateFilterAll    ScoreStateFilter = "ALL"
-	ScoreStateFilterOpen   ScoreStateFilter = "OPEN"
-	ScoreStateFilterClosed ScoreStateFilter = "CLOSED"
+	ScoreStateFilterAll    ScoreStateFilter = "ALL"    // All.
+	ScoreStateFilterOpen   ScoreStateFilter = "OPEN"   // Only not fixed/failed.
+	ScoreStateFilterClosed ScoreStateFilter = "CLOSED" // Only fixed/passed.
 )
 
-// ScoreType
+// ScoreType represents score type.
 type ScoreType string
 
+// Score type.
 const (
 	ScoreTypeUnknown    ScoreType = "UNKNOWN"
 	ScoreTypeResult     ScoreType = "RESULT"
@@ -892,12 +964,13 @@ const (
 	ScoreTypeDisabled   ScoreType = "DISABLED"
 )
 
-// SearchType
+// SearchType represents possible search types for the search query.
 type SearchType string
 
+// Possible search types for the search query.
 const (
-	SearchTypeAggregateScore SearchType = "AGGREGATE_SCORE"
-	SearchTypeMvd            SearchType = "MVD"
+	SearchTypeAggregateScore SearchType = "AGGREGATE_SCORE" // Returns matching aggregate scores.
+	SearchTypeMvd            SearchType = "MVD"             // Returns matching vulnerabilities and advisories in MVD.
 )
 
 // ServiceAccountOrderField
@@ -910,9 +983,10 @@ const (
 	ServiceAccountOrderFieldCreatedAt ServiceAccountOrderField = "CREATED_AT"
 )
 
-// Severity
+// Severity represents possible severities.
 type Severity string
 
+// Possible severities.
 const (
 	SeverityCritical Severity = "CRITICAL"
 	SeverityHigh     Severity = "HIGH"
@@ -925,22 +999,24 @@ const (
 type SpacePlanQueryMutationDestinationType string
 
 const (
-	SpacePlanQueryMutationDestinationTypeActive     SpacePlanQueryMutationDestinationType = "ACTIVE"
-	SpacePlanQueryMutationDestinationTypeExceptions SpacePlanQueryMutationDestinationType = "EXCEPTIONS"
-	SpacePlanQueryMutationDestinationTypeMilestone  SpacePlanQueryMutationDestinationType = "MILESTONE"
+	SpacePlanQueryMutationDestinationTypeActive     SpacePlanQueryMutationDestinationType = "ACTIVE"     // Move the query to active. These queries will be run and scored.
+	SpacePlanQueryMutationDestinationTypeExceptions SpacePlanQueryMutationDestinationType = "EXCEPTIONS" // Move the query to exceptions. These queries will not be run.
+	SpacePlanQueryMutationDestinationTypeMilestone  SpacePlanQueryMutationDestinationType = "MILESTONE"  // Move the query to a milestone. These queries will be run, but their score will not be incorporated into the policy score. If moving to a milestone, a milestone uid must also be provided to indicate which milestone.
 )
 
-// TicketFormat
+// TicketFormat represents the format of the ticket content.
 type TicketFormat string
 
+// The format of the ticket content.
 const (
-	TicketFormatJira     TicketFormat = "JIRA"
-	TicketFormatMarkdown TicketFormat = "MARKDOWN"
+	TicketFormatJira     TicketFormat = "JIRA"     // The ticket content format for Atlassian Jira.
+	TicketFormatMarkdown TicketFormat = "MARKDOWN" // The ticket content format for Markdown.
 )
 
-// TrustLevel
+// TrustLevel represents trust level of the object.
 type TrustLevel string
 
+// Trust level of the object.
 const (
 	TrustLevelAll               TrustLevel = "ALL"
 	TrustLevelOfficial          TrustLevel = "OFFICIAL"
@@ -958,26 +1034,29 @@ const (
 	UserStateEnabled    UserState = "ENABLED"
 )
 
-// VulnerabilityOrderType
+// VulnerabilityOrderType represents possible vulnerability order types.
 type VulnerabilityOrderType string
 
+// possible vulnerability order types.
 const (
 	VulnerabilityOrderTypeNewest VulnerabilityOrderType = "NEWEST"
 	VulnerabilityOrderTypeSevere VulnerabilityOrderType = "SEVERE"
 )
 
-// VulnerabilityScoreOrderField
+// VulnerabilityScoreOrderField represents vulnerability score order field.
 type VulnerabilityScoreOrderField string
 
+// Vulnerability score order field.
 const (
 	VulnerabilityScoreOrderFieldCvssScore     VulnerabilityScoreOrderField = "CVSS_SCORE"
 	VulnerabilityScoreOrderFieldMrn           VulnerabilityScoreOrderField = "MRN"
 	VulnerabilityScoreOrderFieldPublishedDate VulnerabilityScoreOrderField = "PUBLISHED_DATE"
 )
 
-// VulnerabilityScoreType
+// VulnerabilityScoreType represents vulnerability score type.
 type VulnerabilityScoreType string
 
+// Vulnerability score type.
 const (
 	VulnerabilityScoreTypeCve      VulnerabilityScoreType = "CVE"
 	VulnerabilityScoreTypeAdvisory VulnerabilityScoreType = "ADVISORY"

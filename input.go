@@ -7,7 +7,7 @@ package mondoogql
 
 // Input represents one of the Input structs:
 //
-// APITokenOrder, AWSConfigurationOptionsInput, AWSEventPatternInput, AWSRoleCredential, AWSSecretKeyCredential, AcceptLegalPolicy, AddSSHKeyRequest, AdvisoryFilter, AdvisoryOrder, AdvisorySummaryOrder, AgentOrder, AgentVersionFilter, AggregateScoreFilter, AggregateScoreOrder, AnalyseAssetVulnerabilitiesInput, AnalyseIncognitoAssetInput, ApplyExceptionForScopesInput, ApplySpacePlanInput, AssetEolFilter, AssetExploitableFilter, AssetGroupOrder, AssetLastPackageUpdateTimeInput, AssetLinkInfoInput, AssetOSRebootFilter, AssetOrder, AssetOverviewPageInfo, AssetPackageDetailsInput, AssetReportInput, AssetReportListPoliciesFilter, AssetReportPolicyOrder, AssetReportQueryOrder, AssetResourceInput, AssetSearchInput, AssetSearchSuggestionsInput, AssetSummaryOrder, AssetUpdateFilter, AssetUrlSegmentInput, AssetUrlStatsInput, AssetVulnerabilityReportInput, AuditLogOrder, AwsS3ConfigurationOptionsInput, AwsScanOptions, AzureBlobConfigurationOptionsInput, AzureConfigurationOptionsInput, BigqueryConfigurationOptionsInput, BillingSessionInput, CategoriesListInput, ChangeSubscriptionPlanInput, ChecksOrder, ChecksSearchInput, CiCdJobPageInfo, CiCdProjectPageInfo, CicdProjectJobsInput, CicdProjectOrder, CicdProjectsInput, ClientIntegrationConfigurationInput, ClientIntegrationInput, ComplianceAssetOrder, ComplianceAssetsSearchInput, ComplianceControlInput, ComplianceFrameworkInput, ComplianceFrameworkMutationInput, ComplianceFrameworksInput, ContentSearchInput, ContentSearchResultItemOrder, ControlDocumentOptionsInput, ControlsOrder, ControlsSearchInput, CreateClientIntegrationInput, CreateInvitationInput, CreateOrganizationInput, CreateServiceAccountInput, CreateSpaceInput, CveFilter, CveOrder, CveSummaryOrder, DeleteAPITokenInput, DeleteAgentsInput, DeleteAssetsInput, DeleteClientIntegrationInput, DeleteCustomPolicyInput, DeleteCustomQueryPackInput, DeleteFrameworkInput, DeleteProjectsInput, DeleteSSHKeyRequest, DeleteSSOProviderInput, DeleteServiceAccountsInput, DownloadBundleInput, DownloadFrameworkInput, EbsScanOptionsInput, Ec2ScanOptionsInput, EmailPreferenceInput, EnableSSOProviderInput, ExceptionGroupsInput, ExceptionMutationInput, ExceptionReviewInput, FrameworkDocumentOptionsInput, GarbageCollectAssetsConfigurationInput, GcpConfigurationOptionsInput, GcsBucketConfigurationOptionsInput, GenerateAPITokenInput, GenerateDocumentInput, GetClientIntegrationDeleteCommandInput, GetClientIntegrationTokenInput, GithubConfigurationOptionsInput, GitlabConfigurationOptionsInput, GoogleWorkspaceConfigurationOptionsInput, GroupFilter, HostConfigurationOptionsInput, HostedAwsConfigurationOptionsInput, IDSuggestionInput, IntegrationInput, IntegrationOptionsInput, IntegrationsSummaryInput, InvitationOrder, JiraConfigurationOptionsInput, JiraTicketContextInput, JiraTicketContextProjectsInput, JiraTicketContextUsersInput, K8sConfigurationOptionsInput, KeyValueInput, LibraryOrder, ListClientIntegrationsFilterInput, ListClientIntegrationsInput, ListDiscoveryResultsInput, ManagedClientsFilters, MembershipOrder, MqueryAssetDataInput, MqueryAssetScoresInput, MqueryInput, MqueryScoreInput, Ms365ConfigurationOptionsInput, OciConfigurationOptionsInput, OktaConfigurationOptionsInput, OrgViewPageInfo, OrganizationOverviewInput, PackageFilter, PackageInput, PackageScoresInput, PackageScoresOrder, PackagesOrder, PerformDiscoveryInput, PingIntegrationInput, PlanningMilestoneMetadataMutationInput, PlatformInput, PlatformVulnerabilityConfigurationInput, PlatformsListInput, PolicyAddInput, PolicyAssignmentInput, PolicyDashboardStatsInput, PolicyDeleteInput, PolicyInput, PolicyReportMquerySummaryOrder, PolicyReportSummaryOrder, PostgresConfigurationOptionsInput, PropertyQueryMutationInput, PropertyQueryMutationTarget, PropertyQueryOverride, QueryPackAddInput, RatedPoliciesInput, RegistrationTokenInput, RegistrationTokenOrder, RemediationFilter, RemediationInput, RemediationPackageFields, RemoveOrganizationMembershipInput, RemoveSpaceMembershipInput, ReportViewedInfo, ReportViewedInput, RevokeRegistrationTokenInput, RiskFactorFilter, RiskFactorFilterQuery, RoleInput, S3ConfigurationOptionsInput, SSOProviderInput, ScanConfigurationInput, ScimGroupMapping, ScoreRange, SearchFilters, SecurityDashboardPageInfo, ServiceAccountOrder, SetAssetAnnotationsInput, SetCustomPolicyInput, SetCustomQueryPackInput, SetOrganizationMembershipInput, SetRoleInput, SetRolesInput, SetSSOProviderInput, SetScimGroupMappingInput, SetSpaceMembershipInput, SlackConfigurationOptionsInput, SnowflakeConfigurationOptionsInput, SpacePlanInput, SpacePlanQueryMutationDeltaInput, SpacePolicyReportInput, SpacePolicySummaryInput, SpaceReportInput, SpaceSettingsInput, SpaceVulnerabilitiesInput, SpaceVulnerabilityReportInput, SubscriptionItem, SuppressIntegrationMessageInput, TerminatedAssetsConfigurationInput, TicketContentInput, TicketContextInput, TicketInput, TimestampFilter, TopPolicyActionsInput, TopVulnerabilityInput, TriggerActionInput, TriggerActionOptionsInput, UnusedServiceAccountsConfigurationInput, UpdateAPITokenInput, UpdateAgentInput, UpdateClientIntegrationConfigurationInput, UpdateClientIntegrationNameInput, UpdateOrganizationInput, UpdateServiceAccountInput, UpdateSpaceInput, UpdateUserInput, UploadFrameworkInput, VulnDashboardStatsInput, VulnerabilityDashboardPageInfo, VulnerabilityScoreFilter, VulnerabilityScoreOrder.
+// APITokenOrder, AWSConfigurationOptionsInput, AWSEventPatternInput, AWSRoleCredential, AWSSecretKeyCredential, AcceptLegalPolicy, AddSSHKeyRequest, AdvisoryFilter, AdvisoryOrder, AdvisorySummaryOrder, AgentOrder, AgentVersionFilter, AggregateScoreFilter, AggregateScoreOrder, AnalyseAssetVulnerabilitiesInput, AnalyseIncognitoAssetInput, ApplyExceptionForScopesInput, ApplySpacePlanInput, AssetEolFilter, AssetExploitableFilter, AssetGroupOrder, AssetLastPackageUpdateTimeInput, AssetLinkInfoInput, AssetOSRebootFilter, AssetOrder, AssetOverviewPageInfo, AssetPackageDetailsInput, AssetReportInput, AssetReportListPoliciesFilter, AssetReportPolicyOrder, AssetReportQueryOrder, AssetResourceInput, AssetSearchInput, AssetSearchSuggestionsInput, AssetSummaryOrder, AssetUpdateFilter, AssetUrlSegmentInput, AssetUrlStatsInput, AssetVulnerabilityReportInput, AuditLogOrder, AwsS3ConfigurationOptionsInput, AwsScanOptions, AzureBlobConfigurationOptionsInput, AzureConfigurationOptionsInput, BigqueryConfigurationOptionsInput, BillingSessionInput, CategoriesListInput, ChangeSubscriptionPlanInput, ChecksOrder, ChecksSearchInput, CiCdJobPageInfo, CiCdProjectPageInfo, CicdProjectJobsInput, CicdProjectOrder, CicdProjectsInput, ClientIntegrationConfigurationInput, ClientIntegrationInput, ComplianceAssetOrder, ComplianceAssetsSearchInput, ComplianceControlInput, ComplianceFrameworkInput, ComplianceFrameworkMutationInput, ComplianceFrameworksInput, ContentSearchInput, ContentSearchResultItemOrder, ControlDocumentOptionsInput, ControlsOrder, ControlsSearchInput, CreateClientIntegrationInput, CreateInvitationInput, CreateOrganizationInput, CreateServiceAccountInput, CreateSpaceInput, CveFilter, CveOrder, CveSummaryOrder, DeleteAPITokenInput, DeleteAgentsInput, DeleteAssetsInput, DeleteClientIntegrationInput, DeleteCustomPolicyInput, DeleteCustomQueryPackInput, DeleteFrameworkInput, DeleteProjectsInput, DeleteSSHKeyRequest, DeleteSSOProviderInput, DeleteServiceAccountsInput, DownloadBundleInput, DownloadFrameworkInput, EbsScanOptionsInput, Ec2ScanOptionsInput, EmailPreferenceInput, EnableSSOProviderInput, ExceptionGroupsInput, ExceptionMutationInput, ExceptionReviewInput, FrameworkDocumentOptionsInput, GarbageCollectAssetsConfigurationInput, GcpConfigurationOptionsInput, GcsBucketConfigurationOptionsInput, GenerateAPITokenInput, GenerateDocumentInput, GetClientIntegrationDeleteCommandInput, GetClientIntegrationTokenInput, GithubConfigurationOptionsInput, GitlabConfigurationOptionsInput, GoogleWorkspaceConfigurationOptionsInput, GroupFilter, HostConfigurationOptionsInput, HostedAwsConfigurationOptionsInput, IDSuggestionInput, IntegrationInput, IntegrationOptionsInput, IntegrationsSummaryInput, InvitationOrder, JiraConfigurationOptionsInput, JiraTicketContextInput, JiraTicketContextProjectsInput, JiraTicketContextUsersInput, K8sConfigurationOptionsInput, KeyValueInput, LibraryOrder, ListClientIntegrationsFilterInput, ListClientIntegrationsInput, ListDiscoveryResultsInput, ManagedClientsFilters, MembershipOrder, MqueryAssetDataInput, MqueryAssetScoresInput, MqueryInput, MqueryScoreInput, Ms365ConfigurationOptionsInput, OciConfigurationOptionsInput, OktaConfigurationOptionsInput, OrgViewPageInfo, OrganizationOverviewInput, PackageFilter, PackageInput, PackageScoresFilter, PackageScoresInput, PackageScoresOrder, PackagesOrder, PerformDiscoveryInput, PingIntegrationInput, PlanningMilestoneMetadataMutationInput, PlatformInput, PlatformVulnerabilityConfigurationInput, PlatformsListInput, PolicyAddInput, PolicyAssignmentInput, PolicyDashboardStatsInput, PolicyDeleteInput, PolicyInput, PolicyReportMquerySummaryOrder, PolicyReportSummaryOrder, PostgresConfigurationOptionsInput, PropertyQueryMutationInput, PropertyQueryMutationTarget, PropertyQueryOverride, QueryPackAddInput, RatedPoliciesInput, RegistrationTokenInput, RegistrationTokenOrder, RemediationFilter, RemediationInput, RemediationPackageFields, RemoveOrganizationMembershipInput, RemoveSpaceMembershipInput, ReportViewedInfo, ReportViewedInput, RevokeRegistrationTokenInput, RiskFactorFilter, RiskFactorFilterQuery, RoleInput, S3ConfigurationOptionsInput, SSOProviderInput, ScanConfigurationInput, ScimGroupMapping, ScoreRange, SearchFilters, SecurityDashboardPageInfo, ServiceAccountOrder, SetAssetAnnotationsInput, SetCustomPolicyInput, SetCustomQueryPackInput, SetOrganizationMembershipInput, SetRoleInput, SetRolesInput, SetSSOProviderInput, SetScimGroupMappingInput, SetSpaceMembershipInput, SlackConfigurationOptionsInput, SnowflakeConfigurationOptionsInput, SpacePlanInput, SpacePlanQueryMutationDeltaInput, SpacePolicyReportInput, SpacePolicySummaryInput, SpaceReportInput, SpaceSettingsInput, SpaceVulnerabilitiesInput, SpaceVulnerabilityReportInput, SubscriptionItem, SuppressIntegrationMessageInput, TerminatedAssetsConfigurationInput, TicketContentInput, TicketContextInput, TicketInput, TimestampFilter, TopPolicyActionsInput, TopVulnerabilityInput, TriggerActionInput, TriggerActionOptionsInput, UnusedServiceAccountsConfigurationInput, UpdateAPITokenInput, UpdateAgentInput, UpdateClientIntegrationConfigurationInput, UpdateClientIntegrationNameInput, UpdateOrganizationInput, UpdateServiceAccountInput, UpdateSpaceInput, UpdateUserInput, UploadFrameworkInput, VulnDashboardStatsInput, VulnerabilityDashboardPageInfo, VulnerabilityScoreFilter, VulnerabilityScoreOrder.
 type Input interface{}
 
 // APITokenOrder
@@ -18,7 +18,7 @@ type APITokenOrder struct {
 	Field APITokenOrderField `json:"field"`
 }
 
-// AWSConfigurationOptionsInput
+// AWSConfigurationOptionsInput represents aWS integration input.
 type AWSConfigurationOptionsInput struct {
 	// (Required.)
 	Region String `json:"region"`
@@ -31,7 +31,7 @@ type AWSConfigurationOptionsInput struct {
 	IsOrganization *Boolean `json:"isOrganization,omitempty"`
 }
 
-// AWSEventPatternInput
+// AWSEventPatternInput represents aWSEventPatternInput describes the options for event pattern based scan triggers.
 type AWSEventPatternInput struct {
 	// (Required.)
 	ScanType String `json:"scanType"`
@@ -75,30 +75,30 @@ type AddSSHKeyRequest struct {
 	Content String `json:"content"`
 }
 
-// AdvisoryFilter
+// AdvisoryFilter represents advisory filters.
 type AdvisoryFilter struct {
 
-	// (Optional.)
+	// filter by textfield input. ex.: ["CHROME-2023"] elements will be ANDed. (Optional.)
 	QueryTerms *[]String `json:"queryTerms,omitempty"`
 }
 
-// AdvisoryOrder
+// AdvisoryOrder represents advisory order object.
 type AdvisoryOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Order field. (Required.)
 	Field AdvisoryOrderField `json:"field"`
 }
 
-// AdvisorySummaryOrder
+// AdvisorySummaryOrder represents possible advisory summary order object.
 type AdvisorySummaryOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Order field. (Required.)
 	Field AdvisorySummaryOrderField `json:"field"`
 }
 
-// AgentOrder
+// AgentOrder represents sorting for the agents.
 type AgentOrder struct {
 	// (Required.)
 	Direction OrderDirection `json:"direction"`
@@ -106,7 +106,7 @@ type AgentOrder struct {
 	Field AgentOrderField `json:"field"`
 }
 
-// AgentVersionFilter
+// AgentVersionFilter represents input used to filter the agents by version.
 type AgentVersionFilter struct {
 	// (Required.)
 	Version String `json:"version"`
@@ -114,154 +114,154 @@ type AgentVersionFilter struct {
 	Not Boolean `json:"not"`
 }
 
-// AggregateScoreFilter
+// AggregateScoreFilter represents aggregate score filters.
 type AggregateScoreFilter struct {
 
-	// (Optional.)
+	// filter by textfield input. ex.: ["CHROME-2023"] elements will be ANDed. (Optional.)
 	QueryTerms *[]String `json:"queryTerms,omitempty"`
-	// (Optional.)
+	// filter by aggregated score by finding. (Optional.)
 	FindingMrn *String `json:"findingMrn,omitempty"`
-	// (Optional.)
+	// filter by aggregated score type. (Optional.)
 	ScoreType *AggregateScoreType `json:"scoreType,omitempty"`
-	// (Optional.)
+	// filter by risk factor mrn. (Optional.)
 	Risks *RiskFactorFilter `json:"risks,omitempty"`
-	// (Optional.)
+	// filter to find all scores that are lower than the provided score. (Optional.)
 	MaxRiskScore *Int `json:"maxRiskScore,omitempty"`
-	// (Optional.)
+	// filter aggregated scores by findingMrn of an unversioned software package e.g., finding versions of bash by searching for //.../software/.../name/bash This filter should be used in conjunction with the scoreType filter: VERSIONED_SOFTWARE. (Optional.)
 	SoftwareFindingMrn *String `json:"softwareFindingMrn,omitempty"`
 }
 
-// AggregateScoreOrder
+// AggregateScoreOrder represents aggregate score order object.
 type AggregateScoreOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// AggregateScore field. (Required.)
 	Field AggregateScoreOrderField `json:"field"`
 }
 
-// AnalyseAssetVulnerabilitiesInput
+// AnalyseAssetVulnerabilitiesInput represents input data for analyzing an asset.
 type AnalyseAssetVulnerabilitiesInput struct {
-	// (Required.)
+	// Asset MRN. (Required.)
 	Mrn ID `json:"mrn"`
 }
 
-// AnalyseIncognitoAssetInput
+// AnalyseIncognitoAssetInput represents data needed for analyzing an asset without mrn.
 type AnalyseIncognitoAssetInput struct {
-	// (Required.)
+	// Asset platform. (Required.)
 	Platform PlatformInput `json:"platform"`
-	// (Required.)
+	// Asset packages. (Required.)
 	Packages []PackageInput `json:"packages"`
 
-	// (Optional.)
+	// optional kernel information for OS. (Optional.)
 	KernelVersion *String `json:"kernelVersion,omitempty"`
 }
 
-// ApplyExceptionForScopesInput
+// ApplyExceptionForScopesInput represents the input to apply an exception to multiple scopes.
 type ApplyExceptionForScopesInput struct {
-	// (Required.)
+	// The scopes of the exceptions. Can be a space or an asset mrns. (Required.)
 	ScopeMrns []String `json:"scopeMrns"`
-	// (Required.)
+	// How this exception should be handled Snooze the controls or disable them "enable" will delete the supplied control mrn from any exception. (Required.)
 	Action ExceptionMutationAction `json:"action"`
 
-	// (Optional.)
+	// RFC3339 timestamp The date, from which on the exception is no longer valid. Only applies to action IGNORE, empty is interpreted as forever. (Optional.)
 	ValidUntil *String `json:"validUntil,omitempty"`
-	// (Optional.)
+	// The justification for the exception. (Optional.)
 	Justification *String `json:"justification,omitempty"`
-	// (Optional.)
+	// List of control mrns that are expected. Applies only for compliance exceptions. (Optional.)
 	ControlMrns *[]String `json:"controlMrns,omitempty"`
-	// (Optional.)
+	// List of query mrns that are expected. Applies only for security exceptions. (Optional.)
 	QueryMrns *[]String `json:"queryMrns,omitempty"`
 }
 
 // ApplySpacePlanInput
 type ApplySpacePlanInput struct {
-	// (Required.)
+	// mrn is the space mrn. (Required.)
 	Mrn String `json:"mrn"`
 
-	// (Optional.)
+	// Set or update milestone metadata in the milestones field. (Optional.)
 	Milestones *[]PlanningMilestoneMetadataMutationInput `json:"milestones,omitempty"`
-	// (Optional.)
+	// deltas is the list of changes to apply. Assigning a query to a milestone that doesn't already exist and isn't specified in the milestones field is considered an error. (Optional.)
 	Deltas *[]SpacePlanQueryMutationDeltaInput `json:"deltas,omitempty"`
 }
 
-// AssetEolFilter
+// AssetEolFilter represents asset end-of-life filter.
 type AssetEolFilter struct {
-	// (Required.)
+	// Is end-of-life. (Required.)
 	IsEol Boolean `json:"isEol"`
-	// (Required.)
+	// Is not end-of-life. (Required.)
 	IsNotEol Boolean `json:"isNotEol"`
 }
 
-// AssetExploitableFilter
+// AssetExploitableFilter represents asset exploitable filter.
 type AssetExploitableFilter struct {
-	// (Required.)
+	// Is exploitable. (Required.)
 	IsExploitable Boolean `json:"isExploitable"`
-	// (Required.)
+	// Is not exploitable. (Required.)
 	IsNotExploitable Boolean `json:"isNotExploitable"`
 }
 
-// AssetGroupOrder
+// AssetGroupOrder represents asset group order.
 type AssetGroupOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field String `json:"field"`
 }
 
-// AssetLastPackageUpdateTimeInput
+// AssetLastPackageUpdateTimeInput represents query data for a single assets package update time.
 type AssetLastPackageUpdateTimeInput struct {
-	// (Required.)
+	// Asset MRN. (Required.)
 	Mrn ID `json:"mrn"`
 }
 
-// AssetLinkInfoInput
+// AssetLinkInfoInput represents asset link info input.
 type AssetLinkInfoInput struct {
-	// (Required.)
+	// Asset ID. (Required.)
 	AssetID String `json:"assetId"`
-	// (Required.)
+	// Space ID. (Required.)
 	SpaceID String `json:"spaceID"`
 }
 
-// AssetOSRebootFilter
+// AssetOSRebootFilter represents asset OS reboot filter.
 type AssetOSRebootFilter struct {
-	// (Required.)
+	// Pending reboot. (Required.)
 	PendingReboot Boolean `json:"pendingReboot"`
-	// (Required.)
+	// No reboot. (Required.)
 	NoReboot Boolean `json:"noReboot"`
 }
 
-// AssetOrder
+// AssetOrder represents asset order.
 type AssetOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field AssetOrderField `json:"field"`
 }
 
-// AssetOverviewPageInfo
+// AssetOverviewPageInfo represents asset overview page info.
 type AssetOverviewPageInfo struct {
-	// (Required.)
+	// Organization MRN. (Required.)
 	OrgMrn String `json:"orgMrn"`
-	// (Required.)
+	// Space MRN. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// Asset MRN. (Required.)
 	AssetMrn String `json:"assetMrn"`
-	// (Required.)
+	// Which tab is selected: Overview, Policies, Controls, Platform Vulnerabilities, Resources. (Required.)
 	Tab String `json:"tab"`
 }
 
-// AssetPackageDetailsInput
+// AssetPackageDetailsInput represents input for the Software package details.
 type AssetPackageDetailsInput struct {
-	// (Required.)
+	// Asset MRN. (Required.)
 	Mrn ID `json:"mrn"`
-	// (Required.)
+	// Package name. (Required.)
 	Name String `json:"name"`
 
-	// (Optional.)
+	// Package version. (Optional.)
 	Version *String `json:"version,omitempty"`
 }
 
-// AssetReportInput
+// AssetReportInput represents input data for an asset report.
 type AssetReportInput struct {
 	// (Required.)
 	AssetMrn ID `json:"assetMrn"`
@@ -272,30 +272,30 @@ type AssetReportInput struct {
 	PolicyFilter *[]*String `json:"policyFilter,omitempty"`
 }
 
-// AssetReportListPoliciesFilter
+// AssetReportListPoliciesFilter represents filter for the asset report's policies.
 type AssetReportListPoliciesFilter struct {
 
-	// (Optional.)
+	// Filters policies partially matching on policy name and MRN. (Optional.)
 	Query *String `json:"query,omitempty"`
-	// (Optional.)
+	// Filters policies by their grade. (Optional.)
 	Grades *[]String `json:"grades,omitempty"`
-	// (Optional.)
+	// Filters policies by their category. (Optional.)
 	Categories *[]String `json:"categories,omitempty"`
 }
 
-// AssetReportPolicyOrder
+// AssetReportPolicyOrder represents asset report policy order.
 type AssetReportPolicyOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field AssetReportQueryOrderField `json:"field"`
 }
 
-// AssetReportQueryOrder
+// AssetReportQueryOrder represents asset report query order.
 type AssetReportQueryOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field AssetReportQueryOrderField `json:"field"`
 }
 
@@ -312,14 +312,14 @@ type AssetResourceInput struct {
 
 // AssetSearchInput
 type AssetSearchInput struct {
-	// (Required.)
+	// Full text search query. Each term in the query will be ANDed together. The query language supports the following qualifiers: - `name`: Search for assets containing a specific name. This is the default qualifier if none is specified Example: `name:my-asset-name` - `asset`: Alias for `name` - `id`: Search for assets containing a specific asset ID. MRNs are also accepted Example: `id:my-asset-id` - `asset-id`: Alias for `id` - `label`: Search for assets containing a label a specific key and optional value. If no value is specified, the tag must exist with any value. If a value is specified, the tag must exist with that value. Example: `label:my-tag` or `label:my-tag=*` or `label:my-tag="my-value"` - `asset-label`: Alias for `label` - `annotation`: Search for assets containing a annotation a specific key and optional value. If no value is specified, the tag must exist with any value. If a value is specified, the tag must exist with that value. Example: `annotation:my-tag` or `annotation:my-tag=*` or `annotation:my-tag="my-value"` - `asset-annotation`: Alias for `annotation` - `platform`: Search for assets containing a specific platform Example: `platform:my-platform`. (Required.)
 	Query String `json:"query"`
 
-	// (Optional.)
+	// orgMrn is the mrn of the organization to search assets for. (Optional.)
 	OrgMrn *String `json:"orgMrn,omitempty"`
-	// (Optional.)
+	// spaceMrns is a list of space mrns to search assets for. If none are provided, all spaces in the organization will be searched. (Optional.)
 	SpaceMrns *[]String `json:"spaceMrns,omitempty"`
-	// (Optional.)
+	// Filter assets by their hierarchy. (Optional.)
 	AssetURLFilter *[]AssetUrlSegmentInput `json:"assetUrlFilter,omitempty"`
 }
 
@@ -338,41 +338,41 @@ type AssetSearchSuggestionsInput struct {
 	IsCiCd *Boolean `json:"isCiCd,omitempty"`
 }
 
-// AssetSummaryOrder
+// AssetSummaryOrder represents asset summary order.
 type AssetSummaryOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field AssetSummaryOrderField `json:"field"`
 }
 
-// AssetUpdateFilter
+// AssetUpdateFilter represents asset update filter.
 type AssetUpdateFilter struct {
 
-	// (Optional.)
+	// Before. (Optional.)
 	Before *String `json:"before,omitempty"`
-	// (Optional.)
+	// After. (Optional.)
 	After *String `json:"after,omitempty"`
 }
 
 // AssetUrlSegmentInput
 type AssetUrlSegmentInput struct {
-	// (Required.)
+	// The key of the URL segment to filter by. (Required.)
 	Key String `json:"key"`
-	// (Required.)
+	// The value of the URL segment to filter by. (Required.)
 	Value String `json:"value"`
 }
 
 // AssetUrlStatsInput
 type AssetUrlStatsInput struct {
-	// (Required.)
+	// Space MRN. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 
-	// (Optional.)
+	// Scope to score by. Default is ALL, which is a combination of the security and vulnerabilities scores. (Optional.)
 	Scope *AssetUrlStatsScope `json:"scope,omitempty"`
 }
 
-// AssetVulnerabilityReportInput
+// AssetVulnerabilityReportInput represents input data for an asset vulnerability report.
 type AssetVulnerabilityReportInput struct {
 	// (Required.)
 	AssetMrn ID `json:"assetMrn"`
@@ -389,7 +389,7 @@ type AuditLogOrder struct {
 	Field AuditLogOrderField `json:"field"`
 }
 
-// AwsS3ConfigurationOptionsInput
+// AwsS3ConfigurationOptionsInput represents aWS S3 integration input.
 type AwsS3ConfigurationOptionsInput struct {
 	// (Required.)
 	Output BucketOutputType `json:"output"`
@@ -403,13 +403,13 @@ type AwsS3ConfigurationOptionsInput struct {
 	SecretAccessKey String `json:"secretAccessKey"`
 }
 
-// AwsScanOptions
+// AwsScanOptions represents scan type provided when triggering a scan on an AWS integration.
 type AwsScanOptions struct {
 	// (Required.)
 	ScanType String `json:"scanType"`
 }
 
-// AzureBlobConfigurationOptionsInput
+// AzureBlobConfigurationOptionsInput represents azure Blob integration input.
 type AzureBlobConfigurationOptionsInput struct {
 	// (Required.)
 	Output BucketOutputType `json:"output"`
@@ -417,7 +417,7 @@ type AzureBlobConfigurationOptionsInput struct {
 	BlobSasURL String `json:"blobSasURL"`
 }
 
-// AzureConfigurationOptionsInput
+// AzureConfigurationOptionsInput represents azure integration input.
 type AzureConfigurationOptionsInput struct {
 	// (Required.)
 	TenantID String `json:"tenantId"`
@@ -428,7 +428,7 @@ type AzureConfigurationOptionsInput struct {
 	SubscriptionsWhitelist *[]String `json:"subscriptionsWhitelist,omitempty"`
 	// (Optional.)
 	SubscriptionsBlacklist *[]String `json:"subscriptionsBlacklist,omitempty"`
-	// (Optional.)
+	// TODO: temporary optional, fix by having separate update models. (Optional.)
 	Certificate *String `json:"certificate,omitempty"`
 	// (Optional.)
 	ScanVms *Boolean `json:"scanVms,omitempty"`
@@ -436,11 +436,11 @@ type AzureConfigurationOptionsInput struct {
 	ClientSecret *String `json:"clientSecret,omitempty"`
 }
 
-// BigqueryConfigurationOptionsInput
+// BigqueryConfigurationOptionsInput represents bigQuery integration input.
 type BigqueryConfigurationOptionsInput struct {
 	// (Required.)
 	DatasetID String `json:"datasetId"`
-	// (Required.)
+	// note: this is the content of the service account JSON file. (Required.)
 	ServiceAccount String `json:"serviceAccount"`
 }
 
@@ -452,9 +452,9 @@ type BillingSessionInput struct {
 	ReturnURL String `json:"returnURL"`
 }
 
-// CategoriesListInput
+// CategoriesListInput represents input for retrieving a list of categories for the scope.
 type CategoriesListInput struct {
-	// (Required.)
+	// scopeMrn is the space mrn the user is requesting categories for. The returned response will contain all public categories unioned with categories appearing in content for this space. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
 }
 
@@ -473,24 +473,24 @@ type ChangeSubscriptionPlanInput struct {
 	ProrationDate *Int `json:"prorationDate,omitempty"`
 }
 
-// ChecksOrder
+// ChecksOrder represents checks order.
 type ChecksOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field ChecksOrderField `json:"field"`
 }
 
-// ChecksSearchInput
+// ChecksSearchInput represents checks search input.
 type ChecksSearchInput struct {
-	// (Required.)
+	// Scope MRN. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// Framework MRN. (Required.)
 	FrameworkMrn String `json:"frameworkMrn"`
 
-	// (Optional.)
+	// Query to search checks by, currently searches by the check name only. (Optional.)
 	Query *String `json:"query,omitempty"`
-	// (Optional.)
+	// Determines the ordering. (Optional.)
 	OrderBy *ChecksOrder `json:"orderBy,omitempty"`
 }
 
@@ -541,7 +541,7 @@ type CicdProjectsInput struct {
 	TypeFilter *String `json:"typeFilter,omitempty"`
 }
 
-// ClientIntegrationConfigurationInput
+// ClientIntegrationConfigurationInput represents configuration options for client integrations.
 type ClientIntegrationConfigurationInput struct {
 
 	// (Optional.)
@@ -588,7 +588,7 @@ type ClientIntegrationConfigurationInput struct {
 	AwsHostedConfigurationOptions *HostedAwsConfigurationOptionsInput `json:"awsHostedConfigurationOptions,omitempty"`
 }
 
-// ClientIntegrationInput
+// ClientIntegrationInput represents input for client integration.
 type ClientIntegrationInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -597,130 +597,130 @@ type ClientIntegrationInput struct {
 	WithToken *Boolean `json:"withToken,omitempty"`
 }
 
-// ComplianceAssetOrder
+// ComplianceAssetOrder represents compliance asset order.
 type ComplianceAssetOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field ComplianceAssetOrderField `json:"field"`
 }
 
-// ComplianceAssetsSearchInput
+// ComplianceAssetsSearchInput represents compliance assets search input.
 type ComplianceAssetsSearchInput struct {
-	// (Required.)
+	// Search query. (Required.)
 	Query String `json:"query"`
 
-	// (Optional.)
+	// after is the pagination cursor. To paginate to the end of the search results, keep calling search the the endCursor from the pageInfo response while the hasNextPage field is true. (Optional.)
 	After *String `json:"after,omitempty"`
-	// (Optional.)
+	// first is the number of items to return. Defaults to 100. (Optional.)
 	First *Int `json:"first,omitempty"`
-	// (Optional.)
+	// The asset group filters that match the assets. (Optional.)
 	Groups *[]GroupFilter `json:"groups,omitempty"`
-	// (Optional.)
+	// Order by. (Optional.)
 	OrderBy *ComplianceAssetOrder `json:"orderBy,omitempty"`
 }
 
-// ComplianceControlInput
+// ComplianceControlInput represents compliance control input.
 type ComplianceControlInput struct {
-	// (Required.)
+	// Framework MRN. (Required.)
 	FrameworkMrn String `json:"frameworkMrn"`
-	// (Required.)
+	// Control MRN. (Required.)
 	ControlMrn String `json:"controlMrn"`
-	// (Required.)
+	// Scope MRN. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
 }
 
-// ComplianceFrameworkInput
+// ComplianceFrameworkInput represents compliance framework input.
 type ComplianceFrameworkInput struct {
-	// (Required.)
+	// The scope mrn for which to fetch the compliance framework. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// The compliance framework mrn. (Required.)
 	FrameworkMrn String `json:"frameworkMrn"`
 }
 
-// ComplianceFrameworkMutationInput
+// ComplianceFrameworkMutationInput represents compliance framework mutation input.
 type ComplianceFrameworkMutationInput struct {
-	// (Required.)
+	// Framework MRN. (Required.)
 	FrameworkMrn String `json:"frameworkMrn"`
-	// (Required.)
+	// Scope MRN. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// Action. (Required.)
 	Action ComplianceFrameworkMutationAction `json:"action"`
 }
 
-// ComplianceFrameworksInput
+// ComplianceFrameworksInput represents compliance frameworks input.
 type ComplianceFrameworksInput struct {
-	// (Required.)
+	// The scope mrn for which to fetch compliance frameworks. Currently only supported is a space mrn. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
 }
 
-// ContentSearchInput
+// ContentSearchInput represents input for searching for policies or registries.
 type ContentSearchInput struct {
-	// (Required.)
+	// scopeMrn is the space mrn the user is requesting content for. Private content will only be searched from this space. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// catalogType is the type of content items to consider. (Required.)
 	CatalogType CatalogType `json:"catalogType"`
 
-	// (Optional.)
+	// A list of platforms that a content item must match. Only content matching all platforms will be considered. (Optional.)
 	Platforms *[]String `json:"platforms,omitempty"`
-	// (Optional.)
+	// A list of categories that a content item can match. Content matching at least one of the provided will be considered. (Optional.)
 	Categories *[]String `json:"categories,omitempty"`
-	// (Optional.)
+	// includePrivate indicates whether to include private content. Defaults to true. (Optional.)
 	IncludePrivate *Boolean `json:"includePrivate,omitempty"`
-	// (Optional.)
+	// includePublic indicates whether to include mondoo provided content. Defaults to true. (Optional.)
 	IncludePublic *Boolean `json:"includePublic,omitempty"`
-	// (Optional.)
+	// contentMrns is a list of mrns to consider. If none are provided, all will be considered Useful for text searching a specific set of content, like active policies. (Optional.)
 	ContentMrns *[]String `json:"contentMrns,omitempty"`
-	// (Optional.)
+	// If assignedOnly is set to true, only policies that are assigned will be considered. (Optional.)
 	AssignedOnly *Boolean `json:"assignedOnly,omitempty"`
-	// (Optional.)
+	// Full text search query. Each term in the query will be ANDed together. (Optional.)
 	Query *String `json:"query,omitempty"`
-	// (Optional.)
+	// after is the pagination cursor. To paginate to the end of the search results, keep calling search the the endCursor from the pageInfo response while the hasNextPage field is true. (Optional.)
 	After *String `json:"after,omitempty"`
-	// (Optional.)
+	// limit is the number of items to return. Defaults to 100. (Optional.)
 	Limit *Int `json:"limit,omitempty"`
 	// (Optional.)
 	OrderBy *ContentSearchResultItemOrder `json:"orderBy,omitempty"`
 }
 
-// ContentSearchResultItemOrder
+// ContentSearchResultItemOrder represents user defined order direction and field.
 type ContentSearchResultItemOrder struct {
-	// (Required.)
+	// The direction to order the results. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// The field to order the results. (Required.)
 	Field ContentSearchResultItemOrderField `json:"field"`
 }
 
-// ControlDocumentOptionsInput
+// ControlDocumentOptionsInput represents input options for the controls of the document.
 type ControlDocumentOptionsInput struct {
-	// (Required.)
+	// The MRN of the framework the control is for. (Required.)
 	FrameworkMRN String `json:"frameworkMRN"`
-	// (Required.)
+	// The MRN of the control. (Required.)
 	ControlMRN String `json:"controlMRN"`
 }
 
-// ControlsOrder
+// ControlsOrder represents controls order.
 type ControlsOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field ControlsOrderField `json:"field"`
 }
 
-// ControlsSearchInput
+// ControlsSearchInput represents controls search input.
 type ControlsSearchInput struct {
 
-	// (Optional.)
+	// query, used to search on controls' or policies' description. (Optional.)
 	Query *String `json:"query,omitempty"`
-	// (Optional.)
+	// after is the pagination cursor. To paginate to the end of the search results, keep calling search the the endCursor from the pageInfo response while the hasNextPage field is true. (Optional.)
 	After *String `json:"after,omitempty"`
-	// (Optional.)
+	// limit is the number of items to return. Defaults to 100. (Optional.)
 	Limit *Int `json:"limit,omitempty"`
-	// (Optional.)
+	// Order by. (Optional.)
 	OrderBy *ControlsOrder `json:"orderBy,omitempty"`
 }
 
-// CreateClientIntegrationInput
+// CreateClientIntegrationInput represents input provided when creating a client integration.
 type CreateClientIntegrationInput struct {
 	// (Required.)
 	SpaceMrn String `json:"spaceMrn"`
@@ -751,12 +751,12 @@ type CreateInvitationInput struct {
 	Message *String `json:"message,omitempty"`
 }
 
-// CreateOrganizationInput
+// CreateOrganizationInput represents create organization input.
 type CreateOrganizationInput struct {
-	// (Required.)
+	// Name. (Required.)
 	Name String `json:"name"`
 
-	// (Optional.)
+	// ID. (Optional.)
 	ID *String `json:"id,omitempty"`
 }
 
@@ -777,39 +777,39 @@ type CreateServiceAccountInput struct {
 	ValidUntil *String `json:"validUntil,omitempty"`
 }
 
-// CreateSpaceInput
+// CreateSpaceInput represents create space input.
 type CreateSpaceInput struct {
-	// (Required.)
+	// Name. (Required.)
 	Name String `json:"name"`
-	// (Required.)
+	// Organization MRN. (Required.)
 	OrgMrn String `json:"orgMrn"`
 
-	// (Optional.)
+	// ID. (Optional.)
 	ID *String `json:"id,omitempty"`
-	// (Optional.)
+	// Settings. (Optional.)
 	Settings *SpaceSettingsInput `json:"settings,omitempty"`
 }
 
-// CveFilter
+// CveFilter represents cVE filters.
 type CveFilter struct {
 
-	// (Optional.)
+	// filter by textfield input. ex.: ["CHROME-2023"] elements will be ANDed. (Optional.)
 	QueryTerms *[]String `json:"queryTerms,omitempty"`
 }
 
-// CveOrder
+// CveOrder represents cve order object.
 type CveOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Order field. (Required.)
 	Field CveOrderField `json:"field"`
 }
 
-// CveSummaryOrder
+// CveSummaryOrder represents cve summary order object.
 type CveSummaryOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Order field. (Required.)
 	Field CveSummaryOrderField `json:"field"`
 }
 
@@ -819,7 +819,7 @@ type DeleteAPITokenInput struct {
 	Mrn String `json:"mrn"`
 }
 
-// DeleteAgentsInput
+// DeleteAgentsInput represents input used when deleting an agent.
 type DeleteAgentsInput struct {
 	// (Required.)
 	SpaceMrn String `json:"spaceMrn"`
@@ -827,36 +827,36 @@ type DeleteAgentsInput struct {
 	AgentMrns []String `json:"agentMrns"`
 }
 
-// DeleteAssetsInput
+// DeleteAssetsInput represents delete assets input.
 type DeleteAssetsInput struct {
-	// (Required.)
+	// Space MRN. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 
-	// (Optional.)
+	// Asset MRNs. (Optional.)
 	AssetMrns *[]ID `json:"assetMrns,omitempty"`
 }
 
-// DeleteClientIntegrationInput
+// DeleteClientIntegrationInput represents input for deleting a client integration.
 type DeleteClientIntegrationInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
 }
 
-// DeleteCustomPolicyInput
+// DeleteCustomPolicyInput represents input for deleting a policy.
 type DeleteCustomPolicyInput struct {
-	// (Required.)
+	// The mrn of the policy. (Required.)
 	PolicyMrn String `json:"policyMrn"`
 }
 
-// DeleteCustomQueryPackInput
+// DeleteCustomQueryPackInput represents input for deleting a query pack.
 type DeleteCustomQueryPackInput struct {
-	// (Required.)
+	// The mrn of the query pack. (Required.)
 	QueryPackMrn String `json:"queryPackMrn"`
 }
 
-// DeleteFrameworkInput
+// DeleteFrameworkInput represents delete framework input.
 type DeleteFrameworkInput struct {
-	// (Required.)
+	// Framework MRN. (Required.)
 	Mrn String `json:"mrn"`
 }
 
@@ -888,24 +888,24 @@ type DeleteServiceAccountsInput struct {
 	Mrns []String `json:"mrns"`
 }
 
-// DownloadBundleInput
+// DownloadBundleInput represents download bundle input.
 type DownloadBundleInput struct {
-	// (Required.)
+	// The mrn is a unique identifier. (Required.)
 	Mrn String `json:"mrn"`
 }
 
-// DownloadFrameworkInput
+// DownloadFrameworkInput represents download framework input.
 type DownloadFrameworkInput struct {
-	// (Required.)
+	// Framework MRN. (Required.)
 	Mrn String `json:"mrn"`
-	// (Required.)
+	// Scope MRN. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
 
-	// (Optional.)
+	// Whether to include all evidence in the bundle. By default, only evidence for activated policies is returned. (Optional.)
 	AllEvidence *Boolean `json:"allEvidence,omitempty"`
 }
 
-// EbsScanOptionsInput
+// EbsScanOptionsInput represents options for EBS scanning with the AWS integration.
 type EbsScanOptionsInput struct {
 
 	// (Optional.)
@@ -914,7 +914,7 @@ type EbsScanOptionsInput struct {
 	MaxAsgInstances *Int `json:"maxAsgInstances,omitempty"`
 }
 
-// Ec2ScanOptionsInput
+// Ec2ScanOptionsInput represents options for EC2 scans with the AWS integration.
 type Ec2ScanOptionsInput struct {
 
 	// (Optional.)
@@ -955,85 +955,85 @@ type EnableSSOProviderInput struct {
 	Enabled Boolean `json:"enabled"`
 }
 
-// ExceptionGroupsInput
+// ExceptionGroupsInput represents the input to get a list of exception groups.
 type ExceptionGroupsInput struct {
-	// (Required.)
+	// The mrn of the space/asset. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// The type of the exception. (Required.)
 	Type ExceptionType `json:"type"`
 
-	// (Optional.)
+	// The mrn to filter on. It can be a query, control, policy or a framework. (Optional.)
 	Mrn *String `json:"mrn,omitempty"`
-	// (Optional.)
+	// The action of the exception groups. Empty list means all. (Optional.)
 	Actions *[]ExceptionMutationAction `json:"actions,omitempty"`
 }
 
-// ExceptionMutationInput
+// ExceptionMutationInput represents the input to apply an exception.
 type ExceptionMutationInput struct {
-	// (Required.)
+	// The scope of the exception. Can be a space or an asset mrn. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// How this exception should be handled Snooze the controls or disable them "enable" will delete the supplied control mrn from any exception. (Required.)
 	Action ExceptionMutationAction `json:"action"`
 
-	// (Optional.)
+	// DEPRECATED. WILL BE REMOVED ONCE THE UI IS OUT the resource to apply the exception to, e.g. a framework. (Optional.)
 	ResourceMrn *String `json:"resourceMrn,omitempty"`
-	// (Optional.)
+	// DEPRECATED. WILL BE REMOVED ONCE THE UI IS OUT List of mrns that are excepted. (Optional.)
 	ExceptionMrns *[]String `json:"exceptionMrns,omitempty"`
-	// (Optional.)
+	// RFC3339 timestamp The date, from which on the exception is no longer valid. Only applies to action IGNORE, empty is interpreted as forever. (Optional.)
 	ValidUntil *String `json:"validUntil,omitempty"`
-	// (Optional.)
+	// The justification for the exception. (Optional.)
 	Justification *String `json:"justification,omitempty"`
-	// (Optional.)
+	// List of control mrns that are expected. Applies only for compliance exceptions. (Optional.)
 	ControlMrns *[]String `json:"controlMrns,omitempty"`
-	// (Optional.)
+	// List of query mrns that are expected. Applies only for security exceptions. (Optional.)
 	QueryMrns *[]String `json:"queryMrns,omitempty"`
 }
 
-// ExceptionReviewInput
+// ExceptionReviewInput represents the input to apply a review to an exception.
 type ExceptionReviewInput struct {
-	// (Required.)
+	// The scope of the exception. Can be a space or an asset mrn. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// The id of the exception to review. (Required.)
 	ExceptionID String `json:"exceptionId"`
-	// (Required.)
+	// The review action to be applied. (Required.)
 	Action ExceptionReviewAction `json:"action"`
 }
 
-// FrameworkDocumentOptionsInput
+// FrameworkDocumentOptionsInput represents input options for framework document.
 type FrameworkDocumentOptionsInput struct {
-	// (Required.)
+	// The MRN of the framework. (Required.)
 	FrameworkMRN String `json:"frameworkMRN"`
 }
 
-// GarbageCollectAssetsConfigurationInput
+// GarbageCollectAssetsConfigurationInput represents garbage collect assets configuration input.
 type GarbageCollectAssetsConfigurationInput struct {
 
-	// (Optional.)
+	// Whether to enable garbage collection. (Optional.)
 	Enable *Boolean `json:"enable,omitempty"`
-	// (Optional.)
+	// After how many days to garbage collect. (Optional.)
 	AfterDays *Int `json:"afterDays,omitempty"`
 }
 
-// GcpConfigurationOptionsInput
+// GcpConfigurationOptionsInput represents gCP integration input.
 type GcpConfigurationOptionsInput struct {
 
 	// (Optional.)
 	ProjectID *String `json:"projectId,omitempty"`
 	// (Optional.)
 	OrganizationID *String `json:"organizationId,omitempty"`
-	// (Optional.)
+	// note: this is the content of the service account JSON file. (Optional.)
 	ServiceAccount *String `json:"serviceAccount,omitempty"`
 	// (Optional.)
 	DiscoverAll *Boolean `json:"discoverAll,omitempty"`
 }
 
-// GcsBucketConfigurationOptionsInput
+// GcsBucketConfigurationOptionsInput represents gCS Bucket integration input.
 type GcsBucketConfigurationOptionsInput struct {
 	// (Required.)
 	Output BucketOutputType `json:"output"`
 	// (Required.)
 	Bucket String `json:"bucket"`
-	// (Required.)
+	// note: this is the content of the service account JSON file. (Required.)
 	ServiceAccount String `json:"serviceAccount"`
 }
 
@@ -1052,28 +1052,28 @@ type GenerateAPITokenInput struct {
 	Roles *[]RoleInput `json:"roles,omitempty"`
 }
 
-// GenerateDocumentInput
+// GenerateDocumentInput represents input when generating a document.
 type GenerateDocumentInput struct {
-	// (Required.)
+	// The MRN of the space. (Required.)
 	ScopeMRN String `json:"scopeMRN"`
-	// (Required.)
+	// The format of the document. (Required.)
 	Format DocumentFormat `json:"format"`
-	// (Required.)
+	// The type of the document. (Required.)
 	Type DocumentType `json:"type"`
-	// (Required.)
+	// The name of the document to generate. (Required.)
 	Name String `json:"name"`
 
-	// (Optional.)
+	// The MRN of the resource for which the document is being generated. (Optional.)
 	TargetMRN *String `json:"targetMRN,omitempty"`
-	// (Optional.)
+	// Options for generating a framework document. (Optional.)
 	FrameworkOptions *FrameworkDocumentOptionsInput `json:"frameworkOptions,omitempty"`
-	// (Optional.)
+	// Options for generating a control document. (Optional.)
 	ControlOptions *ControlDocumentOptionsInput `json:"controlOptions,omitempty"`
-	// (Optional.)
+	// Whether to capture debug information. (Optional.)
 	CaptureDebug *Boolean `json:"captureDebug,omitempty"`
 }
 
-// GetClientIntegrationDeleteCommandInput
+// GetClientIntegrationDeleteCommandInput represents inputs used to get the delete command for a client integration (used for K8s).
 type GetClientIntegrationDeleteCommandInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -1081,7 +1081,7 @@ type GetClientIntegrationDeleteCommandInput struct {
 	Type ClientIntegrationType `json:"type"`
 }
 
-// GetClientIntegrationTokenInput
+// GetClientIntegrationTokenInput represents input provided when fetching a token for a client integration.
 type GetClientIntegrationTokenInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -1090,26 +1090,26 @@ type GetClientIntegrationTokenInput struct {
 	LongLivedToken *Boolean `json:"longLivedToken,omitempty"`
 }
 
-// GithubConfigurationOptionsInput
+// GithubConfigurationOptionsInput represents github integration input.
 type GithubConfigurationOptionsInput struct {
 	// (Required.)
 	Type GithubIntegrationType `json:"type"`
 
-	// (Optional.)
+	// Repository owner. Must be provided in combination with repository. (Optional.)
 	Owner *String `json:"owner,omitempty"`
-	// (Optional.)
+	// Repository name. Must be provided in combination with owner. (Optional.)
 	Repository *String `json:"repository,omitempty"`
-	// (Optional.)
+	// Organization. If specified, the integration will scan the complete organization. (Optional.)
 	Organization *String `json:"organization,omitempty"`
 	// (Optional.)
 	Token *String `json:"token,omitempty"`
-	// (Optional.)
+	// Scan only the repositories matching these glob patterns. Only applicable when type is ORG. (Optional.)
 	ReposAllowList *[]String `json:"reposAllowList,omitempty"`
-	// (Optional.)
+	// Scan all repositories except the ones matching these glob patterns. Only applicable when type is ORG. (Optional.)
 	ReposDenyList *[]String `json:"reposDenyList,omitempty"`
 }
 
-// GitlabConfigurationOptionsInput
+// GitlabConfigurationOptionsInput represents gitlab integration input.
 type GitlabConfigurationOptionsInput struct {
 	// (Required.)
 	Type GitlabIntegrationType `json:"type"`
@@ -1128,27 +1128,27 @@ type GitlabConfigurationOptionsInput struct {
 	BaseURL *String `json:"baseUrl,omitempty"`
 }
 
-// GoogleWorkspaceConfigurationOptionsInput
+// GoogleWorkspaceConfigurationOptionsInput represents google Workspace integration input.
 type GoogleWorkspaceConfigurationOptionsInput struct {
 	// (Required.)
 	CustomerID String `json:"customerId"`
 	// (Required.)
 	ImpersonatedUserEmail String `json:"impersonatedUserEmail"`
 
-	// (Optional.)
+	// note: this is the content of the service account JSON file. (Optional.)
 	ServiceAccount *String `json:"serviceAccount,omitempty"`
 }
 
-// GroupFilter
+// GroupFilter represents group filter.
 type GroupFilter struct {
-	// (Required.)
+	// Group type. (Required.)
 	GroupType String `json:"groupType"`
 
-	// (Optional.)
+	// Asset types. (Optional.)
 	AssetTypes *[]String `json:"assetTypes,omitempty"`
 }
 
-// HostConfigurationOptionsInput
+// HostConfigurationOptionsInput represents host integration input.
 type HostConfigurationOptionsInput struct {
 	// (Required.)
 	Host String `json:"host"`
@@ -1159,7 +1159,7 @@ type HostConfigurationOptionsInput struct {
 	HTTP *Boolean `json:"http,omitempty"`
 }
 
-// HostedAwsConfigurationOptionsInput
+// HostedAwsConfigurationOptionsInput represents hosted AWS integration input.
 type HostedAwsConfigurationOptionsInput struct {
 
 	// (Optional.)
@@ -1168,16 +1168,16 @@ type HostedAwsConfigurationOptionsInput struct {
 	RoleCredential *AWSRoleCredential `json:"roleCredential,omitempty"`
 }
 
-// IDSuggestionInput
+// IDSuggestionInput represents iD suggestion input.
 type IDSuggestionInput struct {
 
-	// (Optional.)
+	// Parent MRN. (Optional.)
 	ParentMrn *String `json:"parentMrn,omitempty"`
-	// (Optional.)
+	// ID available. (Optional.)
 	IDAvailable *String `json:"idAvailable,omitempty"`
 }
 
-// IntegrationInput
+// IntegrationInput represents input options provided when creating a chatops integration.
 type IntegrationInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -1190,7 +1190,7 @@ type IntegrationInput struct {
 	Options *IntegrationOptionsInput `json:"options,omitempty"`
 }
 
-// IntegrationOptionsInput
+// IntegrationOptionsInput represents options for chatops integration.
 type IntegrationOptionsInput struct {
 
 	// (Optional.)
@@ -1201,7 +1201,7 @@ type IntegrationOptionsInput struct {
 	Token *String `json:"token,omitempty"`
 }
 
-// IntegrationsSummaryInput
+// IntegrationsSummaryInput represents input for summary of client integrations.
 type IntegrationsSummaryInput struct {
 	// (Required.)
 	SpaceMrn String `json:"spaceMrn"`
@@ -1215,7 +1215,7 @@ type InvitationOrder struct {
 	Field InvitationOrderField `json:"field"`
 }
 
-// JiraConfigurationOptionsInput
+// JiraConfigurationOptionsInput represents jira integration input.
 type JiraConfigurationOptionsInput struct {
 	// (Required.)
 	Host String `json:"host"`
@@ -1227,34 +1227,34 @@ type JiraConfigurationOptionsInput struct {
 	DefaultProject String `json:"defaultProject"`
 }
 
-// JiraTicketContextInput
+// JiraTicketContextInput represents parameters for JiraTicketContext.
 type JiraTicketContextInput struct {
-	// (Required.)
+	// The type of the ticket context. (Required.)
 	Type JiraTicketContextType `json:"type"`
 
-	// (Optional.)
+	// The parameters for the ticket context. (Optional.)
 	Projects *JiraTicketContextProjectsInput `json:"projects,omitempty"`
-	// (Optional.)
+	// The parameters for the ticket context. (Optional.)
 	Users *JiraTicketContextUsersInput `json:"users,omitempty"`
 }
 
-// JiraTicketContextProjectsInput
+// JiraTicketContextProjectsInput represents jira Projects filter parameters for JiraTicketContext.
 type JiraTicketContextProjectsInput struct {
 
-	// (Optional.)
+	// The Jira query to filter the projects by. (Optional.)
 	Query *String `json:"query,omitempty"`
 }
 
-// JiraTicketContextUsersInput
+// JiraTicketContextUsersInput represents jira Users filter parameters for JiraTicketContext.
 type JiraTicketContextUsersInput struct {
-	// (Required.)
+	// The Jira project key to filter the users by. (Required.)
 	ProjectKey String `json:"projectKey"`
 
-	// (Optional.)
+	// The query to filter the users by. (Optional.)
 	Query *String `json:"query,omitempty"`
 }
 
-// K8sConfigurationOptionsInput
+// K8sConfigurationOptionsInput represents k8s integration input.
 type K8sConfigurationOptionsInput struct {
 	// (Required.)
 	ScanNodes Boolean `json:"scanNodes"`
@@ -1284,18 +1284,18 @@ type KeyValueInput struct {
 	Value *String `json:"value,omitempty"`
 }
 
-// LibraryOrder
+// LibraryOrder represents library order.
 type LibraryOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Order field. (Required.)
 	Field LibraryOrderField `json:"field"`
 }
 
-// ListClientIntegrationsFilterInput
+// ListClientIntegrationsFilterInput represents listClientIntegrationsFilterInput provides filtering options for listing the client integrations.
 type ListClientIntegrationsFilterInput struct {
 
-	// (Optional.)
+	// type is deprecated, use types. (Optional.)
 	Type *ClientIntegrationType `json:"type,omitempty"`
 	// (Optional.)
 	Types *[]*ClientIntegrationType `json:"types,omitempty"`
@@ -1303,7 +1303,7 @@ type ListClientIntegrationsFilterInput struct {
 	ManagedClientsFilters *ManagedClientsFilters `json:"managedClientsFilters,omitempty"`
 }
 
-// ListClientIntegrationsInput
+// ListClientIntegrationsInput represents listClientIntegrationsInput describes the input for listing the integrations.
 type ListClientIntegrationsInput struct {
 	// (Required.)
 	SpaceMrn String `json:"spaceMrn"`
@@ -1312,13 +1312,13 @@ type ListClientIntegrationsInput struct {
 	FilterQuery *ListClientIntegrationsFilterInput `json:"filterQuery,omitempty"`
 }
 
-// ListDiscoveryResultsInput
+// ListDiscoveryResultsInput represents list discovery results input.
 type ListDiscoveryResultsInput struct {
-	// (Required.)
+	// The mrn is a unique identifier. (Required.)
 	Mrn String `json:"mrn"`
 }
 
-// ManagedClientsFilters
+// ManagedClientsFilters represents filters that can be used when listing managed clients.
 type ManagedClientsFilters struct {
 
 	// (Optional.)
@@ -1339,64 +1339,64 @@ type MembershipOrder struct {
 	Field MembershipOrderField `json:"field"`
 }
 
-// MqueryAssetDataInput
+// MqueryAssetDataInput represents mquery asset data input.
 type MqueryAssetDataInput struct {
-	// (Required.)
+	// scopeMrn is the MRN of the space in which to search for assets. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// queryMrn is the MRN of the query to run. (Required.)
 	QueryMrn String `json:"queryMrn"`
 
-	// (Optional.)
+	// See AssetSearchInput. (Optional.)
 	Query *String `json:"query,omitempty"`
-	// (Optional.)
+	// Format. (Optional.)
 	Format *MqueryAssetDataFormat `json:"format,omitempty"`
 }
 
-// MqueryAssetScoresInput
+// MqueryAssetScoresInput represents mquery asset scores input.
 type MqueryAssetScoresInput struct {
-	// (Required.)
+	// scopeMrn is the MRN of the space in which to search for assets. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// queryMrn is the MRN of the query to run. (Required.)
 	QueryMrn String `json:"queryMrn"`
 
-	// (Optional.)
+	// See AssetSearchInput. (Optional.)
 	Query *String `json:"query,omitempty"`
-	// (Optional.)
+	// After is the pagination cursor. To paginate to the end of the search results, keep calling search the the endCursor from the pageInfo response while the hasNextPage field is true. (Optional.)
 	After *String `json:"after,omitempty"`
-	// (Optional.)
+	// Limit is the number of items to return. Defaults to 25. (Optional.)
 	Limit *Int `json:"limit,omitempty"`
-	// (Optional.)
+	// Order by. (Optional.)
 	OrderBy *AssetOrder `json:"orderBy,omitempty"`
-	// (Optional.)
+	// policyMrn is the MRN of the policy which the query is associated with. If this is provided, the queryMrn will be converted to a code id. This is temporary. We need to capture scores as MRNs, not code ids. Until that happens, we need this. (Optional.)
 	PolicyMrn *String `json:"policyMrn,omitempty"`
 }
 
-// MqueryInput
+// MqueryInput represents mqueryInput.
 type MqueryInput struct {
-	// (Required.)
+	// The mrn is a unique identifier. (Required.)
 	Mrn String `json:"mrn"`
 }
 
-// MqueryScoreInput
+// MqueryScoreInput represents mquery score input.
 type MqueryScoreInput struct {
-	// (Required.)
+	// scopeMrn is the MRN of the space in which to search for assets. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// queryMrn is the MRN of the query to run. (Required.)
 	QueryMrn String `json:"queryMrn"`
 }
 
-// Ms365ConfigurationOptionsInput
+// Ms365ConfigurationOptionsInput represents mS365 integration input.
 type Ms365ConfigurationOptionsInput struct {
 	// (Required.)
 	TenantID String `json:"tenantId"`
 	// (Required.)
 	ClientID String `json:"clientId"`
 
-	// (Optional.)
+	// TODO: temporary optional, fix by having separate update models. (Optional.)
 	Certificate *String `json:"certificate,omitempty"`
 }
 
-// OciConfigurationOptionsInput
+// OciConfigurationOptionsInput represents oCI integration input.
 type OciConfigurationOptionsInput struct {
 	// (Required.)
 	TenancyOcid String `json:"tenancyOcid"`
@@ -1411,7 +1411,7 @@ type OciConfigurationOptionsInput struct {
 	PrivateKey *String `json:"privateKey,omitempty"`
 }
 
-// OktaConfigurationOptionsInput
+// OktaConfigurationOptionsInput represents okta integration input.
 type OktaConfigurationOptionsInput struct {
 	// (Required.)
 	Organization String `json:"organization"`
@@ -1420,199 +1420,216 @@ type OktaConfigurationOptionsInput struct {
 	Token *String `json:"token,omitempty"`
 }
 
-// OrgViewPageInfo
+// OrgViewPageInfo represents org view page info.
 type OrgViewPageInfo struct {
-	// (Required.)
+	// Organization MRN. (Required.)
 	OrgMrn String `json:"orgMrn"`
 }
 
-// OrganizationOverviewInput
+// OrganizationOverviewInput represents organization overview input.
 type OrganizationOverviewInput struct {
-	// (Required.)
+	// Organization MRN. (Required.)
 	OrganizationMrn String `json:"organizationMrn"`
 }
 
-// PackageFilter
+// PackageFilter represents package filters.
 type PackageFilter struct {
 
-	// (Optional.)
+	// filter by textfield input. ex.: ["Chrome", "Firefox"] elements will be ANDed. (Optional.)
 	QueryTerms *[]String `json:"queryTerms,omitempty"`
-	// (Optional.)
+	// os package or app. (Optional.)
 	Type *PackageType `json:"type,omitempty"`
-	// (Optional.)
+	// is package affected by a CVE?. (Optional.)
 	IsVulnerable *Boolean `json:"isVulnerable,omitempty"`
-	// (Optional.)
+	// packageName is a filter with exact match The queryTerms are a "contains" search. That's useful for the general search. But for the softwareDetails we need to search for the exact package name. (Optional.)
 	PackageName *String `json:"packageName,omitempty"`
 }
 
-// PackageInput
+// PackageInput represents package input.
 type PackageInput struct {
-	// (Required.)
+	// Package name. (Required.)
 	Name String `json:"name"`
-	// (Required.)
+	// Package version. (Required.)
 	Version String `json:"version"`
 
-	// (Optional.)
+	// Package arch. (Optional.)
 	Arch *String `json:"arch,omitempty"`
-	// (Optional.)
+	// Package format. (Optional.)
 	Format *String `json:"format,omitempty"`
-	// (Optional.)
+	// Package origin, needed for debian. (Optional.)
 	Origin *String `json:"origin,omitempty"`
 }
 
-// PackageScoresInput
-type PackageScoresInput struct {
-	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
-	FindingMrn String `json:"findingMrn"`
+// PackageScoresFilter represents package filters.
+type PackageScoresFilter struct {
 
-	// (Optional.)
+	// filter by textfield input. ex.: ["Chrome", "Firefox"] elements will be ANDed. (Optional.)
+	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	// os package or app. (Optional.)
+	Type *PackageType `json:"type,omitempty"`
+	// is package affected by a CVE?. (Optional.)
+	IsVulnerable *Boolean `json:"isVulnerable,omitempty"`
+	// Package version. (Optional.)
 	PackageVersion *String `json:"packageVersion,omitempty"`
 }
 
-// PackageScoresOrder
+// PackageScoresInput represents packageScores input data This requires eithher a spaceMrn AND a findingMrn OR only an assetMrn.
+type PackageScoresInput struct {
+
+	// Space MRN. (Optional.)
+	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	// Package/Finding mrn. (Optional.)
+	FindingMrn *String `json:"findingMrn,omitempty"`
+	// Asset or Space MRN. (Optional.)
+	EntityMrn *String `json:"entityMrn,omitempty"`
+	// Package version (optional). (Optional.)
+	PackageVersion *String `json:"packageVersion,omitempty"`
+	// Filter. (Optional.)
+	Filter *PackageScoresFilter `json:"filter,omitempty"`
+}
+
+// PackageScoresOrder represents packageScores order.
 type PackageScoresOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Order field. (Required.)
 	Field PackageScoresOrderField `json:"field"`
 }
 
-// PackagesOrder
+// PackagesOrder represents package order object.
 type PackagesOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Order field. (Required.)
 	Field PackagesOrderField `json:"field"`
 }
 
-// PerformDiscoveryInput
+// PerformDiscoveryInput represents input options for discovery job on client integration.
 type PerformDiscoveryInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
 }
 
-// PingIntegrationInput
+// PingIntegrationInput represents inputs used to ping a client integration.
 type PingIntegrationInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
 
-	// (Optional.)
+	// Optional source identifier, e.g. AWS account id. (Optional.)
 	Identifiers *[]String `json:"identifiers,omitempty"`
 }
 
 // PlanningMilestoneMetadataMutationInput
 type PlanningMilestoneMetadataMutationInput struct {
-	// (Required.)
+	// The uid of the milestone to modify. (Required.)
 	UID String `json:"uid"`
 
-	// (Optional.)
+	// The endDate to set. If nil, this value is not modified. If an empty string is passed, the value will be cleared. (Optional.)
 	EndDate *String `json:"endDate,omitempty"`
-	// (Optional.)
+	// The justification to set. If nil, this value is not modified. If an empty string is passed, the value will be cleared. (Optional.)
 	Justification *String `json:"justification,omitempty"`
 }
 
-// PlatformInput
+// PlatformInput represents platform input.
 type PlatformInput struct {
 
-	// (Optional.)
+	// The name of the platform. (Optional.)
 	Name *String `json:"name,omitempty"`
-	// (Optional.)
+	// The release of the platform. (Optional.)
 	Release *String `json:"release,omitempty"`
-	// (Optional.)
+	// The build of the platform. (Optional.)
 	Build *String `json:"build,omitempty"`
-	// (Optional.)
+	// The architecture of the platform. (Optional.)
 	Arch *String `json:"arch,omitempty"`
-	// (Optional.)
+	// The kind of the platform. (Optional.)
 	Kind *PlatformKind `json:"kind,omitempty"`
-	// (Optional.)
+	// The runtime of the platform. (Optional.)
 	Runtime *String `json:"runtime,omitempty"`
-	// (Optional.)
+	// The labels of the platform. (Optional.)
 	Labels *[]*KeyValueInput `json:"labels,omitempty"`
-	// (Optional.)
+	// The platform families. (Optional.)
 	Family *[]*String `json:"family,omitempty"`
 }
 
-// PlatformVulnerabilityConfigurationInput
+// PlatformVulnerabilityConfigurationInput represents platform vulnerability configuration input.
 type PlatformVulnerabilityConfigurationInput struct {
 
-	// (Optional.)
+	// Whether to enable platform vulnerability analysis. (Optional.)
 	Enable *Boolean `json:"enable,omitempty"`
 }
 
-// PlatformsListInput
+// PlatformsListInput represents input for retrieving a list of platforms for the scope.
 type PlatformsListInput struct {
-	// (Required.)
+	// scopeMrn is the space mrn the user is requesting platforms for. The returned response will contain all public platforms unioned with platforms appearing in content for this space. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
 }
 
-// PolicyAddInput
+// PolicyAddInput represents policyAddInput.
 type PolicyAddInput struct {
-	// (Required.)
+	// The mrn of the space. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// RFC2397, base64 encoded policy bundle. (Required.)
 	Dataurl String `json:"dataurl"`
 
-	// (Optional.)
+	// Force. (Optional.)
 	Force *Boolean `json:"force,omitempty"`
 }
 
-// PolicyAssignmentInput
+// PolicyAssignmentInput represents policy assignment input.
 type PolicyAssignmentInput struct {
-	// (Required.)
+	// The mrn of the asset. (Required.)
 	AssetMrn String `json:"assetMrn"`
 
-	// (Optional.)
+	// The mrn of the policy. (Optional.)
 	PolicyMrn *String `json:"policyMrn,omitempty"`
-	// (Optional.)
+	// Policy MRNs. (Optional.)
 	PolicyMrns *[]String `json:"policyMrns,omitempty"`
-	// (Optional.)
+	// Action. (Optional.)
 	Action *PolicyAction `json:"action,omitempty"`
 }
 
-// PolicyDashboardStatsInput
+// PolicyDashboardStatsInput represents policy dashboard stats input.
 type PolicyDashboardStatsInput struct {
-	// (Required.)
+	// Space MRN. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 }
 
-// PolicyDeleteInput
+// PolicyDeleteInput represents policy delete input.
 type PolicyDeleteInput struct {
-	// (Required.)
+	// The mrn of the policy. (Required.)
 	PolicyMrn String `json:"policyMrn"`
 }
 
-// PolicyInput
+// PolicyInput represents policyInput.
 type PolicyInput struct {
 
-	// (Optional.)
+	// The mrn is a unique identifier. (Optional.)
 	Mrn *String `json:"mrn,omitempty"`
-	// (Optional.)
+	// spaceMrn must be provided if you want to know if the policy is assigned. (Optional.)
 	SpaceMrn *String `json:"spaceMrn,omitempty"`
-	// (Optional.)
+	// variant. (Optional.)
 	Variant *String `json:"variant,omitempty"`
-	// (Optional.)
+	// variantPlatformFilter allows filter the variants by a target platform id. (Optional.)
 	VariantPlatformFilter *String `json:"variantPlatformFilter,omitempty"`
 }
 
-// PolicyReportMquerySummaryOrder
+// PolicyReportMquerySummaryOrder represents policy report mquery summary order.
 type PolicyReportMquerySummaryOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field PolicyReportMquerySummaryOrderField `json:"field"`
 }
 
-// PolicyReportSummaryOrder
+// PolicyReportSummaryOrder represents policy report summary order.
 type PolicyReportSummaryOrder struct {
-	// (Required.)
+	// Direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// Field. (Required.)
 	Field PolicyReportSummaryOrderField `json:"field"`
 }
 
-// PostgresConfigurationOptionsInput
+// PostgresConfigurationOptionsInput represents postgres integration input.
 type PostgresConfigurationOptionsInput struct {
 	// (Required.)
 	Host String `json:"host"`
@@ -1626,52 +1643,52 @@ type PostgresConfigurationOptionsInput struct {
 	Password String `json:"password"`
 }
 
-// PropertyQueryMutationInput
+// PropertyQueryMutationInput represents property query mutation input.
 type PropertyQueryMutationInput struct {
-	// (Required.)
+	// Target to apply scoring mutation to. Can be an space/asset mrn. Or an asset filter. (Required.)
 	Target PropertyQueryMutationTarget `json:"target"`
-	// (Required.)
+	// The action to apply. (Required.)
 	Action PropertyQueryMutationAction `json:"action"`
 
-	// (Optional.)
+	// A list of properties to apply the action to. (Optional.)
 	Props *[]PropertyQueryOverride `json:"props,omitempty"`
 }
 
-// PropertyQueryMutationTarget
+// PropertyQueryMutationTarget represents the target can be a mrn (space mrn) or a filter query. It is only valid to provide one of the parameters.
 type PropertyQueryMutationTarget struct {
 
-	// (Optional.)
+	// MRN of the target. For example, a space MRN, or asset MRN. (Optional.)
 	Mrn *String `json:"mrn,omitempty"`
-	// (Optional.)
+	// For a future iteration. The mql for the filter to apply properties to. (Optional.)
 	Filter *String `json:"filter,omitempty"`
 }
 
-// PropertyQueryOverride
+// PropertyQueryOverride represents property query override.
 type PropertyQueryOverride struct {
-	// (Required.)
+	// The property to apply the action to. (Required.)
 	PropertyMrn String `json:"propertyMrn"`
 
-	// (Optional.)
+	// The property query. Must be provided for the SET and CHECK actions. It must not be provided for the UNSET action. (Optional.)
 	Mql *String `json:"mql,omitempty"`
 }
 
-// QueryPackAddInput
+// QueryPackAddInput represents query pack add input.
 type QueryPackAddInput struct {
-	// (Required.)
+	// The mrn of the space. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// RFC2397, base64 encoded policy bundle. (Required.)
 	Dataurl String `json:"dataurl"`
 
-	// (Optional.)
+	// Force. (Optional.)
 	Force *Boolean `json:"force,omitempty"`
 }
 
-// RatedPoliciesInput
+// RatedPoliciesInput represents rated policies input.
 type RatedPoliciesInput struct {
-	// (Required.)
+	// The mrn of the space. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 
-	// (Optional.)
+	// Count. (Optional.)
 	Count *Int `json:"count,omitempty"`
 }
 
@@ -1700,16 +1717,16 @@ type RegistrationTokenOrder struct {
 	Field RegistrationTokenOrderField `json:"field"`
 }
 
-// RemediationFilter
+// RemediationFilter represents filter the remediation scripts.
 type RemediationFilter struct {
 
-	// (Optional.)
+	// filter by remediation script type. (Optional.)
 	ScriptTypes *[]*RemediationScriptType `json:"scriptTypes,omitempty"`
-	// (Optional.)
+	// filter by package namespace, e.g., ubuntu:18.04. (Optional.)
 	Namespace *String `json:"namespace,omitempty"`
 }
 
-// RemediationInput
+// RemediationInput represents input for the remediation script.
 type RemediationInput struct {
 	// (Required.)
 	ScopeMrn String `json:"scopeMrn"`
@@ -1722,12 +1739,12 @@ type RemediationInput struct {
 	Filter *RemediationFilter `json:"filter,omitempty"`
 }
 
-// RemediationPackageFields
+// RemediationPackageFields represents we need to know the packages to generate the remediation script.
 type RemediationPackageFields struct {
-	// (Required.)
+	// Package name. (Required.)
 	Name String `json:"name"`
 
-	// (Optional.)
+	// Package version which fixes the vulnerability. (Optional.)
 	FixedVersion *String `json:"fixedVersion,omitempty"`
 }
 
@@ -1747,24 +1764,24 @@ type RemoveSpaceMembershipInput struct {
 	UserMrn String `json:"userMrn"`
 }
 
-// ReportViewedInfo
+// ReportViewedInfo represents report viewed info. Only 1 page can be specified at a time.
 type ReportViewedInfo struct {
 
-	// (Optional.)
+	// Org view page info. (Optional.)
 	OrgView *OrgViewPageInfo `json:"orgView,omitempty"`
-	// (Optional.)
+	// Asset overview page info. (Optional.)
 	AssetOverview *AssetOverviewPageInfo `json:"assetOverview,omitempty"`
-	// (Optional.)
+	// CI/CD project page info. (Optional.)
 	CicdProject *CiCdProjectPageInfo `json:"cicdProject,omitempty"`
-	// (Optional.)
+	// CI/CD job page info. (Optional.)
 	CicdJob *CiCdJobPageInfo `json:"cicdJob,omitempty"`
-	// (Optional.)
+	// Vulnerability dashboard page info. (Optional.)
 	VulnerabilityDashboard *VulnerabilityDashboardPageInfo `json:"vulnerabilityDashboard,omitempty"`
-	// (Optional.)
+	// Security dashboard page info. (Optional.)
 	SecurityDashboard *SecurityDashboardPageInfo `json:"securityDashboard,omitempty"`
 }
 
-// ReportViewedInput
+// ReportViewedInput represents report viewed input.
 type ReportViewedInput struct {
 	// (Required.)
 	Page ReportViewedPage `json:"page"`
@@ -1778,21 +1795,21 @@ type RevokeRegistrationTokenInput struct {
 	Mrn String `json:"mrn"`
 }
 
-// RiskFactorFilter
+// RiskFactorFilter represents risk factor filter by mrn.
 type RiskFactorFilter struct {
 
-	// (Optional.)
+	// MRN filter query. (Optional.)
 	Mrns *RiskFactorFilterQuery `json:"mrns,omitempty"`
-	// (Optional.)
+	// Risk factor indicators to filter on. They are ORed together. (Optional.)
 	Indicators *[]String `json:"indicators,omitempty"`
 }
 
-// RiskFactorFilterQuery
+// RiskFactorFilterQuery represents risk factor filter query.
 type RiskFactorFilterQuery struct {
 
-	// (Optional.)
+	// Any terms here will be ANDed. (Optional.)
 	And *[]String `json:"and,omitempty"`
-	// (Optional.)
+	// Any terms here will be ORed. (Optional.)
 	Or *[]String `json:"or,omitempty"`
 }
 
@@ -1802,7 +1819,7 @@ type RoleInput struct {
 	Mrn String `json:"mrn"`
 }
 
-// S3ConfigurationOptionsInput
+// S3ConfigurationOptionsInput represents s3 integration input.
 type S3ConfigurationOptionsInput struct {
 	// (Required.)
 	Output BucketOutputType `json:"output"`
@@ -1837,7 +1854,7 @@ type SSOProviderInput struct {
 	X509Certificates *[]String `json:"x509Certificates,omitempty"`
 }
 
-// ScanConfigurationInput
+// ScanConfigurationInput represents scanConfigurationInput is the input options for the AWS integration scan configuration.
 type ScanConfigurationInput struct {
 
 	// (Optional.)
@@ -1856,22 +1873,22 @@ type ScanConfigurationInput struct {
 	Ec2ScanOptions *Ec2ScanOptionsInput `json:"ec2ScanOptions,omitempty"`
 }
 
-// ScimGroupMapping
+// ScimGroupMapping represents a mapping of SCIM group to organization or its spaces and an IAM role.
 type ScimGroupMapping struct {
-	// (Required.)
+	// IAM role to be assigned to all members of the SCIM group. (Required.)
 	IamRole String `json:"iamRole"`
 
-	// (Optional.)
+	// MRN of the space to be mapped. (Optional.)
 	SpaceMrn *String `json:"spaceMrn,omitempty"`
-	// (Optional.)
+	// MRN of the organization to be mapped. (Optional.)
 	OrgMrn *String `json:"orgMrn,omitempty"`
 }
 
-// ScoreRange
+// ScoreRange represents score range.
 type ScoreRange struct {
-	// (Required.)
+	// Begin. (Required.)
 	Begin Int `json:"begin"`
-	// (Required.)
+	// End. (Required.)
 	End Int `json:"end"`
 }
 
@@ -1882,11 +1899,11 @@ type SearchFilters struct {
 	AggregateScoreType *AggregateScoreType `json:"aggregateScoreType,omitempty"`
 }
 
-// SecurityDashboardPageInfo
+// SecurityDashboardPageInfo represents security dashboard pagination info.
 type SecurityDashboardPageInfo struct {
-	// (Required.)
+	// organization mrn. (Required.)
 	OrgMrn String `json:"orgMrn"`
-	// (Required.)
+	// space mrn. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 }
 
@@ -1908,25 +1925,25 @@ type SetAssetAnnotationsInput struct {
 	Annotations []KeyValueInput `json:"annotations"`
 }
 
-// SetCustomPolicyInput
+// SetCustomPolicyInput represents uploads policy content.
 type SetCustomPolicyInput struct {
-	// (Required.)
+	// The mrn of the space. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// RFC2397, base64 encoded policy bundle. (Required.)
 	Dataurl String `json:"dataurl"`
 
-	// (Optional.)
+	// Overwrites the policy if it already exists. (Optional.)
 	Overwrite *Boolean `json:"overwrite,omitempty"`
 }
 
-// SetCustomQueryPackInput
+// SetCustomQueryPackInput represents creates a new query pack with the provided content.
 type SetCustomQueryPackInput struct {
-	// (Required.)
+	// The mrn of the space. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// RFC2397, base64 encoded policy bundle. (Required.)
 	Dataurl String `json:"dataurl"`
 
-	// (Optional.)
+	// Overwrites the query pack if it already exists. (Optional.)
 	Overwrite *Boolean `json:"overwrite,omitempty"`
 }
 
@@ -1968,13 +1985,13 @@ type SetSSOProviderInput struct {
 	Provider *SSOProviderInput `json:"provider,omitempty"`
 }
 
-// SetScimGroupMappingInput
+// SetScimGroupMappingInput represents input type for setScimGroupMapping.
 type SetScimGroupMappingInput struct {
-	// (Required.)
+	// Organization MRN for with the SCIM mapping is defined. (Required.)
 	OrgMrn String `json:"orgMrn"`
-	// (Required.)
+	// Group Identifier which is the SCIM displayName. (Required.)
 	Group String `json:"group"`
-	// (Required.)
+	// Mappings of SCIM group to organization or its spaces with IAM role. (Required.)
 	Mappings []ScimGroupMapping `json:"mappings"`
 }
 
@@ -1988,14 +2005,14 @@ type SetSpaceMembershipInput struct {
 	Roles []RoleInput `json:"roles"`
 }
 
-// SlackConfigurationOptionsInput
+// SlackConfigurationOptionsInput represents slack integration input.
 type SlackConfigurationOptionsInput struct {
 
 	// (Optional.)
 	SlackToken *String `json:"slackToken,omitempty"`
 }
 
-// SnowflakeConfigurationOptionsInput
+// SnowflakeConfigurationOptionsInput represents snowflake integration input.
 type SnowflakeConfigurationOptionsInput struct {
 	// (Required.)
 	AccountID String `json:"accountId"`
@@ -2018,24 +2035,24 @@ type SnowflakeConfigurationOptionsInput struct {
 
 // SpacePlanInput
 type SpacePlanInput struct {
-	// (Required.)
+	// The space mrn the plan is for. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// The mrn to scope the planning information to. This can be either the space, or an assigned policy. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
 }
 
 // SpacePlanQueryMutationDeltaInput
 type SpacePlanQueryMutationDeltaInput struct {
-	// (Required.)
+	// The queryMrn to move. (Required.)
 	QueryMrn String `json:"queryMrn"`
-	// (Required.)
+	// Where to move the query to. If the query is being moved to a milestone, you must also set milestoneUid. (Required.)
 	To SpacePlanQueryMutationDestinationType `json:"to"`
 
-	// (Optional.)
+	// The uid of the milestone to move the query to. (Optional.)
 	MilestoneUID *String `json:"milestoneUid,omitempty"`
 }
 
-// SpacePolicyReportInput
+// SpacePolicyReportInput represents input data for a space policy report.
 type SpacePolicyReportInput struct {
 	// (Required.)
 	SpaceMrn ID `json:"spaceMrn"`
@@ -2046,15 +2063,15 @@ type SpacePolicyReportInput struct {
 	FormatType *FormatType `json:"formatType,omitempty"`
 }
 
-// SpacePolicySummaryInput
+// SpacePolicySummaryInput represents spacePolicySummaryInput contains the input parameters for the spacePolicySummary query.
 type SpacePolicySummaryInput struct {
-	// (Required.)
+	// spaceMrn is the MRN of the space. Statistics will be calculated for the provided policy MRN in this space. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// policyMrn is the MRN of the policy to summarize. (Required.)
 	PolicyMrn String `json:"policyMrn"`
 }
 
-// SpaceReportInput
+// SpaceReportInput represents input data for a space report.
 type SpaceReportInput struct {
 	// (Required.)
 	SpaceMrn ID `json:"spaceMrn"`
@@ -2063,31 +2080,31 @@ type SpaceReportInput struct {
 	FormatType *FormatType `json:"formatType,omitempty"`
 }
 
-// SpaceSettingsInput
+// SpaceSettingsInput represents space settings input.
 type SpaceSettingsInput struct {
 
-	// (Optional.)
+	// Terminated assets configuration. (Optional.)
 	TerminatedAssetsConfiguration *TerminatedAssetsConfigurationInput `json:"terminatedAssetsConfiguration,omitempty"`
-	// (Optional.)
+	// Unused service accounts configuration. (Optional.)
 	UnusedServiceAccountsConfiguration *UnusedServiceAccountsConfigurationInput `json:"unusedServiceAccountsConfiguration,omitempty"`
-	// (Optional.)
+	// Garbage collect assets configuration. (Optional.)
 	GarbageCollectAssetsConfiguration *GarbageCollectAssetsConfigurationInput `json:"garbageCollectAssetsConfiguration,omitempty"`
-	// (Optional.)
+	// Platform vulnerability configuration. (Optional.)
 	PlatformVulnerabilityConfiguration *PlatformVulnerabilityConfigurationInput `json:"platformVulnerabilityConfiguration,omitempty"`
 }
 
-// SpaceVulnerabilitiesInput
+// SpaceVulnerabilitiesInput represents space Vulnerability inputs.
 type SpaceVulnerabilitiesInput struct {
-	// (Required.)
+	// space mrn. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 
-	// (Optional.)
+	// order type. (Optional.)
 	OrderType *VulnerabilityOrderType `json:"orderType,omitempty"`
-	// (Optional.)
+	// first. (Optional.)
 	Count *Int `json:"count,omitempty"`
 }
 
-// SpaceVulnerabilityReportInput
+// SpaceVulnerabilityReportInput represents input data for a space vulnerability report.
 type SpaceVulnerabilityReportInput struct {
 	// (Required.)
 	SpaceMrn ID `json:"spaceMrn"`
@@ -2104,7 +2121,7 @@ type SubscriptionItem struct {
 	Quantity Int `json:"quantity"`
 }
 
-// SuppressIntegrationMessageInput
+// SuppressIntegrationMessageInput represents suppressIntegrationMessageInput contains the inputs needed to suppress (remove) an integration message.
 type SuppressIntegrationMessageInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -2115,71 +2132,71 @@ type SuppressIntegrationMessageInput struct {
 	Identifier *String `json:"identifier,omitempty"`
 }
 
-// TerminatedAssetsConfigurationInput
+// TerminatedAssetsConfigurationInput represents terminated assets configuration input.
 type TerminatedAssetsConfigurationInput struct {
 
-	// (Optional.)
+	// Whether to cleanup terminated assets. (Optional.)
 	Cleanup *Boolean `json:"cleanup,omitempty"`
 }
 
-// TicketContentInput
+// TicketContentInput represents format and scope for the ticket content.
 type TicketContentInput struct {
-	// (Required.)
+	// The MRN of the scope for which the content is fetched. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// (Required.)
+	// The format of the ticket content. (Required.)
 	Format TicketFormat `json:"format"`
 }
 
-// TicketContextInput
+// TicketContextInput represents fetch Jira ticket context information.
 type TicketContextInput struct {
-	// (Required.)
+	// The MRN of the scope for which the context is fetched. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
 
-	// (Optional.)
+	// Jira ticket context parameters. (Optional.)
 	Jira *JiraTicketContextInput `json:"jira,omitempty"`
 }
 
-// TicketInput
+// TicketInput represents parameters for CreateTicket.
 type TicketInput struct {
-	// (Required.)
+	// The MRN of the space where the ticket should be created. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// The summary content of the ticket. (Required.)
 	Summary String `json:"summary"`
-	// (Required.)
+	// The description of the ticket. (Required.)
 	Description String `json:"description"`
-	// (Required.)
+	// The integration that should be used to create the ticket in. (Required.)
 	Integration IntegrationType `json:"integration"`
 
-	// (Optional.)
+	// Optional URL for a reference. (Optional.)
 	ReferenceURL *String `json:"referenceUrl,omitempty"`
-	// (Optional.)
+	// Optional title for a reference. (Optional.)
 	ReferenceTitle *String `json:"referenceTitle,omitempty"`
 }
 
-// TimestampFilter
+// TimestampFilter represents timestamp filter.
 type TimestampFilter struct {
-	// (Required.)
+	// RFC3339 timestamp. (Required.)
 	Timestamp String `json:"timestamp"`
-	// (Required.)
+	// Comparison operator. (Required.)
 	Operator ComparisonOperator `json:"operator"`
 }
 
-// TopPolicyActionsInput
+// TopPolicyActionsInput represents top policy actions input.
 type TopPolicyActionsInput struct {
-	// (Required.)
+	// The mrn of the space. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 
-	// (Optional.)
+	// Count. (Optional.)
 	Count *Int `json:"count,omitempty"`
 }
 
-// TopVulnerabilityInput
+// TopVulnerabilityInput represents top Vulnerability input.
 type TopVulnerabilityInput struct {
-	// (Required.)
+	// space mrn. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 }
 
-// TriggerActionInput
+// TriggerActionInput represents inputs used to trigger an action on a client integration.
 type TriggerActionInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -2190,23 +2207,23 @@ type TriggerActionInput struct {
 	ActionOptions *TriggerActionOptionsInput `json:"actionOptions,omitempty"`
 }
 
-// TriggerActionOptionsInput
+// TriggerActionOptionsInput represents inputs options used to trigger an action on a client integration.
 type TriggerActionOptionsInput struct {
 
-	// (Optional.)
+	// Optional source identifier, e.g. AWS account id. (Optional.)
 	Identifiers *[]String `json:"identifiers,omitempty"`
-	// (Optional.)
+	// Optional - AWS scan options. (Optional.)
 	AwsScanOptions *AwsScanOptions `json:"awsScanOptions,omitempty"`
 }
 
-// UnusedServiceAccountsConfigurationInput
+// UnusedServiceAccountsConfigurationInput represents unused service accounts configuration input.
 type UnusedServiceAccountsConfigurationInput struct {
 
-	// (Optional.)
+	// Whether to cleanup unused service accounts. (Optional.)
 	Cleanup *Boolean `json:"cleanup,omitempty"`
 }
 
-// UpdateAPITokenInput
+// UpdateAPITokenInput represents input used when updating an API token name or description.
 type UpdateAPITokenInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -2217,7 +2234,7 @@ type UpdateAPITokenInput struct {
 	Description *String `json:"description,omitempty"`
 }
 
-// UpdateAgentInput
+// UpdateAgentInput represents inputs for updating agents.
 type UpdateAgentInput struct {
 	// (Required.)
 	AgentMrn String `json:"agentMrn"`
@@ -2226,7 +2243,7 @@ type UpdateAgentInput struct {
 	Notes *String `json:"notes,omitempty"`
 }
 
-// UpdateClientIntegrationConfigurationInput
+// UpdateClientIntegrationConfigurationInput represents input for updating a client integration.
 type UpdateClientIntegrationConfigurationInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -2239,7 +2256,7 @@ type UpdateClientIntegrationConfigurationInput struct {
 	Name *String `json:"name,omitempty"`
 }
 
-// UpdateClientIntegrationNameInput
+// UpdateClientIntegrationNameInput represents inputs to change the name of a client integration.
 type UpdateClientIntegrationNameInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -2247,15 +2264,15 @@ type UpdateClientIntegrationNameInput struct {
 	Name String `json:"name"`
 }
 
-// UpdateOrganizationInput
+// UpdateOrganizationInput represents update organization input.
 type UpdateOrganizationInput struct {
-	// (Required.)
+	// MRN. (Required.)
 	Mrn String `json:"mrn"`
-	// (Required.)
+	// Name. (Required.)
 	Name String `json:"name"`
 }
 
-// UpdateServiceAccountInput
+// UpdateServiceAccountInput represents input used when updating service account name, notes, and labels.
 type UpdateServiceAccountInput struct {
 	// (Required.)
 	Mrn String `json:"mrn"`
@@ -2268,14 +2285,14 @@ type UpdateServiceAccountInput struct {
 	Labels *[]*KeyValueInput `json:"labels,omitempty"`
 }
 
-// UpdateSpaceInput
+// UpdateSpaceInput represents update space input.
 type UpdateSpaceInput struct {
-	// (Required.)
+	// MRN. (Required.)
 	Mrn String `json:"mrn"`
-	// (Required.)
+	// Name. (Required.)
 	Name String `json:"name"`
 
-	// (Optional.)
+	// Settings. (Optional.)
 	Settings *SpaceSettingsInput `json:"settings,omitempty"`
 }
 
@@ -2285,43 +2302,43 @@ type UpdateUserInput struct {
 	Name String `json:"name"`
 }
 
-// UploadFrameworkInput
+// UploadFrameworkInput represents upload framework input.
 type UploadFrameworkInput struct {
-	// (Required.)
+	// The mrn of the space to which the framework belongs. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
-	// (Required.)
+	// RFC2397, base64 encoded policy bundle. (Required.)
 	Dataurl String `json:"dataurl"`
 }
 
-// VulnDashboardStatsInput
+// VulnDashboardStatsInput represents vulnerability Dashboard stats input.
 type VulnDashboardStatsInput struct {
-	// (Required.)
+	// space mrn. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 }
 
-// VulnerabilityDashboardPageInfo
+// VulnerabilityDashboardPageInfo represents vuln Dashboard pagination info.
 type VulnerabilityDashboardPageInfo struct {
-	// (Required.)
+	// organization mrn. (Required.)
 	OrgMrn String `json:"orgMrn"`
-	// (Required.)
+	// space mrn. (Required.)
 	SpaceMrn String `json:"spaceMrn"`
 }
 
-// VulnerabilityScoreFilter
+// VulnerabilityScoreFilter represents vulnerability score filters.
 type VulnerabilityScoreFilter struct {
 
-	// (Optional.)
+	// Filter by vulnerability score type. (Optional.)
 	ScoreType *VulnerabilityScoreType `json:"scoreType,omitempty"`
-	// (Optional.)
+	// Filter by state. (Optional.)
 	State *ScoreStateFilter `json:"state,omitempty"`
-	// (Optional.)
+	// Optional query terms. Will return only vulnerabilities containing the term in their MRN. (Optional.)
 	QueryTerms *[]String `json:"queryTerms,omitempty"`
 }
 
-// VulnerabilityScoreOrder
+// VulnerabilityScoreOrder represents vulnerability score order object.
 type VulnerabilityScoreOrder struct {
-	// (Required.)
+	// Order direction. (Required.)
 	Direction OrderDirection `json:"direction"`
-	// (Required.)
+	// VulnerabilityScore field. (Required.)
 	Field VulnerabilityScoreOrderField `json:"field"`
 }
