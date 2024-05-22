@@ -225,11 +225,12 @@ package mondoogql
 {{end}}{{end}}
 
 {{- define "enum" -}}
-// {{.name}}
+// {{.name}} {{.description | clean | endSentence}}
 type {{.name}} string
 
+{{if .description}}// {{.description | clean | fullSentence}}{{end}}
 const ({{range .enumValues}}
-	{{enumIdentifier $.name .name}} {{$.name}} = {{.name | quote}} {{end}}
+	{{enumIdentifier $.name .name}} {{$.name}} = {{.name | quote}} {{if .description}}// {{.description | clean | fullSentence}}{{end}} {{end}}
 )
 {{- end -}}
 `),
@@ -252,12 +253,12 @@ type Input interface{}
 
 
 {{- define "inputObject" -}}
-// {{.name}}
+// {{.name}} {{.description | clean | endSentence}}
 type {{.name}} struct {{"{"}}{{range .inputFields}}{{if eq .type.kind "NON_NULL"}}
-	// (Required.)
+	// {{ if .description }}{{ .description | clean | fullSentence }} {{ end }}(Required.)
 	{{.name | identifier}} {{.type | type}} ` + "`" + `json:"{{.name}}"` + "`" + `{{end}}{{end}}
 {{range .inputFields}}{{if ne .type.kind "NON_NULL"}}
-	// (Optional.)
+	// {{ if .description }}{{ .description | clean | fullSentence }} {{ end }}(Optional.)
 	{{.name | identifier}} {{.type | type}} ` + "`" + `json:"{{.name}},omitempty"` + "`" + `{{end}}{{end}}
 }
 {{- end -}}
@@ -315,9 +316,18 @@ func parseTemplate(text string) *template.Template {
 		"enumIdentifier": func(enum, value string) string {
 			return enum + ident.ParseScreamingSnakeCase(value).ToMixedCaps()
 		},
-		"type":  typeString,
-		"clean": func(s string) string { return strings.Join(strings.Fields(s), " ") },
+		"type": typeString,
+		"clean": func(v interface{}) string {
+			if v == nil {
+				return ""
+			}
+			s := v.(string)
+			return strings.Join(strings.Fields(s), " ")
+		},
 		"endSentence": func(s string) string {
+			if s == "" {
+				return s
+			}
 			s = strings.ToLower(s[0:1]) + s[1:]
 			switch {
 			default:
