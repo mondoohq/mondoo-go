@@ -113,6 +113,16 @@ const (
 	AggregateScoreOrderFieldTitle       AggregateScoreOrderField = "TITLE"        // Title.
 )
 
+// AggregateScoreState
+type AggregateScoreState string
+
+const (
+	AggregateScoreStatePreview  AggregateScoreState = "PREVIEW"
+	AggregateScoreStateEnabled  AggregateScoreState = "ENABLED"
+	AggregateScoreStateSnoozed  AggregateScoreState = "SNOOZED"
+	AggregateScoreStateDisabled AggregateScoreState = "DISABLED"
+)
+
 // AggregateScoreType represents aggregate score type field.
 type AggregateScoreType string
 
@@ -234,6 +244,17 @@ const (
 	BucketOutputTypeJsonl   BucketOutputType = "JSONL"
 )
 
+// CaseStatus represents case status.
+type CaseStatus string
+
+// Case status.
+const (
+	CaseStatusPending CaseStatus = "PENDING"
+	CaseStatusOpen    CaseStatus = "OPEN"
+	CaseStatusClosed  CaseStatus = "CLOSED"
+	CaseStatusError   CaseStatus = "ERROR"
+)
+
 // CatalogType represents type of the object.
 type CatalogType string
 
@@ -243,6 +264,16 @@ const (
 	CatalogTypePolicy    CatalogType = "POLICY"
 	CatalogTypeQuerypack CatalogType = "QUERYPACK"
 	CatalogTypeQuery     CatalogType = "QUERY"
+)
+
+// CheckScoreOrderField represents asset order field.
+type CheckScoreOrderField string
+
+// Asset order field.
+const (
+	CheckScoreOrderFieldAssetName   CheckScoreOrderField = "ASSET_NAME"
+	CheckScoreOrderFieldScore       CheckScoreOrderField = "SCORE"
+	CheckScoreOrderFieldLastUpdated CheckScoreOrderField = "LAST_UPDATED"
 )
 
 // CheckState represents check state.
@@ -371,6 +402,7 @@ const (
 	ControlsOrderFieldChecks     ControlsOrderField = "CHECKS"
 	ControlsOrderFieldAssets     ControlsOrderField = "ASSETS"
 	ControlsOrderFieldExceptions ControlsOrderField = "EXCEPTIONS"
+	ControlsOrderFieldQueries    ControlsOrderField = "QUERIES"
 )
 
 // CveOrderField represents cVE order fields.
@@ -486,6 +518,8 @@ type ExceptionType string
 const (
 	ExceptionTypeCompliance ExceptionType = "COMPLIANCE"
 	ExceptionTypeSecurity   ExceptionType = "SECURITY"
+	ExceptionTypeCve        ExceptionType = "CVE"
+	ExceptionTypeAdvisory   ExceptionType = "ADVISORY"
 )
 
 // FormatType represents output format.
@@ -686,6 +720,7 @@ const (
 	K8sScanNodesStyleUnknown    K8sScanNodesStyle = "UNKNOWN"
 	K8sScanNodesStyleCronjob    K8sScanNodesStyle = "CRONJOB"
 	K8sScanNodesStyleDeployment K8sScanNodesStyle = "DEPLOYMENT"
+	K8sScanNodesStyleDaemonset  K8sScanNodesStyle = "DAEMONSET"
 )
 
 // LibraryItemType represents libraryItemType.
@@ -937,8 +972,10 @@ type ScoreState string
 
 // Score state.
 const (
-	ScoreStateOpen   ScoreState = "OPEN"   // Fixed/Pass.
-	ScoreStateClosed ScoreState = "CLOSED" // Not fixed/Failed.
+	ScoreStateOpen     ScoreState = "OPEN"     // Fixed/Pass.
+	ScoreStateClosed   ScoreState = "CLOSED"   // Not fixed/Failed.
+	ScoreStateSnoozed  ScoreState = "SNOOZED"  // Snoozed.
+	ScoreStateDisabled ScoreState = "DISABLED" // Disabled.
 )
 
 // ScoreStateFilter represents score state filter.
@@ -962,6 +999,18 @@ const (
 	ScoreTypeUnscored   ScoreType = "UNSCORED"
 	ScoreTypeOutOfScope ScoreType = "OUT_OF_SCOPE"
 	ScoreTypeDisabled   ScoreType = "DISABLED"
+)
+
+// ScoringSystem represents policy Scoring System.
+type ScoringSystem string
+
+// Policy Scoring System.
+const (
+	ScoringSystemAverage         ScoringSystem = "AVERAGE"
+	ScoringSystemWeightedAverage ScoringSystem = "WEIGHTED_AVERAGE"
+	ScoringSystemBanded          ScoringSystem = "BANDED"
+	ScoringSystemDecayed         ScoringSystem = "DECAYED"
+	ScoringSystemHighestImpact   ScoringSystem = "HIGHEST_IMPACT"
 )
 
 // SearchType represents possible search types for the search query.
@@ -1011,6 +1060,15 @@ type TicketFormat string
 const (
 	TicketFormatJira     TicketFormat = "JIRA"     // The ticket content format for Atlassian Jira.
 	TicketFormatMarkdown TicketFormat = "MARKDOWN" // The ticket content format for Markdown.
+)
+
+// TicketRefType represents ticket reference type.
+type TicketRefType string
+
+// Ticket reference type.
+const (
+	TicketRefTypeUnknown TicketRefType = "UNKNOWN"
+	TicketRefTypeJira    TicketRefType = "JIRA"
 )
 
 // TrustLevel represents trust level of the object.
