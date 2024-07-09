@@ -95,7 +95,7 @@ pull request][pulls].
 When developing new APIs locally, you can overwrite the API endpoint.
 Specify `MONDOO_API_ENDPOINT` environment variable for the `generate` command, e.g.,:
 ```
-MONDOO_API_ENDPOINT=http://127.0.0.1 make generate
+MONDOO_API_ENDPOINT=http://127.0.0.1:8989 make generate
 ```
 
 ## Kudos
