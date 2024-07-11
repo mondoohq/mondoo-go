@@ -361,7 +361,6 @@ type ComplianceFrameworkMutationAction string
 const (
 	ComplianceFrameworkMutationActionEnable  ComplianceFrameworkMutationAction = "ENABLE"
 	ComplianceFrameworkMutationActionPreview ComplianceFrameworkMutationAction = "PREVIEW"
-	ComplianceFrameworkMutationActionDisable ComplianceFrameworkMutationAction = "DISABLE"
 )
 
 // ComplianceFrameworkState represents compliance framework state.
@@ -369,9 +368,8 @@ type ComplianceFrameworkState string
 
 // Compliance framework state.
 const (
-	ComplianceFrameworkStateActive   ComplianceFrameworkState = "ACTIVE"
-	ComplianceFrameworkStatePreview  ComplianceFrameworkState = "PREVIEW"
-	ComplianceFrameworkStateDisabled ComplianceFrameworkState = "DISABLED"
+	ComplianceFrameworkStateActive  ComplianceFrameworkState = "ACTIVE"
+	ComplianceFrameworkStatePreview ComplianceFrameworkState = "PREVIEW"
 )
 
 // ContentSearchResultItemOrderField represents order fields for content search results.
@@ -1108,9 +1106,9 @@ type VulnerabilityScoreOrderField string
 
 // Vulnerability score order field.
 const (
-	VulnerabilityScoreOrderFieldCvssScore     VulnerabilityScoreOrderField = "CVSS_SCORE"
-	VulnerabilityScoreOrderFieldMrn           VulnerabilityScoreOrderField = "MRN"
-	VulnerabilityScoreOrderFieldPublishedDate VulnerabilityScoreOrderField = "PUBLISHED_DATE"
+	VulnerabilityScoreOrderFieldCvssScore   VulnerabilityScoreOrderField = "CVSS_SCORE"
+	VulnerabilityScoreOrderFieldMrn         VulnerabilityScoreOrderField = "MRN"
+	VulnerabilityScoreOrderFieldLastUpdated VulnerabilityScoreOrderField = "LAST_UPDATED"
 )
 
 // VulnerabilityScoreType represents vulnerability score type.
