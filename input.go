@@ -131,6 +131,8 @@ type AggregateScoreFilter struct {
 	SoftwareFindingMrn *String `json:"softwareFindingMrn,omitempty"`
 	// filter by aggregate score state. If not provided, all states are returned. (Optional.)
 	State *AggregateScoreState `json:"state,omitempty"`
+	// Retrieve check scores by policy MRN. (Optional.)
+	PolicyMrn *String `json:"policyMrn,omitempty"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
