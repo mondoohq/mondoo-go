@@ -361,6 +361,7 @@ type ComplianceFrameworkMutationAction string
 const (
 	ComplianceFrameworkMutationActionEnable  ComplianceFrameworkMutationAction = "ENABLE"
 	ComplianceFrameworkMutationActionPreview ComplianceFrameworkMutationAction = "PREVIEW"
+	ComplianceFrameworkMutationActionDisable ComplianceFrameworkMutationAction = "DISABLE"
 )
 
 // ComplianceFrameworkState represents compliance framework state.
@@ -368,8 +369,9 @@ type ComplianceFrameworkState string
 
 // Compliance framework state.
 const (
-	ComplianceFrameworkStateActive  ComplianceFrameworkState = "ACTIVE"
-	ComplianceFrameworkStatePreview ComplianceFrameworkState = "PREVIEW"
+	ComplianceFrameworkStateActive   ComplianceFrameworkState = "ACTIVE"
+	ComplianceFrameworkStatePreview  ComplianceFrameworkState = "PREVIEW"
+	ComplianceFrameworkStateDisabled ComplianceFrameworkState = "DISABLED"
 )
 
 // ContentSearchResultItemOrderField represents order fields for content search results.
