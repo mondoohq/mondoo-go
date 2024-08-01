@@ -445,6 +445,15 @@ const (
 	CveSummaryOrderFieldRiskfactors CveSummaryOrderField = "RISKFACTORS"
 )
 
+// DataQueryOrderField represents data query order field.
+type DataQueryOrderField string
+
+// Data query order field.
+const (
+	DataQueryOrderFieldAssetName   DataQueryOrderField = "ASSET_NAME"
+	DataQueryOrderFieldLastUpdated DataQueryOrderField = "LAST_UPDATED"
+)
+
 // DocumentFormat represents document format.
 type DocumentFormat string
 
@@ -791,6 +800,27 @@ const (
 	MqueryTypeScoring MqueryType = "SCORING"
 )
 
+// MvdEntryType represents mVD entry type.
+type MvdEntryType string
+
+// MVD entry type.
+const (
+	MvdEntryTypeAdvisory MvdEntryType = "ADVISORY"
+	MvdEntryTypeCve      MvdEntryType = "CVE"
+)
+
+// MvdOrderField represents mVD order field.
+type MvdOrderField string
+
+// MVD order field.
+const (
+	MvdOrderFieldID        MvdOrderField = "ID"
+	MvdOrderFieldTitle     MvdOrderField = "TITLE"
+	MvdOrderFieldPublished MvdOrderField = "PUBLISHED"
+	MvdOrderFieldModified  MvdOrderField = "MODIFIED"
+	MvdOrderFieldScore     MvdOrderField = "SCORE"
+)
+
 // OrderDirection represents defines the possible directions in which to sort a list of items.
 type OrderDirection string
 
@@ -967,6 +997,14 @@ const (
 	ReviewStatusNotReviewed ReviewStatus = "NOT_REVIEWED"
 	ReviewStatusApproved    ReviewStatus = "APPROVED"
 	ReviewStatusRejected    ReviewStatus = "REJECTED"
+)
+
+// RiskFactorAction
+type RiskFactorAction string
+
+const (
+	RiskFactorActionEnable  RiskFactorAction = "ENABLE"  // Enable risk factor.
+	RiskFactorActionDisable RiskFactorAction = "DISABLE" // Disable risk factor.
 )
 
 // ScoreState represents score state.
