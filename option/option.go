@@ -70,10 +70,13 @@ func WithAPIToken(token string) ClientOption {
 	return withTokenSource{"", src, nil}
 }
 
-// WithServiceAccount returns a ClientOption that specifies the credentials file to use.
+// WithServiceAccount returns a ClientOption that specifies the credentials to use.
 func WithServiceAccount(data []byte) ClientOption {
 	ts, sa, err := signer.NewServiceAccountTokenSource(data)
-	return withTokenSource{sa.ApiEndpoint, ts, err}
+	if err != nil {
+		return withTokenSource{"", nil, err}
+	}
+	return withTokenSource{sa.ApiEndpoint, ts, nil}
 }
 
 // WithServiceAccountFile returns a ClientOption that specifies the credentials file to use.
@@ -82,9 +85,7 @@ func WithServiceAccountFile(filename string) ClientOption {
 	if err != nil {
 		return withTokenSource{"", nil, err}
 	}
-
-	ts, sa, err := signer.NewServiceAccountTokenSource(data)
-	return withTokenSource{sa.ApiEndpoint, ts, err}
+	return WithServiceAccount(data)
 }
 
 // WithoutAuthentication returns a ClientOption that disables authentication.
