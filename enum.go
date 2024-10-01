@@ -33,12 +33,21 @@ const (
 	ActionTypeRetrySetup     ActionType = "RETRY_SETUP"
 	ActionTypeRunScan        ActionType = "RUN_SCAN"
 	ActionTypeRunExport      ActionType = "RUN_EXPORT"
+	ActionTypeRunImport      ActionType = "RUN_IMPORT"
 	ActionTypePause          ActionType = "PAUSE"
 	ActionTypeUnpause        ActionType = "UNPAUSE"
 	ActionTypeMetrics        ActionType = "METRICS"
 	ActionTypeUpdate         ActionType = "UPDATE"
 	ActionTypeDiagnostics    ActionType = "DIAGNOSTICS"
 	ActionTypeClearScanQueue ActionType = "CLEAR_SCAN_QUEUE"
+)
+
+// ActivePolicyOrderField
+type ActivePolicyOrderField string
+
+const (
+	ActivePolicyOrderFieldAffectedAssets ActivePolicyOrderField = "AFFECTED_ASSETS"
+	ActivePolicyOrderFieldName           ActivePolicyOrderField = "NAME"
 )
 
 // AdvisoryOrderField represents possible advisory order fields.
@@ -134,6 +143,7 @@ const (
 	AggregateScoreTypePolicy            AggregateScoreType = "POLICY"
 	AggregateScoreTypeRisk              AggregateScoreType = "RISK"
 	AggregateScoreTypeAsset             AggregateScoreType = "ASSET"
+	AggregateScoreTypeControl           AggregateScoreType = "CONTROL"
 	AggregateScoreTypeSoftware          AggregateScoreType = "SOFTWARE"           // Aggregate score for a software package across all versions currently affected by a vulnerability.
 	AggregateScoreTypeVersionedSoftware AggregateScoreType = "VERSIONED_SOFTWARE" // Aggregate score for a software package with a specific version affected by a vulnerability.
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
@@ -244,6 +254,15 @@ const (
 	BucketOutputTypeJsonl   BucketOutputType = "JSONL"
 )
 
+// CaseRefStatus represents case reference status.
+type CaseRefStatus string
+
+// Case reference status.
+const (
+	CaseRefStatusOpen   CaseRefStatus = "OPEN"
+	CaseRefStatusClosed CaseRefStatus = "CLOSED"
+)
+
 // CaseStatus represents case status.
 type CaseStatus string
 
@@ -308,29 +327,34 @@ type ClientIntegrationType string
 
 // Type of the client integration.
 const (
-	ClientIntegrationTypeUnknown          ClientIntegrationType = "UNKNOWN"
-	ClientIntegrationTypeK8s              ClientIntegrationType = "K8S"
-	ClientIntegrationTypeAws              ClientIntegrationType = "AWS"
-	ClientIntegrationTypeManagedClient    ClientIntegrationType = "MANAGED_CLIENT"
-	ClientIntegrationTypeAzure            ClientIntegrationType = "AZURE"
-	ClientIntegrationTypeMs365            ClientIntegrationType = "MS365"
-	ClientIntegrationTypeGcp              ClientIntegrationType = "GCP"
-	ClientIntegrationTypeGoogleWorkspace  ClientIntegrationType = "GOOGLE_WORKSPACE"
-	ClientIntegrationTypeOkta             ClientIntegrationType = "OKTA"
-	ClientIntegrationTypeBigquery         ClientIntegrationType = "BIGQUERY"
-	ClientIntegrationTypeSnowflake        ClientIntegrationType = "SNOWFLAKE"
-	ClientIntegrationTypeAwsS3            ClientIntegrationType = "AWS_S3"
-	ClientIntegrationTypeS3               ClientIntegrationType = "S3"
-	ClientIntegrationTypeHostedSlack      ClientIntegrationType = "HOSTED_SLACK"
-	ClientIntegrationTypeGitHub           ClientIntegrationType = "GITHUB"
-	ClientIntegrationTypeGitLab           ClientIntegrationType = "GITLAB"
-	ClientIntegrationTypeGcsBucket        ClientIntegrationType = "GCS_BUCKET"
-	ClientIntegrationTypePostgres         ClientIntegrationType = "POSTGRES"
-	ClientIntegrationTypeOci              ClientIntegrationType = "OCI"
-	ClientIntegrationTypeTicketSystemJira ClientIntegrationType = "TICKET_SYSTEM_JIRA"
-	ClientIntegrationTypeAwsHosted        ClientIntegrationType = "AWS_HOSTED"
-	ClientIntegrationTypeAzureBlob        ClientIntegrationType = "AZURE_BLOB"
-	ClientIntegrationTypeHost             ClientIntegrationType = "HOST"
+	ClientIntegrationTypeUnknown             ClientIntegrationType = "UNKNOWN"
+	ClientIntegrationTypeK8s                 ClientIntegrationType = "K8S"
+	ClientIntegrationTypeAws                 ClientIntegrationType = "AWS"
+	ClientIntegrationTypeManagedClient       ClientIntegrationType = "MANAGED_CLIENT"
+	ClientIntegrationTypeAzure               ClientIntegrationType = "AZURE"
+	ClientIntegrationTypeMs365               ClientIntegrationType = "MS365"
+	ClientIntegrationTypeGcp                 ClientIntegrationType = "GCP"
+	ClientIntegrationTypeGoogleWorkspace     ClientIntegrationType = "GOOGLE_WORKSPACE"
+	ClientIntegrationTypeOkta                ClientIntegrationType = "OKTA"
+	ClientIntegrationTypeBigquery            ClientIntegrationType = "BIGQUERY"
+	ClientIntegrationTypeSnowflake           ClientIntegrationType = "SNOWFLAKE"
+	ClientIntegrationTypeAwsS3               ClientIntegrationType = "AWS_S3"
+	ClientIntegrationTypeS3                  ClientIntegrationType = "S3"
+	ClientIntegrationTypeHostedSlack         ClientIntegrationType = "HOSTED_SLACK"
+	ClientIntegrationTypeGitHub              ClientIntegrationType = "GITHUB"
+	ClientIntegrationTypeGitLab              ClientIntegrationType = "GITLAB"
+	ClientIntegrationTypeGcsBucket           ClientIntegrationType = "GCS_BUCKET"
+	ClientIntegrationTypePostgres            ClientIntegrationType = "POSTGRES"
+	ClientIntegrationTypeOci                 ClientIntegrationType = "OCI"
+	ClientIntegrationTypeTicketSystemJira    ClientIntegrationType = "TICKET_SYSTEM_JIRA"
+	ClientIntegrationTypeAwsHosted           ClientIntegrationType = "AWS_HOSTED"
+	ClientIntegrationTypeAzureBlob           ClientIntegrationType = "AZURE_BLOB"
+	ClientIntegrationTypeHost                ClientIntegrationType = "HOST"
+	ClientIntegrationTypeTicketSystemEmail   ClientIntegrationType = "TICKET_SYSTEM_EMAIL"
+	ClientIntegrationTypeTicketSystemZendesk ClientIntegrationType = "TICKET_SYSTEM_ZENDESK"
+	ClientIntegrationTypeMicrosoftDefender   ClientIntegrationType = "MICROSOFT_DEFENDER"
+	ClientIntegrationTypeTicketSystemGitHub  ClientIntegrationType = "TICKET_SYSTEM_GITHUB"
+	ClientIntegrationTypeTicketSystemGitLab  ClientIntegrationType = "TICKET_SYSTEM_GITLAB"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -380,6 +404,16 @@ type ContentSearchResultItemOrderField string
 // Order fields for content search results.
 const (
 	ContentSearchResultItemOrderFieldName ContentSearchResultItemOrderField = "NAME"
+)
+
+// ControlScoreOrderField represents control Score order field.
+type ControlScoreOrderField string
+
+// Control Score order field.
+const (
+	ControlScoreOrderFieldAssetName   ControlScoreOrderField = "ASSET_NAME"
+	ControlScoreOrderFieldScore       ControlScoreOrderField = "SCORE"
+	ControlScoreOrderFieldLastUpdated ControlScoreOrderField = "LAST_UPDATED"
 )
 
 // ControlState represents control state.
@@ -668,33 +702,38 @@ type IntegrationType string
 
 // Summary of client integrations.
 const (
-	IntegrationTypeUnknown          IntegrationType = "UNKNOWN"
-	IntegrationTypeManagedClient    IntegrationType = "MANAGED_CLIENT"
-	IntegrationTypeK8s              IntegrationType = "K8S"
-	IntegrationTypeAws              IntegrationType = "AWS"
-	IntegrationTypeAzure            IntegrationType = "AZURE"
-	IntegrationTypeMs365            IntegrationType = "MS365"
-	IntegrationTypeSlack            IntegrationType = "SLACK"
-	IntegrationTypeMsteams          IntegrationType = "MSTEAMS"
-	IntegrationTypeTelegram         IntegrationType = "TELEGRAM"
-	IntegrationTypeHttppost         IntegrationType = "HTTPPOST"
-	IntegrationTypeGcp              IntegrationType = "GCP"
-	IntegrationTypeGoogleWorkspace  IntegrationType = "GOOGLE_WORKSPACE"
-	IntegrationTypeOkta             IntegrationType = "OKTA"
-	IntegrationTypeBigquery         IntegrationType = "BIGQUERY"
-	IntegrationTypeSnowflake        IntegrationType = "SNOWFLAKE"
-	IntegrationTypeAwsS3            IntegrationType = "AWS_S3"
-	IntegrationTypeS3               IntegrationType = "S3"
-	IntegrationTypeHostedSlack      IntegrationType = "HOSTED_SLACK"
-	IntegrationTypeGitHub           IntegrationType = "GITHUB"
-	IntegrationTypeGitLab           IntegrationType = "GITLAB"
-	IntegrationTypeGcsBucket        IntegrationType = "GCS_BUCKET"
-	IntegrationTypePostgres         IntegrationType = "POSTGRES"
-	IntegrationTypeOci              IntegrationType = "OCI"
-	IntegrationTypeTicketSystemJira IntegrationType = "TICKET_SYSTEM_JIRA"
-	IntegrationTypeAzureBlob        IntegrationType = "AZURE_BLOB"
-	IntegrationTypeHost             IntegrationType = "HOST"
-	IntegrationTypeAwsHosted        IntegrationType = "AWS_HOSTED"
+	IntegrationTypeUnknown             IntegrationType = "UNKNOWN"
+	IntegrationTypeManagedClient       IntegrationType = "MANAGED_CLIENT"
+	IntegrationTypeK8s                 IntegrationType = "K8S"
+	IntegrationTypeAws                 IntegrationType = "AWS"
+	IntegrationTypeAzure               IntegrationType = "AZURE"
+	IntegrationTypeMs365               IntegrationType = "MS365"
+	IntegrationTypeSlack               IntegrationType = "SLACK"
+	IntegrationTypeMsteams             IntegrationType = "MSTEAMS"
+	IntegrationTypeTelegram            IntegrationType = "TELEGRAM"
+	IntegrationTypeHttppost            IntegrationType = "HTTPPOST"
+	IntegrationTypeGcp                 IntegrationType = "GCP"
+	IntegrationTypeGoogleWorkspace     IntegrationType = "GOOGLE_WORKSPACE"
+	IntegrationTypeOkta                IntegrationType = "OKTA"
+	IntegrationTypeBigquery            IntegrationType = "BIGQUERY"
+	IntegrationTypeSnowflake           IntegrationType = "SNOWFLAKE"
+	IntegrationTypeAwsS3               IntegrationType = "AWS_S3"
+	IntegrationTypeS3                  IntegrationType = "S3"
+	IntegrationTypeHostedSlack         IntegrationType = "HOSTED_SLACK"
+	IntegrationTypeGitHub              IntegrationType = "GITHUB"
+	IntegrationTypeGitLab              IntegrationType = "GITLAB"
+	IntegrationTypeGcsBucket           IntegrationType = "GCS_BUCKET"
+	IntegrationTypePostgres            IntegrationType = "POSTGRES"
+	IntegrationTypeOci                 IntegrationType = "OCI"
+	IntegrationTypeTicketSystemJira    IntegrationType = "TICKET_SYSTEM_JIRA"
+	IntegrationTypeAzureBlob           IntegrationType = "AZURE_BLOB"
+	IntegrationTypeHost                IntegrationType = "HOST"
+	IntegrationTypeAwsHosted           IntegrationType = "AWS_HOSTED"
+	IntegrationTypeTicketSystemEmail   IntegrationType = "TICKET_SYSTEM_EMAIL"
+	IntegrationTypeTicketSystemZendesk IntegrationType = "TICKET_SYSTEM_ZENDESK"
+	IntegrationTypeMicrosoftDefender   IntegrationType = "MICROSOFT_DEFENDER"
+	IntegrationTypeTicketSystemGitHub  IntegrationType = "TICKET_SYSTEM_GITHUB"
+	IntegrationTypeTicketSystemGitLab  IntegrationType = "TICKET_SYSTEM_GITLAB"
 )
 
 // InvitationOrderField
@@ -853,6 +892,7 @@ const (
 	PackageScoresOrderFieldRiskFactors PackageScoresOrderField = "RISK_FACTORS"
 	PackageScoresOrderFieldFirstFound  PackageScoresOrderField = "FIRST_FOUND"
 	PackageScoresOrderFieldPackageName PackageScoresOrderField = "PACKAGE_NAME"
+	PackageScoresOrderFieldRiskScore   PackageScoresOrderField = "RISK_SCORE"
 )
 
 // PackageType represents possible package types.
@@ -957,6 +997,18 @@ const (
 	PropertyQueryMutationActionUnset PropertyQueryMutationAction = "UNSET" // If a property override is set for the property mrn, the UNSET action will remove it.
 )
 
+// QueryImpact represents queryImpact maps an impact number to a human readable string.
+type QueryImpact string
+
+// QueryImpact maps an impact number to a human readable string.
+const (
+	QueryImpactCritical QueryImpact = "CRITICAL" // Impact is critical when 90 - 100.
+	QueryImpactHigh     QueryImpact = "HIGH"     // Impact is high when between 70 - 89.
+	QueryImpactMedium   QueryImpact = "MEDIUM"   // Impact is medium when between 40 - 69.
+	QueryImpactLow      QueryImpact = "LOW"      // Impact is low when between 1 - 39.
+	QueryImpactInfo     QueryImpact = "INFO"     // Impact is none when 0.
+)
+
 // RegistrationTokenOrderField
 type RegistrationTokenOrderField string
 
@@ -1005,6 +1057,29 @@ type RiskFactorAction string
 const (
 	RiskFactorActionEnable  RiskFactorAction = "ENABLE"  // Enable risk factor.
 	RiskFactorActionDisable RiskFactorAction = "DISABLE" // Disable risk factor.
+)
+
+// ScoreResultType
+type ScoreResultType string
+
+const (
+	ScoreResultTypeUnknown  ScoreResultType = "UNKNOWN"  // Was not scored for an unknown reason.
+	ScoreResultTypeResult   ScoreResultType = "RESULT"   // Score represents a result.
+	ScoreResultTypeError    ScoreResultType = "ERROR"    // Score rrepresents an error.
+	ScoreResultTypeSkipped  ScoreResultType = "SKIPPED"  // Score was not scored because query was skipped.
+	ScoreResultTypeUnscored ScoreResultType = "UNSCORED" // The query has no scoring element.
+)
+
+// ScoreSeverity represents scoreSeverity maps a score number to a severity level.
+type ScoreSeverity string
+
+// ScoreSeverity maps a score number to a severity level.
+const (
+	ScoreSeverityCritical ScoreSeverity = "CRITICAL" // Severity is critical when score is 0.
+	ScoreSeverityHigh     ScoreSeverity = "HIGH"     // Severity is high when score is between 1 - 40.
+	ScoreSeverityMedium   ScoreSeverity = "MEDIUM"   // Severity is medium when score is between 41 - 70.
+	ScoreSeverityLow      ScoreSeverity = "LOW"      // Severity is low when score is between 71 - 90.
+	ScoreSeverityNone     ScoreSeverity = "NONE"     // Severity is none when score is between 91 - 100.
 )
 
 // ScoreState represents score state.
@@ -1109,6 +1184,10 @@ type TicketRefType string
 const (
 	TicketRefTypeUnknown TicketRefType = "UNKNOWN"
 	TicketRefTypeJira    TicketRefType = "JIRA"
+	TicketRefTypeEmail   TicketRefType = "EMAIL"
+	TicketRefTypeZendesk TicketRefType = "ZENDESK"
+	TicketRefTypeGitHub  TicketRefType = "GITHUB"
+	TicketRefTypeGitLab  TicketRefType = "GITLAB"
 )
 
 // TrustLevel represents trust level of the object.
@@ -1149,6 +1228,7 @@ const (
 	VulnerabilityScoreOrderFieldCvssScore   VulnerabilityScoreOrderField = "CVSS_SCORE"
 	VulnerabilityScoreOrderFieldMrn         VulnerabilityScoreOrderField = "MRN"
 	VulnerabilityScoreOrderFieldLastUpdated VulnerabilityScoreOrderField = "LAST_UPDATED"
+	VulnerabilityScoreOrderFieldRiskScore   VulnerabilityScoreOrderField = "RISK_SCORE"
 )
 
 // VulnerabilityScoreType represents vulnerability score type.
