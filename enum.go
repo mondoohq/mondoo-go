@@ -144,6 +144,7 @@ const (
 	AggregateScoreTypeRisk              AggregateScoreType = "RISK"
 	AggregateScoreTypeAsset             AggregateScoreType = "ASSET"
 	AggregateScoreTypeControl           AggregateScoreType = "CONTROL"
+	AggregateScoreTypeFramework         AggregateScoreType = "FRAMEWORK"
 	AggregateScoreTypeSoftware          AggregateScoreType = "SOFTWARE"           // Aggregate score for a software package across all versions currently affected by a vulnerability.
 	AggregateScoreTypeVersionedSoftware AggregateScoreType = "VERSIONED_SOFTWARE" // Aggregate score for a software package with a specific version affected by a vulnerability.
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
@@ -244,6 +245,14 @@ const (
 	AuditLogOrderFieldTimestamp AuditLogOrderField = "TIMESTAMP"
 )
 
+// AzureDevopsTicketContextType represents the type of the ticket context.
+type AzureDevopsTicketContextType string
+
+// The type of the ticket context.
+const (
+	AzureDevopsTicketContextTypeProjects AzureDevopsTicketContextType = "PROJECTS" // The ticket context for Azure Devops projects.
+)
+
 // BucketOutputType represents format of the reports for the bucket.
 type BucketOutputType string
 
@@ -327,34 +336,36 @@ type ClientIntegrationType string
 
 // Type of the client integration.
 const (
-	ClientIntegrationTypeUnknown             ClientIntegrationType = "UNKNOWN"
-	ClientIntegrationTypeK8s                 ClientIntegrationType = "K8S"
-	ClientIntegrationTypeAws                 ClientIntegrationType = "AWS"
-	ClientIntegrationTypeManagedClient       ClientIntegrationType = "MANAGED_CLIENT"
-	ClientIntegrationTypeAzure               ClientIntegrationType = "AZURE"
-	ClientIntegrationTypeMs365               ClientIntegrationType = "MS365"
-	ClientIntegrationTypeGcp                 ClientIntegrationType = "GCP"
-	ClientIntegrationTypeGoogleWorkspace     ClientIntegrationType = "GOOGLE_WORKSPACE"
-	ClientIntegrationTypeOkta                ClientIntegrationType = "OKTA"
-	ClientIntegrationTypeBigquery            ClientIntegrationType = "BIGQUERY"
-	ClientIntegrationTypeSnowflake           ClientIntegrationType = "SNOWFLAKE"
-	ClientIntegrationTypeAwsS3               ClientIntegrationType = "AWS_S3"
-	ClientIntegrationTypeS3                  ClientIntegrationType = "S3"
-	ClientIntegrationTypeHostedSlack         ClientIntegrationType = "HOSTED_SLACK"
-	ClientIntegrationTypeGitHub              ClientIntegrationType = "GITHUB"
-	ClientIntegrationTypeGitLab              ClientIntegrationType = "GITLAB"
-	ClientIntegrationTypeGcsBucket           ClientIntegrationType = "GCS_BUCKET"
-	ClientIntegrationTypePostgres            ClientIntegrationType = "POSTGRES"
-	ClientIntegrationTypeOci                 ClientIntegrationType = "OCI"
-	ClientIntegrationTypeTicketSystemJira    ClientIntegrationType = "TICKET_SYSTEM_JIRA"
-	ClientIntegrationTypeAwsHosted           ClientIntegrationType = "AWS_HOSTED"
-	ClientIntegrationTypeAzureBlob           ClientIntegrationType = "AZURE_BLOB"
-	ClientIntegrationTypeHost                ClientIntegrationType = "HOST"
-	ClientIntegrationTypeTicketSystemEmail   ClientIntegrationType = "TICKET_SYSTEM_EMAIL"
-	ClientIntegrationTypeTicketSystemZendesk ClientIntegrationType = "TICKET_SYSTEM_ZENDESK"
-	ClientIntegrationTypeMicrosoftDefender   ClientIntegrationType = "MICROSOFT_DEFENDER"
-	ClientIntegrationTypeTicketSystemGitHub  ClientIntegrationType = "TICKET_SYSTEM_GITHUB"
-	ClientIntegrationTypeTicketSystemGitLab  ClientIntegrationType = "TICKET_SYSTEM_GITLAB"
+	ClientIntegrationTypeUnknown                 ClientIntegrationType = "UNKNOWN"
+	ClientIntegrationTypeK8s                     ClientIntegrationType = "K8S"
+	ClientIntegrationTypeAws                     ClientIntegrationType = "AWS"
+	ClientIntegrationTypeManagedClient           ClientIntegrationType = "MANAGED_CLIENT"
+	ClientIntegrationTypeAzure                   ClientIntegrationType = "AZURE"
+	ClientIntegrationTypeMs365                   ClientIntegrationType = "MS365"
+	ClientIntegrationTypeGcp                     ClientIntegrationType = "GCP"
+	ClientIntegrationTypeGoogleWorkspace         ClientIntegrationType = "GOOGLE_WORKSPACE"
+	ClientIntegrationTypeOkta                    ClientIntegrationType = "OKTA"
+	ClientIntegrationTypeBigquery                ClientIntegrationType = "BIGQUERY"
+	ClientIntegrationTypeSnowflake               ClientIntegrationType = "SNOWFLAKE"
+	ClientIntegrationTypeAwsS3                   ClientIntegrationType = "AWS_S3"
+	ClientIntegrationTypeS3                      ClientIntegrationType = "S3"
+	ClientIntegrationTypeHostedSlack             ClientIntegrationType = "HOSTED_SLACK"
+	ClientIntegrationTypeGitHub                  ClientIntegrationType = "GITHUB"
+	ClientIntegrationTypeGitLab                  ClientIntegrationType = "GITLAB"
+	ClientIntegrationTypeGcsBucket               ClientIntegrationType = "GCS_BUCKET"
+	ClientIntegrationTypePostgres                ClientIntegrationType = "POSTGRES"
+	ClientIntegrationTypeOci                     ClientIntegrationType = "OCI"
+	ClientIntegrationTypeTicketSystemJira        ClientIntegrationType = "TICKET_SYSTEM_JIRA"
+	ClientIntegrationTypeAwsHosted               ClientIntegrationType = "AWS_HOSTED"
+	ClientIntegrationTypeAzureBlob               ClientIntegrationType = "AZURE_BLOB"
+	ClientIntegrationTypeHost                    ClientIntegrationType = "HOST"
+	ClientIntegrationTypeTicketSystemEmail       ClientIntegrationType = "TICKET_SYSTEM_EMAIL"
+	ClientIntegrationTypeTicketSystemZendesk     ClientIntegrationType = "TICKET_SYSTEM_ZENDESK"
+	ClientIntegrationTypeMicrosoftDefender       ClientIntegrationType = "MICROSOFT_DEFENDER"
+	ClientIntegrationTypeTicketSystemGitHub      ClientIntegrationType = "TICKET_SYSTEM_GITHUB"
+	ClientIntegrationTypeTicketSystemGitLab      ClientIntegrationType = "TICKET_SYSTEM_GITLAB"
+	ClientIntegrationTypeShodan                  ClientIntegrationType = "SHODAN"
+	ClientIntegrationTypeTicketSystemAzureDevOps ClientIntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -702,38 +713,40 @@ type IntegrationType string
 
 // Summary of client integrations.
 const (
-	IntegrationTypeUnknown             IntegrationType = "UNKNOWN"
-	IntegrationTypeManagedClient       IntegrationType = "MANAGED_CLIENT"
-	IntegrationTypeK8s                 IntegrationType = "K8S"
-	IntegrationTypeAws                 IntegrationType = "AWS"
-	IntegrationTypeAzure               IntegrationType = "AZURE"
-	IntegrationTypeMs365               IntegrationType = "MS365"
-	IntegrationTypeSlack               IntegrationType = "SLACK"
-	IntegrationTypeMsteams             IntegrationType = "MSTEAMS"
-	IntegrationTypeTelegram            IntegrationType = "TELEGRAM"
-	IntegrationTypeHttppost            IntegrationType = "HTTPPOST"
-	IntegrationTypeGcp                 IntegrationType = "GCP"
-	IntegrationTypeGoogleWorkspace     IntegrationType = "GOOGLE_WORKSPACE"
-	IntegrationTypeOkta                IntegrationType = "OKTA"
-	IntegrationTypeBigquery            IntegrationType = "BIGQUERY"
-	IntegrationTypeSnowflake           IntegrationType = "SNOWFLAKE"
-	IntegrationTypeAwsS3               IntegrationType = "AWS_S3"
-	IntegrationTypeS3                  IntegrationType = "S3"
-	IntegrationTypeHostedSlack         IntegrationType = "HOSTED_SLACK"
-	IntegrationTypeGitHub              IntegrationType = "GITHUB"
-	IntegrationTypeGitLab              IntegrationType = "GITLAB"
-	IntegrationTypeGcsBucket           IntegrationType = "GCS_BUCKET"
-	IntegrationTypePostgres            IntegrationType = "POSTGRES"
-	IntegrationTypeOci                 IntegrationType = "OCI"
-	IntegrationTypeTicketSystemJira    IntegrationType = "TICKET_SYSTEM_JIRA"
-	IntegrationTypeAzureBlob           IntegrationType = "AZURE_BLOB"
-	IntegrationTypeHost                IntegrationType = "HOST"
-	IntegrationTypeAwsHosted           IntegrationType = "AWS_HOSTED"
-	IntegrationTypeTicketSystemEmail   IntegrationType = "TICKET_SYSTEM_EMAIL"
-	IntegrationTypeTicketSystemZendesk IntegrationType = "TICKET_SYSTEM_ZENDESK"
-	IntegrationTypeMicrosoftDefender   IntegrationType = "MICROSOFT_DEFENDER"
-	IntegrationTypeTicketSystemGitHub  IntegrationType = "TICKET_SYSTEM_GITHUB"
-	IntegrationTypeTicketSystemGitLab  IntegrationType = "TICKET_SYSTEM_GITLAB"
+	IntegrationTypeUnknown                 IntegrationType = "UNKNOWN"
+	IntegrationTypeManagedClient           IntegrationType = "MANAGED_CLIENT"
+	IntegrationTypeK8s                     IntegrationType = "K8S"
+	IntegrationTypeAws                     IntegrationType = "AWS"
+	IntegrationTypeAzure                   IntegrationType = "AZURE"
+	IntegrationTypeMs365                   IntegrationType = "MS365"
+	IntegrationTypeSlack                   IntegrationType = "SLACK"
+	IntegrationTypeMsteams                 IntegrationType = "MSTEAMS"
+	IntegrationTypeTelegram                IntegrationType = "TELEGRAM"
+	IntegrationTypeHttppost                IntegrationType = "HTTPPOST"
+	IntegrationTypeGcp                     IntegrationType = "GCP"
+	IntegrationTypeGoogleWorkspace         IntegrationType = "GOOGLE_WORKSPACE"
+	IntegrationTypeOkta                    IntegrationType = "OKTA"
+	IntegrationTypeBigquery                IntegrationType = "BIGQUERY"
+	IntegrationTypeSnowflake               IntegrationType = "SNOWFLAKE"
+	IntegrationTypeAwsS3                   IntegrationType = "AWS_S3"
+	IntegrationTypeS3                      IntegrationType = "S3"
+	IntegrationTypeHostedSlack             IntegrationType = "HOSTED_SLACK"
+	IntegrationTypeGitHub                  IntegrationType = "GITHUB"
+	IntegrationTypeGitLab                  IntegrationType = "GITLAB"
+	IntegrationTypeGcsBucket               IntegrationType = "GCS_BUCKET"
+	IntegrationTypePostgres                IntegrationType = "POSTGRES"
+	IntegrationTypeOci                     IntegrationType = "OCI"
+	IntegrationTypeTicketSystemJira        IntegrationType = "TICKET_SYSTEM_JIRA"
+	IntegrationTypeAzureBlob               IntegrationType = "AZURE_BLOB"
+	IntegrationTypeHost                    IntegrationType = "HOST"
+	IntegrationTypeAwsHosted               IntegrationType = "AWS_HOSTED"
+	IntegrationTypeTicketSystemEmail       IntegrationType = "TICKET_SYSTEM_EMAIL"
+	IntegrationTypeTicketSystemZendesk     IntegrationType = "TICKET_SYSTEM_ZENDESK"
+	IntegrationTypeMicrosoftDefender       IntegrationType = "MICROSOFT_DEFENDER"
+	IntegrationTypeTicketSystemGitHub      IntegrationType = "TICKET_SYSTEM_GITHUB"
+	IntegrationTypeTicketSystemGitLab      IntegrationType = "TICKET_SYSTEM_GITLAB"
+	IntegrationTypeShodan                  IntegrationType = "SHODAN"
+	IntegrationTypeTicketSystemAzureDevOps IntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
 )
 
 // InvitationOrderField
@@ -1168,26 +1181,18 @@ const (
 	SpacePlanQueryMutationDestinationTypeMilestone  SpacePlanQueryMutationDestinationType = "MILESTONE"  // Move the query to a milestone. These queries will be run, but their score will not be incorporated into the policy score. If moving to a milestone, a milestone uid must also be provided to indicate which milestone.
 )
 
-// TicketFormat represents the format of the ticket content.
-type TicketFormat string
-
-// The format of the ticket content.
-const (
-	TicketFormatJira     TicketFormat = "JIRA"     // The ticket content format for Atlassian Jira.
-	TicketFormatMarkdown TicketFormat = "MARKDOWN" // The ticket content format for Markdown.
-)
-
 // TicketRefType represents ticket reference type.
 type TicketRefType string
 
 // Ticket reference type.
 const (
-	TicketRefTypeUnknown TicketRefType = "UNKNOWN"
-	TicketRefTypeJira    TicketRefType = "JIRA"
-	TicketRefTypeEmail   TicketRefType = "EMAIL"
-	TicketRefTypeZendesk TicketRefType = "ZENDESK"
-	TicketRefTypeGitHub  TicketRefType = "GITHUB"
-	TicketRefTypeGitLab  TicketRefType = "GITLAB"
+	TicketRefTypeUnknown     TicketRefType = "UNKNOWN"
+	TicketRefTypeJira        TicketRefType = "JIRA"
+	TicketRefTypeEmail       TicketRefType = "EMAIL"
+	TicketRefTypeZendesk     TicketRefType = "ZENDESK"
+	TicketRefTypeGitHub      TicketRefType = "GITHUB"
+	TicketRefTypeGitLab      TicketRefType = "GITLAB"
+	TicketRefTypeAzureDevOps TicketRefType = "AZURE_DEVOPS"
 )
 
 // TrustLevel represents trust level of the object.
