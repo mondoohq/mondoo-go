@@ -36,10 +36,10 @@ jobs:
       - name: Check git diff
         id: git-diff
         run: |
-          git diff --exit-code .
-          echo "GIT_DIFF=$?" >> $GITHUB_OUTPUT
+          DIFF=$(git status --porcelain | wc -l)
+          echo "GIT_DIFF=${DIFF}" >> $GITHUB_OUTPUT
       - name: Create PR
-        if: steps.git-diff.outputs.GIT_DIFF == '1'
+        if: steps.git-diff.outputs.GIT_DIFF != '0'
         id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
