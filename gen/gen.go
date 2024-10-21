@@ -27,20 +27,16 @@ import (
 func main() {
 	flag.Parse()
 
-	token, ok := os.LookupEnv("MONDOO_API_TOKEN")
-	if !ok {
-		log.Fatalln(fmt.Errorf("MONDOO_API_TOKEN environment variable not set"))
-	}
-	err := generateSchema(token, ".")
+	err := generateSchema(".")
 	if err != nil {
 		log.Fatalln(err)
 	}
 }
 
 // generateSchema generates the mondoogql package in basePath.
-func generateSchema(token string, basePath string) error {
+func generateSchema(basePath string) error {
 	// fetch the graphql schema
-	schema, err := loadSchema(token)
+	schema, err := loadSchema()
 	if err != nil {
 		return err
 	}
@@ -74,7 +70,7 @@ func generateSchema(token string, basePath string) error {
 }
 
 // loadSchema loads the GraphQL schema from the Mondoo API.
-func loadSchema(token string) (schema interface{}, err error) {
+func loadSchema() (schema interface{}, err error) {
 	introspection := `
 {
   __schema {
@@ -189,7 +185,12 @@ fragment TypeRef on __Type {
 	}
 
 	// set headers
-	req.Header.Set("Authorization", "bearer "+token)
+	token, ok := os.LookupEnv("MONDOO_API_TOKEN")
+	if ok {
+		req.Header.Set("Authorization", "bearer "+token)
+	} else {
+		log.Println("MONDOO_API_TOKEN environment variable not set")
+	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Host", apiHost)
