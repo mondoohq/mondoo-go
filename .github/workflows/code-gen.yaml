@@ -30,7 +30,7 @@ jobs:
         id: branch
         run: |
             BRANCH_NAME="schema/update_$(date +'%Y%m%d%H%M%S')"
-            COMMIT_MSG="🧹 Bump Graphql Schema - $(date +'%Y%m%d%H%M%S')"
+            COMMIT_MSG="🧹 Bump GraphQL Schema - $(date +'%Y%m%d%H%M%S')"
             echo "COMMIT_TITLE=${COMMIT_MSG}" >> $GITHUB_OUTPUT
             echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_OUTPUT
       - name: Check git diff
