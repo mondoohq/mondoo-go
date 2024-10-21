@@ -1,0 +1,60 @@
+name: "Update Graphql API"
+on:
+  schedule:
+    - cron: "0 0 * * 3"
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  update-graphql-api:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Import environment variables from file
+        run: cat ".github/env" >> $GITHUB_ENV
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ">=${{ env.golang-version }}"
+          cache: false
+      - name: Generate Graphql Schema
+        run: |
+          MONDOO_API_TOKEN=${{ secrets.MONDOO_API_TOKEN }} make generate
+      - name: Prepare title and branch name
+        id: branch
+        run: |
+            BRANCH_NAME="schema/update_$(date +'%Y%m%d%H%M%S')"
+            COMMIT_MSG="🧹 Bump Graphql Schema - $(date +'%Y%m%d%H%M%S')"
+            echo "COMMIT_TITLE=${COMMIT_MSG}" >> $GITHUB_OUTPUT
+            echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_OUTPUT
+      - name: Check git diff
+        id: git-diff
+        run: |
+          git diff --exit-code .
+          echo "GIT_DIFF=$?" >> $GITHUB_OUTPUT
+      - name: Create PR
+        if: steps.git-diff.outputs.GIT_DIFF == '1'
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: main
+          labels: dependencies,go
+          committer: "Mondoo Tools <tools@mondoo.com>"
+          commit-message: ${{ steps.branch.outputs.COMMIT_TITLE }}
+          author: "Mondoo Tools <tools@mondoo.com>"
+          title: ${{ steps.branch.outputs.COMMIT_TITLE }}
+          branch: ${{ steps.branch.outputs.BRANCH_NAME }}
+          body-path: .github/pr-body.md
+  
+      - name: PR infos
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+        
