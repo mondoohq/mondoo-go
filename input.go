@@ -974,6 +974,8 @@ type CreateOrganizationInput struct {
 
 	// ID. (Optional.)
 	ID *String `json:"id,omitempty"`
+	// Description. (Optional.)
+	Description *String `json:"description,omitempty"`
 }
 
 // CreateServiceAccountInput
@@ -1002,6 +1004,8 @@ type CreateSpaceInput struct {
 
 	// ID. (Optional.)
 	ID *String `json:"id,omitempty"`
+	// Description. (Optional.)
+	Description *String `json:"description,omitempty"`
 	// Settings. (Optional.)
 	Settings *SpaceSettingsInput `json:"settings,omitempty"`
 }
@@ -2696,6 +2700,9 @@ type UpdateOrganizationInput struct {
 	Mrn String `json:"mrn"`
 	// Name. (Required.)
 	Name String `json:"name"`
+
+	// Description. (Optional.)
+	Description *String `json:"description,omitempty"`
 }
 
 // UpdateServiceAccountInput represents input used when updating service account name, notes, and labels.
@@ -2718,6 +2725,8 @@ type UpdateSpaceInput struct {
 	// Name. (Required.)
 	Name String `json:"name"`
 
+	// Description. (Optional.)
+	Description *String `json:"description,omitempty"`
 	// Settings. (Optional.)
 	Settings *SpaceSettingsInput `json:"settings,omitempty"`
 }
