@@ -1244,3 +1244,64 @@ const (
 	VulnerabilityScoreTypeCve      VulnerabilityScoreType = "CVE"
 	VulnerabilityScoreTypeAdvisory VulnerabilityScoreType = "ADVISORY"
 )
+
+// WorkspaceSelectionConditionIntField represents workspace selection condition int fields.
+type WorkspaceSelectionConditionIntField string
+
+// Workspace selection condition int fields.
+const (
+	WorkspaceSelectionConditionIntFieldUnknown   WorkspaceSelectionConditionIntField = "UNKNOWN"    // Unknwon int field.
+	WorkspaceSelectionConditionIntFieldBaseScore WorkspaceSelectionConditionIntField = "BASE_SCORE" // Base score field.
+	WorkspaceSelectionConditionIntFieldRiskScore WorkspaceSelectionConditionIntField = "RISK_SCORE" // Risk score field.
+)
+
+// WorkspaceSelectionConditionNumericOperator represents workspace selection condition string operators.
+type WorkspaceSelectionConditionNumericOperator string
+
+// Workspace selection condition string operators.
+const (
+	WorkspaceSelectionConditionNumericOperatorUnknown  WorkspaceSelectionConditionNumericOperator = "UNKNOWN"   // Unknown operator.
+	WorkspaceSelectionConditionNumericOperatorEqual    WorkspaceSelectionConditionNumericOperator = "EQUAL"     // Equal operator.
+	WorkspaceSelectionConditionNumericOperatorNotEqual WorkspaceSelectionConditionNumericOperator = "NOT_EQUAL" // Not equal operator.
+	WorkspaceSelectionConditionNumericOperatorGt       WorkspaceSelectionConditionNumericOperator = "GT"        // Greater than operator.
+	WorkspaceSelectionConditionNumericOperatorLt       WorkspaceSelectionConditionNumericOperator = "LT"        // Less than operator.
+)
+
+// WorkspaceSelectionConditionOperator
+type WorkspaceSelectionConditionOperator string
+
+const (
+	WorkspaceSelectionConditionOperatorUnknown WorkspaceSelectionConditionOperator = "UNKNOWN" // Unknown operator.
+	WorkspaceSelectionConditionOperatorAnd     WorkspaceSelectionConditionOperator = "AND"     // AND operator, meaning the condition will be "ANDed" to other conditions.
+	WorkspaceSelectionConditionOperatorAndNot  WorkspaceSelectionConditionOperator = "AND_NOT" // AND NOT operator, meaning the condition will be "ANDed" to other conditions with a NOT.
+)
+
+// WorkspaceSelectionConditionStringField represents workspace selection condition string fields.
+type WorkspaceSelectionConditionStringField string
+
+// Workspace selection condition string fields.
+const (
+	WorkspaceSelectionConditionStringFieldUnknown         WorkspaceSelectionConditionStringField = "UNKNOWN"          // Unknwon string field.
+	WorkspaceSelectionConditionStringFieldPlatform        WorkspaceSelectionConditionStringField = "PLATFORM"         // Platform field.
+	WorkspaceSelectionConditionStringFieldPlatformVersion WorkspaceSelectionConditionStringField = "PLATFORM_VERSION" // Platform version field.
+)
+
+// WorkspaceSelectionConditionStringOperator represents workspace selection condition string operators.
+type WorkspaceSelectionConditionStringOperator string
+
+// Workspace selection condition string operators.
+const (
+	WorkspaceSelectionConditionStringOperatorUnknown  WorkspaceSelectionConditionStringOperator = "UNKNOWN"   // Unknown operator.
+	WorkspaceSelectionConditionStringOperatorEqual    WorkspaceSelectionConditionStringOperator = "EQUAL"     // Equal operator.
+	WorkspaceSelectionConditionStringOperatorNotEqual WorkspaceSelectionConditionStringOperator = "NOT_EQUAL" // Not equal operator.
+)
+
+// WorkspaceSelectionOperator represents workspace selection operators.
+type WorkspaceSelectionOperator string
+
+// Workspace selection operators.
+const (
+	WorkspaceSelectionOperatorUnknown WorkspaceSelectionOperator = "UNKNOWN" // Unknown operator.
+	WorkspaceSelectionOperatorInclude WorkspaceSelectionOperator = "INCLUDE" // Include assets matching the selection.
+	WorkspaceSelectionOperatorExclude WorkspaceSelectionOperator = "EXCLUDE" // Exclude assets matching the selection.
+)
