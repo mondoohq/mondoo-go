@@ -927,6 +927,8 @@ type ControlsSearchInput struct {
 type CreateCaseInput struct {
 	// Title. (Required.)
 	Title String `json:"title"`
+	// Notes. (Required.)
+	Notes String `json:"notes"`
 	// References. (Required.)
 	References []CaseRefInput `json:"references"`
 	// Ticket configuration. (Required.)
@@ -2825,8 +2827,6 @@ type WorkspaceSelectionConditionInput struct {
 
 // WorkspaceSelectionInput represents workspace selection defining conditions for selecting assets for a workspace.
 type WorkspaceSelectionInput struct {
-	// Operator the selection should use (whether to include or exclude assets matching). (Required.)
-	Operator WorkspaceSelectionOperator `json:"operator"`
 	// A list of conditions for the selection. (Required.)
 	Conditions []WorkspaceSelectionConditionInput `json:"conditions"`
 }

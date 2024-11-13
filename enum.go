@@ -1295,13 +1295,3 @@ const (
 	WorkspaceSelectionConditionStringOperatorEqual    WorkspaceSelectionConditionStringOperator = "EQUAL"     // Equal operator.
 	WorkspaceSelectionConditionStringOperatorNotEqual WorkspaceSelectionConditionStringOperator = "NOT_EQUAL" // Not equal operator.
 )
-
-// WorkspaceSelectionOperator represents workspace selection operators.
-type WorkspaceSelectionOperator string
-
-// Workspace selection operators.
-const (
-	WorkspaceSelectionOperatorUnknown WorkspaceSelectionOperator = "UNKNOWN" // Unknown operator.
-	WorkspaceSelectionOperatorInclude WorkspaceSelectionOperator = "INCLUDE" // Include assets matching the selection.
-	WorkspaceSelectionOperatorExclude WorkspaceSelectionOperator = "EXCLUDE" // Exclude assets matching the selection.
-)
