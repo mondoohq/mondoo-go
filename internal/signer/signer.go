@@ -6,7 +6,6 @@ package signer
 import (
 	"crypto/ecdsa"
 	"crypto/x509"
-	"encoding/json"
 	"encoding/pem"
 	"errors"
 	"time"
@@ -14,6 +13,7 @@ import (
 	jose "github.com/go-jose/go-jose/v3"
 	jwt "github.com/go-jose/go-jose/v3/jwt"
 	"golang.org/x/oauth2"
+	"sigs.k8s.io/yaml"
 )
 
 const serviceAccountIssuer = "mondoo/ams"
@@ -54,7 +54,7 @@ func privateKeyFromBytes(bytes []byte) (*ecdsa.PrivateKey, error) {
 
 func NewServiceAccountTokenSource(data []byte) (*serviceAccountTokenSource, *serviceAccountCredentials, error) {
 	var credentials *serviceAccountCredentials
-	err := json.Unmarshal(data, &credentials)
+	err := yaml.Unmarshal(data, &credentials)
 	if credentials == nil || err != nil {
 		return nil, nil, errors.New("valid service account needs to be provided")
 	}
