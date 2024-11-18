@@ -6,7 +6,6 @@ package signer
 import (
 	"crypto/ecdsa"
 	"crypto/x509"
-	"encoding/json"
 	"encoding/pem"
 	"errors"
 	"time"
@@ -14,7 +13,7 @@ import (
 	jose "github.com/go-jose/go-jose/v3"
 	jwt "github.com/go-jose/go-jose/v3/jwt"
 	"golang.org/x/oauth2"
-	"gopkg.in/yaml.v3"
+	"sigs.k8s.io/yaml"
 )
 
 const serviceAccountIssuer = "mondoo/ams"
@@ -27,11 +26,11 @@ var (
 )
 
 type serviceAccountCredentials struct {
-	Mrn         string `json:"mrn,omitempty" yaml:"mrn,omitempty"`
-	ParentMrn   string `json:"parent_mrn,omitempty" yaml:"parent_mrn,omitempty"`
-	PrivateKey  string `json:"private_key,omitempty" yaml:"private_key,omitempty"`
-	Certificate string `json:"certificate,omitempty" yaml:"certificate,omitempty"`
-	ApiEndpoint string `json:"api_endpoint,omitempty" yaml:"api_endpoint,omitempty"`
+	Mrn         string `json:"mrn,omitempty"`
+	ParentMrn   string `json:"parent_mrn,omitempty"`
+	PrivateKey  string `json:"private_key,omitempty"`
+	Certificate string `json:"certificate,omitempty"`
+	ApiEndpoint string `json:"api_endpoint,omitempty"`
 }
 
 // privateKeyFromBytes loads a .p8 certificate from an in memory byte array and
@@ -55,13 +54,9 @@ func privateKeyFromBytes(bytes []byte) (*ecdsa.PrivateKey, error) {
 
 func NewServiceAccountTokenSource(data []byte) (*serviceAccountTokenSource, *serviceAccountCredentials, error) {
 	var credentials *serviceAccountCredentials
-	err := json.Unmarshal(data, &credentials)
+	err := yaml.Unmarshal(data, &credentials)
 	if credentials == nil || err != nil {
-		// if JSON format didn't work, try YAML
-		err = yaml.Unmarshal(data, &credentials)
-		if credentials == nil || err != nil {
-			return nil, nil, errors.New("valid service account needs to be provided")
-		}
+		return nil, nil, errors.New("valid service account needs to be provided")
 	}
 
 	// verify that we can read the private key
