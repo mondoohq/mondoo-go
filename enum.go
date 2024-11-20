@@ -696,6 +696,11 @@ const (
 	ICON_IDSOther                     ICON_IDS = "OTHER"
 	ICON_IDSRisk                      ICON_IDS = "RISK"
 	ICON_IDSAsset                     ICON_IDS = "ASSET"
+	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
+	ICON_IDSNetworkDevices            ICON_IDS = "NETWORK_DEVICES"
+	ICON_IDSDomainsAndHosts           ICON_IDS = "DOMAINS_AND_HOSTS"
+	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
+	ICON_IDSIac                       ICON_IDS = "IAC"
 )
 
 // IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
@@ -815,6 +820,14 @@ type LibraryQueryResolution string
 const (
 	LibraryQueryResolutionYear  LibraryQueryResolution = "YEAR"
 	LibraryQueryResolutionMonth LibraryQueryResolution = "MONTH"
+)
+
+// ListFrameworksFilterState
+type ListFrameworksFilterState string
+
+const (
+	ListFrameworksFilterStateActive    ListFrameworksFilterState = "ACTIVE"
+	ListFrameworksFilterStateAvailable ListFrameworksFilterState = "AVAILABLE"
 )
 
 // MembershipOrderField
