@@ -229,6 +229,18 @@ const (
 	AssetSummaryOrderFieldScore     AssetSummaryOrderField = "SCORE"
 )
 
+// AssetUrlStatsCategory
+type AssetUrlStatsCategory string
+
+const (
+	AssetUrlStatsCategoryUnscored AssetUrlStatsCategory = "UNSCORED"
+	AssetUrlStatsCategoryOk       AssetUrlStatsCategory = "OK"
+	AssetUrlStatsCategoryLow      AssetUrlStatsCategory = "LOW"
+	AssetUrlStatsCategoryMedium   AssetUrlStatsCategory = "MEDIUM"
+	AssetUrlStatsCategoryHigh     AssetUrlStatsCategory = "HIGH"
+	AssetUrlStatsCategoryCritical AssetUrlStatsCategory = "CRITICAL"
+)
+
 // AssetUrlStatsScope
 type AssetUrlStatsScope string
 
@@ -366,6 +378,7 @@ const (
 	ClientIntegrationTypeTicketSystemGitLab      ClientIntegrationType = "TICKET_SYSTEM_GITLAB"
 	ClientIntegrationTypeShodan                  ClientIntegrationType = "SHODAN"
 	ClientIntegrationTypeTicketSystemAzureDevOps ClientIntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
+	ClientIntegrationTypeSentinelOne             ClientIntegrationType = "SENTINEL_ONE"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -752,6 +765,7 @@ const (
 	IntegrationTypeTicketSystemGitLab      IntegrationType = "TICKET_SYSTEM_GITLAB"
 	IntegrationTypeShodan                  IntegrationType = "SHODAN"
 	IntegrationTypeTicketSystemAzureDevOps IntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
+	IntegrationTypeSentinelOne             IntegrationType = "SENTINEL_ONE"
 )
 
 // InvitationOrderField
