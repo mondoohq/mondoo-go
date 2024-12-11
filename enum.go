@@ -1099,6 +1099,17 @@ const (
 	RiskFactorActionDisable RiskFactorAction = "DISABLE" // Disable risk factor.
 )
 
+// ScoreRating
+type ScoreRating string
+
+const (
+	ScoreRatingCritical ScoreRating = "CRITICAL" // Critical - 0-10.
+	ScoreRatingHigh     ScoreRating = "HIGH"     // High - 11-30.
+	ScoreRatingMedium   ScoreRating = "MEDIUM"   // Medium - 31-60.
+	ScoreRatingLow      ScoreRating = "LOW"      // Low - 61-99.
+	ScoreRatingNone     ScoreRating = "NONE"     // None - 100.
+)
+
 // ScoreResultType
 type ScoreResultType string
 
