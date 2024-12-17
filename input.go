@@ -2384,15 +2384,17 @@ type SecurityDashboardPageInfo struct {
 
 // SentinelOneConfigurationOptionsInput represents sentinelOne integration input.
 type SentinelOneConfigurationOptionsInput struct {
-	// (Required.)
+	// The host of the SentinelOne integration. (Required.)
 	Host String `json:"host"`
-	// (Required.)
+	// The account ID of the SentinelOne integration. (Required.)
 	Account String `json:"account"`
 
 	// certificate or client secret is required. (Optional.)
 	Certificate *String `json:"certificate,omitempty"`
 	// (Optional.)
 	ClientSecret *String `json:"clientSecret,omitempty"`
+	// createAssets is a flag to create assets in the backend when they are not found. (Optional.)
+	CreateAssets *Boolean `json:"createAssets,omitempty"`
 }
 
 // ServiceAccountOrder
