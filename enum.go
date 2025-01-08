@@ -379,6 +379,7 @@ const (
 	ClientIntegrationTypeShodan                  ClientIntegrationType = "SHODAN"
 	ClientIntegrationTypeTicketSystemAzureDevOps ClientIntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
 	ClientIntegrationTypeSentinelOne             ClientIntegrationType = "SENTINEL_ONE"
+	ClientIntegrationTypeCrowdstrikeFalcon       ClientIntegrationType = "CROWDSTRIKE_FALCON"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -517,7 +518,9 @@ type DocumentFormat string
 
 // Document format.
 const (
-	DocumentFormatPdf DocumentFormat = "PDF"
+	DocumentFormatPdf   DocumentFormat = "PDF"
+	DocumentFormatCsv   DocumentFormat = "CSV"
+	DocumentFormatJsonl DocumentFormat = "JSONL"
 )
 
 // DocumentStatus represents document status.
@@ -538,6 +541,8 @@ type DocumentType string
 const (
 	DocumentTypeFrameworkReport DocumentType = "FRAMEWORK_REPORT"
 	DocumentTypeControlReport   DocumentType = "CONTROL_REPORT"
+	DocumentTypeExport          DocumentType = "EXPORT"
+	DocumentTypeAssetReport     DocumentType = "ASSET_REPORT"
 )
 
 // EOLStatus represents end-of-life status.
@@ -681,6 +686,7 @@ const (
 	ICON_IDSSlack                     ICON_IDS = "SLACK"
 	ICON_IDSWindows                   ICON_IDS = "WINDOWS"
 	ICON_IDSMs365                     ICON_IDS = "MS365"
+	ICON_IDSNmap                      ICON_IDS = "NMAP"
 	ICON_IDSDNS                       ICON_IDS = "DNS"
 	ICON_IDSOci                       ICON_IDS = "OCI"
 	ICON_IDSRedhat                    ICON_IDS = "REDHAT"
@@ -766,6 +772,7 @@ const (
 	IntegrationTypeShodan                  IntegrationType = "SHODAN"
 	IntegrationTypeTicketSystemAzureDevOps IntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
 	IntegrationTypeSentinelOne             IntegrationType = "SENTINEL_ONE"
+	IntegrationTypeCrowdstrikeFalcon       IntegrationType = "CROWDSTRIKE_FALCON"
 )
 
 // InvitationOrderField
@@ -877,6 +884,26 @@ type MqueryType string
 const (
 	MqueryTypeData    MqueryType = "DATA"
 	MqueryTypeScoring MqueryType = "SCORING"
+)
+
+// MvdEcosystem
+type MvdEcosystem string
+
+const (
+	MvdEcosystemAlmalinux   MvdEcosystem = "ALMALINUX"
+	MvdEcosystemAlpine      MvdEcosystem = "ALPINE"
+	MvdEcosystemDebian      MvdEcosystem = "DEBIAN"
+	MvdEcosystemFedora      MvdEcosystem = "FEDORA"
+	MvdEcosystemLinux       MvdEcosystem = "LINUX"
+	MvdEcosystemMacos       MvdEcosystem = "MACOS"
+	MvdEcosystemOpensuse    MvdEcosystem = "OPENSUSE"
+	MvdEcosystemPhotonos    MvdEcosystem = "PHOTONOS"
+	MvdEcosystemRedhat      MvdEcosystem = "REDHAT"
+	MvdEcosystemRockylinux  MvdEcosystem = "ROCKYLINUX"
+	MvdEcosystemSuse        MvdEcosystem = "SUSE"
+	MvdEcosystemUbuntu      MvdEcosystem = "UBUNTU"
+	MvdEcosystemWindows     MvdEcosystem = "WINDOWS"
+	MvdEcosystemWindowsappx MvdEcosystem = "WINDOWSAPPX"
 )
 
 // MvdEntryType represents mVD entry type.
@@ -1301,7 +1328,6 @@ type WorkspaceSelectionConditionIntField string
 // Workspace selection condition int fields.
 const (
 	WorkspaceSelectionConditionIntFieldUnknown   WorkspaceSelectionConditionIntField = "UNKNOWN"    // Unknwon int field.
-	WorkspaceSelectionConditionIntFieldBaseScore WorkspaceSelectionConditionIntField = "BASE_SCORE" // Base score field.
 	WorkspaceSelectionConditionIntFieldRiskScore WorkspaceSelectionConditionIntField = "RISK_SCORE" // Risk score field.
 )
 
@@ -1326,6 +1352,25 @@ const (
 	WorkspaceSelectionConditionOperatorAndNot  WorkspaceSelectionConditionOperator = "AND_NOT" // AND NOT operator, meaning the condition will be "ANDed" to other conditions with a NOT.
 )
 
+// WorkspaceSelectionConditionRatingField represents workspace selection condition rating fields.
+type WorkspaceSelectionConditionRatingField string
+
+// Workspace selection condition rating fields.
+const (
+	WorkspaceSelectionConditionRatingFieldUnknown WorkspaceSelectionConditionRatingField = "UNKNOWN" // Unknwon string field.
+	WorkspaceSelectionConditionRatingFieldRisk    WorkspaceSelectionConditionRatingField = "RISK"    // Risk field.
+)
+
+// WorkspaceSelectionConditionRatingOperator represents workspace selection condition rating operators.
+type WorkspaceSelectionConditionRatingOperator string
+
+// Workspace selection condition rating operators.
+const (
+	WorkspaceSelectionConditionRatingOperatorUnknown  WorkspaceSelectionConditionRatingOperator = "UNKNOWN"   // Unknown operator.
+	WorkspaceSelectionConditionRatingOperatorEqual    WorkspaceSelectionConditionRatingOperator = "EQUAL"     // Equal operator.
+	WorkspaceSelectionConditionRatingOperatorNotEqual WorkspaceSelectionConditionRatingOperator = "NOT_EQUAL" // Not equal operator.
+)
+
 // WorkspaceSelectionConditionStringField represents workspace selection condition string fields.
 type WorkspaceSelectionConditionStringField string
 
@@ -1334,6 +1379,8 @@ const (
 	WorkspaceSelectionConditionStringFieldUnknown         WorkspaceSelectionConditionStringField = "UNKNOWN"          // Unknwon string field.
 	WorkspaceSelectionConditionStringFieldPlatform        WorkspaceSelectionConditionStringField = "PLATFORM"         // Platform field.
 	WorkspaceSelectionConditionStringFieldPlatformVersion WorkspaceSelectionConditionStringField = "PLATFORM_VERSION" // Platform version field.
+	WorkspaceSelectionConditionStringFieldAssetName       WorkspaceSelectionConditionStringField = "ASSET_NAME"       // Asset name field.
+	WorkspaceSelectionConditionStringFieldAssetKind       WorkspaceSelectionConditionStringField = "ASSET_KIND"       // Asset kind field.
 )
 
 // WorkspaceSelectionConditionStringOperator represents workspace selection condition string operators.
@@ -1344,4 +1391,5 @@ const (
 	WorkspaceSelectionConditionStringOperatorUnknown  WorkspaceSelectionConditionStringOperator = "UNKNOWN"   // Unknown operator.
 	WorkspaceSelectionConditionStringOperatorEqual    WorkspaceSelectionConditionStringOperator = "EQUAL"     // Equal operator.
 	WorkspaceSelectionConditionStringOperatorNotEqual WorkspaceSelectionConditionStringOperator = "NOT_EQUAL" // Not equal operator.
+	WorkspaceSelectionConditionStringOperatorContains WorkspaceSelectionConditionStringOperator = "CONTAINS"  // Contains operator.
 )
