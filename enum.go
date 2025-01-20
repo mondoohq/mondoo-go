@@ -1331,6 +1331,25 @@ const (
 	WorkspaceSelectionConditionIntFieldRiskScore WorkspaceSelectionConditionIntField = "RISK_SCORE" // Risk score field.
 )
 
+// WorkspaceSelectionConditionKeyValueField represents workspace selection condition key-value fields.
+type WorkspaceSelectionConditionKeyValueField string
+
+// Workspace selection condition key-value fields.
+const (
+	WorkspaceSelectionConditionKeyValueFieldUnknown     WorkspaceSelectionConditionKeyValueField = "UNKNOWN"     // Unknwon key-value field.
+	WorkspaceSelectionConditionKeyValueFieldLabels      WorkspaceSelectionConditionKeyValueField = "LABELS"      // Labels field.
+	WorkspaceSelectionConditionKeyValueFieldAnnotations WorkspaceSelectionConditionKeyValueField = "ANNOTATIONS" // Annotations field.
+)
+
+// WorkspaceSelectionConditionKeyValueOperator represents workspace selection condition key-value operators.
+type WorkspaceSelectionConditionKeyValueOperator string
+
+// Workspace selection condition key-value operators.
+const (
+	WorkspaceSelectionConditionKeyValueOperatorUnknown  WorkspaceSelectionConditionKeyValueOperator = "UNKNOWN"  // Unknown operator.
+	WorkspaceSelectionConditionKeyValueOperatorContains WorkspaceSelectionConditionKeyValueOperator = "CONTAINS" // Contains operator.
+)
+
 // WorkspaceSelectionConditionNumericOperator represents workspace selection condition string operators.
 type WorkspaceSelectionConditionNumericOperator string
 
@@ -1357,7 +1376,7 @@ type WorkspaceSelectionConditionRatingField string
 
 // Workspace selection condition rating fields.
 const (
-	WorkspaceSelectionConditionRatingFieldUnknown WorkspaceSelectionConditionRatingField = "UNKNOWN" // Unknwon string field.
+	WorkspaceSelectionConditionRatingFieldUnknown WorkspaceSelectionConditionRatingField = "UNKNOWN" // Unknwon rating field.
 	WorkspaceSelectionConditionRatingFieldRisk    WorkspaceSelectionConditionRatingField = "RISK"    // Risk field.
 )
 
