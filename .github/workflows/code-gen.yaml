@@ -51,10 +51,24 @@ jobs:
           title: ${{ steps.branch.outputs.COMMIT_TITLE }}
           branch: ${{ steps.branch.outputs.BRANCH_NAME }}
           body-path: .github/pr-body.md
-  
       - name: PR infos
         if: ${{ steps.cpr.outputs.pull-request-number }}
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
           echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
-        
+      # fetch a token for the mondoo-mergebot app
+      - name: Generate token
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.MONDOO_MERGEBOT_APP_ID }}
+          private-key: ${{ secrets.MONDOO_MERGEBOT_APP_PRIVATE_KEY }}
+      # automerge using bot token
+      - name: Approve and merge a PR
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          gh pr review ${{ steps.cpr.outputs.pull-request-number }} --approve
+          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
