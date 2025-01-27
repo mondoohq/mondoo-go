@@ -720,6 +720,9 @@ const (
 	ICON_IDSDomainsAndHosts           ICON_IDS = "DOMAINS_AND_HOSTS"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSIac                       ICON_IDS = "IAC"
+	ICON_IDSNistNvd                   ICON_IDS = "NIST_NVD"
+	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
+	ICON_IDSMetasploit                ICON_IDS = "METASPLOIT"
 )
 
 // IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
@@ -1400,6 +1403,7 @@ const (
 	WorkspaceSelectionConditionStringFieldPlatformVersion WorkspaceSelectionConditionStringField = "PLATFORM_VERSION" // Platform version field.
 	WorkspaceSelectionConditionStringFieldAssetName       WorkspaceSelectionConditionStringField = "ASSET_NAME"       // Asset name field.
 	WorkspaceSelectionConditionStringFieldAssetKind       WorkspaceSelectionConditionStringField = "ASSET_KIND"       // Asset kind field.
+	WorkspaceSelectionConditionStringFieldTechnology      WorkspaceSelectionConditionStringField = "TECHNOLOGY"       // Technology field.
 )
 
 // WorkspaceSelectionConditionStringOperator represents workspace selection condition string operators.
