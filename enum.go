@@ -539,12 +539,16 @@ type DocumentType string
 
 // Document type.
 const (
-	DocumentTypeFrameworkReport     DocumentType = "FRAMEWORK_REPORT"
-	DocumentTypeControlReport       DocumentType = "CONTROL_REPORT"
-	DocumentTypeExport              DocumentType = "EXPORT"
-	DocumentTypeAssetReport         DocumentType = "ASSET_REPORT"
-	DocumentTypeAdvisoryReport      DocumentType = "ADVISORY_REPORT"
-	DocumentTypeVulnerabilityReport DocumentType = "VULNERABILITY_REPORT"
+	DocumentTypeFrameworkReport       DocumentType = "FRAMEWORK_REPORT"
+	DocumentTypeControlReport         DocumentType = "CONTROL_REPORT"
+	DocumentTypeExport                DocumentType = "EXPORT"
+	DocumentTypeAssetReport           DocumentType = "ASSET_REPORT"
+	DocumentTypeAdvisoryReport        DocumentType = "ADVISORY_REPORT"
+	DocumentTypeVulnerabilityReport   DocumentType = "VULNERABILITY_REPORT"
+	DocumentTypeCheckReport           DocumentType = "CHECK_REPORT"
+	DocumentTypeSecurityReport        DocumentType = "SECURITY_REPORT"
+	DocumentTypeChecksReport          DocumentType = "CHECKS_REPORT"
+	DocumentTypeVulnerabilitiesReport DocumentType = "VULNERABILITIES_REPORT"
 )
 
 // EOLStatus represents end-of-life status.
