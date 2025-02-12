@@ -602,6 +602,33 @@ const (
 	ExceptionTypeAdvisory   ExceptionType = "ADVISORY"
 )
 
+// FindingType represents finding type.
+type FindingType string
+
+// Finding type.
+const (
+	FindingTypeCheck    FindingType = "CHECK"
+	FindingTypeCve      FindingType = "CVE"
+	FindingTypeAdvisory FindingType = "ADVISORY"
+	FindingTypePackage  FindingType = "PACKAGE"
+)
+
+// FindingsOrderField represents findings order field.
+type FindingsOrderField string
+
+// Findings order field.
+const (
+	FindingsOrderFieldAssetName   FindingsOrderField = "ASSET_NAME"
+	FindingsOrderFieldBaseScore   FindingsOrderField = "BASE_SCORE"
+	FindingsOrderFieldRiskScore   FindingsOrderField = "RISK_SCORE"
+	FindingsOrderFieldLastUpdated FindingsOrderField = "LAST_UPDATED"
+	FindingsOrderFieldPackageName FindingsOrderField = "PACKAGE_NAME"
+	FindingsOrderFieldRiskFactors FindingsOrderField = "RISK_FACTORS"
+	FindingsOrderFieldFirstFound  FindingsOrderField = "FIRST_FOUND"
+	FindingsOrderFieldMrn         FindingsOrderField = "MRN"
+	FindingsOrderFieldCvssScore   FindingsOrderField = "CVSS_SCORE"
+)
+
 // FormatType represents output format.
 type FormatType string
 
