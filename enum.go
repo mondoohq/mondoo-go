@@ -848,37 +848,6 @@ const (
 	K8sScanNodesStyleDaemonset  K8sScanNodesStyle = "DAEMONSET"
 )
 
-// LibraryItemType represents libraryItemType.
-type LibraryItemType string
-
-// LibraryItemType.
-const (
-	LibraryItemTypeAdvisory LibraryItemType = "ADVISORY"
-	LibraryItemTypeCve      LibraryItemType = "CVE"
-	LibraryItemTypeExploit  LibraryItemType = "EXPLOIT"
-)
-
-// LibraryOrderField represents library order field.
-type LibraryOrderField string
-
-// Library order field.
-const (
-	LibraryOrderFieldID        LibraryOrderField = "ID"
-	LibraryOrderFieldTitle     LibraryOrderField = "TITLE"
-	LibraryOrderFieldPublished LibraryOrderField = "PUBLISHED"
-	LibraryOrderFieldModified  LibraryOrderField = "MODIFIED"
-	LibraryOrderFieldScore     LibraryOrderField = "SCORE"
-)
-
-// LibraryQueryResolution represents library query resolution.
-type LibraryQueryResolution string
-
-// Library query resolution.
-const (
-	LibraryQueryResolutionYear  LibraryQueryResolution = "YEAR"
-	LibraryQueryResolutionMonth LibraryQueryResolution = "MONTH"
-)
-
 // ListFrameworksFilterState
 type ListFrameworksFilterState string
 
@@ -940,27 +909,6 @@ const (
 	MvdEcosystemUbuntu      MvdEcosystem = "UBUNTU"
 	MvdEcosystemWindows     MvdEcosystem = "WINDOWS"
 	MvdEcosystemWindowsappx MvdEcosystem = "WINDOWSAPPX"
-)
-
-// MvdEntryType represents mVD entry type.
-type MvdEntryType string
-
-// MVD entry type.
-const (
-	MvdEntryTypeAdvisory MvdEntryType = "ADVISORY"
-	MvdEntryTypeCve      MvdEntryType = "CVE"
-)
-
-// MvdOrderField represents mVD order field.
-type MvdOrderField string
-
-// MVD order field.
-const (
-	MvdOrderFieldID        MvdOrderField = "ID"
-	MvdOrderFieldTitle     MvdOrderField = "TITLE"
-	MvdOrderFieldPublished MvdOrderField = "PUBLISHED"
-	MvdOrderFieldModified  MvdOrderField = "MODIFIED"
-	MvdOrderFieldScore     MvdOrderField = "SCORE"
 )
 
 // OrderDirection represents defines the possible directions in which to sort a list of items.
@@ -1271,15 +1219,6 @@ const (
 	SeverityMedium   Severity = "MEDIUM"
 	SeverityLow      Severity = "LOW"
 	SeverityNone     Severity = "NONE"
-)
-
-// SpacePlanQueryMutationDestinationType
-type SpacePlanQueryMutationDestinationType string
-
-const (
-	SpacePlanQueryMutationDestinationTypeActive     SpacePlanQueryMutationDestinationType = "ACTIVE"     // Move the query to active. These queries will be run and scored.
-	SpacePlanQueryMutationDestinationTypeExceptions SpacePlanQueryMutationDestinationType = "EXCEPTIONS" // Move the query to exceptions. These queries will not be run.
-	SpacePlanQueryMutationDestinationTypeMilestone  SpacePlanQueryMutationDestinationType = "MILESTONE"  // Move the query to a milestone. These queries will be run, but their score will not be incorporated into the policy score. If moving to a milestone, a milestone uid must also be provided to indicate which milestone.
 )
 
 // TicketRefType represents ticket reference type.
