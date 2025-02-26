@@ -607,10 +607,12 @@ type FindingType string
 
 // Finding type.
 const (
-	FindingTypeCheck    FindingType = "CHECK"
-	FindingTypeCve      FindingType = "CVE"
-	FindingTypeAdvisory FindingType = "ADVISORY"
-	FindingTypePackage  FindingType = "PACKAGE"
+	FindingTypeCheck      FindingType = "CHECK"
+	FindingTypeCve        FindingType = "CVE"
+	FindingTypeAdvisory   FindingType = "ADVISORY"
+	FindingTypePackage    FindingType = "PACKAGE"
+	FindingTypeOsPackage  FindingType = "OS_PACKAGE"
+	FindingTypeAppPackage FindingType = "APP_PACKAGE"
 )
 
 // FindingsOrderField represents findings order field.
