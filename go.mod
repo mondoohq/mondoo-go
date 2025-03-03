@@ -1,12 +1,13 @@
 module go.mondoo.com/mondoo-go
 
 go 1.21
+toolchain go1.23.6
 
 require (
-	github.com/go-jose/go-jose/v3 v3.0.3
+	github.com/go-jose/go-jose/v3 v3.0.4
 	github.com/shurcooL/graphql v0.0.0-20230722043721-ed46e5a46466
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/oauth2 v0.25.0
+	golang.org/x/oauth2 v0.27.0
 	sigs.k8s.io/yaml v1.4.0
 )
 
