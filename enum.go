@@ -758,6 +758,7 @@ const (
 	ICON_IDSNistNvd                   ICON_IDS = "NIST_NVD"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
 	ICON_IDSMetasploit                ICON_IDS = "METASPLOIT"
+	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
 )
 
 // IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
