@@ -1259,6 +1259,16 @@ const (
 	UserStateEnabled    UserState = "ENABLED"
 )
 
+// VPCFlavour represents describes flavour of the VPC for AWS Serverless Scanners.
+type VPCFlavour string
+
+// Describes flavour of the VPC for AWS Serverless Scanners.
+const (
+	VPCFlavourDefaultVpc  VPCFlavour = "DEFAULT_VPC"
+	VPCFlavourMondooNatgw VPCFlavour = "MONDOO_NATGW"
+	VPCFlavourMondooIgw   VPCFlavour = "MONDOO_IGW"
+)
+
 // VulnerabilityOrderType represents possible vulnerability order types.
 type VulnerabilityOrderType string
 
@@ -1390,4 +1400,12 @@ const (
 	WorkspaceSelectionConditionStringOperatorEqual    WorkspaceSelectionConditionStringOperator = "EQUAL"     // Equal operator.
 	WorkspaceSelectionConditionStringOperatorNotEqual WorkspaceSelectionConditionStringOperator = "NOT_EQUAL" // Not equal operator.
 	WorkspaceSelectionConditionStringOperatorContains WorkspaceSelectionConditionStringOperator = "CONTAINS"  // Contains operator.
+)
+
+// ZendeskTicketContextType represents the type of the ticket context.
+type ZendeskTicketContextType string
+
+// The type of the ticket context.
+const (
+	ZendeskTicketContextTypeFields ZendeskTicketContextType = "FIELDS" // The ticket context for Zendesk projects.
 )
