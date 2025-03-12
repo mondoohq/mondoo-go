@@ -169,6 +169,7 @@ const (
 	AssetOrderFieldPlatform    AssetOrderField = "PLATFORM"
 	AssetOrderFieldScore       AssetOrderField = "SCORE"
 	AssetOrderFieldLastUpdated AssetOrderField = "LAST_UPDATED"
+	AssetOrderFieldRiskScore   AssetOrderField = "RISK_SCORE"
 )
 
 // AssetOverviewReferenceTypeEnum represents an enumeration of the possible reference types for a item for an asset overview.
@@ -1200,6 +1201,7 @@ type SearchType string
 const (
 	SearchTypeAggregateScore SearchType = "AGGREGATE_SCORE" // Returns matching aggregate scores.
 	SearchTypeMvd            SearchType = "MVD"             // Returns matching vulnerabilities and advisories in MVD.
+	SearchTypeMvdV2          SearchType = "MVD_V2"          // Returns matching osv vulnerabilities in MVD V2.
 )
 
 // ServiceAccountOrderField
