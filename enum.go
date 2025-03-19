@@ -258,6 +258,15 @@ const (
 	AuditLogOrderFieldTimestamp AuditLogOrderField = "TIMESTAMP"
 )
 
+// AuthBindingOrderField
+type AuthBindingOrderField string
+
+const (
+	AuthBindingOrderFieldName       AuthBindingOrderField = "NAME"
+	AuthBindingOrderFieldIssuerURI  AuthBindingOrderField = "ISSUER_URI"
+	AuthBindingOrderFieldCreateTime AuthBindingOrderField = "CREATE_TIME"
+)
+
 // AzureDevopsTicketContextType represents the type of the ticket context.
 type AzureDevopsTicketContextType string
 
@@ -1112,6 +1121,15 @@ type RiskFactorAction string
 const (
 	RiskFactorActionEnable  RiskFactorAction = "ENABLE"  // Enable risk factor.
 	RiskFactorActionDisable RiskFactorAction = "DISABLE" // Disable risk factor.
+)
+
+// RiskMagnitudeExplaination
+type RiskMagnitudeExplaination string
+
+const (
+	RiskMagnitudeExplainationIncreasesRisk RiskMagnitudeExplaination = "INCREASES_RISK"
+	RiskMagnitudeExplainationDecreasesRisk RiskMagnitudeExplaination = "DECREASES_RISK"
+	RiskMagnitudeExplainationNoEffect      RiskMagnitudeExplaination = "NO_EFFECT"
 )
 
 // ScoreRating
