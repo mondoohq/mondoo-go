@@ -265,6 +265,7 @@ const (
 	AuthBindingOrderFieldName       AuthBindingOrderField = "NAME"
 	AuthBindingOrderFieldIssuerURI  AuthBindingOrderField = "ISSUER_URI"
 	AuthBindingOrderFieldCreateTime AuthBindingOrderField = "CREATE_TIME"
+	AuthBindingOrderFieldLastUsed   AuthBindingOrderField = "LAST_USED"
 )
 
 // AzureDevopsTicketContextType represents the type of the ticket context.
@@ -579,6 +580,14 @@ const (
 	EmailPreferenceListNewsletterEvents          EmailPreferenceList = "NEWSLETTER_EVENTS"
 	EmailPreferenceListNotificationWeeklyReports EmailPreferenceList = "NOTIFICATION_WEEKLY_REPORTS"
 	EmailPreferenceListNotificationSpaceAlerts   EmailPreferenceList = "NOTIFICATION_SPACE_ALERTS"
+)
+
+// ExceptionGroupsOrderField represents exception groups order field.
+type ExceptionGroupsOrderField string
+
+// Exception groups order field.
+const (
+	ExceptionGroupsOrderFieldCreatedAt ExceptionGroupsOrderField = "CREATED_AT"
 )
 
 // ExceptionMutationAction represents the action to apply to the exception.
