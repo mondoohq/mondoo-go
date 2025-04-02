@@ -117,6 +117,7 @@ type AggregateScoreOrderField string
 // Aggregate score order field.
 const (
 	AggregateScoreOrderFieldRiskScore   AggregateScoreOrderField = "RISK_SCORE"   // Risk score field.
+	AggregateScoreOrderFieldRiskValue   AggregateScoreOrderField = "RISK_VALUE"   // Risk value.
 	AggregateScoreOrderFieldRank        AggregateScoreOrderField = "RANK"         // Risk rank.
 	AggregateScoreOrderFieldBlastRadius AggregateScoreOrderField = "BLAST_RADIUS" // Risk score blast radius.
 	AggregateScoreOrderFieldTitle       AggregateScoreOrderField = "TITLE"        // Title.
@@ -170,6 +171,7 @@ const (
 	AssetOrderFieldScore       AssetOrderField = "SCORE"
 	AssetOrderFieldLastUpdated AssetOrderField = "LAST_UPDATED"
 	AssetOrderFieldRiskScore   AssetOrderField = "RISK_SCORE"
+	AssetOrderFieldRiskValue   AssetOrderField = "RISK_VALUE"
 )
 
 // AssetOverviewReferenceTypeEnum represents an enumeration of the possible reference types for a item for an asset overview.
@@ -324,6 +326,7 @@ type CheckScoreOrderField string
 const (
 	CheckScoreOrderFieldAssetName   CheckScoreOrderField = "ASSET_NAME"
 	CheckScoreOrderFieldScore       CheckScoreOrderField = "SCORE"
+	CheckScoreOrderFieldRiskValue   CheckScoreOrderField = "RISK_VALUE"
 	CheckScoreOrderFieldLastUpdated CheckScoreOrderField = "LAST_UPDATED"
 )
 
@@ -582,14 +585,6 @@ const (
 	EmailPreferenceListNotificationSpaceAlerts   EmailPreferenceList = "NOTIFICATION_SPACE_ALERTS"
 )
 
-// ExceptionGroupsOrderField represents exception groups order field.
-type ExceptionGroupsOrderField string
-
-// Exception groups order field.
-const (
-	ExceptionGroupsOrderFieldCreatedAt ExceptionGroupsOrderField = "CREATED_AT"
-)
-
 // ExceptionMutationAction represents the action to apply to the exception.
 type ExceptionMutationAction string
 
@@ -642,6 +637,7 @@ const (
 	FindingsOrderFieldAssetName   FindingsOrderField = "ASSET_NAME"
 	FindingsOrderFieldBaseScore   FindingsOrderField = "BASE_SCORE"
 	FindingsOrderFieldRiskScore   FindingsOrderField = "RISK_SCORE"
+	FindingsOrderFieldRiskValue   FindingsOrderField = "RISK_VALUE"
 	FindingsOrderFieldLastUpdated FindingsOrderField = "LAST_UPDATED"
 	FindingsOrderFieldPackageName FindingsOrderField = "PACKAGE_NAME"
 	FindingsOrderFieldRiskFactors FindingsOrderField = "RISK_FACTORS"
@@ -868,6 +864,14 @@ const (
 	K8sScanNodesStyleCronjob    K8sScanNodesStyle = "CRONJOB"
 	K8sScanNodesStyleDeployment K8sScanNodesStyle = "DEPLOYMENT"
 	K8sScanNodesStyleDaemonset  K8sScanNodesStyle = "DAEMONSET"
+)
+
+// ListExceptionGroupsOrderField represents exception groups order field.
+type ListExceptionGroupsOrderField string
+
+// Exception groups order field.
+const (
+	ListExceptionGroupsOrderFieldCreatedAt ListExceptionGroupsOrderField = "CREATED_AT"
 )
 
 // ListFrameworksFilterState
