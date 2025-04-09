@@ -1900,14 +1900,14 @@ type ListExceptionGroupsFilter struct {
 	ReviewStatuses *[]ReviewStatus `json:"reviewStatuses,omitempty"`
 	// Filter by valid until date. Input is string date. The BE logic is exception.ValidUntil <= filter.validUntil. (Optional.)
 	ValidUntil *String `json:"validUntil,omitempty"`
+	// Filter by id of exception group. (Optional.)
+	ID *String `json:"id,omitempty"`
 }
 
 // ListExceptionGroupsInput represents the input to get a list of exception groups.
 type ListExceptionGroupsInput struct {
 	// The mrn of the space/asset. (Required.)
 	ScopeMrn String `json:"scopeMrn"`
-	// The number of assets to return. (Required.)
-	First Int `json:"first"`
 
 	// The mrn to filter on. It can be a query, control, policy or a framework. (Optional.)
 	Mrn *String `json:"mrn,omitempty"`
@@ -1915,12 +1915,12 @@ type ListExceptionGroupsInput struct {
 	Types *[]ExceptionType `json:"types,omitempty"`
 	// The action of the exception groups. Empty list means all. (Optional.)
 	Actions *[]ExceptionMutationAction `json:"actions,omitempty"`
-	// The cursor after which the assets are to be returned. (Optional.)
-	After *String `json:"after,omitempty"`
 	// Order by. If not provided the default ordering is by valid until and uid asc. (Optional.)
 	OrderBy *ListExceptionGroupsOrder `json:"orderBy,omitempty"`
 	// Additional filters. (Optional.)
 	Filter *ListExceptionGroupsFilter `json:"filter,omitempty"`
+	// Flag indicating whether to include exceptions in child scopes If scopeMrn is a space and this flag is true, all exceptions defined on the space and on all of the space's assets will be returned. (Optional.)
+	IncludeChildScopes *Boolean `json:"includeChildScopes,omitempty"`
 }
 
 // ListExceptionGroupsOrder represents exception groups order.
@@ -2379,6 +2379,8 @@ type RemediationFilter struct {
 	Namespace *String `json:"namespace,omitempty"`
 	// filter by package ecosystem, e.g., AmazonLinux:2023 It is the ecosystem.ID in the RemediationResponse. (Optional.)
 	Ecosystem *String `json:"ecosystem,omitempty"`
+	// filter by affected assets and their packages. (Optional.)
+	FilterAffected *Boolean `json:"filterAffected,omitempty"`
 }
 
 // RemediationInput represents input for the remediation script.
