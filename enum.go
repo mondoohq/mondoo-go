@@ -116,11 +116,12 @@ type AggregateScoreOrderField string
 
 // Aggregate score order field.
 const (
-	AggregateScoreOrderFieldRiskScore   AggregateScoreOrderField = "RISK_SCORE"   // Risk score field.
-	AggregateScoreOrderFieldRiskValue   AggregateScoreOrderField = "RISK_VALUE"   // Risk value.
-	AggregateScoreOrderFieldRank        AggregateScoreOrderField = "RANK"         // Risk rank.
-	AggregateScoreOrderFieldBlastRadius AggregateScoreOrderField = "BLAST_RADIUS" // Risk score blast radius.
-	AggregateScoreOrderFieldTitle       AggregateScoreOrderField = "TITLE"        // Title.
+	AggregateScoreOrderFieldRiskScore       AggregateScoreOrderField = "RISK_SCORE"        // Risk score field.
+	AggregateScoreOrderFieldRiskValue       AggregateScoreOrderField = "RISK_VALUE"        // Risk value.
+	AggregateScoreOrderFieldRank            AggregateScoreOrderField = "RANK"              // Risk rank.
+	AggregateScoreOrderFieldBlastRadius     AggregateScoreOrderField = "BLAST_RADIUS"      // Risk score blast radius.
+	AggregateScoreOrderFieldTitle           AggregateScoreOrderField = "TITLE"             // Title.
+	AggregateScoreOrderFieldFirstDetectedAt AggregateScoreOrderField = "FIRST_DETECTED_AT" // First detected.
 )
 
 // AggregateScoreState
