@@ -729,6 +729,7 @@ const (
 	ICON_IDSGcp                       ICON_IDS = "GCP"
 	ICON_IDSK8s                       ICON_IDS = "K8S"
 	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
+	ICON_IDSPython                    ICON_IDS = "PYTHON"
 	ICON_IDSGitHub                    ICON_IDS = "GITHUB"
 	ICON_IDSGitLab                    ICON_IDS = "GITLAB"
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
@@ -872,7 +873,8 @@ type ListExceptionGroupsOrderField string
 
 // Exception groups order field.
 const (
-	ListExceptionGroupsOrderFieldCreatedAt ListExceptionGroupsOrderField = "CREATED_AT"
+	ListExceptionGroupsOrderFieldCreatedAt  ListExceptionGroupsOrderField = "CREATED_AT"
+	ListExceptionGroupsOrderFieldValidUntil ListExceptionGroupsOrderField = "VALID_UNTIL"
 )
 
 // ListFrameworksFilterState
@@ -1368,8 +1370,9 @@ type WorkspaceSelectionConditionKeyValueOperator string
 
 // Workspace selection condition key-value operators.
 const (
-	WorkspaceSelectionConditionKeyValueOperatorUnknown  WorkspaceSelectionConditionKeyValueOperator = "UNKNOWN"  // Unknown operator.
-	WorkspaceSelectionConditionKeyValueOperatorContains WorkspaceSelectionConditionKeyValueOperator = "CONTAINS" // Contains operator.
+	WorkspaceSelectionConditionKeyValueOperatorUnknown     WorkspaceSelectionConditionKeyValueOperator = "UNKNOWN"      // Unknown operator.
+	WorkspaceSelectionConditionKeyValueOperatorContains    WorkspaceSelectionConditionKeyValueOperator = "CONTAINS"     // Contains operator.
+	WorkspaceSelectionConditionKeyValueOperatorNotContains WorkspaceSelectionConditionKeyValueOperator = "NOT_CONTAINS" // Does not contain operator.
 )
 
 // WorkspaceSelectionConditionNumericOperator represents workspace selection condition string operators.
