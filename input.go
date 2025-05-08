@@ -13,3174 +13,3174 @@ type Input interface{}
 // APITokenOrder
 type APITokenOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field APITokenOrderField `json:"field"`
+	Field APITokenOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AWSConfigurationOptionsInput represents aWS integration input.
 type AWSConfigurationOptionsInput struct {
 	// (Required.)
-	Region String `json:"region"`
+	Region String `json:"region" tfgen:"required=1"`
 	// (Required.)
-	ScanConfiguration ScanConfigurationInput `json:"scanConfiguration"`
+	ScanConfiguration ScanConfigurationInput `json:"scanConfiguration" tfgen:"required=1"`
 
 	// (Optional.)
-	AccountIDs *[]String `json:"accountIds,omitempty"`
+	AccountIDs *[]String `json:"accountIds,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	IsOrganization *Boolean `json:"isOrganization,omitempty"`
+	IsOrganization *Boolean `json:"isOrganization,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	V2Template *Boolean `json:"v2Template,omitempty"`
+	V2Template *Boolean `json:"v2Template,omitempty" tfgen:"required=0"`
 }
 
 // AWSEventPatternInput represents aWSEventPatternInput describes the options for event pattern based scan triggers.
 type AWSEventPatternInput struct {
 	// (Required.)
-	ScanType String `json:"scanType"`
+	ScanType String `json:"scanType" tfgen:"required=1"`
 	// (Required.)
-	EventSource String `json:"eventSource"`
+	EventSource String `json:"eventSource" tfgen:"required=1"`
 	// (Required.)
-	EventDetailType String `json:"eventDetailType"`
+	EventDetailType String `json:"eventDetailType" tfgen:"required=1"`
 }
 
 // AWSRoleCredential
 type AWSRoleCredential struct {
 	// (Required.)
-	Role String `json:"role"`
+	Role String `json:"role" tfgen:"required=1"`
 
 	// (Optional.)
-	ExternalID *String `json:"externalId,omitempty"`
+	ExternalID *String `json:"externalId,omitempty" tfgen:"required=0"`
 }
 
 // AWSSecretKeyCredential
 type AWSSecretKeyCredential struct {
 	// (Required.)
-	AccessKeyID String `json:"accessKeyId"`
+	AccessKeyID String `json:"accessKeyId" tfgen:"required=1"`
 	// (Required.)
-	SecretAccessKey String `json:"secretAccessKey"`
+	SecretAccessKey String `json:"secretAccessKey" tfgen:"required=1"`
 }
 
 // AcceptLegalPolicy
 type AcceptLegalPolicy struct {
 
 	// (Optional.)
-	ResourceMrn *String `json:"resourceMrn,omitempty"`
+	ResourceMrn *String `json:"resourceMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	PolicyID *String `json:"policyId,omitempty"`
+	PolicyID *String `json:"policyId,omitempty" tfgen:"required=0"`
 }
 
 // ActivePoliciesInput represents active policies input.
 type ActivePoliciesInput struct {
 	// Scope MRN the scope for which to grab the active policies. Currently, only spaces are supported. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// Filters the policies with the given query. Partial matches by name are supported. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// The ordering of the returned policies. (Optional.)
-	OrderBy *ActivePolicyOrder `json:"orderBy,omitempty"`
+	OrderBy *ActivePolicyOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 }
 
 // ActivePolicyOrder represents active policy order.
 type ActivePolicyOrder struct {
 	// Field. (Required.)
-	Field ActivePolicyOrderField `json:"field"`
+	Field ActivePolicyOrderField `json:"field" tfgen:"required=1"`
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 }
 
 // AddSSHKeyRequest
 type AddSSHKeyRequest struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Content String `json:"content"`
+	Content String `json:"content" tfgen:"required=1"`
 }
 
 // AdvisoryDocumentOptionsInput represents input options for the advisory of the document.
 type AdvisoryDocumentOptionsInput struct {
 	// The ID of the advisory to generate the report for. (Required.)
-	AdvisoryID String `json:"advisoryId"`
+	AdvisoryID String `json:"advisoryId" tfgen:"required=1"`
 	// The MRN of the scope to generate the report for. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // AdvisoryFilter represents advisory filters.
 type AdvisoryFilter struct {
 
 	// filter by textfield input. ex.: ["CHROME-2023"] elements will be ANDed. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 }
 
 // AdvisoryOrder represents advisory order object.
 type AdvisoryOrder struct {
 	// Order direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Order field. (Required.)
-	Field AdvisoryOrderField `json:"field"`
+	Field AdvisoryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AdvisorySummaryOrder represents possible advisory summary order object.
 type AdvisorySummaryOrder struct {
 	// Order direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Order field. (Required.)
-	Field AdvisorySummaryOrderField `json:"field"`
+	Field AdvisorySummaryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AgentOrder represents sorting for the agents.
 type AgentOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field AgentOrderField `json:"field"`
+	Field AgentOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AgentVersionFilter represents input used to filter the agents by version.
 type AgentVersionFilter struct {
 	// (Required.)
-	Version String `json:"version"`
+	Version String `json:"version" tfgen:"required=1"`
 	// (Required.)
-	Not Boolean `json:"not"`
+	Not Boolean `json:"not" tfgen:"required=1"`
 }
 
 // AggregateScoreFilter represents aggregate score filters.
 type AggregateScoreFilter struct {
 
 	// filter by textfield input. ex.: ["CHROME-2023"] elements will be ANDed. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 	// filter by aggregated score by finding. (Optional.)
-	FindingMrn *String `json:"findingMrn,omitempty"`
+	FindingMrn *String `json:"findingMrn,omitempty" tfgen:"required=0"`
 	// filter by aggregated score type. (Optional.)
-	ScoreType *AggregateScoreType `json:"scoreType,omitempty"`
+	ScoreType *AggregateScoreType `json:"scoreType,omitempty" tfgen:"required=0"`
 	// filter by aggregated score types. (Optional.)
-	ScoreTypes *[]AggregateScoreType `json:"scoreTypes,omitempty"`
+	ScoreTypes *[]AggregateScoreType `json:"scoreTypes,omitempty" tfgen:"required=0"`
 	// filter by risk factor mrn. (Optional.)
-	Risks *RiskFactorFilter `json:"risks,omitempty"`
+	Risks *RiskFactorFilter `json:"risks,omitempty" tfgen:"required=0"`
 	// filter to find all scores that are lower or equal than the provided score. (Optional.)
-	MaxRiskScore *Int `json:"maxRiskScore,omitempty"`
+	MaxRiskScore *Int `json:"maxRiskScore,omitempty" tfgen:"required=0"`
 	// filter to find all scores that are higher or equal than the provided risk value. Takes precedence over maxRiskScore. (Optional.)
-	MinRiskValue *Int `json:"minRiskValue,omitempty"`
+	MinRiskValue *Int `json:"minRiskValue,omitempty" tfgen:"required=0"`
 	// filter aggregated scores by findingMrn of an unversioned software package e.g., finding versions of bash by searching for //.../software/.../name/bash This filter should be used in conjunction with the scoreType filter: VERSIONED_SOFTWARE. (Optional.)
-	SoftwareFindingMrn *String `json:"softwareFindingMrn,omitempty"`
+	SoftwareFindingMrn *String `json:"softwareFindingMrn,omitempty" tfgen:"required=0"`
 	// filter by aggregate score state. If not provided, all states are returned. (Optional.)
-	State *AggregateScoreState `json:"state,omitempty"`
+	State *AggregateScoreState `json:"state,omitempty" tfgen:"required=0"`
 	// Retrieve check scores by policy MRN. (Optional.)
-	PolicyMrn *String `json:"policyMrn,omitempty"`
+	PolicyMrn *String `json:"policyMrn,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
 type AggregateScoreOrder struct {
 	// Order direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// AggregateScore field. (Required.)
-	Field AggregateScoreOrderField `json:"field"`
+	Field AggregateScoreOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AnalyseAssetVulnerabilitiesInput represents input data for analyzing an asset.
 type AnalyseAssetVulnerabilitiesInput struct {
 	// Asset MRN. (Required.)
-	Mrn ID `json:"mrn"`
+	Mrn ID `json:"mrn" tfgen:"required=1"`
 }
 
 // AnalyseIncognitoAssetInput represents data needed for analyzing an asset without mrn.
 type AnalyseIncognitoAssetInput struct {
 	// Asset platform. (Required.)
-	Platform PlatformInput `json:"platform"`
+	Platform PlatformInput `json:"platform" tfgen:"required=1"`
 	// Asset packages. (Required.)
-	Packages []PackageInput `json:"packages"`
+	Packages []PackageInput `json:"packages" tfgen:"required=1"`
 
 	// optional kernel information for OS. (Optional.)
-	KernelVersion *String `json:"kernelVersion,omitempty"`
+	KernelVersion *String `json:"kernelVersion,omitempty" tfgen:"required=0"`
 }
 
 // ApplyExceptionForScopesInput represents the input to apply an exception to multiple scopes.
 type ApplyExceptionForScopesInput struct {
 	// The scopes of the exceptions. Can be a space or an asset mrns. (Required.)
-	ScopeMrns []String `json:"scopeMrns"`
+	ScopeMrns []String `json:"scopeMrns" tfgen:"required=1"`
 	// How this exception should be handled Snooze the controls or disable them "enable" will delete the supplied control mrn from any exception. (Required.)
-	Action ExceptionMutationAction `json:"action"`
+	Action ExceptionMutationAction `json:"action" tfgen:"required=1"`
 
 	// RFC3339 timestamp The date, from which on the exception is no longer valid. Only applies to action IGNORE, empty is interpreted as forever. (Optional.)
-	ValidUntil *String `json:"validUntil,omitempty"`
+	ValidUntil *String `json:"validUntil,omitempty" tfgen:"required=0"`
 	// The justification for the exception. (Optional.)
-	Justification *String `json:"justification,omitempty"`
+	Justification *String `json:"justification,omitempty" tfgen:"required=0"`
 	// List of control mrns that are expected. Applies only for compliance exceptions. (Optional.)
-	ControlMrns *[]String `json:"controlMrns,omitempty"`
+	ControlMrns *[]String `json:"controlMrns,omitempty" tfgen:"required=0"`
 	// List of query mrns that are expected. Applies only for security exceptions. (Optional.)
-	QueryMrns *[]String `json:"queryMrns,omitempty"`
+	QueryMrns *[]String `json:"queryMrns,omitempty" tfgen:"required=0"`
 	// List of cve mrns that are excepted. Applies only for cve exceptions. (Optional.)
-	CveMrns *[]String `json:"cveMrns,omitempty"`
+	CveMrns *[]String `json:"cveMrns,omitempty" tfgen:"required=0"`
 	// List of advisory mrns that are excepted. Applies only for advisory exceptions. (Optional.)
-	AdvisoryMrns *[]String `json:"advisoryMrns,omitempty"`
+	AdvisoryMrns *[]String `json:"advisoryMrns,omitempty" tfgen:"required=0"`
 	// Apply the exception to the CVEs that are part of the advisories. Applies only for advisory exceptions. (Optional.)
-	ApplyToCves *Boolean `json:"applyToCves,omitempty"`
+	ApplyToCves *Boolean `json:"applyToCves,omitempty" tfgen:"required=0"`
 }
 
 // AssetDocumentOptionsInput represents input options for the asset of the document.
 type AssetDocumentOptionsInput struct {
 	// The MRN of the asset to generate the report for. (Required.)
-	AssetMrn String `json:"assetMrn"`
+	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
 }
 
 // AssetEolFilter represents asset end-of-life filter.
 type AssetEolFilter struct {
 	// Is end-of-life. (Required.)
-	IsEol Boolean `json:"isEol"`
+	IsEol Boolean `json:"isEol" tfgen:"required=1"`
 	// Is not end-of-life. (Required.)
-	IsNotEol Boolean `json:"isNotEol"`
+	IsNotEol Boolean `json:"isNotEol" tfgen:"required=1"`
 }
 
 // AssetExploitableFilter represents asset exploitable filter.
 type AssetExploitableFilter struct {
 	// Is exploitable. (Required.)
-	IsExploitable Boolean `json:"isExploitable"`
+	IsExploitable Boolean `json:"isExploitable" tfgen:"required=1"`
 	// Is not exploitable. (Required.)
-	IsNotExploitable Boolean `json:"isNotExploitable"`
+	IsNotExploitable Boolean `json:"isNotExploitable" tfgen:"required=1"`
 }
 
 // AssetFieldFiltersMutation
 type AssetFieldFiltersMutation struct {
 
 	// labelBasedFilters is a list of key value pairs that is converted to a mql query. The provided filters will filter against `asset.labels`. All filters are ORed together. (Optional.)
-	LabelBasedFilters *[]KeyValueInput `json:"labelBasedFilters,omitempty"`
+	LabelBasedFilters *[]KeyValueInput `json:"labelBasedFilters,omitempty" tfgen:"required=0"`
 	// annotationBasedFilters is a list of key value pairs that is converted to a mql query. The provided filters will filter against `asset.annotations`. All filters are ORed together. (Optional.)
-	AnnotationBasedFilters *[]KeyValueInput `json:"annotationBasedFilters,omitempty"`
+	AnnotationBasedFilters *[]KeyValueInput `json:"annotationBasedFilters,omitempty" tfgen:"required=0"`
 }
 
 // AssetGroupOrder represents asset group order.
 type AssetGroupOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field String `json:"field"`
+	Field String `json:"field" tfgen:"required=1"`
 }
 
 // AssetLastPackageUpdateTimeInput represents query data for a single assets package update time.
 type AssetLastPackageUpdateTimeInput struct {
 	// Asset MRN. (Required.)
-	Mrn ID `json:"mrn"`
+	Mrn ID `json:"mrn" tfgen:"required=1"`
 }
 
 // AssetLinkInfoInput represents asset link info input.
 type AssetLinkInfoInput struct {
 	// Asset ID. (Required.)
-	AssetID String `json:"assetId"`
+	AssetID String `json:"assetId" tfgen:"required=1"`
 	// Space ID. (Required.)
-	SpaceID String `json:"spaceID"`
+	SpaceID String `json:"spaceID" tfgen:"required=1"`
 }
 
 // AssetListPoliciesFilter represents filter for the asset policies.
 type AssetListPoliciesFilter struct {
 
 	// Filters policies partially matching on policy name and MRN. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// Filters policies by their grade. (Optional.)
-	Grades *[]String `json:"grades,omitempty"`
+	Grades *[]String `json:"grades,omitempty" tfgen:"required=0"`
 	// Filters policies by their rating. (Optional.)
-	Ratings *[]String `json:"ratings,omitempty"`
+	Ratings *[]String `json:"ratings,omitempty" tfgen:"required=0"`
 	// Filters policies by their category. (Optional.)
-	Categories *[]String `json:"categories,omitempty"`
+	Categories *[]String `json:"categories,omitempty" tfgen:"required=0"`
 }
 
 // AssetOSRebootFilter represents asset OS reboot filter.
 type AssetOSRebootFilter struct {
 	// Pending reboot. (Required.)
-	PendingReboot Boolean `json:"pendingReboot"`
+	PendingReboot Boolean `json:"pendingReboot" tfgen:"required=1"`
 	// No reboot. (Required.)
-	NoReboot Boolean `json:"noReboot"`
+	NoReboot Boolean `json:"noReboot" tfgen:"required=1"`
 }
 
 // AssetOrder represents asset order.
 type AssetOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field AssetOrderField `json:"field"`
+	Field AssetOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AssetOverviewPageInfo represents asset overview page info.
 type AssetOverviewPageInfo struct {
 	// Organization MRN. (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// Space MRN. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// Asset MRN. (Required.)
-	AssetMrn String `json:"assetMrn"`
+	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
 	// Which tab is selected: Overview, Policies, Controls, Platform Vulnerabilities, Resources. (Required.)
-	Tab String `json:"tab"`
+	Tab String `json:"tab" tfgen:"required=1"`
 }
 
 // AssetPackageDetailsInput represents input for the Software package details.
 type AssetPackageDetailsInput struct {
 	// Asset MRN. (Required.)
-	Mrn ID `json:"mrn"`
+	Mrn ID `json:"mrn" tfgen:"required=1"`
 	// Package name. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 
 	// Package version. (Optional.)
-	Version *String `json:"version,omitempty"`
+	Version *String `json:"version,omitempty" tfgen:"required=0"`
 }
 
 // AssetPackagesStatsInput represents asset packages stats input.
 type AssetPackagesStatsInput struct {
 	// Asset MRN. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 
 	// Filter by state. (Optional.)
-	State *ScoreStateFilter `json:"state,omitempty"`
+	State *ScoreStateFilter `json:"state,omitempty" tfgen:"required=0"`
 }
 
 // AssetReportListPoliciesFilter represents filter for the asset report's policies.
 type AssetReportListPoliciesFilter struct {
 
 	// Filters policies partially matching on policy name and MRN. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// Filters policies by their grade. (Optional.)
-	Grades *[]String `json:"grades,omitempty"`
+	Grades *[]String `json:"grades,omitempty" tfgen:"required=0"`
 	// Filters policies by their category. (Optional.)
-	Categories *[]String `json:"categories,omitempty"`
+	Categories *[]String `json:"categories,omitempty" tfgen:"required=0"`
 }
 
 // AssetReportPolicyOrder represents asset report policy order.
 type AssetReportPolicyOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field AssetReportQueryOrderField `json:"field"`
+	Field AssetReportQueryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AssetReportQueryOrder represents asset report query order.
 type AssetReportQueryOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field AssetReportQueryOrderField `json:"field"`
+	Field AssetReportQueryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AssetResourceInput
 type AssetResourceInput struct {
 	// (Required.)
-	AssetMrn String `json:"assetMrn"`
+	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	SelectedPaths *[]String `json:"selectedPaths,omitempty"`
+	SelectedPaths *[]String `json:"selectedPaths,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	SelectedNames *[]String `json:"selectedNames,omitempty"`
+	SelectedNames *[]String `json:"selectedNames,omitempty" tfgen:"required=0"`
 }
 
 // AssetSearchInput
 type AssetSearchInput struct {
 	// Full text search query. Each term in the query will be ANDed together. The query language supports the following qualifiers: - `name`: Search for assets containing a specific name. This is the default qualifier if none is specified Example: `name:my-asset-name` - `asset`: Alias for `name` - `id`: Search for assets containing a specific asset ID. MRNs are also accepted Example: `id:my-asset-id` - `asset-id`: Alias for `id` - `label`: Search for assets containing a label a specific key and optional value. If no value is specified, the tag must exist with any value. If a value is specified, the tag must exist with that value. Example: `label:my-tag` or `label:my-tag=*` or `label:my-tag="my-value"` - `asset-label`: Alias for `label` - `annotation`: Search for assets containing a annotation a specific key and optional value. If no value is specified, the tag must exist with any value. If a value is specified, the tag must exist with that value. Example: `annotation:my-tag` or `annotation:my-tag=*` or `annotation:my-tag="my-value"` - `asset-annotation`: Alias for `annotation` - `platform`: Search for assets containing a specific platform Example: `platform:my-platform`. (Required.)
-	Query String `json:"query"`
+	Query String `json:"query" tfgen:"required=1"`
 
 	// orgMrn is the mrn of the organization to search assets for. (Optional.)
-	OrgMrn *String `json:"orgMrn,omitempty"`
+	OrgMrn *String `json:"orgMrn,omitempty" tfgen:"required=0"`
 	// spaceMrns is a list of space mrns to search assets for. If none are provided, all spaces in the organization will be searched. (Optional.)
-	SpaceMrns *[]String `json:"spaceMrns,omitempty"`
+	SpaceMrns *[]String `json:"spaceMrns,omitempty" tfgen:"required=0"`
 	// Filter assets by their hierarchy. (Optional.)
-	AssetURLFilter *[]AssetUrlSegmentInput `json:"assetUrlFilter,omitempty"`
+	AssetURLFilter *[]AssetUrlSegmentInput `json:"assetUrlFilter,omitempty" tfgen:"required=0"`
 }
 
 // AssetSearchSuggestionsInput
 type AssetSearchSuggestionsInput struct {
 
 	// (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ScopeMrn *String `json:"scopeMrn,omitempty"`
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	SearchKey *String `json:"searchKey,omitempty"`
+	SearchKey *String `json:"searchKey,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	LabelFilter *[]*KeyValueInput `json:"labelFilter,omitempty"`
+	LabelFilter *[]*KeyValueInput `json:"labelFilter,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	RelatedAssetMrn *String `json:"relatedAssetMrn,omitempty"`
+	RelatedAssetMrn *String `json:"relatedAssetMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	IsCiCd *Boolean `json:"isCiCd,omitempty"`
+	IsCiCd *Boolean `json:"isCiCd,omitempty" tfgen:"required=0"`
 }
 
 // AssetSummaryOrder represents asset summary order.
 type AssetSummaryOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field AssetSummaryOrderField `json:"field"`
+	Field AssetSummaryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AssetUpdateFilter represents asset update filter.
 type AssetUpdateFilter struct {
 
 	// Before. (Optional.)
-	Before *String `json:"before,omitempty"`
+	Before *String `json:"before,omitempty" tfgen:"required=0"`
 	// After. (Optional.)
-	After *String `json:"after,omitempty"`
+	After *String `json:"after,omitempty" tfgen:"required=0"`
 }
 
 // AssetUrlSegmentInput
 type AssetUrlSegmentInput struct {
 	// The key of the URL segment to filter by. (Required.)
-	Key String `json:"key"`
+	Key String `json:"key" tfgen:"required=1"`
 	// The value of the URL segment to filter by. (Required.)
-	Value String `json:"value"`
+	Value String `json:"value" tfgen:"required=1"`
 }
 
 // AssetUrlStatsInput
 type AssetUrlStatsInput struct {
 
 	// Space MRN. (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// Scope MRN. (Optional.)
-	ScopeMrn *String `json:"scopeMrn,omitempty"`
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// Scope to score by. Default is ALL, which is a combination of the security and vulnerabilities scores. (Optional.)
-	Scope *AssetUrlStatsScope `json:"scope,omitempty"`
+	Scope *AssetUrlStatsScope `json:"scope,omitempty" tfgen:"required=0"`
 	// Exclude stats in the listed categories. (Optional.)
-	ExcludeCategories *[]AssetUrlStatsCategory `json:"excludeCategories,omitempty"`
+	ExcludeCategories *[]AssetUrlStatsCategory `json:"excludeCategories,omitempty" tfgen:"required=0"`
 }
 
 // AssetVulnerabilityReportInput represents input data for an asset vulnerability report.
 type AssetVulnerabilityReportInput struct {
 	// (Required.)
-	AssetMrn ID `json:"assetMrn"`
+	AssetMrn ID `json:"assetMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	FormatType *FormatType `json:"formatType,omitempty"`
+	FormatType *FormatType `json:"formatType,omitempty" tfgen:"required=0"`
 }
 
 // AuditLogOrder
 type AuditLogOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field AuditLogOrderField `json:"field"`
+	Field AuditLogOrderField `json:"field" tfgen:"required=1"`
 }
 
 // AwsS3ConfigurationOptionsInput represents aWS S3 integration input.
 type AwsS3ConfigurationOptionsInput struct {
 	// (Required.)
-	Output BucketOutputType `json:"output"`
+	Output BucketOutputType `json:"output" tfgen:"required=1"`
 	// (Required.)
-	Bucket String `json:"bucket"`
+	Bucket String `json:"bucket" tfgen:"required=1"`
 	// (Required.)
-	Region String `json:"region"`
+	Region String `json:"region" tfgen:"required=1"`
 	// (Required.)
-	AccessKey String `json:"accessKey"`
+	AccessKey String `json:"accessKey" tfgen:"required=1"`
 	// (Required.)
-	SecretAccessKey String `json:"secretAccessKey"`
+	SecretAccessKey String `json:"secretAccessKey" tfgen:"required=1"`
 }
 
 // AwsScanOptions represents scan type provided when triggering a scan on an AWS integration.
 type AwsScanOptions struct {
 	// (Required.)
-	ScanType String `json:"scanType"`
+	ScanType String `json:"scanType" tfgen:"required=1"`
 }
 
 // AzureBlobConfigurationOptionsInput represents azure Blob integration input.
 type AzureBlobConfigurationOptionsInput struct {
 	// (Required.)
-	Output BucketOutputType `json:"output"`
+	Output BucketOutputType `json:"output" tfgen:"required=1"`
 	// (Required.)
-	BlobSasURL String `json:"blobSasURL"`
+	BlobSasURL String `json:"blobSasURL" tfgen:"required=1"`
 }
 
 // AzureConfigurationOptionsInput represents azure integration input.
 type AzureConfigurationOptionsInput struct {
 	// (Required.)
-	TenantID String `json:"tenantId"`
+	TenantID String `json:"tenantId" tfgen:"required=1"`
 	// (Required.)
-	ClientID String `json:"clientId"`
+	ClientID String `json:"clientId" tfgen:"required=1"`
 
 	// (Optional.)
-	SubscriptionsWhitelist *[]String `json:"subscriptionsWhitelist,omitempty"`
+	SubscriptionsWhitelist *[]String `json:"subscriptionsWhitelist,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	SubscriptionsBlacklist *[]String `json:"subscriptionsBlacklist,omitempty"`
+	SubscriptionsBlacklist *[]String `json:"subscriptionsBlacklist,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	SubscriptionsAllowlist *[]String `json:"subscriptionsAllowlist,omitempty"`
+	SubscriptionsAllowlist *[]String `json:"subscriptionsAllowlist,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	SubscriptionsDenylist *[]String `json:"subscriptionsDenylist,omitempty"`
+	SubscriptionsDenylist *[]String `json:"subscriptionsDenylist,omitempty" tfgen:"required=0"`
 	// TODO: temporary optional, fix by having separate update models. (Optional.)
-	Certificate *String `json:"certificate,omitempty"`
+	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ScanVms *Boolean `json:"scanVms,omitempty"`
+	ScanVms *Boolean `json:"scanVms,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ClientSecret *String `json:"clientSecret,omitempty"`
+	ClientSecret *String `json:"clientSecret,omitempty" tfgen:"required=0"`
 }
 
 // AzureDevopsConfigurationOptionsInput represents azure Devops integration input.
 type AzureDevopsConfigurationOptionsInput struct {
 	// (Required.)
-	OrganizationURL String `json:"organizationUrl"`
+	OrganizationURL String `json:"organizationUrl" tfgen:"required=1"`
 	// (Required.)
-	TenantID String `json:"tenantId"`
+	TenantID String `json:"tenantId" tfgen:"required=1"`
 	// (Required.)
-	ServicePrincipalID String `json:"servicePrincipalId"`
+	ServicePrincipalID String `json:"servicePrincipalId" tfgen:"required=1"`
 	// (Required.)
-	ClientSecret String `json:"clientSecret"`
+	ClientSecret String `json:"clientSecret" tfgen:"required=1"`
 	// (Required.)
-	AutoCloseTickets Boolean `json:"autoCloseTickets"`
+	AutoCloseTickets Boolean `json:"autoCloseTickets" tfgen:"required=1"`
 	// (Required.)
-	AutoCreateTickets Boolean `json:"autoCreateTickets"`
+	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 
 	// (Optional.)
-	DefaultProjectName *String `json:"defaultProjectName,omitempty"`
+	DefaultProjectName *String `json:"defaultProjectName,omitempty" tfgen:"required=0"`
 }
 
 // AzureDevopsTicketConfigInput represents azure Devops ticket configuration input.
 type AzureDevopsTicketConfigInput struct {
 	// The Azure Devops project name. (Required.)
-	ProjectName String `json:"projectName"`
+	ProjectName String `json:"projectName" tfgen:"required=1"`
 }
 
 // AzureDevopsTicketContextInput represents parameters for AzureDevopsTicketContext.
 type AzureDevopsTicketContextInput struct {
 	// The type of the ticket context. (Required.)
-	Type AzureDevopsTicketContextType `json:"type"`
+	Type AzureDevopsTicketContextType `json:"type" tfgen:"required=1"`
 
 	// The parameters for the ticket context. (Optional.)
-	Projects *AzureDevopsTicketContextProjectsInput `json:"projects,omitempty"`
+	Projects *AzureDevopsTicketContextProjectsInput `json:"projects,omitempty" tfgen:"required=0"`
 }
 
 // AzureDevopsTicketContextProjectsInput represents azure Devops projects filter parameters for AzureDevopsTicketContext.
 type AzureDevopsTicketContextProjectsInput struct {
 
 	// The Azure Devops query to filter the projects by. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 }
 
 // BigqueryConfigurationOptionsInput represents bigQuery integration input.
 type BigqueryConfigurationOptionsInput struct {
 	// (Required.)
-	DatasetID String `json:"datasetId"`
+	DatasetID String `json:"datasetId" tfgen:"required=1"`
 	// note: this is the content of the service account JSON file. (Required.)
-	ServiceAccount String `json:"serviceAccount"`
+	ServiceAccount String `json:"serviceAccount" tfgen:"required=1"`
 }
 
 // BillingSessionInput
 type BillingSessionInput struct {
 	// (Required.)
-	OrgMrn ID `json:"orgMrn"`
+	OrgMrn ID `json:"orgMrn" tfgen:"required=1"`
 	// (Required.)
-	ReturnURL String `json:"returnURL"`
+	ReturnURL String `json:"returnURL" tfgen:"required=1"`
 }
 
 // CaseContentInput represents case content input.
 type CaseContentInput struct {
 	// References. (Required.)
-	References []CaseRefInput `json:"references"`
+	References []CaseRefInput `json:"references" tfgen:"required=1"`
 	// Ticket type to generate content for. (Required.)
-	Type TicketRefType `json:"type"`
+	Type TicketRefType `json:"type" tfgen:"required=1"`
 }
 
 // CaseRefInput represents case reference input.
 type CaseRefInput struct {
 	// MRN. Must be a query, control, CVE or advisory MRN. (Required.)
-	FindingMrn String `json:"findingMrn"`
+	FindingMrn String `json:"findingMrn" tfgen:"required=1"`
 	// Scope MRN. Must be a space or an asset MRN. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // CaseTicketConfigInput represents ticket configuration input.
 type CaseTicketConfigInput struct {
 
 	// Jira ticket configuration. (Optional.)
-	Jira *JiraTicketConfigInput `json:"jira,omitempty"`
+	Jira *JiraTicketConfigInput `json:"jira,omitempty" tfgen:"required=0"`
 	// Email ticket configuration. (Optional.)
-	Email *EmailTicketConfigInput `json:"email,omitempty"`
+	Email *EmailTicketConfigInput `json:"email,omitempty" tfgen:"required=0"`
 	// Github ticket configuration. (Optional.)
-	GitHub *GithubTicketConfigInput `json:"github,omitempty"`
+	GitHub *GithubTicketConfigInput `json:"github,omitempty" tfgen:"required=0"`
 	// Gitlab ticket configuration. (Optional.)
-	GitLab *GitlabTicketConfigInput `json:"gitlab,omitempty"`
+	GitLab *GitlabTicketConfigInput `json:"gitlab,omitempty" tfgen:"required=0"`
 	// Azure Devops ticket configuration. (Optional.)
-	AzureDevOps *AzureDevopsTicketConfigInput `json:"azureDevops,omitempty"`
+	AzureDevOps *AzureDevopsTicketConfigInput `json:"azureDevops,omitempty" tfgen:"required=0"`
 	// Zendesk ticket configuration. (Optional.)
-	Zendesk *ZendeskTicketConfigInput `json:"zendesk,omitempty"`
+	Zendesk *ZendeskTicketConfigInput `json:"zendesk,omitempty" tfgen:"required=0"`
 }
 
 // CasesConfigurationInput represents cases configuration input.
 type CasesConfigurationInput struct {
 
 	// Whether to enable auto-create cases on drift. (Optional.)
-	AutoCreate *Boolean `json:"autoCreate,omitempty"`
+	AutoCreate *Boolean `json:"autoCreate,omitempty" tfgen:"required=0"`
 	// Aggregate findings for the same asset within this window. The value is specified in hours. 0 means no aggregation. (Optional.)
-	AggregationWindow *Int `json:"aggregationWindow,omitempty"`
+	AggregationWindow *Int `json:"aggregationWindow,omitempty" tfgen:"required=0"`
 }
 
 // CasesInput represents cases input.
 type CasesInput struct {
 	// The scope of the cases to list. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// A context MRN to filter workspaces by. Can be used when the scope is an asset MRN. If specified, will show only cases for the given asset in the provided context. For example, if scope is asset MRN and context MRN is workspace MRN, will show only workspaces that have the asset in the given workspace. (Optional.)
-	ContextMrn *String `json:"contextMrn,omitempty"`
+	ContextMrn *String `json:"contextMrn,omitempty" tfgen:"required=0"`
 	// Finding MRNs. If set, will only return cases with the specified finding MRNs. (Optional.)
-	FindingMrns *[]String `json:"findingMrns,omitempty"`
+	FindingMrns *[]String `json:"findingMrns,omitempty" tfgen:"required=0"`
 	// Case statuses. If set, will only return cases with the specified statuses. (Optional.)
-	Statuses *[]CaseStatus `json:"statuses,omitempty"`
+	Statuses *[]CaseStatus `json:"statuses,omitempty" tfgen:"required=0"`
 }
 
 // CategoriesListInput represents input for retrieving a list of categories for the scope.
 type CategoriesListInput struct {
 	// scopeMrn is the space mrn the user is requesting categories for. The returned response will contain all public categories unioned with categories appearing in content for this space. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // ChangeSubscriptionPlanInput
 type ChangeSubscriptionPlanInput struct {
 	// (Required.)
-	OrgMrn ID `json:"orgMrn"`
+	OrgMrn ID `json:"orgMrn" tfgen:"required=1"`
 	// (Required.)
-	ReturnURL String `json:"returnURL"`
+	ReturnURL String `json:"returnURL" tfgen:"required=1"`
 	// (Required.)
-	Confirm Boolean `json:"confirm"`
+	Confirm Boolean `json:"confirm" tfgen:"required=1"`
 
 	// (Optional.)
-	Items *[]SubscriptionItem `json:"items,omitempty"`
+	Items *[]SubscriptionItem `json:"items,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ProrationDate *Int `json:"prorationDate,omitempty"`
+	ProrationDate *Int `json:"prorationDate,omitempty" tfgen:"required=0"`
 }
 
 // CheckScoreFilter represents check score filters.
 type CheckScoreFilter struct {
 
 	// Filter by state. (Optional.)
-	State *ScoreStateFilter `json:"state,omitempty"`
+	State *ScoreStateFilter `json:"state,omitempty" tfgen:"required=0"`
 	// Optional query terms. Will return only vulnerabilities containing the term in their MRN. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 	// Filter the result by a check mrn. (Optional.)
-	CheckMrn *String `json:"checkMrn,omitempty"`
+	CheckMrn *String `json:"checkMrn,omitempty" tfgen:"required=0"`
 	// Filter the result by a policy mrn. (Optional.)
-	PolicyMrn *String `json:"policyMrn,omitempty"`
+	PolicyMrn *String `json:"policyMrn,omitempty" tfgen:"required=0"`
 	// Whether to include checks for CI/CD assets in the results. (Optional.)
-	IncludeCicd *Boolean `json:"includeCicd,omitempty"`
+	IncludeCicd *Boolean `json:"includeCicd,omitempty" tfgen:"required=0"`
 	// Filter by impact. (Optional.)
-	Impact *[]QueryImpact `json:"impact,omitempty"`
+	Impact *[]QueryImpact `json:"impact,omitempty" tfgen:"required=0"`
 }
 
 // CheckScoreOrder represents check score order.
 type CheckScoreOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field CheckScoreOrderField `json:"field"`
+	Field CheckScoreOrderField `json:"field" tfgen:"required=1"`
 }
 
 // ChecksOrder represents checks order.
 type ChecksOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field ChecksOrderField `json:"field"`
+	Field ChecksOrderField `json:"field" tfgen:"required=1"`
 }
 
 // ChecksSearchInput represents checks search input.
 type ChecksSearchInput struct {
 	// Scope MRN. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// Framework MRN. (Required.)
-	FrameworkMrn String `json:"frameworkMrn"`
+	FrameworkMrn String `json:"frameworkMrn" tfgen:"required=1"`
 
 	// Query to search checks by, currently searches by the check name only. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// Determines the ordering. (Optional.)
-	OrderBy *ChecksOrder `json:"orderBy,omitempty"`
+	OrderBy *ChecksOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 }
 
 // CiCdJobPageInfo
 type CiCdJobPageInfo struct {
 	// (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	AssetMrn String `json:"assetMrn"`
+	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
 	// (Required.)
-	Tab String `json:"tab"`
+	Tab String `json:"tab" tfgen:"required=1"`
 }
 
 // CiCdProjectPageInfo
 type CiCdProjectPageInfo struct {
 	// (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	ProjectMrn String `json:"projectMrn"`
+	ProjectMrn String `json:"projectMrn" tfgen:"required=1"`
 }
 
 // CicdProjectJobsInput
 type CicdProjectJobsInput struct {
 	// (Required.)
-	SpaceMrn ID `json:"spaceMrn"`
+	SpaceMrn ID `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	ProjectID ID `json:"projectId"`
+	ProjectID ID `json:"projectId" tfgen:"required=1"`
 }
 
 // CicdProjectOrder
 type CicdProjectOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field CicdProjectOrderField `json:"field"`
+	Field CicdProjectOrderField `json:"field" tfgen:"required=1"`
 }
 
 // CicdProjectsInput
 type CicdProjectsInput struct {
 	// (Required.)
-	SpaceMrn ID `json:"spaceMrn"`
+	SpaceMrn ID `json:"spaceMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	TypeFilter *String `json:"typeFilter,omitempty"`
+	TypeFilter *String `json:"typeFilter,omitempty" tfgen:"required=0"`
 }
 
 // ClientIntegrationConfigurationInput represents configuration options for client integrations.
 type ClientIntegrationConfigurationInput struct {
 
 	// (Optional.)
-	K8sConfigurationOptions *K8sConfigurationOptionsInput `json:"k8sConfigurationOptions,omitempty"`
+	K8sConfigurationOptions *K8sConfigurationOptionsInput `json:"k8sConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	AwsConfigurationOptions *AWSConfigurationOptionsInput `json:"awsConfigurationOptions,omitempty"`
+	AwsConfigurationOptions *AWSConfigurationOptionsInput `json:"awsConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	AzureConfigurationOptions *AzureConfigurationOptionsInput `json:"azureConfigurationOptions,omitempty"`
+	AzureConfigurationOptions *AzureConfigurationOptionsInput `json:"azureConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	AzureBlobConfigurationOptions *AzureBlobConfigurationOptionsInput `json:"azureBlobConfigurationOptions,omitempty"`
+	AzureBlobConfigurationOptions *AzureBlobConfigurationOptionsInput `json:"azureBlobConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Ms365ConfigurationOptions *Ms365ConfigurationOptionsInput `json:"ms365ConfigurationOptions,omitempty"`
+	Ms365ConfigurationOptions *Ms365ConfigurationOptionsInput `json:"ms365ConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GcpConfigurationOptions *GcpConfigurationOptionsInput `json:"gcpConfigurationOptions,omitempty"`
+	GcpConfigurationOptions *GcpConfigurationOptionsInput `json:"gcpConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	HostConfigurationOptions *HostConfigurationOptionsInput `json:"hostConfigurationOptions,omitempty"`
+	HostConfigurationOptions *HostConfigurationOptionsInput `json:"hostConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GoogleWorkspaceConfigurationOptions *GoogleWorkspaceConfigurationOptionsInput `json:"googleWorkspaceConfigurationOptions,omitempty"`
+	GoogleWorkspaceConfigurationOptions *GoogleWorkspaceConfigurationOptionsInput `json:"googleWorkspaceConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	OktaConfigurationOptions *OktaConfigurationOptionsInput `json:"oktaConfigurationOptions,omitempty"`
+	OktaConfigurationOptions *OktaConfigurationOptionsInput `json:"oktaConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	BigqueryConfigurationOptions *BigqueryConfigurationOptionsInput `json:"bigqueryConfigurationOptions,omitempty"`
+	BigqueryConfigurationOptions *BigqueryConfigurationOptionsInput `json:"bigqueryConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	SnowflakeConfigurationOptions *SnowflakeConfigurationOptionsInput `json:"snowflakeConfigurationOptions,omitempty"`
+	SnowflakeConfigurationOptions *SnowflakeConfigurationOptionsInput `json:"snowflakeConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	AwsS3ConfigurationOptions *AwsS3ConfigurationOptionsInput `json:"awsS3ConfigurationOptions,omitempty"`
+	AwsS3ConfigurationOptions *AwsS3ConfigurationOptionsInput `json:"awsS3ConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	S3ConfigurationOptions *S3ConfigurationOptionsInput `json:"s3ConfigurationOptions,omitempty"`
+	S3ConfigurationOptions *S3ConfigurationOptionsInput `json:"s3ConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	SlackConfigurationOptions *SlackConfigurationOptionsInput `json:"slackConfigurationOptions,omitempty"`
+	SlackConfigurationOptions *SlackConfigurationOptionsInput `json:"slackConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GitHubConfigurationOptions *GithubConfigurationOptionsInput `json:"githubConfigurationOptions,omitempty"`
+	GitHubConfigurationOptions *GithubConfigurationOptionsInput `json:"githubConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GitLabConfigurationOptions *GitlabConfigurationOptionsInput `json:"gitlabConfigurationOptions,omitempty"`
+	GitLabConfigurationOptions *GitlabConfigurationOptionsInput `json:"gitlabConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GcsBucketConfigurationOptions *GcsBucketConfigurationOptionsInput `json:"gcsBucketConfigurationOptions,omitempty"`
+	GcsBucketConfigurationOptions *GcsBucketConfigurationOptionsInput `json:"gcsBucketConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	PostgresConfigurationOptions *PostgresConfigurationOptionsInput `json:"postgresConfigurationOptions,omitempty"`
+	PostgresConfigurationOptions *PostgresConfigurationOptionsInput `json:"postgresConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	OciConfigurationOptions *OciConfigurationOptionsInput `json:"ociConfigurationOptions,omitempty"`
+	OciConfigurationOptions *OciConfigurationOptionsInput `json:"ociConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	JiraConfigurationOptions *JiraConfigurationOptionsInput `json:"jiraConfigurationOptions,omitempty"`
+	JiraConfigurationOptions *JiraConfigurationOptionsInput `json:"jiraConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	AwsHostedConfigurationOptions *HostedAwsConfigurationOptionsInput `json:"awsHostedConfigurationOptions,omitempty"`
+	AwsHostedConfigurationOptions *HostedAwsConfigurationOptionsInput `json:"awsHostedConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	EmailConfigurationOptions *EmailConfigurationOptionsInput `json:"emailConfigurationOptions,omitempty"`
+	EmailConfigurationOptions *EmailConfigurationOptionsInput `json:"emailConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ZendeskConfigurationOptions *ZendeskConfigurationOptionsInput `json:"zendeskConfigurationOptions,omitempty"`
+	ZendeskConfigurationOptions *ZendeskConfigurationOptionsInput `json:"zendeskConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	MicrosoftDefenderConfigurationOptions *MicrosoftDefenderConfigurationOptionsInput `json:"microsoftDefenderConfigurationOptions,omitempty"`
+	MicrosoftDefenderConfigurationOptions *MicrosoftDefenderConfigurationOptionsInput `json:"microsoftDefenderConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GitHubTicketingConfigurationOptions *GithubTicketingConfigurationOptionsInput `json:"githubTicketingConfigurationOptions,omitempty"`
+	GitHubTicketingConfigurationOptions *GithubTicketingConfigurationOptionsInput `json:"githubTicketingConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GitLabTicketingConfigurationOptions *GitlabTicketingConfigurationOptionsInput `json:"gitlabTicketingConfigurationOptions,omitempty"`
+	GitLabTicketingConfigurationOptions *GitlabTicketingConfigurationOptionsInput `json:"gitlabTicketingConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ShodanConfigurationOptions *ShodanConfigurationOptionsInput `json:"shodanConfigurationOptions,omitempty"`
+	ShodanConfigurationOptions *ShodanConfigurationOptionsInput `json:"shodanConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	AzureDevOpsConfigurationOptions *AzureDevopsConfigurationOptionsInput `json:"azureDevopsConfigurationOptions,omitempty"`
+	AzureDevOpsConfigurationOptions *AzureDevopsConfigurationOptionsInput `json:"azureDevopsConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	SentinelOneConfigurationOptions *SentinelOneConfigurationOptionsInput `json:"sentinelOneConfigurationOptions,omitempty"`
+	SentinelOneConfigurationOptions *SentinelOneConfigurationOptionsInput `json:"sentinelOneConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	CrowdstrikeFalconConfigurationOptions *CrowdstrikeFalconConfigurationOptionsInput `json:"crowdstrikeFalconConfigurationOptions,omitempty"`
+	CrowdstrikeFalconConfigurationOptions *CrowdstrikeFalconConfigurationOptionsInput `json:"crowdstrikeFalconConfigurationOptions,omitempty" tfgen:"required=0"`
 }
 
 // ClientIntegrationInput represents input for client integration.
 type ClientIntegrationInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 
 	// (Optional.)
-	WithToken *Boolean `json:"withToken,omitempty"`
+	WithToken *Boolean `json:"withToken,omitempty" tfgen:"required=0"`
 }
 
 // CloseCaseInput represents close case input.
 type CloseCaseInput struct {
 	// MRN of the case to close. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // ComplianceAssetOrder represents compliance asset order.
 type ComplianceAssetOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field ComplianceAssetOrderField `json:"field"`
+	Field ComplianceAssetOrderField `json:"field" tfgen:"required=1"`
 }
 
 // ComplianceAssetsSearchInput represents compliance assets search input.
 type ComplianceAssetsSearchInput struct {
 	// Search query. (Required.)
-	Query String `json:"query"`
+	Query String `json:"query" tfgen:"required=1"`
 
 	// after is the pagination cursor. To paginate to the end of the search results, keep calling search the the endCursor from the pageInfo response while the hasNextPage field is true. (Optional.)
-	After *String `json:"after,omitempty"`
+	After *String `json:"after,omitempty" tfgen:"required=0"`
 	// first is the number of items to return. Defaults to 100. (Optional.)
-	First *Int `json:"first,omitempty"`
+	First *Int `json:"first,omitempty" tfgen:"required=0"`
 	// The asset group filters that match the assets. (Optional.)
-	Groups *[]GroupFilter `json:"groups,omitempty"`
+	Groups *[]GroupFilter `json:"groups,omitempty" tfgen:"required=0"`
 	// Order by. (Optional.)
-	OrderBy *ComplianceAssetOrder `json:"orderBy,omitempty"`
+	OrderBy *ComplianceAssetOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 }
 
 // ComplianceControlInput represents compliance control input.
 type ComplianceControlInput struct {
 	// Framework MRN. (Required.)
-	FrameworkMrn String `json:"frameworkMrn"`
+	FrameworkMrn String `json:"frameworkMrn" tfgen:"required=1"`
 	// Control MRN. (Required.)
-	ControlMrn String `json:"controlMrn"`
+	ControlMrn String `json:"controlMrn" tfgen:"required=1"`
 	// Scope MRN. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // ComplianceFrameworkInput represents compliance framework input.
 type ComplianceFrameworkInput struct {
 	// The scope mrn for which to fetch the compliance framework. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// The compliance framework mrn. (Required.)
-	FrameworkMrn String `json:"frameworkMrn"`
+	FrameworkMrn String `json:"frameworkMrn" tfgen:"required=1"`
 }
 
 // ComplianceFrameworkMutationInput represents compliance framework mutation input.
 type ComplianceFrameworkMutationInput struct {
 	// Framework MRN. (Required.)
-	FrameworkMrn String `json:"frameworkMrn"`
+	FrameworkMrn String `json:"frameworkMrn" tfgen:"required=1"`
 	// Scope MRN. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// Action. (Required.)
-	Action ComplianceFrameworkMutationAction `json:"action"`
+	Action ComplianceFrameworkMutationAction `json:"action" tfgen:"required=1"`
 }
 
 // ComplianceFrameworksInput represents compliance frameworks input.
 type ComplianceFrameworksInput struct {
 	// The scope mrn for which to fetch compliance frameworks. Currently only supported is a space mrn. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// The framework state to filter by. (Optional.)
-	State *ComplianceFrameworkState `json:"state,omitempty"`
+	State *ComplianceFrameworkState `json:"state,omitempty" tfgen:"required=0"`
 	// The framework states to filter by. (Optional.)
-	States *[]ComplianceFrameworkState `json:"states,omitempty"`
+	States *[]ComplianceFrameworkState `json:"states,omitempty" tfgen:"required=0"`
 }
 
 // ContentSearchInput represents input for searching for policies or registries.
 type ContentSearchInput struct {
 	// scopeMrn is the space mrn the user is requesting content for. Private content will only be searched from this space. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// catalogType is the type of content items to consider. (Required.)
-	CatalogType CatalogType `json:"catalogType"`
+	CatalogType CatalogType `json:"catalogType" tfgen:"required=1"`
 
 	// A list of platforms that a content item must match. Only content matching all platforms will be considered. (Optional.)
-	Platforms *[]String `json:"platforms,omitempty"`
+	Platforms *[]String `json:"platforms,omitempty" tfgen:"required=0"`
 	// A list of categories that a content item can match. Content matching at least one of the provided will be considered. (Optional.)
-	Categories *[]String `json:"categories,omitempty"`
+	Categories *[]String `json:"categories,omitempty" tfgen:"required=0"`
 	// includePrivate indicates whether to include private content. Defaults to true. (Optional.)
-	IncludePrivate *Boolean `json:"includePrivate,omitempty"`
+	IncludePrivate *Boolean `json:"includePrivate,omitempty" tfgen:"required=0"`
 	// includePublic indicates whether to include mondoo provided content. Defaults to true. (Optional.)
-	IncludePublic *Boolean `json:"includePublic,omitempty"`
+	IncludePublic *Boolean `json:"includePublic,omitempty" tfgen:"required=0"`
 	// contentMrns is a list of mrns to consider. If none are provided, all will be considered Useful for text searching a specific set of content, like active policies. (Optional.)
-	ContentMrns *[]String `json:"contentMrns,omitempty"`
+	ContentMrns *[]String `json:"contentMrns,omitempty" tfgen:"required=0"`
 	// If assignedOnly is set to true, only policies that are assigned will be considered. (Optional.)
-	AssignedOnly *Boolean `json:"assignedOnly,omitempty"`
+	AssignedOnly *Boolean `json:"assignedOnly,omitempty" tfgen:"required=0"`
 	// Full text search query. Each term in the query will be ANDed together. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// after is the pagination cursor. To paginate to the end of the search results, keep calling search the the endCursor from the pageInfo response while the hasNextPage field is true. (Optional.)
-	After *String `json:"after,omitempty"`
+	After *String `json:"after,omitempty" tfgen:"required=0"`
 	// limit is the number of items to return. Defaults to 100. (Optional.)
-	Limit *Int `json:"limit,omitempty"`
+	Limit *Int `json:"limit,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	OrderBy *ContentSearchResultItemOrder `json:"orderBy,omitempty"`
+	OrderBy *ContentSearchResultItemOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 }
 
 // ContentSearchResultItemOrder represents user defined order direction and field.
 type ContentSearchResultItemOrder struct {
 	// The direction to order the results. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// The field to order the results. (Required.)
-	Field ContentSearchResultItemOrderField `json:"field"`
+	Field ContentSearchResultItemOrderField `json:"field" tfgen:"required=1"`
 }
 
 // ControlDocumentOptionsInput represents input options for the controls of the document.
 type ControlDocumentOptionsInput struct {
 	// The MRN of the framework the control is for. (Required.)
-	FrameworkMRN String `json:"frameworkMRN"`
+	FrameworkMRN String `json:"frameworkMRN" tfgen:"required=1"`
 	// The MRN of the control. (Required.)
-	ControlMRN String `json:"controlMRN"`
+	ControlMRN String `json:"controlMRN" tfgen:"required=1"`
 }
 
 // ControlScoreFilter represents control score filters.
 type ControlScoreFilter struct {
 
 	// Filter by state. (Optional.)
-	State *ScoreStateFilter `json:"state,omitempty"`
+	State *ScoreStateFilter `json:"state,omitempty" tfgen:"required=0"`
 	// Optional query terms. Will return only vulnerabilities containing the term in their MRN. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 	// Filter the result by a control mrn. (Optional.)
-	ControlMrn *String `json:"controlMrn,omitempty"`
+	ControlMrn *String `json:"controlMrn,omitempty" tfgen:"required=0"`
 	// Whether to include controls for CI/CD assets in the results. (Optional.)
-	IncludeCicd *Boolean `json:"includeCicd,omitempty"`
+	IncludeCicd *Boolean `json:"includeCicd,omitempty" tfgen:"required=0"`
 }
 
 // ControlScoreOrder represents control score order.
 type ControlScoreOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field ControlScoreOrderField `json:"field"`
+	Field ControlScoreOrderField `json:"field" tfgen:"required=1"`
 }
 
 // ControlsOrder represents controls order.
 type ControlsOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field ControlsOrderField `json:"field"`
+	Field ControlsOrderField `json:"field" tfgen:"required=1"`
 }
 
 // ControlsSearchInput represents controls search input.
 type ControlsSearchInput struct {
 
 	// query, used to search on controls' or policies' description. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// after is the pagination cursor. To paginate to the end of the search results, keep calling search the the endCursor from the pageInfo response while the hasNextPage field is true. (Optional.)
-	After *String `json:"after,omitempty"`
+	After *String `json:"after,omitempty" tfgen:"required=0"`
 	// limit is the number of items to return. Defaults to 100. (Optional.)
-	Limit *Int `json:"limit,omitempty"`
+	Limit *Int `json:"limit,omitempty" tfgen:"required=0"`
 	// Order by. (Optional.)
-	OrderBy *ControlsOrder `json:"orderBy,omitempty"`
+	OrderBy *ControlsOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 }
 
 // CreateCaseInput represents the input to create a case.
 type CreateCaseInput struct {
 	// Title. (Required.)
-	Title String `json:"title"`
+	Title String `json:"title" tfgen:"required=1"`
 	// Notes. (Required.)
-	Notes String `json:"notes"`
+	Notes String `json:"notes" tfgen:"required=1"`
 	// References. (Required.)
-	References []CaseRefInput `json:"references"`
+	References []CaseRefInput `json:"references" tfgen:"required=1"`
 	// Ticket configuration. (Required.)
-	TicketConfig CaseTicketConfigInput `json:"ticketConfig"`
+	TicketConfig CaseTicketConfigInput `json:"ticketConfig" tfgen:"required=1"`
 
 	// Ticketing integration MRN. (Optional.)
-	IntegrationMrn *String `json:"integrationMrn,omitempty"`
+	IntegrationMrn *String `json:"integrationMrn,omitempty" tfgen:"required=0"`
 	// Optional workspace MRN. If specified, the case will be created in the workspace. It is required that the case references are contained in the space that owns the provided workspace. (Optional.)
-	WorkspaceMrn *String `json:"workspaceMrn,omitempty"`
+	WorkspaceMrn *String `json:"workspaceMrn,omitempty" tfgen:"required=0"`
 }
 
 // CreateClientIntegrationInput represents input provided when creating a client integration.
 type CreateClientIntegrationInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 	// (Required.)
-	Type ClientIntegrationType `json:"type"`
+	Type ClientIntegrationType `json:"type" tfgen:"required=1"`
 	// (Required.)
-	LongLivedToken Boolean `json:"longLivedToken"`
+	LongLivedToken Boolean `json:"longLivedToken" tfgen:"required=1"`
 	// (Required.)
-	ConfigurationOptions ClientIntegrationConfigurationInput `json:"configurationOptions"`
+	ConfigurationOptions ClientIntegrationConfigurationInput `json:"configurationOptions" tfgen:"required=1"`
 }
 
 // CreateInvitationInput
 type CreateInvitationInput struct {
 	// (Required.)
-	ResourceMrn String `json:"resourceMrn"`
+	ResourceMrn String `json:"resourceMrn" tfgen:"required=1"`
 	// (Required.)
-	RoleMrn String `json:"roleMrn"`
+	RoleMrn String `json:"roleMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	InviteeMrn *String `json:"inviteeMrn,omitempty"`
+	InviteeMrn *String `json:"inviteeMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	InviteeEmail *String `json:"inviteeEmail,omitempty"`
+	InviteeEmail *String `json:"inviteeEmail,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ExpiresAt *String `json:"expiresAt,omitempty"`
+	ExpiresAt *String `json:"expiresAt,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Message *String `json:"message,omitempty"`
+	Message *String `json:"message,omitempty" tfgen:"required=0"`
 }
 
 // CreateOrganizationInput represents create organization input.
 type CreateOrganizationInput struct {
 	// Name. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 
 	// ID. (Optional.)
-	ID *String `json:"id,omitempty"`
+	ID *String `json:"id,omitempty" tfgen:"required=0"`
 	// Description. (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 }
 
 // CreateServiceAccountInput
 type CreateServiceAccountInput struct {
 	// (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Labels *[]KeyValueInput `json:"labels,omitempty"`
+	Labels *[]KeyValueInput `json:"labels,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Roles *[]RoleInput `json:"roles,omitempty"`
+	Roles *[]RoleInput `json:"roles,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Name *String `json:"name,omitempty"`
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ValidUntil *String `json:"validUntil,omitempty"`
+	ValidUntil *String `json:"validUntil,omitempty" tfgen:"required=0"`
 }
 
 // CreateSpaceInput represents create space input.
 type CreateSpaceInput struct {
 	// Name. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 	// Organization MRN. (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 
 	// ID. (Optional.)
-	ID *String `json:"id,omitempty"`
+	ID *String `json:"id,omitempty" tfgen:"required=0"`
 	// Description. (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// Settings. (Optional.)
-	Settings *SpaceSettingsInput `json:"settings,omitempty"`
+	Settings *SpaceSettingsInput `json:"settings,omitempty" tfgen:"required=0"`
 }
 
 // CreateWIFAuthBindingInput
 type CreateWIFAuthBindingInput struct {
 	// Space mrn associated with the binding. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// User selected name. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 	// URI for the token issuer, e.g. https://accounts.google.com. (Required.)
-	IssuerURI String `json:"issuerUri"`
+	IssuerURI String `json:"issuerUri" tfgen:"required=1"`
 	// Unique identifier to confirm. (Required.)
-	Subject String `json:"subject"`
+	Subject String `json:"subject" tfgen:"required=1"`
 
 	// Optional description. (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// List of roles associated with the binding (e.g. agent mrn). (Optional.)
-	Roles *[]String `json:"roles,omitempty"`
+	Roles *[]String `json:"roles,omitempty" tfgen:"required=0"`
 	// Expiration in seconds associated with the binding. (Optional.)
-	Expiration *Int `json:"expiration,omitempty"`
+	Expiration *Int `json:"expiration,omitempty" tfgen:"required=0"`
 	// List of additional configurations to confirm. (Optional.)
-	Mappings *[]KeyValueInput `json:"mappings,omitempty"`
+	Mappings *[]KeyValueInput `json:"mappings,omitempty" tfgen:"required=0"`
 	// List of allowed audiences. (Optional.)
-	AllowedAudiences *[]String `json:"allowedAudiences,omitempty"`
+	AllowedAudiences *[]String `json:"allowedAudiences,omitempty" tfgen:"required=0"`
 }
 
 // CreateWorkspaceInput represents create workspace input.
 type CreateWorkspaceInput struct {
 	// The MRN of the owner of the workspace. (Required.)
-	OwnerMrn String `json:"ownerMrn"`
+	OwnerMrn String `json:"ownerMrn" tfgen:"required=1"`
 	// The name of the workspace. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 	// Workspace selections. (Required.)
-	Selections WorkspaceSelectionsInput `json:"selections"`
+	Selections WorkspaceSelectionsInput `json:"selections" tfgen:"required=1"`
 
 	// Description of the workspace. (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 }
 
 // CrowdstrikeFalconConfigurationOptionsInput represents crowdstrikeFalcon integration input.
 type CrowdstrikeFalconConfigurationOptionsInput struct {
 	// Client ID used for authentication with CrowdStrike Falcon platform. (Required.)
-	ClientID String `json:"clientId"`
+	ClientID String `json:"clientId" tfgen:"required=1"`
 	// Client Secret used for authentication with CrowdStrike Falcon platform. (Required.)
-	ClientSecret String `json:"clientSecret"`
+	ClientSecret String `json:"clientSecret" tfgen:"required=1"`
 
 	// The CrowdStrike Falcon cloud region. (Optional.)
-	Cloud *String `json:"cloud,omitempty"`
+	Cloud *String `json:"cloud,omitempty" tfgen:"required=0"`
 	// CID selector for cases when the client id/secret has access to multiple CIDs. (Optional.)
-	MemberCID *String `json:"memberCID,omitempty"`
+	MemberCID *String `json:"memberCID,omitempty" tfgen:"required=0"`
 	// createAssets is a flag to create assets in the backend when they are not found. (Optional.)
-	CreateAssets *Boolean `json:"createAssets,omitempty"`
+	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
 }
 
 // CveFilter represents cVE filters.
 type CveFilter struct {
 
 	// filter by textfield input. ex.: ["CHROME-2023"] elements will be ANDed. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 }
 
 // CveOrder represents cve order object.
 type CveOrder struct {
 	// Order direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Order field. (Required.)
-	Field CveOrderField `json:"field"`
+	Field CveOrderField `json:"field" tfgen:"required=1"`
 }
 
 // CveSummaryOrder represents cve summary order object.
 type CveSummaryOrder struct {
 	// Order direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Order field. (Required.)
-	Field CveSummaryOrderField `json:"field"`
+	Field CveSummaryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // DataQueryFilter represents data query filters.
 type DataQueryFilter struct {
 
 	// Optional query terms. Will return only vulnerabilities containing the term in their MRN. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 	// Filter the result by a query mrn. (Optional.)
-	QueryMrn *String `json:"queryMrn,omitempty"`
+	QueryMrn *String `json:"queryMrn,omitempty" tfgen:"required=0"`
 	// Filter the result by a policy mrn. (Optional.)
-	PolicyMrn *String `json:"policyMrn,omitempty"`
+	PolicyMrn *String `json:"policyMrn,omitempty" tfgen:"required=0"`
 	// Whether to include checks for CI/CD assets in the results. (Optional.)
-	IncludeCicd *Boolean `json:"includeCicd,omitempty"`
+	IncludeCicd *Boolean `json:"includeCicd,omitempty" tfgen:"required=0"`
 }
 
 // DataQueryOrder represents data query order.
 type DataQueryOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field DataQueryOrderField `json:"field"`
+	Field DataQueryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // DeleteAPITokenInput
 type DeleteAPITokenInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // DeleteAgentsInput represents input used when deleting an agent.
 type DeleteAgentsInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	AgentMrns []String `json:"agentMrns"`
+	AgentMrns []String `json:"agentMrns" tfgen:"required=1"`
 }
 
 // DeleteAssetsInput represents delete assets input.
 type DeleteAssetsInput struct {
 	// Space MRN. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 
 	// Asset MRNs. (Optional.)
-	AssetMrns *[]ID `json:"assetMrns,omitempty"`
+	AssetMrns *[]ID `json:"assetMrns,omitempty" tfgen:"required=0"`
 }
 
 // DeleteCasesInput represents delete cases input.
 type DeleteCasesInput struct {
 	// MRNs of cases to delete. (Required.)
-	Mrns []String `json:"mrns"`
+	Mrns []String `json:"mrns" tfgen:"required=1"`
 }
 
 // DeleteClientIntegrationInput represents input for deleting a client integration.
 type DeleteClientIntegrationInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // DeleteCustomPolicyInput represents input for deleting a policy.
 type DeleteCustomPolicyInput struct {
 	// The mrn of the policy. (Required.)
-	PolicyMrn String `json:"policyMrn"`
+	PolicyMrn String `json:"policyMrn" tfgen:"required=1"`
 }
 
 // DeleteCustomQueryPackInput represents input for deleting a query pack.
 type DeleteCustomQueryPackInput struct {
 	// The mrn of the query pack. (Required.)
-	QueryPackMrn String `json:"queryPackMrn"`
+	QueryPackMrn String `json:"queryPackMrn" tfgen:"required=1"`
 }
 
 // DeleteFrameworkInput represents delete framework input.
 type DeleteFrameworkInput struct {
 	// Framework MRN. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // DeleteProjectsInput
 type DeleteProjectsInput struct {
 	// (Required.)
-	Mrns []String `json:"mrns"`
+	Mrns []String `json:"mrns" tfgen:"required=1"`
 }
 
 // DeleteSSHKeyRequest
 type DeleteSSHKeyRequest struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Fingerprint String `json:"fingerprint"`
+	Fingerprint String `json:"fingerprint" tfgen:"required=1"`
 }
 
 // DeleteSSOProviderInput
 type DeleteSSOProviderInput struct {
 	// (Required.)
-	OrganizationMrn String `json:"organizationMrn"`
+	OrganizationMrn String `json:"organizationMrn" tfgen:"required=1"`
 }
 
 // DeleteServiceAccountsInput
 type DeleteServiceAccountsInput struct {
 	// (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// (Required.)
-	Mrns []String `json:"mrns"`
+	Mrns []String `json:"mrns" tfgen:"required=1"`
 }
 
 // DeleteWorkspacesInput represents delete workspaces input.
 type DeleteWorkspacesInput struct {
 	// MRNs of workspaces to delete. (Required.)
-	Mrns []String `json:"mrns"`
+	Mrns []String `json:"mrns" tfgen:"required=1"`
 }
 
 // DownloadBundleInput represents download bundle input.
 type DownloadBundleInput struct {
 	// The mrn is a unique identifier. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // DownloadFrameworkInput represents download framework input.
 type DownloadFrameworkInput struct {
 	// Framework MRN. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// Scope MRN. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// Whether to include all evidence in the bundle. By default, only evidence for activated policies is returned. (Optional.)
-	AllEvidence *Boolean `json:"allEvidence,omitempty"`
+	AllEvidence *Boolean `json:"allEvidence,omitempty" tfgen:"required=0"`
 }
 
 // EbsScanOptionsInput represents options for EBS scanning with the AWS integration.
 type EbsScanOptionsInput struct {
 
 	// (Optional.)
-	TargetInstancesPerScanner *Int `json:"targetInstancesPerScanner,omitempty"`
+	TargetInstancesPerScanner *Int `json:"targetInstancesPerScanner,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	MaxAsgInstances *Int `json:"maxAsgInstances,omitempty"`
+	MaxAsgInstances *Int `json:"maxAsgInstances,omitempty" tfgen:"required=0"`
 }
 
 // Ec2ScanOptionsInput represents options for EC2 scans with the AWS integration.
 type Ec2ScanOptionsInput struct {
 
 	// (Optional.)
-	Ssm *Boolean `json:"ssm,omitempty"`
+	Ssm *Boolean `json:"ssm,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	InstanceIDsFilter *[]String `json:"instanceIdsFilter,omitempty"`
+	InstanceIDsFilter *[]String `json:"instanceIdsFilter,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	RegionsFilter *[]String `json:"regionsFilter,omitempty"`
+	RegionsFilter *[]String `json:"regionsFilter,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	TagsFilter *Map `json:"tagsFilter,omitempty"`
+	TagsFilter *Map `json:"tagsFilter,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	EbsVolumeScan *Boolean `json:"ebsVolumeScan,omitempty"`
+	EbsVolumeScan *Boolean `json:"ebsVolumeScan,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	EbsScanOptions *EbsScanOptionsInput `json:"ebsScanOptions,omitempty"`
+	EbsScanOptions *EbsScanOptionsInput `json:"ebsScanOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	InstanceConnect *Boolean `json:"instanceConnect,omitempty"`
+	InstanceConnect *Boolean `json:"instanceConnect,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ExcludedInstanceIDsFilter *[]String `json:"excludedInstanceIdsFilter,omitempty"`
+	ExcludedInstanceIDsFilter *[]String `json:"excludedInstanceIdsFilter,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ExcludedRegionsFilter *[]String `json:"excludedRegionsFilter,omitempty"`
+	ExcludedRegionsFilter *[]String `json:"excludedRegionsFilter,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ExcludedTagsFilter *Map `json:"excludedTagsFilter,omitempty"`
+	ExcludedTagsFilter *Map `json:"excludedTagsFilter,omitempty" tfgen:"required=0"`
 }
 
 // EmailConfigurationOptionsInput represents email integration input.
 type EmailConfigurationOptionsInput struct {
 	// A list of potential email recipients. (Required.)
-	Recipients []EmailRecipientInput `json:"recipients"`
+	Recipients []EmailRecipientInput `json:"recipients" tfgen:"required=1"`
 
 	// Whether to auto-create tickets for new cases. (Optional.)
-	AutoCreateTickets *Boolean `json:"autoCreateTickets,omitempty"`
+	AutoCreateTickets *Boolean `json:"autoCreateTickets,omitempty" tfgen:"required=0"`
 	// Whether to auto-close tickets for closed cases. (Optional.)
-	AutoCloseTickets *Boolean `json:"autoCloseTickets,omitempty"`
+	AutoCloseTickets *Boolean `json:"autoCloseTickets,omitempty" tfgen:"required=0"`
 }
 
 // EmailPreferenceInput
 type EmailPreferenceInput struct {
 	// (Required.)
-	ListID EmailPreferenceList `json:"listID"`
+	ListID EmailPreferenceList `json:"listID" tfgen:"required=1"`
 	// (Required.)
-	Subscribe Boolean `json:"subscribe"`
+	Subscribe Boolean `json:"subscribe" tfgen:"required=1"`
 }
 
 // EmailRecipientInput represents email recipient input.
 type EmailRecipientInput struct {
 	// Name of the recipient. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 	// Email of the recipient. (Required.)
-	Email String `json:"email"`
+	Email String `json:"email" tfgen:"required=1"`
 	// Whether this recipient is the default recipient. (Required.)
-	IsDefault Boolean `json:"isDefault"`
+	IsDefault Boolean `json:"isDefault" tfgen:"required=1"`
 
 	// An optional reference URL that will get attached to the ticket reference created by this integration. (Optional.)
-	ReferenceURL *String `json:"referenceUrl,omitempty"`
+	ReferenceURL *String `json:"referenceUrl,omitempty" tfgen:"required=0"`
 }
 
 // EmailTicketConfigInput represents email ticket configuration input.
 type EmailTicketConfigInput struct {
 	// Email address to send the ticket to. (Required.)
-	EmailAddress String `json:"emailAddress"`
+	EmailAddress String `json:"emailAddress" tfgen:"required=1"`
 }
 
 // EnableSSOProviderInput
 type EnableSSOProviderInput struct {
 	// (Required.)
-	OrganizationMrn String `json:"organizationMrn"`
+	OrganizationMrn String `json:"organizationMrn" tfgen:"required=1"`
 	// (Required.)
-	Enabled Boolean `json:"enabled"`
+	Enabled Boolean `json:"enabled" tfgen:"required=1"`
 }
 
 // EolAssetsConfigurationInput represents eol assets configuration input.
 type EolAssetsConfigurationInput struct {
 
 	// Whether to enable EOL assets analysis. (Optional.)
-	Enable *Boolean `json:"enable,omitempty"`
+	Enable *Boolean `json:"enable,omitempty" tfgen:"required=0"`
 	// How many months in advance should EOL be applied as risk factor. (Optional.)
-	MonthsInAdvance *Int `json:"monthsInAdvance,omitempty"`
+	MonthsInAdvance *Int `json:"monthsInAdvance,omitempty" tfgen:"required=0"`
 }
 
 // ExceptionGroupsInput represents the input to get a list of exception groups.
 type ExceptionGroupsInput struct {
 	// The mrn of the space/asset. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// The mrn to filter on. It can be a query, control, policy or a framework. (Optional.)
-	Mrn *String `json:"mrn,omitempty"`
+	Mrn *String `json:"mrn,omitempty" tfgen:"required=0"`
 	// Deprecated. Use the types field. (Optional.)
-	Type *ExceptionType `json:"type,omitempty"`
+	Type *ExceptionType `json:"type,omitempty" tfgen:"required=0"`
 	// The types of the exceptions. (Optional.)
-	Types *[]ExceptionType `json:"types,omitempty"`
+	Types *[]ExceptionType `json:"types,omitempty" tfgen:"required=0"`
 	// The action of the exception groups. Empty list means all. (Optional.)
-	Actions *[]ExceptionMutationAction `json:"actions,omitempty"`
+	Actions *[]ExceptionMutationAction `json:"actions,omitempty" tfgen:"required=0"`
 }
 
 // ExceptionMutationInput represents the input to apply an exception.
 type ExceptionMutationInput struct {
 	// The scope of the exception. Can be a space or an asset mrn. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// How this exception should be handled Snooze the controls or disable them "enable" will delete the supplied control mrn from any exception. (Required.)
-	Action ExceptionMutationAction `json:"action"`
+	Action ExceptionMutationAction `json:"action" tfgen:"required=1"`
 
 	// DEPRECATED. WILL BE REMOVED ONCE THE UI IS OUT the resource to apply the exception to, e.g. a framework. (Optional.)
-	ResourceMrn *String `json:"resourceMrn,omitempty"`
+	ResourceMrn *String `json:"resourceMrn,omitempty" tfgen:"required=0"`
 	// DEPRECATED. WILL BE REMOVED ONCE THE UI IS OUT List of mrns that are excepted. (Optional.)
-	ExceptionMrns *[]String `json:"exceptionMrns,omitempty"`
+	ExceptionMrns *[]String `json:"exceptionMrns,omitempty" tfgen:"required=0"`
 	// RFC3339 timestamp The date, from which on the exception is no longer valid. Only applies to action IGNORE, empty is interpreted as forever. (Optional.)
-	ValidUntil *String `json:"validUntil,omitempty"`
+	ValidUntil *String `json:"validUntil,omitempty" tfgen:"required=0"`
 	// The justification for the exception. (Optional.)
-	Justification *String `json:"justification,omitempty"`
+	Justification *String `json:"justification,omitempty" tfgen:"required=0"`
 	// List of control mrns that are excepted. Applies only for compliance exceptions. (Optional.)
-	ControlMrns *[]String `json:"controlMrns,omitempty"`
+	ControlMrns *[]String `json:"controlMrns,omitempty" tfgen:"required=0"`
 	// List of query mrns that are excepted. Applies only for security exceptions. (Optional.)
-	QueryMrns *[]String `json:"queryMrns,omitempty"`
+	QueryMrns *[]String `json:"queryMrns,omitempty" tfgen:"required=0"`
 	// List of cve mrns that are excepted. Applies only for cve exceptions. (Optional.)
-	CveMrns *[]String `json:"cveMrns,omitempty"`
+	CveMrns *[]String `json:"cveMrns,omitempty" tfgen:"required=0"`
 	// List of advisory mrns that are excepted. Applies only for advisory exceptions. (Optional.)
-	AdvisoryMrns *[]String `json:"advisoryMrns,omitempty"`
+	AdvisoryMrns *[]String `json:"advisoryMrns,omitempty" tfgen:"required=0"`
 	// Apply the exception to the CVEs that are part of the advisories. Applies only for advisory exceptions. (Optional.)
-	ApplyToCves *Boolean `json:"applyToCves,omitempty"`
+	ApplyToCves *Boolean `json:"applyToCves,omitempty" tfgen:"required=0"`
 }
 
 // ExceptionReviewInput represents the input to apply a review to an exception.
 type ExceptionReviewInput struct {
 	// The scope of the exception. Can be a space or an asset mrn. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// The id of the exception to review. (Required.)
-	ExceptionID String `json:"exceptionId"`
+	ExceptionID String `json:"exceptionId" tfgen:"required=1"`
 	// The review action to be applied. (Required.)
-	Action ExceptionReviewAction `json:"action"`
+	Action ExceptionReviewAction `json:"action" tfgen:"required=1"`
 }
 
 // ExportReportFilterChecks
 type ExportReportFilterChecks struct {
 	// (Required.)
-	Enable Boolean `json:"enable"`
+	Enable Boolean `json:"enable" tfgen:"required=1"`
 }
 
 // ExportReportFilterInventoryInput
 type ExportReportFilterInventoryInput struct {
 	// (Required.)
-	Enable Boolean `json:"enable"`
+	Enable Boolean `json:"enable" tfgen:"required=1"`
 	// (Required.)
-	Data Boolean `json:"data"`
+	Data Boolean `json:"data" tfgen:"required=1"`
 }
 
 // ExportReportFilterPackages
 type ExportReportFilterPackages struct {
 	// (Required.)
-	Enable Boolean `json:"enable"`
+	Enable Boolean `json:"enable" tfgen:"required=1"`
 }
 
 // ExportReportFilterVulnerabilitiesInput
 type ExportReportFilterVulnerabilitiesInput struct {
 	// (Required.)
-	Enable Boolean `json:"enable"`
+	Enable Boolean `json:"enable" tfgen:"required=1"`
 }
 
 // ExportReportOptionsInput
 type ExportReportOptionsInput struct {
 
 	// (Optional.)
-	Inventory *ExportReportFilterInventoryInput `json:"inventory,omitempty"`
+	Inventory *ExportReportFilterInventoryInput `json:"inventory,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Vulnerabilities *ExportReportFilterVulnerabilitiesInput `json:"vulnerabilities,omitempty"`
+	Vulnerabilities *ExportReportFilterVulnerabilitiesInput `json:"vulnerabilities,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Checks *ExportReportFilterChecks `json:"checks,omitempty"`
+	Checks *ExportReportFilterChecks `json:"checks,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Packages *ExportReportFilterPackages `json:"packages,omitempty"`
+	Packages *ExportReportFilterPackages `json:"packages,omitempty" tfgen:"required=0"`
 }
 
 // FindingDocumentOptionsInput represents input options for the finding of the document.
 type FindingDocumentOptionsInput struct {
 	// The MRN of the finding to generate the report for. (Required.)
-	FindingMrn String `json:"findingMrn"`
+	FindingMrn String `json:"findingMrn" tfgen:"required=1"`
 	// The MRN of the scope to generate the report for. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // FindingsFilter represents findings filters.
 type FindingsFilter struct {
 
 	// Filter by state. (Optional.)
-	State *ScoreStateFilter `json:"state,omitempty"`
+	State *ScoreStateFilter `json:"state,omitempty" tfgen:"required=0"`
 	// Optional query terms. Will return only vulnerabilities containing the term in their MRN. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 	// Filter the result by mrn. (Optional.)
-	Mrn *String `json:"mrn,omitempty"`
+	Mrn *String `json:"mrn,omitempty" tfgen:"required=0"`
 	// Filter the result by a policy mrn. Applicable only for checks. (Optional.)
-	PolicyMrn *String `json:"policyMrn,omitempty"`
+	PolicyMrn *String `json:"policyMrn,omitempty" tfgen:"required=0"`
 	// Whether to include checks for CI/CD assets in the results. (Optional.)
-	IncludeCicd *Boolean `json:"includeCicd,omitempty"`
+	IncludeCicd *Boolean `json:"includeCicd,omitempty" tfgen:"required=0"`
 	// Filter by score rating. (Optional.)
-	Rating *[]ScoreRating `json:"rating,omitempty"`
+	Rating *[]ScoreRating `json:"rating,omitempty" tfgen:"required=0"`
 	// Filter by finding type. (Optional.)
-	Types *[]FindingType `json:"types,omitempty"`
+	Types *[]FindingType `json:"types,omitempty" tfgen:"required=0"`
 	// Filter vulnerabilities by findingMrn of a versioned software package e.g., finding versions of bash 5.0.1 by searching for //.../software/.../name/bash/5.0.1. (Optional.)
-	SoftwareFindingMrn *String `json:"softwareFindingMrn,omitempty"`
+	SoftwareFindingMrn *String `json:"softwareFindingMrn,omitempty" tfgen:"required=0"`
 	// Filter by risk factor MRNs. (Optional.)
-	RiskFactors *RiskFactorFilter `json:"riskFactors,omitempty"`
+	RiskFactors *RiskFactorFilter `json:"riskFactors,omitempty" tfgen:"required=0"`
 	// Filters applicable only for package findings. (Optional.)
-	Package *FindingsPackagesFilter `json:"package,omitempty"`
+	Package *FindingsPackagesFilter `json:"package,omitempty" tfgen:"required=0"`
 }
 
 // FindingsOrder represents findings order.
 type FindingsOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field FindingsOrderField `json:"field"`
+	Field FindingsOrderField `json:"field" tfgen:"required=1"`
 }
 
 // FindingsPackagesFilter represents findings packages filter.
 type FindingsPackagesFilter struct {
 
 	// Package version. (Optional.)
-	PackageVersion *String `json:"packageVersion,omitempty"`
+	PackageVersion *String `json:"packageVersion,omitempty" tfgen:"required=0"`
 }
 
 // FindingsWebhookPostRequest
 type FindingsWebhookPostRequest struct {
 	// (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// (Required.)
-	Type FindingType `json:"type"`
+	Type FindingType `json:"type" tfgen:"required=1"`
 	// (Required.)
-	FindingMrn String `json:"findingMrn"`
+	FindingMrn String `json:"findingMrn" tfgen:"required=1"`
 }
 
 // ForkFrameworkInput represents fork framework input.
 type ForkFrameworkInput struct {
 	// The MRN of the framework to fork. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// Space MRN. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 
 	// Whether to include all evidence in the bundle. By default, only evidence for activated policies is returned. (Optional.)
-	AllEvidence *Boolean `json:"allEvidence,omitempty"`
+	AllEvidence *Boolean `json:"allEvidence,omitempty" tfgen:"required=0"`
 }
 
 // FrameworkDocumentOptionsInput represents input options for framework document.
 type FrameworkDocumentOptionsInput struct {
 	// The MRN of the framework. (Required.)
-	FrameworkMRN String `json:"frameworkMRN"`
+	FrameworkMRN String `json:"frameworkMRN" tfgen:"required=1"`
 }
 
 // GarbageCollectAssetsConfigurationInput represents garbage collect assets configuration input.
 type GarbageCollectAssetsConfigurationInput struct {
 
 	// Whether to enable garbage collection. (Optional.)
-	Enable *Boolean `json:"enable,omitempty"`
+	Enable *Boolean `json:"enable,omitempty" tfgen:"required=0"`
 	// After how many days to garbage collect. (Optional.)
-	AfterDays *Int `json:"afterDays,omitempty"`
+	AfterDays *Int `json:"afterDays,omitempty" tfgen:"required=0"`
 }
 
 // GcpConfigurationOptionsInput represents gCP integration input.
 type GcpConfigurationOptionsInput struct {
 
 	// (Optional.)
-	ProjectID *String `json:"projectId,omitempty"`
+	ProjectID *String `json:"projectId,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	OrganizationID *String `json:"organizationId,omitempty"`
+	OrganizationID *String `json:"organizationId,omitempty" tfgen:"required=0"`
 	// note: this is the content of the service account JSON file. (Optional.)
-	ServiceAccount *String `json:"serviceAccount,omitempty"`
+	ServiceAccount *String `json:"serviceAccount,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	DiscoverAll *Boolean `json:"discoverAll,omitempty"`
+	DiscoverAll *Boolean `json:"discoverAll,omitempty" tfgen:"required=0"`
 }
 
 // GcsBucketConfigurationOptionsInput represents gCS Bucket integration input.
 type GcsBucketConfigurationOptionsInput struct {
 	// (Required.)
-	Output BucketOutputType `json:"output"`
+	Output BucketOutputType `json:"output" tfgen:"required=1"`
 	// (Required.)
-	Bucket String `json:"bucket"`
+	Bucket String `json:"bucket" tfgen:"required=1"`
 	// note: this is the content of the service account JSON file. (Required.)
-	ServiceAccount String `json:"serviceAccount"`
+	ServiceAccount String `json:"serviceAccount" tfgen:"required=1"`
 }
 
 // GenerateAPITokenInput
 type GenerateAPITokenInput struct {
 	// (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 
 	// (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ScopeMrn *String `json:"scopeMrn,omitempty"`
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Roles *[]RoleInput `json:"roles,omitempty"`
+	Roles *[]RoleInput `json:"roles,omitempty" tfgen:"required=0"`
 }
 
 // GenerateDocumentInput represents input when generating a document.
 type GenerateDocumentInput struct {
 	// The MRN of the space. (Required.)
-	ScopeMRN String `json:"scopeMRN"`
+	ScopeMRN String `json:"scopeMRN" tfgen:"required=1"`
 	// The format of the document. (Required.)
-	Format DocumentFormat `json:"format"`
+	Format DocumentFormat `json:"format" tfgen:"required=1"`
 	// The type of the document. (Required.)
-	Type DocumentType `json:"type"`
+	Type DocumentType `json:"type" tfgen:"required=1"`
 	// The name of the document to generate. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 
 	// The MRN of the resource for which the document is being generated. (Optional.)
-	TargetMRN *String `json:"targetMRN,omitempty"`
+	TargetMRN *String `json:"targetMRN,omitempty" tfgen:"required=0"`
 	// Options for generating a framework document. (Optional.)
-	FrameworkOptions *FrameworkDocumentOptionsInput `json:"frameworkOptions,omitempty"`
+	FrameworkOptions *FrameworkDocumentOptionsInput `json:"frameworkOptions,omitempty" tfgen:"required=0"`
 	// Options for generating a control document. (Optional.)
-	ControlOptions *ControlDocumentOptionsInput `json:"controlOptions,omitempty"`
+	ControlOptions *ControlDocumentOptionsInput `json:"controlOptions,omitempty" tfgen:"required=0"`
 	// Options for generating an asset report document. (Optional.)
-	AssetReportOptions *AssetDocumentOptionsInput `json:"assetReportOptions,omitempty"`
+	AssetReportOptions *AssetDocumentOptionsInput `json:"assetReportOptions,omitempty" tfgen:"required=0"`
 	// Options for generating an advisory report document. (Optional.)
-	AdvisoryReportOptions *AdvisoryDocumentOptionsInput `json:"advisoryReportOptions,omitempty"`
+	AdvisoryReportOptions *AdvisoryDocumentOptionsInput `json:"advisoryReportOptions,omitempty" tfgen:"required=0"`
 	// Options for generating a vulnerability report document. (Optional.)
-	VulnerabilityReportOptions *VulnerabilityDocumentOptionsInput `json:"vulnerabilityReportOptions,omitempty"`
+	VulnerabilityReportOptions *VulnerabilityDocumentOptionsInput `json:"vulnerabilityReportOptions,omitempty" tfgen:"required=0"`
 	// Options for generating a finding report document. (Optional.)
-	FindingReportOptions *FindingDocumentOptionsInput `json:"findingReportOptions,omitempty"`
+	FindingReportOptions *FindingDocumentOptionsInput `json:"findingReportOptions,omitempty" tfgen:"required=0"`
 	// Options for generating a scope report document. (Optional.)
-	ScopeReportOptions *ScopeDocumentOptionsInput `json:"scopeReportOptions,omitempty"`
+	ScopeReportOptions *ScopeDocumentOptionsInput `json:"scopeReportOptions,omitempty" tfgen:"required=0"`
 	// Options for generating an export document. (Optional.)
-	ExportOptions *ExportReportOptionsInput `json:"exportOptions,omitempty"`
+	ExportOptions *ExportReportOptionsInput `json:"exportOptions,omitempty" tfgen:"required=0"`
 	// Whether to capture debug information. (Optional.)
-	CaptureDebug *Boolean `json:"captureDebug,omitempty"`
+	CaptureDebug *Boolean `json:"captureDebug,omitempty" tfgen:"required=0"`
 }
 
 // GeneratePolicyInput represents input type for GeneratePolicyInput.
 type GeneratePolicyInput struct {
 	// Scope mrn. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// Prompt for policy generation. (Required.)
-	Prompts []String `json:"prompts"`
+	Prompts []String `json:"prompts" tfgen:"required=1"`
 	// Providers to use for policy generation. (Required.)
-	Providers []String `json:"providers"`
+	Providers []String `json:"providers" tfgen:"required=1"`
 
 	// Indicates if the generated policy should be stored in the space. (Optional.)
-	StoreInSpace *Boolean `json:"storeInSpace,omitempty"`
+	StoreInSpace *Boolean `json:"storeInSpace,omitempty" tfgen:"required=0"`
 }
 
 // GetClientIntegrationDeleteCommandInput represents inputs used to get the delete command for a client integration (used for K8s).
 type GetClientIntegrationDeleteCommandInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Type ClientIntegrationType `json:"type"`
+	Type ClientIntegrationType `json:"type" tfgen:"required=1"`
 }
 
 // GetClientIntegrationTokenInput represents input provided when fetching a token for a client integration.
 type GetClientIntegrationTokenInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 
 	// (Optional.)
-	LongLivedToken *Boolean `json:"longLivedToken,omitempty"`
+	LongLivedToken *Boolean `json:"longLivedToken,omitempty" tfgen:"required=0"`
 }
 
 // GithubConfigurationOptionsInput represents github integration input.
 type GithubConfigurationOptionsInput struct {
 	// (Required.)
-	Type GithubIntegrationType `json:"type"`
+	Type GithubIntegrationType `json:"type" tfgen:"required=1"`
 
 	// Repository owner. Must be provided in combination with repository. (Optional.)
-	Owner *String `json:"owner,omitempty"`
+	Owner *String `json:"owner,omitempty" tfgen:"required=0"`
 	// Repository name. Must be provided in combination with owner. (Optional.)
-	Repository *String `json:"repository,omitempty"`
+	Repository *String `json:"repository,omitempty" tfgen:"required=0"`
 	// Organization. If specified, the integration will scan the complete organization. (Optional.)
-	Organization *String `json:"organization,omitempty"`
+	Organization *String `json:"organization,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Token *String `json:"token,omitempty"`
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
 	// Scan only the repositories matching these glob patterns. Only applicable when type is ORG. (Optional.)
-	ReposAllowList *[]String `json:"reposAllowList,omitempty"`
+	ReposAllowList *[]String `json:"reposAllowList,omitempty" tfgen:"required=0"`
 	// Scan all repositories except the ones matching these glob patterns. Only applicable when type is ORG. (Optional.)
-	ReposDenyList *[]String `json:"reposDenyList,omitempty"`
+	ReposDenyList *[]String `json:"reposDenyList,omitempty" tfgen:"required=0"`
 	// Discover Terraform files in the repositories. (Optional.)
-	DiscoverTerraform *Boolean `json:"discoverTerraform,omitempty"`
+	DiscoverTerraform *Boolean `json:"discoverTerraform,omitempty" tfgen:"required=0"`
 	// Discover k8s manifests in the repositories. (Optional.)
-	DiscoverK8sManifests *Boolean `json:"discoverK8sManifests,omitempty"`
+	DiscoverK8sManifests *Boolean `json:"discoverK8sManifests,omitempty" tfgen:"required=0"`
 	// Github Enterprise Server URL. (Optional.)
-	EnterpriseURL *String `json:"enterpriseUrl,omitempty"`
+	EnterpriseURL *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
 }
 
 // GithubTicketConfigInput represents github ticket configuration input.
 type GithubTicketConfigInput struct {
 	// The Github repo owner. (Required.)
-	Owner String `json:"owner"`
+	Owner String `json:"owner" tfgen:"required=1"`
 	// The Github repo. (Required.)
-	Repo String `json:"repo"`
+	Repo String `json:"repo" tfgen:"required=1"`
 }
 
 // GithubTicketingConfigurationOptionsInput represents github ticketing integration input.
 type GithubTicketingConfigurationOptionsInput struct {
 	// (Required.)
-	Token String `json:"token"`
+	Token String `json:"token" tfgen:"required=1"`
 	// (Required.)
-	AutoCloseTickets Boolean `json:"autoCloseTickets"`
+	AutoCloseTickets Boolean `json:"autoCloseTickets" tfgen:"required=1"`
 	// (Required.)
-	AutoCreateTickets Boolean `json:"autoCreateTickets"`
+	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 
 	// (Optional.)
-	EnterpriseURL *String `json:"enterpriseUrl,omitempty"`
+	EnterpriseURL *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	DefaultRepoOwner *String `json:"defaultRepoOwner,omitempty"`
+	DefaultRepoOwner *String `json:"defaultRepoOwner,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	DefaultRepoName *String `json:"defaultRepoName,omitempty"`
+	DefaultRepoName *String `json:"defaultRepoName,omitempty" tfgen:"required=0"`
 }
 
 // GitlabConfigurationOptionsInput represents gitlab integration input.
 type GitlabConfigurationOptionsInput struct {
 	// (Required.)
-	Type GitlabIntegrationType `json:"type"`
+	Type GitlabIntegrationType `json:"type" tfgen:"required=1"`
 
 	// (Optional.)
-	Group *String `json:"group,omitempty"`
+	Group *String `json:"group,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Token *String `json:"token,omitempty"`
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	DiscoverGroups *Boolean `json:"discoverGroups,omitempty"`
+	DiscoverGroups *Boolean `json:"discoverGroups,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	DiscoverProjects *Boolean `json:"discoverProjects,omitempty"`
+	DiscoverProjects *Boolean `json:"discoverProjects,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	DiscoverTerraform *Boolean `json:"discoverTerraform,omitempty"`
+	DiscoverTerraform *Boolean `json:"discoverTerraform,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	DiscoverK8sManifests *Boolean `json:"discoverK8sManifests,omitempty"`
+	DiscoverK8sManifests *Boolean `json:"discoverK8sManifests,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	BaseURL *String `json:"baseUrl,omitempty"`
+	BaseURL *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 }
 
 // GitlabTicketConfigInput represents gitlab ticket configuration input.
 type GitlabTicketConfigInput struct {
 	// The Gitlab project. (Required.)
-	Project String `json:"project"`
+	Project String `json:"project" tfgen:"required=1"`
 }
 
 // GitlabTicketingConfigurationOptionsInput represents gitlab ticketing integration input.
 type GitlabTicketingConfigurationOptionsInput struct {
 	// (Required.)
-	Token String `json:"token"`
+	Token String `json:"token" tfgen:"required=1"`
 	// (Required.)
-	AutoCloseTickets Boolean `json:"autoCloseTickets"`
+	AutoCloseTickets Boolean `json:"autoCloseTickets" tfgen:"required=1"`
 	// (Required.)
-	AutoCreateTickets Boolean `json:"autoCreateTickets"`
+	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 
 	// (Optional.)
-	BaseURL *String `json:"baseUrl,omitempty"`
+	BaseURL *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	DefaultProject *String `json:"defaultProject,omitempty"`
+	DefaultProject *String `json:"defaultProject,omitempty" tfgen:"required=0"`
 }
 
 // GoogleWorkspaceConfigurationOptionsInput represents google Workspace integration input.
 type GoogleWorkspaceConfigurationOptionsInput struct {
 	// (Required.)
-	CustomerID String `json:"customerId"`
+	CustomerID String `json:"customerId" tfgen:"required=1"`
 	// (Required.)
-	ImpersonatedUserEmail String `json:"impersonatedUserEmail"`
+	ImpersonatedUserEmail String `json:"impersonatedUserEmail" tfgen:"required=1"`
 
 	// note: this is the content of the service account JSON file. (Optional.)
-	ServiceAccount *String `json:"serviceAccount,omitempty"`
+	ServiceAccount *String `json:"serviceAccount,omitempty" tfgen:"required=0"`
 }
 
 // GroupFilter represents group filter.
 type GroupFilter struct {
 	// Group type. (Required.)
-	GroupType String `json:"groupType"`
+	GroupType String `json:"groupType" tfgen:"required=1"`
 
 	// Asset types. (Optional.)
-	AssetTypes *[]String `json:"assetTypes,omitempty"`
+	AssetTypes *[]String `json:"assetTypes,omitempty" tfgen:"required=0"`
 }
 
 // HostConfigurationOptionsInput represents host integration input.
 type HostConfigurationOptionsInput struct {
 	// (Required.)
-	Host String `json:"host"`
+	Host String `json:"host" tfgen:"required=1"`
 
 	// (Optional.)
-	HTTPS *Boolean `json:"https,omitempty"`
+	HTTPS *Boolean `json:"https,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	HTTP *Boolean `json:"http,omitempty"`
+	HTTP *Boolean `json:"http,omitempty" tfgen:"required=0"`
 }
 
 // HostedAwsConfigurationOptionsInput represents hosted AWS integration input.
 type HostedAwsConfigurationOptionsInput struct {
 
 	// (Optional.)
-	KeyCredential *AWSSecretKeyCredential `json:"keyCredential,omitempty"`
+	KeyCredential *AWSSecretKeyCredential `json:"keyCredential,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	RoleCredential *AWSRoleCredential `json:"roleCredential,omitempty"`
+	RoleCredential *AWSRoleCredential `json:"roleCredential,omitempty" tfgen:"required=0"`
 }
 
 // IDSuggestionInput represents iD suggestion input.
 type IDSuggestionInput struct {
 
 	// Parent MRN. (Optional.)
-	ParentMrn *String `json:"parentMrn,omitempty"`
+	ParentMrn *String `json:"parentMrn,omitempty" tfgen:"required=0"`
 	// ID available. (Optional.)
-	IDAvailable *String `json:"idAvailable,omitempty"`
+	IDAvailable *String `json:"idAvailable,omitempty" tfgen:"required=0"`
 }
 
 // IdentityFilter represents identity filter for auditlog queries.
 type IdentityFilter struct {
 
 	// Filter by identity MRN. (Optional.)
-	Mrn *String `json:"mrn,omitempty"`
+	Mrn *String `json:"mrn,omitempty" tfgen:"required=0"`
 	// Filter by identity name. (Optional.)
-	Name *String `json:"name,omitempty"`
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 }
 
 // IntegrationInput represents input options provided when creating a chatops integration.
 type IntegrationInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 	// (Required.)
-	Enabled Boolean `json:"enabled"`
+	Enabled Boolean `json:"enabled" tfgen:"required=1"`
 
 	// (Optional.)
-	Options *IntegrationOptionsInput `json:"options,omitempty"`
+	Options *IntegrationOptionsInput `json:"options,omitempty" tfgen:"required=0"`
 }
 
 // IntegrationOptionsInput represents options for chatops integration.
 type IntegrationOptionsInput struct {
 
 	// (Optional.)
-	URL *String `json:"url,omitempty"`
+	URL *String `json:"url,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Chatid *String `json:"chatid,omitempty"`
+	Chatid *String `json:"chatid,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Token *String `json:"token,omitempty"`
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
 }
 
 // IntegrationsSummaryInput represents input for summary of client integrations.
 type IntegrationsSummaryInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 }
 
 // InvitationOrder
 type InvitationOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field InvitationOrderField `json:"field"`
+	Field InvitationOrderField `json:"field" tfgen:"required=1"`
 }
 
 // JiraConfigurationOptionsInput represents jira integration input.
 type JiraConfigurationOptionsInput struct {
 	// (Required.)
-	Host String `json:"host"`
+	Host String `json:"host" tfgen:"required=1"`
 	// (Required.)
-	Email String `json:"email"`
+	Email String `json:"email" tfgen:"required=1"`
 	// (Required.)
-	APIToken String `json:"apiToken"`
+	APIToken String `json:"apiToken" tfgen:"required=1"`
 	// (Required.)
-	DefaultProject String `json:"defaultProject"`
+	DefaultProject String `json:"defaultProject" tfgen:"required=1"`
 
 	// (Optional.)
-	AutoCloseTickets *Boolean `json:"autoCloseTickets,omitempty"`
+	AutoCloseTickets *Boolean `json:"autoCloseTickets,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	AutoCreateCases *Boolean `json:"autoCreateCases,omitempty"`
+	AutoCreateCases *Boolean `json:"autoCreateCases,omitempty" tfgen:"required=0"`
 }
 
 // JiraTicketConfigInput represents jira ticket configuration input.
 type JiraTicketConfigInput struct {
 	// The Jira project key. (Required.)
-	ProjectKey String `json:"projectKey"`
+	ProjectKey String `json:"projectKey" tfgen:"required=1"`
 	// The Jira issue type. (Required.)
-	IssueType String `json:"issueType"`
+	IssueType String `json:"issueType" tfgen:"required=1"`
 }
 
 // JiraTicketContextInput represents parameters for JiraTicketContext.
 type JiraTicketContextInput struct {
 	// The type of the ticket context. (Required.)
-	Type JiraTicketContextType `json:"type"`
+	Type JiraTicketContextType `json:"type" tfgen:"required=1"`
 
 	// The parameters for the ticket context. (Optional.)
-	Projects *JiraTicketContextProjectsInput `json:"projects,omitempty"`
+	Projects *JiraTicketContextProjectsInput `json:"projects,omitempty" tfgen:"required=0"`
 	// The parameters for the ticket context. (Optional.)
-	Users *JiraTicketContextUsersInput `json:"users,omitempty"`
+	Users *JiraTicketContextUsersInput `json:"users,omitempty" tfgen:"required=0"`
 }
 
 // JiraTicketContextProjectsInput represents jira Projects filter parameters for JiraTicketContext.
 type JiraTicketContextProjectsInput struct {
 
 	// The Jira query to filter the projects by. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 }
 
 // JiraTicketContextUsersInput represents jira Users filter parameters for JiraTicketContext.
 type JiraTicketContextUsersInput struct {
 	// The Jira project key to filter the users by. (Required.)
-	ProjectKey String `json:"projectKey"`
+	ProjectKey String `json:"projectKey" tfgen:"required=1"`
 
 	// The query to filter the users by. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 }
 
 // K8sConfigurationOptionsInput represents k8s integration input.
 type K8sConfigurationOptionsInput struct {
 	// (Required.)
-	ScanNodes Boolean `json:"scanNodes"`
+	ScanNodes Boolean `json:"scanNodes" tfgen:"required=1"`
 	// (Required.)
-	ScanWorkloads Boolean `json:"scanWorkloads"`
+	ScanWorkloads Boolean `json:"scanWorkloads" tfgen:"required=1"`
 	// (Required.)
-	ScanDeploys Boolean `json:"scanDeploys"`
+	ScanDeploys Boolean `json:"scanDeploys" tfgen:"required=1"`
 
 	// (Optional.)
-	ScanNodesStyle *K8sScanNodesStyle `json:"scanNodesStyle,omitempty"`
+	ScanNodesStyle *K8sScanNodesStyle `json:"scanNodesStyle,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	CertificateManager *String `json:"certificateManager,omitempty"`
+	CertificateManager *String `json:"certificateManager,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ScanPublicImages *Boolean `json:"scanPublicImages,omitempty"`
+	ScanPublicImages *Boolean `json:"scanPublicImages,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	NamespaceAllowList *[]String `json:"namespaceAllowList,omitempty"`
+	NamespaceAllowList *[]String `json:"namespaceAllowList,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	NamespaceDenyList *[]String `json:"namespaceDenyList,omitempty"`
+	NamespaceDenyList *[]String `json:"namespaceDenyList,omitempty" tfgen:"required=0"`
 }
 
 // KeyValueInput
 type KeyValueInput struct {
 	// (Required.)
-	Key String `json:"key"`
+	Key String `json:"key" tfgen:"required=1"`
 
 	// (Optional.)
-	Value *String `json:"value,omitempty"`
+	Value *String `json:"value,omitempty" tfgen:"required=0"`
 }
 
 // ListClientIntegrationsFilterInput represents listClientIntegrationsFilterInput provides filtering options for listing the client integrations.
 type ListClientIntegrationsFilterInput struct {
 
 	// type is deprecated, use types. (Optional.)
-	Type *ClientIntegrationType `json:"type,omitempty"`
+	Type *ClientIntegrationType `json:"type,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Types *[]*ClientIntegrationType `json:"types,omitempty"`
+	Types *[]*ClientIntegrationType `json:"types,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ManagedClientsFilters *ManagedClientsFilters `json:"managedClientsFilters,omitempty"`
+	ManagedClientsFilters *ManagedClientsFilters `json:"managedClientsFilters,omitempty" tfgen:"required=0"`
 }
 
 // ListClientIntegrationsInput represents listClientIntegrationsInput describes the input for listing the integrations.
 type ListClientIntegrationsInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	FilterQuery *ListClientIntegrationsFilterInput `json:"filterQuery,omitempty"`
+	FilterQuery *ListClientIntegrationsFilterInput `json:"filterQuery,omitempty" tfgen:"required=0"`
 }
 
 // ListDiscoveryResultsInput represents list discovery results input.
 type ListDiscoveryResultsInput struct {
 	// The mrn is a unique identifier. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // ListExceptionGroupsFilter represents list exception groups filters.
 type ListExceptionGroupsFilter struct {
 
 	// Filter by review status. (Optional.)
-	ReviewStatuses *[]ReviewStatus `json:"reviewStatuses,omitempty"`
+	ReviewStatuses *[]ReviewStatus `json:"reviewStatuses,omitempty" tfgen:"required=0"`
 	// Filter by valid until date. Input is string date. The BE logic is exception.ValidUntil <= filter.validUntil. (Optional.)
-	ValidUntil *String `json:"validUntil,omitempty"`
+	ValidUntil *String `json:"validUntil,omitempty" tfgen:"required=0"`
 	// Filter by id of exception group. (Optional.)
-	ID *String `json:"id,omitempty"`
+	ID *String `json:"id,omitempty" tfgen:"required=0"`
 	// Filter by validUntil time range. (Optional.)
-	ValidUntilRange *TimeRange `json:"validUntilRange,omitempty"`
+	ValidUntilRange *TimeRange `json:"validUntilRange,omitempty" tfgen:"required=0"`
 }
 
 // ListExceptionGroupsInput represents the input to get a list of exception groups.
 type ListExceptionGroupsInput struct {
 	// The mrn of the space/asset. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// The mrn to filter on. It can be a query, control, policy or a framework. (Optional.)
-	Mrn *String `json:"mrn,omitempty"`
+	Mrn *String `json:"mrn,omitempty" tfgen:"required=0"`
 	// The types of the exceptions. (Optional.)
-	Types *[]ExceptionType `json:"types,omitempty"`
+	Types *[]ExceptionType `json:"types,omitempty" tfgen:"required=0"`
 	// The action of the exception groups. Empty list means all. (Optional.)
-	Actions *[]ExceptionMutationAction `json:"actions,omitempty"`
+	Actions *[]ExceptionMutationAction `json:"actions,omitempty" tfgen:"required=0"`
 	// Order by. If not provided the default ordering is by valid until and uid asc. (Optional.)
-	OrderBy *ListExceptionGroupsOrder `json:"orderBy,omitempty"`
+	OrderBy *ListExceptionGroupsOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 	// Additional filters. (Optional.)
-	Filter *ListExceptionGroupsFilter `json:"filter,omitempty"`
+	Filter *ListExceptionGroupsFilter `json:"filter,omitempty" tfgen:"required=0"`
 	// Flag indicating whether to include exceptions in child scopes If scopeMrn is a space and this flag is true, all exceptions defined on the space and on all of the space's assets will be returned. (Optional.)
-	IncludeChildScopes *Boolean `json:"includeChildScopes,omitempty"`
+	IncludeChildScopes *Boolean `json:"includeChildScopes,omitempty" tfgen:"required=0"`
 }
 
 // ListExceptionGroupsOrder represents exception groups order.
 type ListExceptionGroupsOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field ListExceptionGroupsOrderField `json:"field"`
+	Field ListExceptionGroupsOrderField `json:"field" tfgen:"required=1"`
 }
 
 // ListFrameworksInput
 type ListFrameworksInput struct {
 	// The scope mrn for which to fetch frameworks. Currently only supported is a space mrn. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// The framework state to filter by. (Required.)
-	FilterState ListFrameworksFilterState `json:"filterState"`
+	FilterState ListFrameworksFilterState `json:"filterState" tfgen:"required=1"`
 }
 
 // ManagedClientsFilters represents filters that can be used when listing managed clients.
 type ManagedClientsFilters struct {
 
 	// (Optional.)
-	QueryStrings *[]String `json:"queryStrings,omitempty"`
+	QueryStrings *[]String `json:"queryStrings,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Version *[]AgentVersionFilter `json:"version,omitempty"`
+	Version *[]AgentVersionFilter `json:"version,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	State *[]AgentState `json:"state,omitempty"`
+	State *[]AgentState `json:"state,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	OrderBy *AgentOrder `json:"orderBy,omitempty"`
+	OrderBy *AgentOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 }
 
 // MembershipOrder
 type MembershipOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field MembershipOrderField `json:"field"`
+	Field MembershipOrderField `json:"field" tfgen:"required=1"`
 }
 
 // MicrosoftDefenderConfigurationOptionsInput represents microsoft Defender integration input.
 type MicrosoftDefenderConfigurationOptionsInput struct {
 	// tenantId of the MS Defender instance. (Required.)
-	TenantID String `json:"tenantId"`
+	TenantID String `json:"tenantId" tfgen:"required=1"`
 	// clientId of the MS Defender instance. (Required.)
-	ClientID String `json:"clientId"`
+	ClientID String `json:"clientId" tfgen:"required=1"`
 
 	// subscriptionsAllowlist is a list of subscription IDs to include in the scan. (Optional.)
-	SubscriptionsAllowlist *[]String `json:"subscriptionsAllowlist,omitempty"`
+	SubscriptionsAllowlist *[]String `json:"subscriptionsAllowlist,omitempty" tfgen:"required=0"`
 	// subscriptionsDenylist is a list of subscription IDs to exclude from the scan. (Optional.)
-	SubscriptionsDenylist *[]String `json:"subscriptionsDenylist,omitempty"`
+	SubscriptionsDenylist *[]String `json:"subscriptionsDenylist,omitempty" tfgen:"required=0"`
 	// certificate or client secret is required. (Optional.)
-	Certificate *String `json:"certificate,omitempty"`
+	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
 	// password used for authentication. (Optional.)
-	ClientSecret *String `json:"clientSecret,omitempty"`
+	ClientSecret *String `json:"clientSecret,omitempty" tfgen:"required=0"`
 	// createAssets is a flag to create assets in the backend when they are not found. (Optional.)
-	CreateAssets *Boolean `json:"createAssets,omitempty"`
+	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
 }
 
 // ModifyRiskFactorInput
 type ModifyRiskFactorInput struct {
 	// Risk factor mrn. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 
 	// Risk factor magnitude modification. (Optional.)
-	Magnitude *RiskFactorMagnitudeModification `json:"magnitude,omitempty"`
+	Magnitude *RiskFactorMagnitudeModification `json:"magnitude,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Action *RiskFactorAction `json:"action,omitempty"`
+	Action *RiskFactorAction `json:"action,omitempty" tfgen:"required=0"`
 	// Asset field filters mutation. (Optional.)
-	AssetFieldFiltersMutation *AssetFieldFiltersMutation `json:"assetFieldFiltersMutation,omitempty"`
+	AssetFieldFiltersMutation *AssetFieldFiltersMutation `json:"assetFieldFiltersMutation,omitempty" tfgen:"required=0"`
 }
 
 // MqueryAssetDataInput represents mquery asset data input.
 type MqueryAssetDataInput struct {
 	// scopeMrn is the MRN of the space in which to search for assets. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// queryMrn is the MRN of the query to run. (Required.)
-	QueryMrn String `json:"queryMrn"`
+	QueryMrn String `json:"queryMrn" tfgen:"required=1"`
 
 	// See AssetSearchInput. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// Format. (Optional.)
-	Format *MqueryAssetDataFormat `json:"format,omitempty"`
+	Format *MqueryAssetDataFormat `json:"format,omitempty" tfgen:"required=0"`
 }
 
 // MqueryAssetScoresInput represents mquery asset scores input.
 type MqueryAssetScoresInput struct {
 	// scopeMrn is the MRN of the space in which to search for assets. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// queryMrn is the MRN of the query to run. (Required.)
-	QueryMrn String `json:"queryMrn"`
+	QueryMrn String `json:"queryMrn" tfgen:"required=1"`
 
 	// See AssetSearchInput. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// After is the pagination cursor. To paginate to the end of the search results, keep calling search the the endCursor from the pageInfo response while the hasNextPage field is true. (Optional.)
-	After *String `json:"after,omitempty"`
+	After *String `json:"after,omitempty" tfgen:"required=0"`
 	// Limit is the number of items to return. Defaults to 25. (Optional.)
-	Limit *Int `json:"limit,omitempty"`
+	Limit *Int `json:"limit,omitempty" tfgen:"required=0"`
 	// Order by. (Optional.)
-	OrderBy *AssetOrder `json:"orderBy,omitempty"`
+	OrderBy *AssetOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 	// policyMrn is the MRN of the policy which the query is associated with. If this is provided, the queryMrn will be converted to a code id. This is temporary. We need to capture scores as MRNs, not code ids. Until that happens, we need this. (Optional.)
-	PolicyMrn *String `json:"policyMrn,omitempty"`
+	PolicyMrn *String `json:"policyMrn,omitempty" tfgen:"required=0"`
 }
 
 // MqueryInput represents mqueryInput.
 type MqueryInput struct {
 	// The mrn is a unique identifier. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // MqueryScoreInput represents mquery score input.
 type MqueryScoreInput struct {
 	// scopeMrn is the MRN of the space in which to search for assets. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// queryMrn is the MRN of the query to run. (Required.)
-	QueryMrn String `json:"queryMrn"`
+	QueryMrn String `json:"queryMrn" tfgen:"required=1"`
 }
 
 // Ms365ConfigurationOptionsInput represents mS365 integration input.
 type Ms365ConfigurationOptionsInput struct {
 	// (Required.)
-	TenantID String `json:"tenantId"`
+	TenantID String `json:"tenantId" tfgen:"required=1"`
 	// (Required.)
-	ClientID String `json:"clientId"`
+	ClientID String `json:"clientId" tfgen:"required=1"`
 
 	// TODO: temporary optional, fix by having separate update models. (Optional.)
-	Certificate *String `json:"certificate,omitempty"`
+	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
 }
 
 // MvdV2ScanningConfigurationInput represents mVD v2 scanning configuration.
 type MvdV2ScanningConfigurationInput struct {
 
 	// Disabled ecosystems. (Optional.)
-	DisabledEcosystems *[]MvdEcosystem `json:"disabledEcosystems,omitempty"`
+	DisabledEcosystems *[]MvdEcosystem `json:"disabledEcosystems,omitempty" tfgen:"required=0"`
 }
 
 // OciConfigurationOptionsInput represents oCI integration input.
 type OciConfigurationOptionsInput struct {
 	// (Required.)
-	TenancyOcid String `json:"tenancyOcid"`
+	TenancyOcid String `json:"tenancyOcid" tfgen:"required=1"`
 	// (Required.)
-	UserOcid String `json:"userOcid"`
+	UserOcid String `json:"userOcid" tfgen:"required=1"`
 	// (Required.)
-	Region String `json:"region"`
+	Region String `json:"region" tfgen:"required=1"`
 	// (Required.)
-	Fingerprint String `json:"fingerprint"`
+	Fingerprint String `json:"fingerprint" tfgen:"required=1"`
 
 	// (Optional.)
-	PrivateKey *String `json:"privateKey,omitempty"`
+	PrivateKey *String `json:"privateKey,omitempty" tfgen:"required=0"`
 }
 
 // OktaConfigurationOptionsInput represents okta integration input.
 type OktaConfigurationOptionsInput struct {
 	// (Required.)
-	Organization String `json:"organization"`
+	Organization String `json:"organization" tfgen:"required=1"`
 
 	// (Optional.)
-	Token *String `json:"token,omitempty"`
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
 }
 
 // OrgViewPageInfo represents org view page info.
 type OrgViewPageInfo struct {
 	// Organization MRN. (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 }
 
 // OrganizationOverviewInput represents organization overview input.
 type OrganizationOverviewInput struct {
 	// Organization MRN. (Required.)
-	OrganizationMrn String `json:"organizationMrn"`
+	OrganizationMrn String `json:"organizationMrn" tfgen:"required=1"`
 }
 
 // PackageFilter represents package filters.
 type PackageFilter struct {
 
 	// filter by textfield input. ex.: ["Chrome", "Firefox"] elements will be ANDed. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 	// os package or app. (Optional.)
-	Type *PackageType `json:"type,omitempty"`
+	Type *PackageType `json:"type,omitempty" tfgen:"required=0"`
 	// is package affected by a CVE?. (Optional.)
-	IsVulnerable *Boolean `json:"isVulnerable,omitempty"`
+	IsVulnerable *Boolean `json:"isVulnerable,omitempty" tfgen:"required=0"`
 	// packageName is a filter with exact match The queryTerms are a "contains" search. That's useful for the general search. But for the softwareDetails we need to search for the exact package name. (Optional.)
-	PackageName *String `json:"packageName,omitempty"`
+	PackageName *String `json:"packageName,omitempty" tfgen:"required=0"`
 }
 
 // PackageInput represents package input.
 type PackageInput struct {
 	// Package name. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 	// Package version. (Required.)
-	Version String `json:"version"`
+	Version String `json:"version" tfgen:"required=1"`
 
 	// Package arch. (Optional.)
-	Arch *String `json:"arch,omitempty"`
+	Arch *String `json:"arch,omitempty" tfgen:"required=0"`
 	// Package format. (Optional.)
-	Format *String `json:"format,omitempty"`
+	Format *String `json:"format,omitempty" tfgen:"required=0"`
 	// Package origin, needed for debian. (Optional.)
-	Origin *String `json:"origin,omitempty"`
+	Origin *String `json:"origin,omitempty" tfgen:"required=0"`
 }
 
 // PackageScoresFilter represents package filters.
 type PackageScoresFilter struct {
 
 	// filter by textfield input. ex.: ["Chrome", "Firefox"] elements will be ANDed. (Optional.)
-	QueryTerms *[]String `json:"queryTerms,omitempty"`
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 	// os package or app. (Optional.)
-	Type *PackageType `json:"type,omitempty"`
+	Type *PackageType `json:"type,omitempty" tfgen:"required=0"`
 	// is package affected by a CVE?. (Optional.)
-	IsVulnerable *Boolean `json:"isVulnerable,omitempty"`
+	IsVulnerable *Boolean `json:"isVulnerable,omitempty" tfgen:"required=0"`
 	// Package version. (Optional.)
-	PackageVersion *String `json:"packageVersion,omitempty"`
+	PackageVersion *String `json:"packageVersion,omitempty" tfgen:"required=0"`
 }
 
 // PackageScoresInput represents packageScores input data This requires either a spaceMrn AND a findingMrn OR only an assetMrn.
 type PackageScoresInput struct {
 
 	// Space MRN. (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// Package/Finding mrn. (Optional.)
-	FindingMrn *String `json:"findingMrn,omitempty"`
+	FindingMrn *String `json:"findingMrn,omitempty" tfgen:"required=0"`
 	// Asset or Space MRN. (Optional.)
-	EntityMrn *String `json:"entityMrn,omitempty"`
+	EntityMrn *String `json:"entityMrn,omitempty" tfgen:"required=0"`
 	// Package version (optional). (Optional.)
-	PackageVersion *String `json:"packageVersion,omitempty"`
+	PackageVersion *String `json:"packageVersion,omitempty" tfgen:"required=0"`
 	// Filter. (Optional.)
-	Filter *PackageScoresFilter `json:"filter,omitempty"`
+	Filter *PackageScoresFilter `json:"filter,omitempty" tfgen:"required=0"`
 }
 
 // PackageScoresOrder represents packageScores order.
 type PackageScoresOrder struct {
 	// Order direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Order field. (Required.)
-	Field PackageScoresOrderField `json:"field"`
+	Field PackageScoresOrderField `json:"field" tfgen:"required=1"`
 }
 
 // PackagesOrder represents package order object.
 type PackagesOrder struct {
 	// Order direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Order field. (Required.)
-	Field PackagesOrderField `json:"field"`
+	Field PackagesOrderField `json:"field" tfgen:"required=1"`
 }
 
 // PerformDiscoveryInput represents input options for discovery job on client integration.
 type PerformDiscoveryInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // PingIntegrationInput represents inputs used to ping a client integration.
 type PingIntegrationInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 
 	// Optional source identifier, e.g. AWS account id. (Optional.)
-	Identifiers *[]String `json:"identifiers,omitempty"`
+	Identifiers *[]String `json:"identifiers,omitempty" tfgen:"required=0"`
 }
 
 // PlatformInput represents platform input.
 type PlatformInput struct {
 
 	// The name of the platform. (Optional.)
-	Name *String `json:"name,omitempty"`
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 	// The release of the platform. (Optional.)
-	Release *String `json:"release,omitempty"`
+	Release *String `json:"release,omitempty" tfgen:"required=0"`
 	// The build of the platform. (Optional.)
-	Build *String `json:"build,omitempty"`
+	Build *String `json:"build,omitempty" tfgen:"required=0"`
 	// The architecture of the platform. (Optional.)
-	Arch *String `json:"arch,omitempty"`
+	Arch *String `json:"arch,omitempty" tfgen:"required=0"`
 	// The kind of the platform. (Optional.)
-	Kind *PlatformKind `json:"kind,omitempty"`
+	Kind *PlatformKind `json:"kind,omitempty" tfgen:"required=0"`
 	// The runtime of the platform. (Optional.)
-	Runtime *String `json:"runtime,omitempty"`
+	Runtime *String `json:"runtime,omitempty" tfgen:"required=0"`
 	// The labels of the platform. (Optional.)
-	Labels *[]*KeyValueInput `json:"labels,omitempty"`
+	Labels *[]*KeyValueInput `json:"labels,omitempty" tfgen:"required=0"`
 	// The platform families. (Optional.)
-	Family *[]*String `json:"family,omitempty"`
+	Family *[]*String `json:"family,omitempty" tfgen:"required=0"`
 }
 
 // PlatformVulnerabilityConfigurationInput represents platform vulnerability configuration input.
 type PlatformVulnerabilityConfigurationInput struct {
 
 	// Whether to enable platform vulnerability analysis. (Optional.)
-	Enable *Boolean `json:"enable,omitempty"`
+	Enable *Boolean `json:"enable,omitempty" tfgen:"required=0"`
 }
 
 // PlatformsListInput represents input for retrieving a list of platforms for the scope.
 type PlatformsListInput struct {
 	// scopeMrn is the space mrn the user is requesting platforms for. The returned response will contain all public platforms unioned with platforms appearing in content for this space. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // PolicyAddInput represents policyAddInput.
 type PolicyAddInput struct {
 	// The mrn of the space. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// RFC2397, base64 encoded policy bundle. (Required.)
-	Dataurl String `json:"dataurl"`
+	Dataurl String `json:"dataurl" tfgen:"required=1"`
 
 	// Force. (Optional.)
-	Force *Boolean `json:"force,omitempty"`
+	Force *Boolean `json:"force,omitempty" tfgen:"required=0"`
 }
 
 // PolicyAssignmentInput represents policy assignment input.
 type PolicyAssignmentInput struct {
 	// The mrn of the asset. (Required.)
-	AssetMrn String `json:"assetMrn"`
+	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
 
 	// The mrn of the policy. (Optional.)
-	PolicyMrn *String `json:"policyMrn,omitempty"`
+	PolicyMrn *String `json:"policyMrn,omitempty" tfgen:"required=0"`
 	// Policy MRNs. (Optional.)
-	PolicyMrns *[]String `json:"policyMrns,omitempty"`
+	PolicyMrns *[]String `json:"policyMrns,omitempty" tfgen:"required=0"`
 	// Action. (Optional.)
-	Action *PolicyAction `json:"action,omitempty"`
+	Action *PolicyAction `json:"action,omitempty" tfgen:"required=0"`
 	// Scoring System. (Optional.)
-	ScoringSystem *ScoringSystem `json:"scoringSystem,omitempty"`
+	ScoringSystem *ScoringSystem `json:"scoringSystem,omitempty" tfgen:"required=0"`
 }
 
 // PolicyDeleteInput represents policy delete input.
 type PolicyDeleteInput struct {
 	// The mrn of the policy. (Required.)
-	PolicyMrn String `json:"policyMrn"`
+	PolicyMrn String `json:"policyMrn" tfgen:"required=1"`
 }
 
 // PolicyInput represents policyInput.
 type PolicyInput struct {
 
 	// The mrn is a unique identifier. (Optional.)
-	Mrn *String `json:"mrn,omitempty"`
+	Mrn *String `json:"mrn,omitempty" tfgen:"required=0"`
 	// spaceMrn must be provided if you want to know if the policy is assigned. (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// variant. (Optional.)
-	Variant *String `json:"variant,omitempty"`
+	Variant *String `json:"variant,omitempty" tfgen:"required=0"`
 	// variantPlatformFilter allows filter the variants by a target platform id. (Optional.)
-	VariantPlatformFilter *String `json:"variantPlatformFilter,omitempty"`
+	VariantPlatformFilter *String `json:"variantPlatformFilter,omitempty" tfgen:"required=0"`
 }
 
 // PolicyReportMquerySummaryOrder represents policy report mquery summary order.
 type PolicyReportMquerySummaryOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field PolicyReportMquerySummaryOrderField `json:"field"`
+	Field PolicyReportMquerySummaryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // PolicyReportSummaryOrder represents policy report summary order.
 type PolicyReportSummaryOrder struct {
 	// Direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Field. (Required.)
-	Field PolicyReportSummaryOrderField `json:"field"`
+	Field PolicyReportSummaryOrderField `json:"field" tfgen:"required=1"`
 }
 
 // PostgresConfigurationOptionsInput represents postgres integration input.
 type PostgresConfigurationOptionsInput struct {
 	// (Required.)
-	Host String `json:"host"`
+	Host String `json:"host" tfgen:"required=1"`
 	// (Required.)
-	Port String `json:"port"`
+	Port String `json:"port" tfgen:"required=1"`
 	// (Required.)
-	Database String `json:"database"`
+	Database String `json:"database" tfgen:"required=1"`
 	// (Required.)
-	User String `json:"user"`
+	User String `json:"user" tfgen:"required=1"`
 	// (Required.)
-	Password String `json:"password"`
+	Password String `json:"password" tfgen:"required=1"`
 }
 
 // ProcessCaseEventsInput represents process case events input.
 type ProcessCaseEventsInput struct {
 	// MRN of the scope to process events for. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // PropertyQueryMutationInput represents property query mutation input.
 type PropertyQueryMutationInput struct {
 	// Target to apply scoring mutation to. Can be an space/asset mrn. Or an asset filter. (Required.)
-	Target PropertyQueryMutationTarget `json:"target"`
+	Target PropertyQueryMutationTarget `json:"target" tfgen:"required=1"`
 	// The action to apply. (Required.)
-	Action PropertyQueryMutationAction `json:"action"`
+	Action PropertyQueryMutationAction `json:"action" tfgen:"required=1"`
 
 	// A list of properties to apply the action to. (Optional.)
-	Props *[]PropertyQueryOverride `json:"props,omitempty"`
+	Props *[]PropertyQueryOverride `json:"props,omitempty" tfgen:"required=0"`
 }
 
 // PropertyQueryMutationTarget represents the target can be a mrn (space mrn) or a filter query. It is only valid to provide one of the parameters.
 type PropertyQueryMutationTarget struct {
 
 	// MRN of the target. For example, a space MRN, or asset MRN. (Optional.)
-	Mrn *String `json:"mrn,omitempty"`
+	Mrn *String `json:"mrn,omitempty" tfgen:"required=0"`
 	// For a future iteration. The mql for the filter to apply properties to. (Optional.)
-	Filter *String `json:"filter,omitempty"`
+	Filter *String `json:"filter,omitempty" tfgen:"required=0"`
 }
 
 // PropertyQueryOverride represents property query override.
 type PropertyQueryOverride struct {
 	// The property to apply the action to. (Required.)
-	PropertyMrn String `json:"propertyMrn"`
+	PropertyMrn String `json:"propertyMrn" tfgen:"required=1"`
 
 	// The property query. Must be provided for the SET and CHECK actions. It must not be provided for the UNSET action. (Optional.)
-	Mql *String `json:"mql,omitempty"`
+	Mql *String `json:"mql,omitempty" tfgen:"required=0"`
 }
 
 // QueryPackAddInput represents query pack add input.
 type QueryPackAddInput struct {
 	// The mrn of the space. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// RFC2397, base64 encoded policy bundle. (Required.)
-	Dataurl String `json:"dataurl"`
+	Dataurl String `json:"dataurl" tfgen:"required=1"`
 
 	// Force. (Optional.)
-	Force *Boolean `json:"force,omitempty"`
+	Force *Boolean `json:"force,omitempty" tfgen:"required=0"`
 }
 
 // RatedPoliciesInput represents rated policies input.
 type RatedPoliciesInput struct {
 	// The mrn of the space. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 
 	// Count. (Optional.)
-	Count *Int `json:"count,omitempty"`
+	Count *Int `json:"count,omitempty" tfgen:"required=0"`
 }
 
 // RegistrationTokenInput
 type RegistrationTokenInput struct {
 
 	// (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ScopeMrn *String `json:"scopeMrn,omitempty"`
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ExpiresIn *Int `json:"expiresIn,omitempty"`
+	ExpiresIn *Int `json:"expiresIn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	NoExpiration *Boolean `json:"noExpiration,omitempty"`
+	NoExpiration *Boolean `json:"noExpiration,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Roles *[]RoleInput `json:"roles,omitempty"`
+	Roles *[]RoleInput `json:"roles,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Labels *[]KeyValueInput `json:"labels,omitempty"`
+	Labels *[]KeyValueInput `json:"labels,omitempty" tfgen:"required=0"`
 }
 
 // RegistrationTokenOrder
 type RegistrationTokenOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field RegistrationTokenOrderField `json:"field"`
+	Field RegistrationTokenOrderField `json:"field" tfgen:"required=1"`
 }
 
 // RemediationFilter represents filter the remediation scripts.
 type RemediationFilter struct {
 
 	// filter by remediation script type. (Optional.)
-	ScriptTypes *[]*RemediationScriptType `json:"scriptTypes,omitempty"`
+	ScriptTypes *[]*RemediationScriptType `json:"scriptTypes,omitempty" tfgen:"required=0"`
 	// filter by package namespace, e.g., ubuntu:18.04. (Optional.)
-	Namespace *String `json:"namespace,omitempty"`
+	Namespace *String `json:"namespace,omitempty" tfgen:"required=0"`
 	// filter by package ecosystem, e.g., AmazonLinux:2023 It is the ecosystem.ID in the RemediationResponse. (Optional.)
-	Ecosystem *String `json:"ecosystem,omitempty"`
+	Ecosystem *String `json:"ecosystem,omitempty" tfgen:"required=0"`
 	// filter by affected assets and their packages. (Optional.)
-	FilterAffected *Boolean `json:"filterAffected,omitempty"`
+	FilterAffected *Boolean `json:"filterAffected,omitempty" tfgen:"required=0"`
 }
 
 // RemediationInput represents input for the remediation script.
 type RemediationInput struct {
 	// (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	AdvisoryID *ID `json:"advisoryId,omitempty"`
+	AdvisoryID *ID `json:"advisoryId,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	VulnerabilityID *ID `json:"vulnerabilityId,omitempty"`
+	VulnerabilityID *ID `json:"vulnerabilityId,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Packages *[]RemediationPackageFields `json:"packages,omitempty"`
+	Packages *[]RemediationPackageFields `json:"packages,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Filter *RemediationFilter `json:"filter,omitempty"`
+	Filter *RemediationFilter `json:"filter,omitempty" tfgen:"required=0"`
 }
 
 // RemediationPackageFields represents we need to know the packages to generate the remediation script.
 type RemediationPackageFields struct {
 	// Package name. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 
 	// Package version which fixes the vulnerability. (Optional.)
-	FixedVersion *String `json:"fixedVersion,omitempty"`
+	FixedVersion *String `json:"fixedVersion,omitempty" tfgen:"required=0"`
 }
 
 // RemoveOrganizationMembershipInput
 type RemoveOrganizationMembershipInput struct {
 	// (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// (Required.)
-	UserMrn String `json:"userMrn"`
+	UserMrn String `json:"userMrn" tfgen:"required=1"`
 }
 
 // RemoveSpaceMembershipInput
 type RemoveSpaceMembershipInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	UserMrn String `json:"userMrn"`
+	UserMrn String `json:"userMrn" tfgen:"required=1"`
 }
 
 // RenderedAssetQueryDataInput represents rendered asset query data input.
 type RenderedAssetQueryDataInput struct {
 	// assetMrn is the MRN of the asset to query. (Required.)
-	AssetMrn String `json:"assetMrn"`
+	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
 	// queryMrn is the MRN of the query to get the data for. (Required.)
-	QueryMrn String `json:"queryMrn"`
+	QueryMrn String `json:"queryMrn" tfgen:"required=1"`
 }
 
 // ReportViewedInfo represents report viewed info. Only 1 page can be specified at a time.
 type ReportViewedInfo struct {
 
 	// Org view page info. (Optional.)
-	OrgView *OrgViewPageInfo `json:"orgView,omitempty"`
+	OrgView *OrgViewPageInfo `json:"orgView,omitempty" tfgen:"required=0"`
 	// Asset overview page info. (Optional.)
-	AssetOverview *AssetOverviewPageInfo `json:"assetOverview,omitempty"`
+	AssetOverview *AssetOverviewPageInfo `json:"assetOverview,omitempty" tfgen:"required=0"`
 	// CI/CD project page info. (Optional.)
-	CicdProject *CiCdProjectPageInfo `json:"cicdProject,omitempty"`
+	CicdProject *CiCdProjectPageInfo `json:"cicdProject,omitempty" tfgen:"required=0"`
 	// CI/CD job page info. (Optional.)
-	CicdJob *CiCdJobPageInfo `json:"cicdJob,omitempty"`
+	CicdJob *CiCdJobPageInfo `json:"cicdJob,omitempty" tfgen:"required=0"`
 	// Vulnerability dashboard page info. (Optional.)
-	VulnerabilityDashboard *VulnerabilityDashboardPageInfo `json:"vulnerabilityDashboard,omitempty"`
+	VulnerabilityDashboard *VulnerabilityDashboardPageInfo `json:"vulnerabilityDashboard,omitempty" tfgen:"required=0"`
 	// Security dashboard page info. (Optional.)
-	SecurityDashboard *SecurityDashboardPageInfo `json:"securityDashboard,omitempty"`
+	SecurityDashboard *SecurityDashboardPageInfo `json:"securityDashboard,omitempty" tfgen:"required=0"`
 }
 
 // ReportViewedInput represents report viewed input.
 type ReportViewedInput struct {
 	// (Required.)
-	Page ReportViewedPage `json:"page"`
+	Page ReportViewedPage `json:"page" tfgen:"required=1"`
 	// (Required.)
-	Info ReportViewedInfo `json:"info"`
+	Info ReportViewedInfo `json:"info" tfgen:"required=1"`
 }
 
 // RevokeRegistrationTokenInput
 type RevokeRegistrationTokenInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // RiskFactorFilter represents risk factor filter by mrn.
 type RiskFactorFilter struct {
 
 	// MRN filter query. (Optional.)
-	Mrns *RiskFactorFilterQuery `json:"mrns,omitempty"`
+	Mrns *RiskFactorFilterQuery `json:"mrns,omitempty" tfgen:"required=0"`
 	// Risk factor indicators to filter on. They are ORed together. (Optional.)
-	Indicators *[]String `json:"indicators,omitempty"`
+	Indicators *[]String `json:"indicators,omitempty" tfgen:"required=0"`
 }
 
 // RiskFactorFilterQuery represents risk factor filter query.
 type RiskFactorFilterQuery struct {
 
 	// Any terms here will be ANDed. (Optional.)
-	And *[]String `json:"and,omitempty"`
+	And *[]String `json:"and,omitempty" tfgen:"required=0"`
 	// Any terms here will be ORed. (Optional.)
-	Or *[]String `json:"or,omitempty"`
+	Or *[]String `json:"or,omitempty" tfgen:"required=0"`
 }
 
 // RiskFactorMagnitudeModification
 type RiskFactorMagnitudeModification struct {
 	// Risk factor magnitude: -100 to 100. (Required.)
-	Value Int `json:"value"`
+	Value Int `json:"value" tfgen:"required=1"`
 	// Risk factor is toxic. (Required.)
-	IsToxic Boolean `json:"isToxic"`
+	IsToxic Boolean `json:"isToxic" tfgen:"required=1"`
 }
 
 // RoleInput
 type RoleInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
 // S3ConfigurationOptionsInput represents s3 integration input.
 type S3ConfigurationOptionsInput struct {
 	// (Required.)
-	Output BucketOutputType `json:"output"`
+	Output BucketOutputType `json:"output" tfgen:"required=1"`
 	// (Required.)
-	Endpoint String `json:"endpoint"`
+	Endpoint String `json:"endpoint" tfgen:"required=1"`
 	// (Required.)
-	Bucket String `json:"bucket"`
+	Bucket String `json:"bucket" tfgen:"required=1"`
 	// (Required.)
-	UseLegacyList Boolean `json:"useLegacyList"`
+	UseLegacyList Boolean `json:"useLegacyList" tfgen:"required=1"`
 	// (Required.)
-	UsePathStyle Boolean `json:"usePathStyle"`
+	UsePathStyle Boolean `json:"usePathStyle" tfgen:"required=1"`
 	// (Required.)
-	AccessKey String `json:"accessKey"`
+	AccessKey String `json:"accessKey" tfgen:"required=1"`
 	// (Required.)
-	SecretAccessKey String `json:"secretAccessKey"`
+	SecretAccessKey String `json:"secretAccessKey" tfgen:"required=1"`
 }
 
 // SSOProviderInput
 type SSOProviderInput struct {
 	// (Required.)
-	IdpEntityID String `json:"idpEntityID"`
+	IdpEntityID String `json:"idpEntityID" tfgen:"required=1"`
 	// (Required.)
-	SsoURL String `json:"ssoUrl"`
+	SsoURL String `json:"ssoUrl" tfgen:"required=1"`
 	// (Required.)
-	RpEntityID String `json:"rpEntityID"`
+	RpEntityID String `json:"rpEntityID" tfgen:"required=1"`
 	// (Required.)
-	X509Fingerprints []String `json:"x509Fingerprints"`
+	X509Fingerprints []String `json:"x509Fingerprints" tfgen:"required=1"`
 	// (Required.)
-	Enabled Boolean `json:"enabled"`
+	Enabled Boolean `json:"enabled" tfgen:"required=1"`
 
 	// (Optional.)
-	X509Certificates *[]String `json:"x509Certificates,omitempty"`
+	X509Certificates *[]String `json:"x509Certificates,omitempty" tfgen:"required=0"`
 }
 
 // ScanConfigurationInput represents scanConfigurationInput is the input options for the AWS integration scan configuration.
 type ScanConfigurationInput struct {
 
 	// (Optional.)
-	AccountScan *Boolean `json:"accountScan,omitempty"`
+	AccountScan *Boolean `json:"accountScan,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Ec2Scan *Boolean `json:"ec2Scan,omitempty"`
+	Ec2Scan *Boolean `json:"ec2Scan,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	EcrScan *Boolean `json:"ecrScan,omitempty"`
+	EcrScan *Boolean `json:"ecrScan,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	EcsScan *Boolean `json:"ecsScan,omitempty"`
+	EcsScan *Boolean `json:"ecsScan,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	CronScaninHours *Int `json:"cronScaninHours,omitempty"`
+	CronScaninHours *Int `json:"cronScaninHours,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	EventScanTriggers *[]*AWSEventPatternInput `json:"eventScanTriggers,omitempty"`
+	EventScanTriggers *[]*AWSEventPatternInput `json:"eventScanTriggers,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Ec2ScanOptions *Ec2ScanOptionsInput `json:"ec2ScanOptions,omitempty"`
+	Ec2ScanOptions *Ec2ScanOptionsInput `json:"ec2ScanOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	VpcConfiguration *VPCConfigurationInput `json:"vpcConfiguration,omitempty"`
+	VpcConfiguration *VPCConfigurationInput `json:"vpcConfiguration,omitempty" tfgen:"required=0"`
 }
 
 // ScimGroupMapping represents a mapping of SCIM group to organization or its spaces and an IAM role.
 type ScimGroupMapping struct {
 	// IAM role to be assigned to all members of the SCIM group. (Required.)
-	IamRole String `json:"iamRole"`
+	IamRole String `json:"iamRole" tfgen:"required=1"`
 
 	// MRN of the space to be mapped. (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// MRN of the organization to be mapped. (Optional.)
-	OrgMrn *String `json:"orgMrn,omitempty"`
+	OrgMrn *String `json:"orgMrn,omitempty" tfgen:"required=0"`
 }
 
 // ScopeDocumentOptionsInput represents input options for the scope of the document.
 type ScopeDocumentOptionsInput struct {
 	// The MRN of the scope to generate the report for. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // ScoreRange represents score range.
 type ScoreRange struct {
 	// Begin. (Required.)
-	Begin Int `json:"begin"`
+	Begin Int `json:"begin" tfgen:"required=1"`
 	// End. (Required.)
-	End Int `json:"end"`
+	End Int `json:"end" tfgen:"required=1"`
 }
 
 // SearchFilters
 type SearchFilters struct {
 
 	// (Optional.)
-	AggregateScoreType *AggregateScoreType `json:"aggregateScoreType,omitempty"`
+	AggregateScoreType *AggregateScoreType `json:"aggregateScoreType,omitempty" tfgen:"required=0"`
 }
 
 // SecurityDashboardPageInfo represents security dashboard pagination info.
 type SecurityDashboardPageInfo struct {
 	// organization mrn. (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// space mrn. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 }
 
 // SentinelOneConfigurationOptionsInput represents sentinelOne integration input.
 type SentinelOneConfigurationOptionsInput struct {
 	// The host of the SentinelOne integration. (Required.)
-	Host String `json:"host"`
+	Host String `json:"host" tfgen:"required=1"`
 	// The account ID of the SentinelOne integration. (Required.)
-	Account String `json:"account"`
+	Account String `json:"account" tfgen:"required=1"`
 
 	// certificate or client secret is required. (Optional.)
-	Certificate *String `json:"certificate,omitempty"`
+	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ClientSecret *String `json:"clientSecret,omitempty"`
+	ClientSecret *String `json:"clientSecret,omitempty" tfgen:"required=0"`
 	// createAssets is a flag to create assets in the backend when they are not found. (Optional.)
-	CreateAssets *Boolean `json:"createAssets,omitempty"`
+	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
 }
 
 // ServiceAccountOrder
 type ServiceAccountOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field ServiceAccountOrderField `json:"field"`
+	Field ServiceAccountOrderField `json:"field" tfgen:"required=1"`
 }
 
 // SetAssetAnnotationsInput
 type SetAssetAnnotationsInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Annotations []KeyValueInput `json:"annotations"`
+	Annotations []KeyValueInput `json:"annotations" tfgen:"required=1"`
 }
 
 // SetCustomPolicyInput represents uploads policy content.
 type SetCustomPolicyInput struct {
 	// RFC2397, base64 encoded policy bundle. (Required.)
-	Dataurl String `json:"dataurl"`
+	Dataurl String `json:"dataurl" tfgen:"required=1"`
 
 	// The mrn of the space. (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// Scope mrn is the mrn of the space or platform. (Optional.)
-	ScopeMrn *String `json:"scopeMrn,omitempty"`
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// Overwrites the policy if it already exists. (Optional.)
-	Overwrite *Boolean `json:"overwrite,omitempty"`
+	Overwrite *Boolean `json:"overwrite,omitempty" tfgen:"required=0"`
 }
 
 // SetCustomQueryPackInput represents creates a new query pack with the provided content.
 type SetCustomQueryPackInput struct {
 	// The mrn of the space. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// RFC2397, base64 encoded policy bundle. (Required.)
-	Dataurl String `json:"dataurl"`
+	Dataurl String `json:"dataurl" tfgen:"required=1"`
 
 	// Overwrites the query pack if it already exists. (Optional.)
-	Overwrite *Boolean `json:"overwrite,omitempty"`
+	Overwrite *Boolean `json:"overwrite,omitempty" tfgen:"required=0"`
 }
 
 // SetOrganizationMembershipInput
 type SetOrganizationMembershipInput struct {
 	// (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// (Required.)
-	UserMrn String `json:"userMrn"`
+	UserMrn String `json:"userMrn" tfgen:"required=1"`
 	// (Required.)
-	Roles []RoleInput `json:"roles"`
+	Roles []RoleInput `json:"roles" tfgen:"required=1"`
 }
 
 // SetRoleInput
 type SetRoleInput struct {
 	// (Required.)
-	EntityMrn String `json:"entityMrn"`
+	EntityMrn String `json:"entityMrn" tfgen:"required=1"`
 	// (Required.)
-	Roles []RoleInput `json:"roles"`
+	Roles []RoleInput `json:"roles" tfgen:"required=1"`
 }
 
 // SetRolesInput
 type SetRolesInput struct {
 
 	// (Optional.)
-	SpaceMrn *String `json:"spaceMrn,omitempty"`
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	ScopeMrn *String `json:"scopeMrn,omitempty"`
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Updates *[]SetRoleInput `json:"updates,omitempty"`
+	Updates *[]SetRoleInput `json:"updates,omitempty" tfgen:"required=0"`
 }
 
 // SetSSOProviderInput
 type SetSSOProviderInput struct {
 	// (Required.)
-	OrganizationMrn String `json:"organizationMrn"`
+	OrganizationMrn String `json:"organizationMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	Provider *SSOProviderInput `json:"provider,omitempty"`
+	Provider *SSOProviderInput `json:"provider,omitempty" tfgen:"required=0"`
 }
 
 // SetScimGroupMappingInput represents input type for setScimGroupMapping.
 type SetScimGroupMappingInput struct {
 	// Organization MRN for with the SCIM mapping is defined. (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// Group Identifier which is the SCIM displayName. (Required.)
-	Group String `json:"group"`
+	Group String `json:"group" tfgen:"required=1"`
 	// Mappings of SCIM group to organization or its spaces with IAM role. (Required.)
-	Mappings []ScimGroupMapping `json:"mappings"`
+	Mappings []ScimGroupMapping `json:"mappings" tfgen:"required=1"`
 }
 
 // SetSpaceMembershipInput
 type SetSpaceMembershipInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	UserMrn String `json:"userMrn"`
+	UserMrn String `json:"userMrn" tfgen:"required=1"`
 	// (Required.)
-	Roles []RoleInput `json:"roles"`
+	Roles []RoleInput `json:"roles" tfgen:"required=1"`
 }
 
 // ShodanConfigurationOptionsInput represents shodan integration input.
 type ShodanConfigurationOptionsInput struct {
 	// Shodan API token. (Required.)
-	Token String `json:"token"`
+	Token String `json:"token" tfgen:"required=1"`
 
 	// Shodan scan targets. Can be a domain, IP or CIDR. (Optional.)
-	Targets *[]String `json:"targets,omitempty"`
+	Targets *[]String `json:"targets,omitempty" tfgen:"required=0"`
 }
 
 // SlackConfigurationOptionsInput represents slack integration input.
 type SlackConfigurationOptionsInput struct {
 
 	// (Optional.)
-	SlackToken *String `json:"slackToken,omitempty"`
+	SlackToken *String `json:"slackToken,omitempty" tfgen:"required=0"`
 }
 
 // SnowflakeConfigurationOptionsInput represents snowflake integration input.
 type SnowflakeConfigurationOptionsInput struct {
 	// (Required.)
-	AccountID String `json:"accountId"`
+	AccountID String `json:"accountId" tfgen:"required=1"`
 	// (Required.)
-	Database String `json:"database"`
+	Database String `json:"database" tfgen:"required=1"`
 	// (Required.)
-	Schema String `json:"schema"`
+	Schema String `json:"schema" tfgen:"required=1"`
 	// (Required.)
-	Region String `json:"region"`
+	Region String `json:"region" tfgen:"required=1"`
 	// (Required.)
-	Warehouse String `json:"warehouse"`
+	Warehouse String `json:"warehouse" tfgen:"required=1"`
 	// (Required.)
-	Username String `json:"username"`
+	Username String `json:"username" tfgen:"required=1"`
 	// (Required.)
-	Password String `json:"password"`
+	Password String `json:"password" tfgen:"required=1"`
 
 	// (Optional.)
-	Role *String `json:"role,omitempty"`
+	Role *String `json:"role,omitempty" tfgen:"required=0"`
 }
 
 // SpacePolicySummaryInput represents spacePolicySummaryInput contains the input parameters for the spacePolicySummary query.
 type SpacePolicySummaryInput struct {
 	// spaceMrn is the MRN of the space. Statistics will be calculated for the provided policy MRN in this space. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// policyMrn is the MRN of the policy to summarize. (Required.)
-	PolicyMrn String `json:"policyMrn"`
+	PolicyMrn String `json:"policyMrn" tfgen:"required=1"`
 }
 
 // SpaceSettingsInput represents space settings input.
 type SpaceSettingsInput struct {
 
 	// Terminated assets configuration. (Optional.)
-	TerminatedAssetsConfiguration *TerminatedAssetsConfigurationInput `json:"terminatedAssetsConfiguration,omitempty"`
+	TerminatedAssetsConfiguration *TerminatedAssetsConfigurationInput `json:"terminatedAssetsConfiguration,omitempty" tfgen:"required=0"`
 	// Unused service accounts configuration. (Optional.)
-	UnusedServiceAccountsConfiguration *UnusedServiceAccountsConfigurationInput `json:"unusedServiceAccountsConfiguration,omitempty"`
+	UnusedServiceAccountsConfiguration *UnusedServiceAccountsConfigurationInput `json:"unusedServiceAccountsConfiguration,omitempty" tfgen:"required=0"`
 	// Garbage collect assets configuration. (Optional.)
-	GarbageCollectAssetsConfiguration *GarbageCollectAssetsConfigurationInput `json:"garbageCollectAssetsConfiguration,omitempty"`
+	GarbageCollectAssetsConfiguration *GarbageCollectAssetsConfigurationInput `json:"garbageCollectAssetsConfiguration,omitempty" tfgen:"required=0"`
 	// Platform vulnerability configuration. (Optional.)
-	PlatformVulnerabilityConfiguration *PlatformVulnerabilityConfigurationInput `json:"platformVulnerabilityConfiguration,omitempty"`
+	PlatformVulnerabilityConfiguration *PlatformVulnerabilityConfigurationInput `json:"platformVulnerabilityConfiguration,omitempty" tfgen:"required=0"`
 	// EOL platform configuration. (Optional.)
-	EolAssetsConfiguration *EolAssetsConfigurationInput `json:"eolAssetsConfiguration,omitempty"`
+	EolAssetsConfiguration *EolAssetsConfigurationInput `json:"eolAssetsConfiguration,omitempty" tfgen:"required=0"`
 	// Cases configuration. (Optional.)
-	CasesConfiguration *CasesConfigurationInput `json:"casesConfiguration,omitempty"`
+	CasesConfiguration *CasesConfigurationInput `json:"casesConfiguration,omitempty" tfgen:"required=0"`
 	// MVD v2 scanning configuration. (Optional.)
-	MvdV2ScanningConfiguration *MvdV2ScanningConfigurationInput `json:"mvdV2ScanningConfiguration,omitempty"`
+	MvdV2ScanningConfiguration *MvdV2ScanningConfigurationInput `json:"mvdV2ScanningConfiguration,omitempty" tfgen:"required=0"`
 }
 
 // SubscriptionItem
 type SubscriptionItem struct {
 	// (Required.)
-	PriceID String `json:"priceID"`
+	PriceID String `json:"priceID" tfgen:"required=1"`
 	// (Required.)
-	Quantity Int `json:"quantity"`
+	Quantity Int `json:"quantity" tfgen:"required=1"`
 }
 
 // SuppressIntegrationMessageInput represents suppressIntegrationMessageInput contains the inputs needed to suppress (remove) an integration message.
 type SuppressIntegrationMessageInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Message String `json:"message"`
+	Message String `json:"message" tfgen:"required=1"`
 
 	// (Optional.)
-	Identifier *String `json:"identifier,omitempty"`
+	Identifier *String `json:"identifier,omitempty" tfgen:"required=0"`
 }
 
 // TerminatedAssetsConfigurationInput represents terminated assets configuration input.
 type TerminatedAssetsConfigurationInput struct {
 
 	// Whether to cleanup terminated assets. (Optional.)
-	Cleanup *Boolean `json:"cleanup,omitempty"`
+	Cleanup *Boolean `json:"cleanup,omitempty" tfgen:"required=0"`
 }
 
 // TicketContextInput represents fetch Jira ticket context information.
 type TicketContextInput struct {
 	// The MRN of the scope for which the context is fetched. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// Jira ticket context parameters. (Optional.)
-	Jira *JiraTicketContextInput `json:"jira,omitempty"`
+	Jira *JiraTicketContextInput `json:"jira,omitempty" tfgen:"required=0"`
 	// Azure Devops ticket context parameters. (Optional.)
-	AzureDevOps *AzureDevopsTicketContextInput `json:"azureDevops,omitempty"`
+	AzureDevOps *AzureDevopsTicketContextInput `json:"azureDevops,omitempty" tfgen:"required=0"`
 	// Zendesk ticket context parmeters. (Optional.)
-	Zendesk *ZendeskTicketContextInput `json:"zendesk,omitempty"`
+	Zendesk *ZendeskTicketContextInput `json:"zendesk,omitempty" tfgen:"required=0"`
 }
 
 // TicketingIntegrationsInput represents ticketingIntegrationsInput describes the input for listing ticketing integrations.
 type TicketingIntegrationsInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 }
 
 // TimeRange represents time Range.
 type TimeRange struct {
 
 	// Upper bound of the time range. Must be valid RFC 3339 timestamp. (Optional.)
-	To *String `json:"to,omitempty"`
+	To *String `json:"to,omitempty" tfgen:"required=0"`
 	// Lower bound of the time range. Must be valid RFC 3339 timestamp. (Optional.)
-	From *String `json:"from,omitempty"`
+	From *String `json:"from,omitempty" tfgen:"required=0"`
 }
 
 // TimestampFilter represents timestamp filter.
 type TimestampFilter struct {
 	// RFC3339 timestamp. (Required.)
-	Timestamp String `json:"timestamp"`
+	Timestamp String `json:"timestamp" tfgen:"required=1"`
 	// Comparison operator. (Required.)
-	Operator ComparisonOperator `json:"operator"`
+	Operator ComparisonOperator `json:"operator" tfgen:"required=1"`
 }
 
 // TriggerActionInput represents inputs used to trigger an action on a client integration.
 type TriggerActionInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Type ActionType `json:"type"`
+	Type ActionType `json:"type" tfgen:"required=1"`
 
 	// (Optional.)
-	ActionOptions *TriggerActionOptionsInput `json:"actionOptions,omitempty"`
+	ActionOptions *TriggerActionOptionsInput `json:"actionOptions,omitempty" tfgen:"required=0"`
 }
 
 // TriggerActionOptionsInput represents inputs options used to trigger an action on a client integration.
 type TriggerActionOptionsInput struct {
 
 	// Optional source identifier, e.g. AWS account id. (Optional.)
-	Identifiers *[]String `json:"identifiers,omitempty"`
+	Identifiers *[]String `json:"identifiers,omitempty" tfgen:"required=0"`
 	// Optional - AWS scan options. (Optional.)
-	AwsScanOptions *AwsScanOptions `json:"awsScanOptions,omitempty"`
+	AwsScanOptions *AwsScanOptions `json:"awsScanOptions,omitempty" tfgen:"required=0"`
 }
 
 // UnusedServiceAccountsConfigurationInput represents unused service accounts configuration input.
 type UnusedServiceAccountsConfigurationInput struct {
 
 	// Whether to cleanup unused service accounts. (Optional.)
-	Cleanup *Boolean `json:"cleanup,omitempty"`
+	Cleanup *Boolean `json:"cleanup,omitempty" tfgen:"required=0"`
 }
 
 // UpdateAPITokenInput represents input used when updating an API token name or description.
 type UpdateAPITokenInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 
 	// (Optional.)
-	Name *String `json:"name,omitempty"`
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 }
 
 // UpdateAgentInput represents inputs for updating agents.
 type UpdateAgentInput struct {
 	// (Required.)
-	AgentMrn String `json:"agentMrn"`
+	AgentMrn String `json:"agentMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	Notes *String `json:"notes,omitempty"`
+	Notes *String `json:"notes,omitempty" tfgen:"required=0"`
 }
 
 // UpdateClientIntegrationConfigurationInput represents input for updating a client integration.
 type UpdateClientIntegrationConfigurationInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Type ClientIntegrationType `json:"type"`
+	Type ClientIntegrationType `json:"type" tfgen:"required=1"`
 	// (Required.)
-	ConfigurationOptions ClientIntegrationConfigurationInput `json:"configurationOptions"`
+	ConfigurationOptions ClientIntegrationConfigurationInput `json:"configurationOptions" tfgen:"required=1"`
 
 	// (Optional.)
-	Name *String `json:"name,omitempty"`
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 }
 
 // UpdateClientIntegrationNameInput represents inputs to change the name of a client integration.
 type UpdateClientIntegrationNameInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 }
 
 // UpdateFindingsSLAInput
 type UpdateFindingsSLAInput struct {
 	// The rating to which this SLA applies. (Required.)
-	Rating ScoreRating `json:"rating"`
+	Rating ScoreRating `json:"rating" tfgen:"required=1"`
 	// The target number of days to resolve a finding. (Required.)
-	DaysToResolve Int `json:"daysToResolve"`
+	DaysToResolve Int `json:"daysToResolve" tfgen:"required=1"`
 	// The number of days before a warning is issued. (Required.)
-	DaysBeforeWarning Int `json:"daysBeforeWarning"`
+	DaysBeforeWarning Int `json:"daysBeforeWarning" tfgen:"required=1"`
 }
 
 // UpdateOrganizationInput represents update organization input.
 type UpdateOrganizationInput struct {
 	// MRN. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// Name. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 
 	// Description. (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 }
 
 // UpdateSLAsInput
 type UpdateSLAsInput struct {
 	// SLAs for findings. (Required.)
-	Findings []UpdateFindingsSLAInput `json:"findings"`
+	Findings []UpdateFindingsSLAInput `json:"findings" tfgen:"required=1"`
 }
 
 // UpdateSecurityModelInput
 type UpdateSecurityModelInput struct {
 	// The mrn of the space. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// SLAs. (Optional.)
-	Slas *UpdateSLAsInput `json:"slas,omitempty"`
+	Slas *UpdateSLAsInput `json:"slas,omitempty" tfgen:"required=0"`
 }
 
 // UpdateServiceAccountInput represents input used when updating service account name, notes, and labels.
 type UpdateServiceAccountInput struct {
 	// (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 
 	// (Optional.)
-	Name *String `json:"name,omitempty"`
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Notes *String `json:"notes,omitempty"`
+	Notes *String `json:"notes,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Labels *[]*KeyValueInput `json:"labels,omitempty"`
+	Labels *[]*KeyValueInput `json:"labels,omitempty" tfgen:"required=0"`
 }
 
 // UpdateSpaceInput represents update space input.
 type UpdateSpaceInput struct {
 	// MRN. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 	// Name. (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 
 	// Description. (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// Settings. (Optional.)
-	Settings *SpaceSettingsInput `json:"settings,omitempty"`
+	Settings *SpaceSettingsInput `json:"settings,omitempty" tfgen:"required=0"`
 }
 
 // UpdateUserInput
 type UpdateUserInput struct {
 	// (Required.)
-	Name String `json:"name"`
+	Name String `json:"name" tfgen:"required=1"`
 }
 
 // UpdateWorkspaceInput represents update workspace input.
 type UpdateWorkspaceInput struct {
 	// MRN. (Required.)
-	Mrn String `json:"mrn"`
+	Mrn String `json:"mrn" tfgen:"required=1"`
 
 	// The name of the workspace. (Optional.)
-	Name *String `json:"name,omitempty"`
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 	// Description of the workspace. (Optional.)
-	Description *String `json:"description,omitempty"`
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// Workspace selections. (Optional.)
-	Selections *WorkspaceSelectionsInput `json:"selections,omitempty"`
+	Selections *WorkspaceSelectionsInput `json:"selections,omitempty" tfgen:"required=0"`
 }
 
 // UploadFrameworkInput represents upload framework input.
 type UploadFrameworkInput struct {
 	// The mrn of the space to which the framework belongs. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 	// RFC2397, base64 encoded policy bundle. (Required.)
-	Dataurl String `json:"dataurl"`
+	Dataurl String `json:"dataurl" tfgen:"required=1"`
 }
 
 // VPCConfigurationInput represents vPCConfigurationInput describes the options for the VPCs used for the scanners. Setting useDefaultVPC to true will create the mondoo scanners in the AWS account default VPC. Setting useDefaultVPC to false will lead to the lambda function creating the VPC for the scanners in each scanning region.
 type VPCConfigurationInput struct {
 
 	// (Optional.)
-	UseDefaultVPC *Boolean `json:"useDefaultVPC,omitempty"`
+	UseDefaultVPC *Boolean `json:"useDefaultVPC,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	UseMondooVPC *Boolean `json:"useMondooVPC,omitempty"`
+	UseMondooVPC *Boolean `json:"useMondooVPC,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	CIDR *String `json:"CIDR,omitempty"`
+	CIDR *String `json:"CIDR,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	VpcFlavour *VPCFlavour `json:"vpcFlavour,omitempty"`
+	VpcFlavour *VPCFlavour `json:"vpcFlavour,omitempty" tfgen:"required=0"`
 }
 
 // VulnerabilityDashboardPageInfo represents vuln Dashboard pagination info.
 type VulnerabilityDashboardPageInfo struct {
 	// organization mrn. (Required.)
-	OrgMrn String `json:"orgMrn"`
+	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// space mrn. (Required.)
-	SpaceMrn String `json:"spaceMrn"`
+	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 }
 
 // VulnerabilityDocumentOptionsInput represents input options for the vulnerability of the document.
 type VulnerabilityDocumentOptionsInput struct {
 	// The ID of the vulnerability to generate the report for. (Required.)
-	VulnerabilityID String `json:"vulnerabilityId"`
+	VulnerabilityID String `json:"vulnerabilityId" tfgen:"required=1"`
 	// The MRN of the scope to generate the report for. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
 
 // VulnerabilityScoreOrder represents vulnerability score order object.
 type VulnerabilityScoreOrder struct {
 	// Order direction. (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// VulnerabilityScore field. (Required.)
-	Field VulnerabilityScoreOrderField `json:"field"`
+	Field VulnerabilityScoreOrderField `json:"field" tfgen:"required=1"`
 }
 
 // WIFAuthBindingOrder
 type WIFAuthBindingOrder struct {
 	// (Required.)
-	Direction OrderDirection `json:"direction"`
+	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// (Required.)
-	Field AuthBindingOrderField `json:"field"`
+	Field AuthBindingOrderField `json:"field" tfgen:"required=1"`
 }
 
 // WorkspaceConditionPossibleValuesInput
 type WorkspaceConditionPossibleValuesInput struct {
 	// Scope MRN. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// Query to filter values on. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// String field. (Optional.)
-	StringField *WorkspaceSelectionConditionStringField `json:"stringField,omitempty"`
+	StringField *WorkspaceSelectionConditionStringField `json:"stringField,omitempty" tfgen:"required=0"`
 	// Int field. (Optional.)
-	IntField *WorkspaceSelectionConditionIntField `json:"intField,omitempty"`
+	IntField *WorkspaceSelectionConditionIntField `json:"intField,omitempty" tfgen:"required=0"`
 	// Rating field. (Optional.)
-	RatingField *WorkspaceSelectionConditionRatingField `json:"ratingField,omitempty"`
+	RatingField *WorkspaceSelectionConditionRatingField `json:"ratingField,omitempty" tfgen:"required=0"`
 	// Key-value field. (Optional.)
-	KeyValueField *WorkspaceSelectionConditionKeyValueField `json:"keyValueField,omitempty"`
+	KeyValueField *WorkspaceSelectionConditionKeyValueField `json:"keyValueField,omitempty" tfgen:"required=0"`
 }
 
 // WorkspaceSelectionConditionInput represents workspace selection condition.
 type WorkspaceSelectionConditionInput struct {
 	// Operator determining how the condition is joined with the other conditions in the list. (Required.)
-	Operator WorkspaceSelectionConditionOperator `json:"operator"`
+	Operator WorkspaceSelectionConditionOperator `json:"operator" tfgen:"required=1"`
 
 	// String condition. (Optional.)
-	StringCondition *WorkspaceSelectionStringConditionInput `json:"stringCondition,omitempty"`
+	StringCondition *WorkspaceSelectionStringConditionInput `json:"stringCondition,omitempty" tfgen:"required=0"`
 	// Int condition. (Optional.)
-	IntCondition *WorkspaceSelectionIntConditionInput `json:"intCondition,omitempty"`
+	IntCondition *WorkspaceSelectionIntConditionInput `json:"intCondition,omitempty" tfgen:"required=0"`
 	// Rating condition. (Optional.)
-	RatingCondition *WorkspaceSelectionRatingConditionInput `json:"ratingCondition,omitempty"`
+	RatingCondition *WorkspaceSelectionRatingConditionInput `json:"ratingCondition,omitempty" tfgen:"required=0"`
 	// Key-value condition. (Optional.)
-	KeyValueCondition *WorkspaceSelectionKeyValueConditionInput `json:"keyValueCondition,omitempty"`
+	KeyValueCondition *WorkspaceSelectionKeyValueConditionInput `json:"keyValueCondition,omitempty" tfgen:"required=0"`
 }
 
 // WorkspaceSelectionInput represents workspace selection defining conditions for selecting assets for a workspace.
 type WorkspaceSelectionInput struct {
 	// A list of conditions for the selection. (Required.)
-	Conditions []WorkspaceSelectionConditionInput `json:"conditions"`
+	Conditions []WorkspaceSelectionConditionInput `json:"conditions" tfgen:"required=1"`
 }
 
 // WorkspaceSelectionIntConditionInput represents workspace selection condition int condition.
 type WorkspaceSelectionIntConditionInput struct {
 	// Field to match. (Required.)
-	Field WorkspaceSelectionConditionIntField `json:"field"`
+	Field WorkspaceSelectionConditionIntField `json:"field" tfgen:"required=1"`
 	// Operator to use. (Required.)
-	Operator WorkspaceSelectionConditionNumericOperator `json:"operator"`
+	Operator WorkspaceSelectionConditionNumericOperator `json:"operator" tfgen:"required=1"`
 	// Values to match. Values are ORed together. (Required.)
-	Values []Int `json:"values"`
+	Values []Int `json:"values" tfgen:"required=1"`
 }
 
 // WorkspaceSelectionKeyValueConditionInput represents workspace selection key-value condition.
 type WorkspaceSelectionKeyValueConditionInput struct {
 	// Field to match. (Required.)
-	Field WorkspaceSelectionConditionKeyValueField `json:"field"`
+	Field WorkspaceSelectionConditionKeyValueField `json:"field" tfgen:"required=1"`
 	// Operator to use. (Required.)
-	Operator WorkspaceSelectionConditionKeyValueOperator `json:"operator"`
+	Operator WorkspaceSelectionConditionKeyValueOperator `json:"operator" tfgen:"required=1"`
 	// Values to match. Values are ORed together. (Required.)
-	Values []KeyValueInput `json:"values"`
+	Values []KeyValueInput `json:"values" tfgen:"required=1"`
 }
 
 // WorkspaceSelectionRatingConditionInput represents workspace selection rating condition.
 type WorkspaceSelectionRatingConditionInput struct {
 	// Field to match. (Required.)
-	Field WorkspaceSelectionConditionRatingField `json:"field"`
+	Field WorkspaceSelectionConditionRatingField `json:"field" tfgen:"required=1"`
 	// Operator to use. (Required.)
-	Operator WorkspaceSelectionConditionRatingOperator `json:"operator"`
+	Operator WorkspaceSelectionConditionRatingOperator `json:"operator" tfgen:"required=1"`
 	// Values to match. Values are ORed together. (Required.)
-	Values []ScoreRating `json:"values"`
+	Values []ScoreRating `json:"values" tfgen:"required=1"`
 }
 
 // WorkspaceSelectionStringConditionInput represents workspace selection string condition.
 type WorkspaceSelectionStringConditionInput struct {
 	// Field to match. (Required.)
-	Field WorkspaceSelectionConditionStringField `json:"field"`
+	Field WorkspaceSelectionConditionStringField `json:"field" tfgen:"required=1"`
 	// Operator to use. (Required.)
-	Operator WorkspaceSelectionConditionStringOperator `json:"operator"`
+	Operator WorkspaceSelectionConditionStringOperator `json:"operator" tfgen:"required=1"`
 	// Values to match. Values are ORed together. (Required.)
-	Values []String `json:"values"`
+	Values []String `json:"values" tfgen:"required=1"`
 }
 
 // WorkspaceSelectionsInput represents workspace selections input.
 type WorkspaceSelectionsInput struct {
 	// A list of workspace selections. (Required.)
-	Selections []WorkspaceSelectionInput `json:"selections"`
+	Selections []WorkspaceSelectionInput `json:"selections" tfgen:"required=1"`
 }
 
 // WorkspacesInput represents workspaces input.
 type WorkspacesInput struct {
 	// The scope of the workspaces to list. (Required.)
-	ScopeMrn String `json:"scopeMrn"`
+	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// Query searches workspaces by name. (Optional.)
-	Query *String `json:"query,omitempty"`
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 }
 
 // ZendeskConfigurationOptionsInput represents zendesk integration input.
 type ZendeskConfigurationOptionsInput struct {
 	// (Required.)
-	Subdomain String `json:"subdomain"`
+	Subdomain String `json:"subdomain" tfgen:"required=1"`
 	// (Required.)
-	Email String `json:"email"`
+	Email String `json:"email" tfgen:"required=1"`
 	// (Required.)
-	APIToken String `json:"apiToken"`
+	APIToken String `json:"apiToken" tfgen:"required=1"`
 	// (Required.)
-	AutoCloseTickets Boolean `json:"autoCloseTickets"`
+	AutoCloseTickets Boolean `json:"autoCloseTickets" tfgen:"required=1"`
 	// (Required.)
-	AutoCreateTickets Boolean `json:"autoCreateTickets"`
+	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 
 	// (Optional.)
-	CustomFields *[]ZendeskCustomFieldInput `json:"customFields,omitempty"`
+	CustomFields *[]ZendeskCustomFieldInput `json:"customFields,omitempty" tfgen:"required=0"`
 }
 
 // ZendeskCustomFieldInput represents zendesk custom field input.
 type ZendeskCustomFieldInput struct {
 	// Field ID. (Required.)
-	ID Int `json:"id"`
+	ID Int `json:"id" tfgen:"required=1"`
 	// Value. (Required.)
-	Value String `json:"value"`
+	Value String `json:"value" tfgen:"required=1"`
 }
 
 // ZendeskTicketConfigInput represents zendesk ticket configuration input.
 type ZendeskTicketConfigInput struct {
 
 	// The Zendesk priority. (Optional.)
-	Priority *String `json:"priority,omitempty"`
+	Priority *String `json:"priority,omitempty" tfgen:"required=0"`
 	// The Zendesk ticket type. (Optional.)
-	Type *String `json:"type,omitempty"`
+	Type *String `json:"type,omitempty" tfgen:"required=0"`
 }
 
 // ZendeskTicketContextInput represents parameters for ZendeskTicketContext.
 type ZendeskTicketContextInput struct {
 	// The type of the ticket context. (Required.)
-	Type ZendeskTicketContextType `json:"type"`
+	Type ZendeskTicketContextType `json:"type" tfgen:"required=1"`
 }

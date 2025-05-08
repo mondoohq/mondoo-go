@@ -257,10 +257,10 @@ type Input interface{}
 // {{.name}} {{.description | clean | endSentence}}
 type {{.name}} struct {{"{"}}{{range .inputFields}}{{if eq .type.kind "NON_NULL"}}
 	// {{ if .description }}{{ .description | clean | fullSentence }} {{ end }}(Required.)
-	{{.name | identifier}} {{.type | type}} ` + "`" + `json:"{{.name}}"` + "`" + `{{end}}{{end}}
+	{{.name | identifier}} {{.type | type}} ` + "`" + `json:"{{.name}}" tfgen:"required=1"` + "`" + `{{end}}{{end}}
 {{range .inputFields}}{{if ne .type.kind "NON_NULL"}}
 	// {{ if .description }}{{ .description | clean | fullSentence }} {{ end }}(Optional.)
-	{{.name | identifier}} {{.type | type}} ` + "`" + `json:"{{.name}},omitempty"` + "`" + `{{end}}{{end}}
+	{{.name | identifier}} {{.type | type}} ` + "`" + `json:"{{.name}},omitempty" tfgen:"required=0"` + "`" + `{{end}}{{end}}
 }
 {{- end -}}
 `),
