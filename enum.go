@@ -55,7 +55,7 @@ type AdvisoryOrderField string
 
 // possible advisory order fields.
 const (
-	AdvisoryOrderFieldID        AdvisoryOrderField = "ID"
+	AdvisoryOrderFieldId        AdvisoryOrderField = "ID"
 	AdvisoryOrderFieldTitle     AdvisoryOrderField = "TITLE"
 	AdvisoryOrderFieldPublished AdvisoryOrderField = "PUBLISHED"
 	AdvisoryOrderFieldScore     AdvisoryOrderField = "SCORE"
@@ -80,7 +80,7 @@ type AdvisorySummaryOrderField string
 
 // possible advisory summary order fields.
 const (
-	AdvisorySummaryOrderFieldID          AdvisorySummaryOrderField = "ID"
+	AdvisorySummaryOrderFieldId          AdvisorySummaryOrderField = "ID"
 	AdvisorySummaryOrderFieldTitle       AdvisorySummaryOrderField = "TITLE"
 	AdvisorySummaryOrderFieldPublished   AdvisorySummaryOrderField = "PUBLISHED"
 	AdvisorySummaryOrderFieldScore       AdvisorySummaryOrderField = "SCORE"
@@ -92,10 +92,10 @@ type AgentOrderField string
 
 // Supported sorting fields for agents.
 const (
-	AgentOrderFieldID          AgentOrderField = "ID"
+	AgentOrderFieldId          AgentOrderField = "ID"
 	AgentOrderFieldName        AgentOrderField = "NAME"
 	AgentOrderFieldPlatform    AgentOrderField = "PLATFORM"
-	AgentOrderFieldIP          AgentOrderField = "IP"
+	AgentOrderFieldIp          AgentOrderField = "IP"
 	AgentOrderFieldVersion     AgentOrderField = "VERSION"
 	AgentOrderFieldStatus      AgentOrderField = "STATUS"
 	AgentOrderFieldLastCheckin AgentOrderField = "LAST_CHECKIN"
@@ -166,7 +166,7 @@ type AssetOrderField string
 
 // Asset order field.
 const (
-	AssetOrderFieldID          AssetOrderField = "ID"
+	AssetOrderFieldId          AssetOrderField = "ID"
 	AssetOrderFieldName        AssetOrderField = "NAME"
 	AssetOrderFieldPlatform    AssetOrderField = "PLATFORM"
 	AssetOrderFieldScore       AssetOrderField = "SCORE"
@@ -198,7 +198,7 @@ const (
 type AssetSearchOrderField string
 
 const (
-	AssetSearchOrderFieldID   AssetSearchOrderField = "ID"
+	AssetSearchOrderFieldId   AssetSearchOrderField = "ID"
 	AssetSearchOrderFieldName AssetSearchOrderField = "NAME"
 )
 
@@ -226,7 +226,7 @@ type AssetSummaryOrderField string
 
 // Asset summary order field.
 const (
-	AssetSummaryOrderFieldID        AssetSummaryOrderField = "ID"
+	AssetSummaryOrderFieldId        AssetSummaryOrderField = "ID"
 	AssetSummaryOrderFieldTitle     AssetSummaryOrderField = "TITLE"
 	AssetSummaryOrderFieldPublished AssetSummaryOrderField = "PUBLISHED"
 	AssetSummaryOrderFieldModified  AssetSummaryOrderField = "MODIFIED"
@@ -266,7 +266,7 @@ type AuthBindingOrderField string
 
 const (
 	AuthBindingOrderFieldName       AuthBindingOrderField = "NAME"
-	AuthBindingOrderFieldIssuerURI  AuthBindingOrderField = "ISSUER_URI"
+	AuthBindingOrderFieldIssuerUri  AuthBindingOrderField = "ISSUER_URI"
 	AuthBindingOrderFieldCreateTime AuthBindingOrderField = "CREATE_TIME"
 	AuthBindingOrderFieldLastUsed   AuthBindingOrderField = "LAST_USED"
 )
@@ -377,8 +377,8 @@ const (
 	ClientIntegrationTypeAwsS3                   ClientIntegrationType = "AWS_S3"
 	ClientIntegrationTypeS3                      ClientIntegrationType = "S3"
 	ClientIntegrationTypeHostedSlack             ClientIntegrationType = "HOSTED_SLACK"
-	ClientIntegrationTypeGitHub                  ClientIntegrationType = "GITHUB"
-	ClientIntegrationTypeGitLab                  ClientIntegrationType = "GITLAB"
+	ClientIntegrationTypeGithub                  ClientIntegrationType = "GITHUB"
+	ClientIntegrationTypeGitlab                  ClientIntegrationType = "GITLAB"
 	ClientIntegrationTypeGcsBucket               ClientIntegrationType = "GCS_BUCKET"
 	ClientIntegrationTypePostgres                ClientIntegrationType = "POSTGRES"
 	ClientIntegrationTypeOci                     ClientIntegrationType = "OCI"
@@ -389,10 +389,10 @@ const (
 	ClientIntegrationTypeTicketSystemEmail       ClientIntegrationType = "TICKET_SYSTEM_EMAIL"
 	ClientIntegrationTypeTicketSystemZendesk     ClientIntegrationType = "TICKET_SYSTEM_ZENDESK"
 	ClientIntegrationTypeMicrosoftDefender       ClientIntegrationType = "MICROSOFT_DEFENDER"
-	ClientIntegrationTypeTicketSystemGitHub      ClientIntegrationType = "TICKET_SYSTEM_GITHUB"
-	ClientIntegrationTypeTicketSystemGitLab      ClientIntegrationType = "TICKET_SYSTEM_GITLAB"
+	ClientIntegrationTypeTicketSystemGithub      ClientIntegrationType = "TICKET_SYSTEM_GITHUB"
+	ClientIntegrationTypeTicketSystemGitlab      ClientIntegrationType = "TICKET_SYSTEM_GITLAB"
 	ClientIntegrationTypeShodan                  ClientIntegrationType = "SHODAN"
-	ClientIntegrationTypeTicketSystemAzureDevOps ClientIntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
+	ClientIntegrationTypeTicketSystemAzureDevops ClientIntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
 	ClientIntegrationTypeSentinelOne             ClientIntegrationType = "SENTINEL_ONE"
 	ClientIntegrationTypeCrowdstrikeFalcon       ClientIntegrationType = "CROWDSTRIKE_FALCON"
 )
@@ -411,7 +411,7 @@ type ComplianceAssetOrderField string
 
 // Compliance asset order field.
 const (
-	ComplianceAssetOrderFieldID          ComplianceAssetOrderField = "ID"
+	ComplianceAssetOrderFieldId          ComplianceAssetOrderField = "ID"
 	ComplianceAssetOrderFieldName        ComplianceAssetOrderField = "NAME"
 	ComplianceAssetOrderFieldPlatform    ComplianceAssetOrderField = "PLATFORM"
 	ComplianceAssetOrderFieldCompletion  ComplianceAssetOrderField = "COMPLETION"
@@ -472,7 +472,7 @@ type ControlsOrderField string
 
 // Controls order field.
 const (
-	ControlsOrderFieldID         ControlsOrderField = "ID"
+	ControlsOrderFieldId         ControlsOrderField = "ID"
 	ControlsOrderFieldTitle      ControlsOrderField = "TITLE"
 	ControlsOrderFieldCompletion ControlsOrderField = "COMPLETION"
 	ControlsOrderFieldChecks     ControlsOrderField = "CHECKS"
@@ -486,7 +486,7 @@ type CveOrderField string
 
 // CVE order fields.
 const (
-	CveOrderFieldID        CveOrderField = "ID"
+	CveOrderFieldId        CveOrderField = "ID"
 	CveOrderFieldTitle     CveOrderField = "TITLE"
 	CveOrderFieldPublished CveOrderField = "PUBLISHED"
 	CveOrderFieldModified  CveOrderField = "MODIFIED"
@@ -511,7 +511,7 @@ type CveSummaryOrderField string
 
 // possible cve summary order field.
 const (
-	CveSummaryOrderFieldID          CveSummaryOrderField = "ID"
+	CveSummaryOrderFieldId          CveSummaryOrderField = "ID"
 	CveSummaryOrderFieldTitle       CveSummaryOrderField = "TITLE"
 	CveSummaryOrderFieldPublished   CveSummaryOrderField = "PUBLISHED"
 	CveSummaryOrderFieldModified    CveSummaryOrderField = "MODIFIED"
@@ -591,10 +591,11 @@ type ExceptionMutationAction string
 
 // The action to apply to the exception.
 const (
-	ExceptionMutationActionEnable     ExceptionMutationAction = "ENABLE"
-	ExceptionMutationActionDisable    ExceptionMutationAction = "DISABLE"
-	ExceptionMutationActionSnooze     ExceptionMutationAction = "SNOOZE"
-	ExceptionMutationActionOutOfScope ExceptionMutationAction = "OUT_OF_SCOPE" // Applicable only for compliance.
+	ExceptionMutationActionEnable       ExceptionMutationAction = "ENABLE"
+	ExceptionMutationActionDisable      ExceptionMutationAction = "DISABLE"
+	ExceptionMutationActionSnooze       ExceptionMutationAction = "SNOOZE"
+	ExceptionMutationActionRiskAccepted ExceptionMutationAction = "RISK_ACCEPTED"
+	ExceptionMutationActionOutOfScope   ExceptionMutationAction = "OUT_OF_SCOPE" // Applicable only for compliance.
 )
 
 // ExceptionReviewAction represents the type of review action.
@@ -652,7 +653,7 @@ type FormatType string
 
 // Output format.
 const (
-	FormatTypeJSON FormatType = "JSON"
+	FormatTypeJson FormatType = "JSON"
 	FormatTypeCsv  FormatType = "CSV"
 )
 
@@ -730,8 +731,8 @@ const (
 	ICON_IDSK8s                       ICON_IDS = "K8S"
 	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
 	ICON_IDSPython                    ICON_IDS = "PYTHON"
-	ICON_IDSGitHub                    ICON_IDS = "GITHUB"
-	ICON_IDSGitLab                    ICON_IDS = "GITLAB"
+	ICON_IDSGithub                    ICON_IDS = "GITHUB"
+	ICON_IDSGitlab                    ICON_IDS = "GITLAB"
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
 	ICON_IDSMacos                     ICON_IDS = "MACOS"
@@ -739,7 +740,7 @@ const (
 	ICON_IDSWindows                   ICON_IDS = "WINDOWS"
 	ICON_IDSMs365                     ICON_IDS = "MS365"
 	ICON_IDSNmap                      ICON_IDS = "NMAP"
-	ICON_IDSDNS                       ICON_IDS = "DNS"
+	ICON_IDSDns                       ICON_IDS = "DNS"
 	ICON_IDSOci                       ICON_IDS = "OCI"
 	ICON_IDSRedhat                    ICON_IDS = "REDHAT"
 	ICON_IDSAmazon                    ICON_IDS = "AMAZON"
@@ -811,8 +812,8 @@ const (
 	IntegrationTypeAwsS3                   IntegrationType = "AWS_S3"
 	IntegrationTypeS3                      IntegrationType = "S3"
 	IntegrationTypeHostedSlack             IntegrationType = "HOSTED_SLACK"
-	IntegrationTypeGitHub                  IntegrationType = "GITHUB"
-	IntegrationTypeGitLab                  IntegrationType = "GITLAB"
+	IntegrationTypeGithub                  IntegrationType = "GITHUB"
+	IntegrationTypeGitlab                  IntegrationType = "GITLAB"
 	IntegrationTypeGcsBucket               IntegrationType = "GCS_BUCKET"
 	IntegrationTypePostgres                IntegrationType = "POSTGRES"
 	IntegrationTypeOci                     IntegrationType = "OCI"
@@ -823,10 +824,10 @@ const (
 	IntegrationTypeTicketSystemEmail       IntegrationType = "TICKET_SYSTEM_EMAIL"
 	IntegrationTypeTicketSystemZendesk     IntegrationType = "TICKET_SYSTEM_ZENDESK"
 	IntegrationTypeMicrosoftDefender       IntegrationType = "MICROSOFT_DEFENDER"
-	IntegrationTypeTicketSystemGitHub      IntegrationType = "TICKET_SYSTEM_GITHUB"
-	IntegrationTypeTicketSystemGitLab      IntegrationType = "TICKET_SYSTEM_GITLAB"
+	IntegrationTypeTicketSystemGithub      IntegrationType = "TICKET_SYSTEM_GITHUB"
+	IntegrationTypeTicketSystemGitlab      IntegrationType = "TICKET_SYSTEM_GITLAB"
 	IntegrationTypeShodan                  IntegrationType = "SHODAN"
-	IntegrationTypeTicketSystemAzureDevOps IntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
+	IntegrationTypeTicketSystemAzureDevops IntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
 	IntegrationTypeSentinelOne             IntegrationType = "SENTINEL_ONE"
 	IntegrationTypeCrowdstrikeFalcon       IntegrationType = "CROWDSTRIKE_FALCON"
 )
@@ -897,7 +898,7 @@ type MqueryAssetDataFormat string
 
 // Mquery asset data format.
 const (
-	MqueryAssetDataFormatJSON MqueryAssetDataFormat = "JSON"
+	MqueryAssetDataFormatJson MqueryAssetDataFormat = "JSON"
 )
 
 // MqueryState represents mquery state.
@@ -1008,7 +1009,7 @@ const (
 	PlatformKindVirtualMachine      PlatformKind = "VIRTUAL_MACHINE"
 	PlatformKindContainer           PlatformKind = "CONTAINER"
 	PlatformKindProcess             PlatformKind = "PROCESS"
-	PlatformKindAPI                 PlatformKind = "API"
+	PlatformKindApi                 PlatformKind = "API"
 	PlatformKindBareMetal           PlatformKind = "BARE_METAL"
 )
 
@@ -1037,7 +1038,7 @@ type PolicyReportMquerySummaryOrderField string
 
 // Policy report mquery summary order field.
 const (
-	PolicyReportMquerySummaryOrderFieldID          PolicyReportMquerySummaryOrderField = "ID"
+	PolicyReportMquerySummaryOrderFieldId          PolicyReportMquerySummaryOrderField = "ID"
 	PolicyReportMquerySummaryOrderFieldName        PolicyReportMquerySummaryOrderField = "NAME"
 	PolicyReportMquerySummaryOrderFieldTitle       PolicyReportMquerySummaryOrderField = "TITLE"
 	PolicyReportMquerySummaryOrderFieldPlatform    PolicyReportMquerySummaryOrderField = "PLATFORM"
@@ -1060,7 +1061,7 @@ type PolicyReportSummaryOrderField string
 
 // Policy report summary order field.
 const (
-	PolicyReportSummaryOrderFieldID        PolicyReportSummaryOrderField = "ID"
+	PolicyReportSummaryOrderFieldId        PolicyReportSummaryOrderField = "ID"
 	PolicyReportSummaryOrderFieldTitle     PolicyReportSummaryOrderField = "TITLE"
 	PolicyReportSummaryOrderFieldPublished PolicyReportSummaryOrderField = "PUBLISHED"
 	PolicyReportSummaryOrderFieldModified  PolicyReportSummaryOrderField = "MODIFIED"
@@ -1157,6 +1158,7 @@ const (
 	ScoreRatingMedium   ScoreRating = "MEDIUM"   // Medium - 31-60.
 	ScoreRatingLow      ScoreRating = "LOW"      // Low - 61-99.
 	ScoreRatingNone     ScoreRating = "NONE"     // None - 100.
+	ScoreRatingUnscored ScoreRating = "UNSCORED" // Unscored, no scan ran yet.
 )
 
 // ScoreResultType
@@ -1242,7 +1244,7 @@ const (
 type ServiceAccountOrderField string
 
 const (
-	ServiceAccountOrderFieldID        ServiceAccountOrderField = "ID"
+	ServiceAccountOrderFieldId        ServiceAccountOrderField = "ID"
 	ServiceAccountOrderFieldName      ServiceAccountOrderField = "NAME"
 	ServiceAccountOrderFieldLastUsed  ServiceAccountOrderField = "LAST_USED"
 	ServiceAccountOrderFieldCreatedAt ServiceAccountOrderField = "CREATED_AT"
@@ -1269,9 +1271,9 @@ const (
 	TicketRefTypeJira        TicketRefType = "JIRA"
 	TicketRefTypeEmail       TicketRefType = "EMAIL"
 	TicketRefTypeZendesk     TicketRefType = "ZENDESK"
-	TicketRefTypeGitHub      TicketRefType = "GITHUB"
-	TicketRefTypeGitLab      TicketRefType = "GITLAB"
-	TicketRefTypeAzureDevOps TicketRefType = "AZURE_DEVOPS"
+	TicketRefTypeGithub      TicketRefType = "GITHUB"
+	TicketRefTypeGitlab      TicketRefType = "GITLAB"
+	TicketRefTypeAzureDevops TicketRefType = "AZURE_DEVOPS"
 )
 
 // TrustLevel represents trust level of the object.

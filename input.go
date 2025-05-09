@@ -49,13 +49,13 @@ type AWSRoleCredential struct {
 	Role String `json:"role" tfgen:"required=1"`
 
 	// (Optional.)
-	ExternalID *String `json:"externalId,omitempty" tfgen:"required=0"`
+	ExternalId *String `json:"externalId,omitempty" tfgen:"required=0"`
 }
 
 // AWSSecretKeyCredential
 type AWSSecretKeyCredential struct {
 	// (Required.)
-	AccessKeyID String `json:"accessKeyId" tfgen:"required=1"`
+	AccessKeyId String `json:"accessKeyId" tfgen:"required=1"`
 	// (Required.)
 	SecretAccessKey String `json:"secretAccessKey" tfgen:"required=1"`
 }
@@ -66,7 +66,7 @@ type AcceptLegalPolicy struct {
 	// (Optional.)
 	ResourceMrn *String `json:"resourceMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	PolicyID *String `json:"policyId,omitempty" tfgen:"required=0"`
+	PolicyId *String `json:"policyId,omitempty" tfgen:"required=0"`
 }
 
 // ActivePoliciesInput represents active policies input.
@@ -99,7 +99,7 @@ type AddSSHKeyRequest struct {
 // AdvisoryDocumentOptionsInput represents input options for the advisory of the document.
 type AdvisoryDocumentOptionsInput struct {
 	// The ID of the advisory to generate the report for. (Required.)
-	AdvisoryID String `json:"advisoryId" tfgen:"required=1"`
+	AdvisoryId String `json:"advisoryId" tfgen:"required=1"`
 	// The MRN of the scope to generate the report for. (Required.)
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
@@ -264,7 +264,7 @@ type AssetLastPackageUpdateTimeInput struct {
 // AssetLinkInfoInput represents asset link info input.
 type AssetLinkInfoInput struct {
 	// Asset ID. (Required.)
-	AssetID String `json:"assetId" tfgen:"required=1"`
+	AssetId String `json:"assetId" tfgen:"required=1"`
 	// Space ID. (Required.)
 	SpaceID String `json:"spaceID" tfgen:"required=1"`
 }
@@ -378,7 +378,7 @@ type AssetSearchInput struct {
 	// spaceMrns is a list of space mrns to search assets for. If none are provided, all spaces in the organization will be searched. (Optional.)
 	SpaceMrns *[]String `json:"spaceMrns,omitempty" tfgen:"required=0"`
 	// Filter assets by their hierarchy. (Optional.)
-	AssetURLFilter *[]AssetUrlSegmentInput `json:"assetUrlFilter,omitempty" tfgen:"required=0"`
+	AssetUrlFilter *[]AssetUrlSegmentInput `json:"assetUrlFilter,omitempty" tfgen:"required=0"`
 }
 
 // AssetSearchSuggestionsInput
@@ -484,9 +484,9 @@ type AzureBlobConfigurationOptionsInput struct {
 // AzureConfigurationOptionsInput represents azure integration input.
 type AzureConfigurationOptionsInput struct {
 	// (Required.)
-	TenantID String `json:"tenantId" tfgen:"required=1"`
+	TenantId String `json:"tenantId" tfgen:"required=1"`
 	// (Required.)
-	ClientID String `json:"clientId" tfgen:"required=1"`
+	ClientId String `json:"clientId" tfgen:"required=1"`
 
 	// (Optional.)
 	SubscriptionsWhitelist *[]String `json:"subscriptionsWhitelist,omitempty" tfgen:"required=0"`
@@ -507,11 +507,11 @@ type AzureConfigurationOptionsInput struct {
 // AzureDevopsConfigurationOptionsInput represents azure Devops integration input.
 type AzureDevopsConfigurationOptionsInput struct {
 	// (Required.)
-	OrganizationURL String `json:"organizationUrl" tfgen:"required=1"`
+	OrganizationUrl String `json:"organizationUrl" tfgen:"required=1"`
 	// (Required.)
-	TenantID String `json:"tenantId" tfgen:"required=1"`
+	TenantId String `json:"tenantId" tfgen:"required=1"`
 	// (Required.)
-	ServicePrincipalID String `json:"servicePrincipalId" tfgen:"required=1"`
+	ServicePrincipalId String `json:"servicePrincipalId" tfgen:"required=1"`
 	// (Required.)
 	ClientSecret String `json:"clientSecret" tfgen:"required=1"`
 	// (Required.)
@@ -548,7 +548,7 @@ type AzureDevopsTicketContextProjectsInput struct {
 // BigqueryConfigurationOptionsInput represents bigQuery integration input.
 type BigqueryConfigurationOptionsInput struct {
 	// (Required.)
-	DatasetID String `json:"datasetId" tfgen:"required=1"`
+	DatasetId String `json:"datasetId" tfgen:"required=1"`
 	// note: this is the content of the service account JSON file. (Required.)
 	ServiceAccount String `json:"serviceAccount" tfgen:"required=1"`
 }
@@ -585,11 +585,11 @@ type CaseTicketConfigInput struct {
 	// Email ticket configuration. (Optional.)
 	Email *EmailTicketConfigInput `json:"email,omitempty" tfgen:"required=0"`
 	// Github ticket configuration. (Optional.)
-	GitHub *GithubTicketConfigInput `json:"github,omitempty" tfgen:"required=0"`
+	Github *GithubTicketConfigInput `json:"github,omitempty" tfgen:"required=0"`
 	// Gitlab ticket configuration. (Optional.)
-	GitLab *GitlabTicketConfigInput `json:"gitlab,omitempty" tfgen:"required=0"`
+	Gitlab *GitlabTicketConfigInput `json:"gitlab,omitempty" tfgen:"required=0"`
 	// Azure Devops ticket configuration. (Optional.)
-	AzureDevOps *AzureDevopsTicketConfigInput `json:"azureDevops,omitempty" tfgen:"required=0"`
+	AzureDevops *AzureDevopsTicketConfigInput `json:"azureDevops,omitempty" tfgen:"required=0"`
 	// Zendesk ticket configuration. (Optional.)
 	Zendesk *ZendeskTicketConfigInput `json:"zendesk,omitempty" tfgen:"required=0"`
 }
@@ -710,7 +710,7 @@ type CicdProjectJobsInput struct {
 	// (Required.)
 	SpaceMrn ID `json:"spaceMrn" tfgen:"required=1"`
 	// (Required.)
-	ProjectID ID `json:"projectId" tfgen:"required=1"`
+	ProjectId ID `json:"projectId" tfgen:"required=1"`
 }
 
 // CicdProjectOrder
@@ -762,9 +762,9 @@ type ClientIntegrationConfigurationInput struct {
 	// (Optional.)
 	SlackConfigurationOptions *SlackConfigurationOptionsInput `json:"slackConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GitHubConfigurationOptions *GithubConfigurationOptionsInput `json:"githubConfigurationOptions,omitempty" tfgen:"required=0"`
+	GithubConfigurationOptions *GithubConfigurationOptionsInput `json:"githubConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GitLabConfigurationOptions *GitlabConfigurationOptionsInput `json:"gitlabConfigurationOptions,omitempty" tfgen:"required=0"`
+	GitlabConfigurationOptions *GitlabConfigurationOptionsInput `json:"gitlabConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	GcsBucketConfigurationOptions *GcsBucketConfigurationOptionsInput `json:"gcsBucketConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
@@ -782,13 +782,13 @@ type ClientIntegrationConfigurationInput struct {
 	// (Optional.)
 	MicrosoftDefenderConfigurationOptions *MicrosoftDefenderConfigurationOptionsInput `json:"microsoftDefenderConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GitHubTicketingConfigurationOptions *GithubTicketingConfigurationOptionsInput `json:"githubTicketingConfigurationOptions,omitempty" tfgen:"required=0"`
+	GithubTicketingConfigurationOptions *GithubTicketingConfigurationOptionsInput `json:"githubTicketingConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	GitLabTicketingConfigurationOptions *GitlabTicketingConfigurationOptionsInput `json:"gitlabTicketingConfigurationOptions,omitempty" tfgen:"required=0"`
+	GitlabTicketingConfigurationOptions *GitlabTicketingConfigurationOptionsInput `json:"gitlabTicketingConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	ShodanConfigurationOptions *ShodanConfigurationOptionsInput `json:"shodanConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	AzureDevOpsConfigurationOptions *AzureDevopsConfigurationOptionsInput `json:"azureDevopsConfigurationOptions,omitempty" tfgen:"required=0"`
+	AzureDevopsConfigurationOptions *AzureDevopsConfigurationOptionsInput `json:"azureDevopsConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	SentinelOneConfigurationOptions *SentinelOneConfigurationOptionsInput `json:"sentinelOneConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
@@ -1013,7 +1013,7 @@ type CreateOrganizationInput struct {
 	Name String `json:"name" tfgen:"required=1"`
 
 	// ID. (Optional.)
-	ID *String `json:"id,omitempty" tfgen:"required=0"`
+	Id *String `json:"id,omitempty" tfgen:"required=0"`
 	// Description. (Optional.)
 	Description *String `json:"description,omitempty" tfgen:"required=0"`
 }
@@ -1043,7 +1043,7 @@ type CreateSpaceInput struct {
 	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 
 	// ID. (Optional.)
-	ID *String `json:"id,omitempty" tfgen:"required=0"`
+	Id *String `json:"id,omitempty" tfgen:"required=0"`
 	// Description. (Optional.)
 	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// Settings. (Optional.)
@@ -1057,7 +1057,7 @@ type CreateWIFAuthBindingInput struct {
 	// User selected name. (Required.)
 	Name String `json:"name" tfgen:"required=1"`
 	// URI for the token issuer, e.g. https://accounts.google.com. (Required.)
-	IssuerURI String `json:"issuerUri" tfgen:"required=1"`
+	IssuerUri String `json:"issuerUri" tfgen:"required=1"`
 	// Unique identifier to confirm. (Required.)
 	Subject String `json:"subject" tfgen:"required=1"`
 
@@ -1089,7 +1089,7 @@ type CreateWorkspaceInput struct {
 // CrowdstrikeFalconConfigurationOptionsInput represents crowdstrikeFalcon integration input.
 type CrowdstrikeFalconConfigurationOptionsInput struct {
 	// Client ID used for authentication with CrowdStrike Falcon platform. (Required.)
-	ClientID String `json:"clientId" tfgen:"required=1"`
+	ClientId String `json:"clientId" tfgen:"required=1"`
 	// Client Secret used for authentication with CrowdStrike Falcon platform. (Required.)
 	ClientSecret String `json:"clientSecret" tfgen:"required=1"`
 
@@ -1312,7 +1312,7 @@ type EmailRecipientInput struct {
 	IsDefault Boolean `json:"isDefault" tfgen:"required=1"`
 
 	// An optional reference URL that will get attached to the ticket reference created by this integration. (Optional.)
-	ReferenceURL *String `json:"referenceUrl,omitempty" tfgen:"required=0"`
+	ReferenceUrl *String `json:"referenceUrl,omitempty" tfgen:"required=0"`
 }
 
 // EmailTicketConfigInput represents email ticket configuration input.
@@ -1385,7 +1385,7 @@ type ExceptionReviewInput struct {
 	// The scope of the exception. Can be a space or an asset mrn. (Required.)
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// The id of the exception to review. (Required.)
-	ExceptionID String `json:"exceptionId" tfgen:"required=1"`
+	ExceptionId String `json:"exceptionId" tfgen:"required=1"`
 	// The review action to be applied. (Required.)
 	Action ExceptionReviewAction `json:"action" tfgen:"required=1"`
 }
@@ -1517,9 +1517,9 @@ type GarbageCollectAssetsConfigurationInput struct {
 type GcpConfigurationOptionsInput struct {
 
 	// (Optional.)
-	ProjectID *String `json:"projectId,omitempty" tfgen:"required=0"`
+	ProjectId *String `json:"projectId,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	OrganizationID *String `json:"organizationId,omitempty" tfgen:"required=0"`
+	OrganizationId *String `json:"organizationId,omitempty" tfgen:"required=0"`
 	// note: this is the content of the service account JSON file. (Optional.)
 	ServiceAccount *String `json:"serviceAccount,omitempty" tfgen:"required=0"`
 	// (Optional.)
@@ -1636,7 +1636,7 @@ type GithubConfigurationOptionsInput struct {
 	// Discover k8s manifests in the repositories. (Optional.)
 	DiscoverK8sManifests *Boolean `json:"discoverK8sManifests,omitempty" tfgen:"required=0"`
 	// Github Enterprise Server URL. (Optional.)
-	EnterpriseURL *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
+	EnterpriseUrl *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
 }
 
 // GithubTicketConfigInput represents github ticket configuration input.
@@ -1657,7 +1657,7 @@ type GithubTicketingConfigurationOptionsInput struct {
 	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 
 	// (Optional.)
-	EnterpriseURL *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
+	EnterpriseUrl *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	DefaultRepoOwner *String `json:"defaultRepoOwner,omitempty" tfgen:"required=0"`
 	// (Optional.)
@@ -1682,7 +1682,7 @@ type GitlabConfigurationOptionsInput struct {
 	// (Optional.)
 	DiscoverK8sManifests *Boolean `json:"discoverK8sManifests,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	BaseURL *String `json:"baseUrl,omitempty" tfgen:"required=0"`
+	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 }
 
 // GitlabTicketConfigInput represents gitlab ticket configuration input.
@@ -1701,7 +1701,7 @@ type GitlabTicketingConfigurationOptionsInput struct {
 	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 
 	// (Optional.)
-	BaseURL *String `json:"baseUrl,omitempty" tfgen:"required=0"`
+	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	DefaultProject *String `json:"defaultProject,omitempty" tfgen:"required=0"`
 }
@@ -1709,7 +1709,7 @@ type GitlabTicketingConfigurationOptionsInput struct {
 // GoogleWorkspaceConfigurationOptionsInput represents google Workspace integration input.
 type GoogleWorkspaceConfigurationOptionsInput struct {
 	// (Required.)
-	CustomerID String `json:"customerId" tfgen:"required=1"`
+	CustomerId String `json:"customerId" tfgen:"required=1"`
 	// (Required.)
 	ImpersonatedUserEmail String `json:"impersonatedUserEmail" tfgen:"required=1"`
 
@@ -1732,9 +1732,9 @@ type HostConfigurationOptionsInput struct {
 	Host String `json:"host" tfgen:"required=1"`
 
 	// (Optional.)
-	HTTPS *Boolean `json:"https,omitempty" tfgen:"required=0"`
+	Https *Boolean `json:"https,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	HTTP *Boolean `json:"http,omitempty" tfgen:"required=0"`
+	Http *Boolean `json:"http,omitempty" tfgen:"required=0"`
 }
 
 // HostedAwsConfigurationOptionsInput represents hosted AWS integration input.
@@ -1752,7 +1752,7 @@ type IDSuggestionInput struct {
 	// Parent MRN. (Optional.)
 	ParentMrn *String `json:"parentMrn,omitempty" tfgen:"required=0"`
 	// ID available. (Optional.)
-	IDAvailable *String `json:"idAvailable,omitempty" tfgen:"required=0"`
+	IdAvailable *String `json:"idAvailable,omitempty" tfgen:"required=0"`
 }
 
 // IdentityFilter represents identity filter for auditlog queries.
@@ -1781,7 +1781,7 @@ type IntegrationInput struct {
 type IntegrationOptionsInput struct {
 
 	// (Optional.)
-	URL *String `json:"url,omitempty" tfgen:"required=0"`
+	Url *String `json:"url,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	Chatid *String `json:"chatid,omitempty" tfgen:"required=0"`
 	// (Optional.)
@@ -1809,7 +1809,7 @@ type JiraConfigurationOptionsInput struct {
 	// (Required.)
 	Email String `json:"email" tfgen:"required=1"`
 	// (Required.)
-	APIToken String `json:"apiToken" tfgen:"required=1"`
+	ApiToken String `json:"apiToken" tfgen:"required=1"`
 	// (Required.)
 	DefaultProject String `json:"defaultProject" tfgen:"required=1"`
 
@@ -1918,7 +1918,7 @@ type ListExceptionGroupsFilter struct {
 	// Filter by valid until date. Input is string date. The BE logic is exception.ValidUntil <= filter.validUntil. (Optional.)
 	ValidUntil *String `json:"validUntil,omitempty" tfgen:"required=0"`
 	// Filter by id of exception group. (Optional.)
-	ID *String `json:"id,omitempty" tfgen:"required=0"`
+	Id *String `json:"id,omitempty" tfgen:"required=0"`
 	// Filter by validUntil time range. (Optional.)
 	ValidUntilRange *TimeRange `json:"validUntilRange,omitempty" tfgen:"required=0"`
 }
@@ -1982,9 +1982,9 @@ type MembershipOrder struct {
 // MicrosoftDefenderConfigurationOptionsInput represents microsoft Defender integration input.
 type MicrosoftDefenderConfigurationOptionsInput struct {
 	// tenantId of the MS Defender instance. (Required.)
-	TenantID String `json:"tenantId" tfgen:"required=1"`
+	TenantId String `json:"tenantId" tfgen:"required=1"`
 	// clientId of the MS Defender instance. (Required.)
-	ClientID String `json:"clientId" tfgen:"required=1"`
+	ClientId String `json:"clientId" tfgen:"required=1"`
 
 	// subscriptionsAllowlist is a list of subscription IDs to include in the scan. (Optional.)
 	SubscriptionsAllowlist *[]String `json:"subscriptionsAllowlist,omitempty" tfgen:"required=0"`
@@ -2060,9 +2060,9 @@ type MqueryScoreInput struct {
 // Ms365ConfigurationOptionsInput represents mS365 integration input.
 type Ms365ConfigurationOptionsInput struct {
 	// (Required.)
-	TenantID String `json:"tenantId" tfgen:"required=1"`
+	TenantId String `json:"tenantId" tfgen:"required=1"`
 	// (Required.)
-	ClientID String `json:"clientId" tfgen:"required=1"`
+	ClientId String `json:"clientId" tfgen:"required=1"`
 
 	// TODO: temporary optional, fix by having separate update models. (Optional.)
 	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
@@ -2408,9 +2408,9 @@ type RemediationInput struct {
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
 	// (Optional.)
-	AdvisoryID *ID `json:"advisoryId,omitempty" tfgen:"required=0"`
+	AdvisoryId *ID `json:"advisoryId,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	VulnerabilityID *ID `json:"vulnerabilityId,omitempty" tfgen:"required=0"`
+	VulnerabilityId *ID `json:"vulnerabilityId,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	Packages *[]RemediationPackageFields `json:"packages,omitempty" tfgen:"required=0"`
 	// (Optional.)
@@ -2536,7 +2536,7 @@ type SSOProviderInput struct {
 	// (Required.)
 	IdpEntityID String `json:"idpEntityID" tfgen:"required=1"`
 	// (Required.)
-	SsoURL String `json:"ssoUrl" tfgen:"required=1"`
+	SsoUrl String `json:"ssoUrl" tfgen:"required=1"`
 	// (Required.)
 	RpEntityID String `json:"rpEntityID" tfgen:"required=1"`
 	// (Required.)
@@ -2743,7 +2743,7 @@ type SlackConfigurationOptionsInput struct {
 // SnowflakeConfigurationOptionsInput represents snowflake integration input.
 type SnowflakeConfigurationOptionsInput struct {
 	// (Required.)
-	AccountID String `json:"accountId" tfgen:"required=1"`
+	AccountId String `json:"accountId" tfgen:"required=1"`
 	// (Required.)
 	Database String `json:"database" tfgen:"required=1"`
 	// (Required.)
@@ -2822,7 +2822,7 @@ type TicketContextInput struct {
 	// Jira ticket context parameters. (Optional.)
 	Jira *JiraTicketContextInput `json:"jira,omitempty" tfgen:"required=0"`
 	// Azure Devops ticket context parameters. (Optional.)
-	AzureDevOps *AzureDevopsTicketContextInput `json:"azureDevops,omitempty" tfgen:"required=0"`
+	AzureDevops *AzureDevopsTicketContextInput `json:"azureDevops,omitempty" tfgen:"required=0"`
 	// Zendesk ticket context parmeters. (Optional.)
 	Zendesk *ZendeskTicketContextInput `json:"zendesk,omitempty" tfgen:"required=0"`
 }
@@ -3031,7 +3031,7 @@ type VulnerabilityDashboardPageInfo struct {
 // VulnerabilityDocumentOptionsInput represents input options for the vulnerability of the document.
 type VulnerabilityDocumentOptionsInput struct {
 	// The ID of the vulnerability to generate the report for. (Required.)
-	VulnerabilityID String `json:"vulnerabilityId" tfgen:"required=1"`
+	VulnerabilityId String `json:"vulnerabilityId" tfgen:"required=1"`
 	// The MRN of the scope to generate the report for. (Required.)
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 }
@@ -3152,7 +3152,7 @@ type ZendeskConfigurationOptionsInput struct {
 	// (Required.)
 	Email String `json:"email" tfgen:"required=1"`
 	// (Required.)
-	APIToken String `json:"apiToken" tfgen:"required=1"`
+	ApiToken String `json:"apiToken" tfgen:"required=1"`
 	// (Required.)
 	AutoCloseTickets Boolean `json:"autoCloseTickets" tfgen:"required=1"`
 	// (Required.)
@@ -3165,7 +3165,7 @@ type ZendeskConfigurationOptionsInput struct {
 // ZendeskCustomFieldInput represents zendesk custom field input.
 type ZendeskCustomFieldInput struct {
 	// Field ID. (Required.)
-	ID Int `json:"id" tfgen:"required=1"`
+	Id Int `json:"id" tfgen:"required=1"`
 	// Value. (Required.)
 	Value String `json:"value" tfgen:"required=1"`
 }

@@ -20,6 +20,8 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
+	"unicode"
+	"unicode/utf8"
 
 	"github.com/shurcooL/graphql/ident"
 )
@@ -313,9 +315,9 @@ func parseTemplate(text string) *template.Template {
 			sort.Strings(names)
 			return names
 		},
-		"identifier": func(name string) string { return ident.ParseLowerCamelCase(name).ToMixedCaps() },
+		"identifier": func(name string) string { return ToMixedCaps(ident.ParseLowerCamelCase(name)) },
 		"enumIdentifier": func(enum, value string) string {
-			return enum + ident.ParseScreamingSnakeCase(value).ToMixedCaps()
+			return enum + ToMixedCaps(ident.ParseScreamingSnakeCase(value))
 		},
 		"type": typeString,
 		"clean": func(v interface{}) string {
@@ -350,6 +352,27 @@ func parseTemplate(text string) *template.Template {
 			return s
 		},
 	}).Parse(text))
+}
+
+// @afiune We need to re-implement this function since the underlying package changes the name
+// based of initialism and brands, which we don't follow and therefore, break automations
+//
+// We can use it again once our backend generates same schemas
+func ToMixedCaps(name ident.Name) string {
+	for i, word := range name {
+		if strings.EqualFold(word, "IDs") { // Special case, plural form of ID initialism.
+			name[i] = "IDs"
+			continue
+		}
+
+		// no initialism
+
+		// no brands
+
+		r, size := utf8.DecodeRuneInString(word)
+		name[i] = string(unicode.ToUpper(r)) + strings.ToLower(word[size:])
+	}
+	return strings.Join(name, "")
 }
 
 func getAPIEndpoint() (string, string) {
