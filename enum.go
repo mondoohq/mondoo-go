@@ -50,17 +50,6 @@ const (
 	ActivePolicyOrderFieldName           ActivePolicyOrderField = "NAME"
 )
 
-// AdvisoryOrderField represents possible advisory order fields.
-type AdvisoryOrderField string
-
-// possible advisory order fields.
-const (
-	AdvisoryOrderFieldId        AdvisoryOrderField = "ID"
-	AdvisoryOrderFieldTitle     AdvisoryOrderField = "TITLE"
-	AdvisoryOrderFieldPublished AdvisoryOrderField = "PUBLISHED"
-	AdvisoryOrderFieldScore     AdvisoryOrderField = "SCORE"
-)
-
 // AdvisoryPlatformFilter represents possible Advisory filters.
 type AdvisoryPlatformFilter string
 
@@ -73,18 +62,6 @@ const (
 	AdvisoryPlatformFilterAlpine AdvisoryPlatformFilter = "ALPINE"
 	AdvisoryPlatformFilterOracle AdvisoryPlatformFilter = "ORACLE"
 	AdvisoryPlatformFilterSuse   AdvisoryPlatformFilter = "SUSE"
-)
-
-// AdvisorySummaryOrderField represents possible advisory summary order fields.
-type AdvisorySummaryOrderField string
-
-// possible advisory summary order fields.
-const (
-	AdvisorySummaryOrderFieldId          AdvisorySummaryOrderField = "ID"
-	AdvisorySummaryOrderFieldTitle       AdvisorySummaryOrderField = "TITLE"
-	AdvisorySummaryOrderFieldPublished   AdvisorySummaryOrderField = "PUBLISHED"
-	AdvisorySummaryOrderFieldScore       AdvisorySummaryOrderField = "SCORE"
-	AdvisorySummaryOrderFieldRiskfactors AdvisorySummaryOrderField = "RISKFACTORS"
 )
 
 // AgentOrderField represents supported sorting fields for agents.
@@ -481,18 +458,6 @@ const (
 	ControlsOrderFieldQueries    ControlsOrderField = "QUERIES"
 )
 
-// CveOrderField represents cVE order fields.
-type CveOrderField string
-
-// CVE order fields.
-const (
-	CveOrderFieldId        CveOrderField = "ID"
-	CveOrderFieldTitle     CveOrderField = "TITLE"
-	CveOrderFieldPublished CveOrderField = "PUBLISHED"
-	CveOrderFieldModified  CveOrderField = "MODIFIED"
-	CveOrderFieldScore     CveOrderField = "SCORE"
-)
-
 // CveState represents possible CVE states.
 type CveState string
 
@@ -504,19 +469,6 @@ const (
 	CveStateReplacedBy CveState = "REPLACED_BY"
 	CveStateSplitFrom  CveState = "SPLIT_FROM"
 	CveStateMergedTo   CveState = "MERGED_TO"
-)
-
-// CveSummaryOrderField represents possible cve summary order field.
-type CveSummaryOrderField string
-
-// possible cve summary order field.
-const (
-	CveSummaryOrderFieldId          CveSummaryOrderField = "ID"
-	CveSummaryOrderFieldTitle       CveSummaryOrderField = "TITLE"
-	CveSummaryOrderFieldPublished   CveSummaryOrderField = "PUBLISHED"
-	CveSummaryOrderFieldModified    CveSummaryOrderField = "MODIFIED"
-	CveSummaryOrderFieldScore       CveSummaryOrderField = "SCORE"
-	CveSummaryOrderFieldRiskfactors CveSummaryOrderField = "RISKFACTORS"
 )
 
 // DataQueryOrderField represents data query order field.
@@ -591,11 +543,12 @@ type ExceptionMutationAction string
 
 // The action to apply to the exception.
 const (
-	ExceptionMutationActionEnable       ExceptionMutationAction = "ENABLE"
-	ExceptionMutationActionDisable      ExceptionMutationAction = "DISABLE"
-	ExceptionMutationActionSnooze       ExceptionMutationAction = "SNOOZE"
-	ExceptionMutationActionRiskAccepted ExceptionMutationAction = "RISK_ACCEPTED"
-	ExceptionMutationActionOutOfScope   ExceptionMutationAction = "OUT_OF_SCOPE" // Applicable only for compliance.
+	ExceptionMutationActionEnable        ExceptionMutationAction = "ENABLE"
+	ExceptionMutationActionDisable       ExceptionMutationAction = "DISABLE"
+	ExceptionMutationActionRiskAccepted  ExceptionMutationAction = "RISK_ACCEPTED"
+	ExceptionMutationActionFalsePositive ExceptionMutationAction = "FALSE_POSITIVE"
+	ExceptionMutationActionWorkaround    ExceptionMutationAction = "WORKAROUND"
+	ExceptionMutationActionOutOfScope    ExceptionMutationAction = "OUT_OF_SCOPE" // Applicable only for compliance.
 )
 
 // ExceptionReviewAction represents the type of review action.
@@ -939,6 +892,15 @@ const (
 	MvdEcosystemUbuntu      MvdEcosystem = "UBUNTU"
 	MvdEcosystemWindows     MvdEcosystem = "WINDOWS"
 	MvdEcosystemWindowsappx MvdEcosystem = "WINDOWSAPPX"
+)
+
+// NotificationType represents slack notification type enum.
+type NotificationType string
+
+// Slack notification type enum.
+const (
+	NotificationTypeTriageConversations NotificationType = "TRIAGE_CONVERSATIONS" // Send triage conversations for findings.
+	NotificationTypeAssetUpdates        NotificationType = "ASSET_UPDATES"        // Send asset update notfication streams.
 )
 
 // OrderDirection represents defines the possible directions in which to sort a list of items.
@@ -1316,17 +1278,6 @@ const (
 	VulnerabilityOrderTypeSevere VulnerabilityOrderType = "SEVERE"
 )
 
-// VulnerabilityScoreOrderField represents vulnerability score order field.
-type VulnerabilityScoreOrderField string
-
-// Vulnerability score order field.
-const (
-	VulnerabilityScoreOrderFieldCvssScore   VulnerabilityScoreOrderField = "CVSS_SCORE"
-	VulnerabilityScoreOrderFieldMrn         VulnerabilityScoreOrderField = "MRN"
-	VulnerabilityScoreOrderFieldLastUpdated VulnerabilityScoreOrderField = "LAST_UPDATED"
-	VulnerabilityScoreOrderFieldRiskScore   VulnerabilityScoreOrderField = "RISK_SCORE"
-)
-
 // VulnerabilityScoreSourceVendor represents vendor that can source a vulnerability.
 type VulnerabilityScoreSourceVendor string
 
@@ -1337,15 +1288,6 @@ const (
 	VulnerabilityScoreSourceVendorMicrosoft   VulnerabilityScoreSourceVendor = "MICROSOFT"
 	VulnerabilityScoreSourceVendorCrowdstrike VulnerabilityScoreSourceVendor = "CROWDSTRIKE"
 	VulnerabilityScoreSourceVendorSentinelOne VulnerabilityScoreSourceVendor = "SENTINEL_ONE"
-)
-
-// VulnerabilityScoreType represents vulnerability score type.
-type VulnerabilityScoreType string
-
-// Vulnerability score type.
-const (
-	VulnerabilityScoreTypeCve      VulnerabilityScoreType = "CVE"
-	VulnerabilityScoreTypeAdvisory VulnerabilityScoreType = "ADVISORY"
 )
 
 // WorkspaceSelectionConditionIntField represents workspace selection condition int fields.
