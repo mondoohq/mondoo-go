@@ -591,10 +591,11 @@ type ExceptionMutationAction string
 
 // The action to apply to the exception.
 const (
-	ExceptionMutationActionEnable     ExceptionMutationAction = "ENABLE"
-	ExceptionMutationActionDisable    ExceptionMutationAction = "DISABLE"
-	ExceptionMutationActionSnooze     ExceptionMutationAction = "SNOOZE"
-	ExceptionMutationActionOutOfScope ExceptionMutationAction = "OUT_OF_SCOPE" // Applicable only for compliance.
+	ExceptionMutationActionEnable       ExceptionMutationAction = "ENABLE"
+	ExceptionMutationActionDisable      ExceptionMutationAction = "DISABLE"
+	ExceptionMutationActionSnooze       ExceptionMutationAction = "SNOOZE"
+	ExceptionMutationActionRiskAccepted ExceptionMutationAction = "RISK_ACCEPTED"
+	ExceptionMutationActionOutOfScope   ExceptionMutationAction = "OUT_OF_SCOPE" // Applicable only for compliance.
 )
 
 // ExceptionReviewAction represents the type of review action.
@@ -1157,6 +1158,7 @@ const (
 	ScoreRatingMedium   ScoreRating = "MEDIUM"   // Medium - 31-60.
 	ScoreRatingLow      ScoreRating = "LOW"      // Low - 61-99.
 	ScoreRatingNone     ScoreRating = "NONE"     // None - 100.
+	ScoreRatingUnscored ScoreRating = "UNSCORED" // Unscored, no scan ran yet.
 )
 
 // ScoreResultType
