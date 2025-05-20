@@ -60,7 +60,7 @@ jobs:
       - name: Generate token
         if: ${{ steps.cpr.outputs.pull-request-number }}
         id: generate-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.MONDOO_MERGEBOT_APP_ID }}
           private-key: ${{ secrets.MONDOO_MERGEBOT_APP_PRIVATE_KEY }}
