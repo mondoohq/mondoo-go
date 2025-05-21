@@ -1728,9 +1728,9 @@ type IntegrationOptionsInput struct {
 	// (Optional.)
 	Chatid *String `json:"chatid,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	Token *String `json:"token,omitempty"`
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
 	// (Optional.)
-	NotificationType *NotificationType `json:"notificationType,omitempty"`
+	NotificationType *NotificationType `json:"notificationType,omitempty" tfgen:"required=0"`
 }
 
 // IntegrationsSummaryInput represents input for summary of client integrations.
@@ -2682,9 +2682,9 @@ type ShodanConfigurationOptionsInput struct {
 type SlackConfigurationOptionsInput struct {
 
 	// (Optional.)
-	SlackToken *String `json:"slackToken,omitempty"`
+	SlackToken *String `json:"slackToken,omitempty" tfgen:"required=0"`
 	// Type of notifications to send (default asset updates). (Optional.)
-	NotificationType *NotificationType `json:"notificationType,omitempty"`
+	NotificationType *NotificationType `json:"notificationType,omitempty" tfgen:"required=0"`
 }
 
 // SnowflakeConfigurationOptionsInput represents snowflake integration input.
