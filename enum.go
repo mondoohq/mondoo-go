@@ -1267,6 +1267,7 @@ const (
 	VPCFlavourDefaultVpc  VPCFlavour = "DEFAULT_VPC"
 	VPCFlavourMondooNatgw VPCFlavour = "MONDOO_NATGW"
 	VPCFlavourMondooIgw   VPCFlavour = "MONDOO_IGW"
+	VPCFlavourCustomVpc   VPCFlavour = "CUSTOM_VPC"
 )
 
 // VulnerabilityOrderType represents possible vulnerability order types.
