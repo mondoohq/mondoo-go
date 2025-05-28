@@ -1151,10 +1151,13 @@ type ScoreState string
 
 // Score state.
 const (
-	ScoreStateOpen     ScoreState = "OPEN"     // Fixed/Pass.
-	ScoreStateClosed   ScoreState = "CLOSED"   // Not fixed/Failed.
-	ScoreStateSnoozed  ScoreState = "SNOOZED"  // Snoozed.
-	ScoreStateDisabled ScoreState = "DISABLED" // Disabled.
+	ScoreStateOpen          ScoreState = "OPEN"           // Fixed/Pass.
+	ScoreStateClosed        ScoreState = "CLOSED"         // Not fixed/Failed.
+	ScoreStateSnoozed       ScoreState = "SNOOZED"        // Snoozed.
+	ScoreStateDisabled      ScoreState = "DISABLED"       // Disabled.
+	ScoreStateRiskAccepted  ScoreState = "RISK_ACCEPTED"  // Risk Accepted.
+	ScoreStateWorkaround    ScoreState = "WORKAROUND"     // Workaround.
+	ScoreStateFalsePositive ScoreState = "FALSE_POSITIVE" // False Positive.
 )
 
 // ScoreStateFilter represents score state filter.
