@@ -105,10 +105,13 @@ const (
 type AggregateScoreState string
 
 const (
-	AggregateScoreStatePreview  AggregateScoreState = "PREVIEW"
-	AggregateScoreStateEnabled  AggregateScoreState = "ENABLED"
-	AggregateScoreStateSnoozed  AggregateScoreState = "SNOOZED"
-	AggregateScoreStateDisabled AggregateScoreState = "DISABLED"
+	AggregateScoreStatePreview       AggregateScoreState = "PREVIEW"
+	AggregateScoreStateEnabled       AggregateScoreState = "ENABLED"
+	AggregateScoreStateSnoozed       AggregateScoreState = "SNOOZED"
+	AggregateScoreStateDisabled      AggregateScoreState = "DISABLED"
+	AggregateScoreStateFalsePositive AggregateScoreState = "FALSE_POSITIVE"
+	AggregateScoreStateWorkaround    AggregateScoreState = "WORKAROUND"
+	AggregateScoreStateRiskAccepted  AggregateScoreState = "RISK_ACCEPTED"
 )
 
 // AggregateScoreType represents aggregate score type field.
@@ -545,6 +548,7 @@ type ExceptionMutationAction string
 const (
 	ExceptionMutationActionEnable        ExceptionMutationAction = "ENABLE"
 	ExceptionMutationActionDisable       ExceptionMutationAction = "DISABLE"
+	ExceptionMutationActionSnooze        ExceptionMutationAction = "SNOOZE"
 	ExceptionMutationActionRiskAccepted  ExceptionMutationAction = "RISK_ACCEPTED"
 	ExceptionMutationActionFalsePositive ExceptionMutationAction = "FALSE_POSITIVE"
 	ExceptionMutationActionWorkaround    ExceptionMutationAction = "WORKAROUND"
@@ -922,6 +926,7 @@ const (
 	PackageManagerDnf        PackageManager = "DNF"        // DNF.
 	PackageManagerZypper     PackageManager = "ZYPPER"     // ZYPPER.
 	PackageManagerPowershell PackageManager = "POWERSHELL" // POWERSHELL.
+	PackageManagerAix        PackageManager = "AIX"        // AIX.
 )
 
 // PackageScoresOrderField represents packageScores order fields.
