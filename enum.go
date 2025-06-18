@@ -441,10 +441,13 @@ type ControlState string
 
 // Control state.
 const (
-	ControlStateActive     ControlState = "ACTIVE"
-	ControlStateSnoozed    ControlState = "SNOOZED"
-	ControlStateDisabled   ControlState = "DISABLED"
-	ControlStateOutOfScope ControlState = "OUT_OF_SCOPE"
+	ControlStateActive        ControlState = "ACTIVE"
+	ControlStateSnoozed       ControlState = "SNOOZED"
+	ControlStateDisabled      ControlState = "DISABLED"
+	ControlStateOutOfScope    ControlState = "OUT_OF_SCOPE"
+	ControlStateRiskAccepted  ControlState = "RISK_ACCEPTED"
+	ControlStateFalsePositive ControlState = "FALSE_POSITIVE"
+	ControlStateWorkaround    ControlState = "WORKAROUND"
 )
 
 // ControlsOrderField represents controls order field.
