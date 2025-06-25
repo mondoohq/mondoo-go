@@ -960,13 +960,15 @@ type CreateClientIntegrationInput struct {
 type CreateInvitationInput struct {
 	// (Required.)
 	ResourceMrn String `json:"resourceMrn" tfgen:"required=1"`
-	// (Required.)
-	RoleMrn String `json:"roleMrn" tfgen:"required=1"`
 
 	// (Optional.)
 	InviteeMrn *String `json:"inviteeMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	InviteeEmail *String `json:"inviteeEmail,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	RoleMrn *String `json:"roleMrn,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	RoleMrns *[]String `json:"roleMrns,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	ExpiresAt *String `json:"expiresAt,omitempty" tfgen:"required=0"`
 	// (Optional.)
