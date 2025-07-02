@@ -234,6 +234,16 @@ const (
 	AssetUrlStatsScopeSecurity        AssetUrlStatsScope = "SECURITY"        // Score based on security.
 )
 
+// AuditLogFilterType represents supported filter types for audit log suggestions.
+type AuditLogFilterType string
+
+// Supported filter types for audit log suggestions.
+const (
+	AuditLogFilterTypeAction    AuditLogFilterType = "ACTION"    // Filter by action.
+	AuditLogFilterTypeTimestamp AuditLogFilterType = "TIMESTAMP" // Filter by time range.
+	AuditLogFilterTypeIdentity  AuditLogFilterType = "IDENTITY"  // Filter by identity name.
+)
+
 // AuditLogOrderField
 type AuditLogOrderField string
 
