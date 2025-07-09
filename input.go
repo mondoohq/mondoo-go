@@ -143,6 +143,8 @@ type AggregateScoreFilter struct {
 	State *AggregateScoreState `json:"state,omitempty" tfgen:"required=0"`
 	// Retrieve check scores by policy MRN. (Optional.)
 	PolicyMrn *String `json:"policyMrn,omitempty" tfgen:"required=0"`
+	// Retrieve aggregate scores that have remediation. (Optional.)
+	HasRemediation *Boolean `json:"hasRemediation,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
