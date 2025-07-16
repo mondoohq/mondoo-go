@@ -5,13 +5,14 @@
 
 package mondoogql
 
-// APITokenOrderField
+// APITokenOrderField represents field to order API tokens by.
 type APITokenOrderField string
 
+// Field to order API tokens by.
 const (
-	APITokenOrderFieldName      APITokenOrderField = "NAME"
-	APITokenOrderFieldLastUsed  APITokenOrderField = "LAST_USED"
-	APITokenOrderFieldCreatedAt APITokenOrderField = "CREATED_AT"
+	APITokenOrderFieldName      APITokenOrderField = "NAME"       // Order by name.
+	APITokenOrderFieldLastUsed  APITokenOrderField = "LAST_USED"  // Order by last used time.
+	APITokenOrderFieldCreatedAt APITokenOrderField = "CREATED_AT" // Order by creation time.
 )
 
 // Access represents access level of the object.
@@ -42,9 +43,10 @@ const (
 	ActionTypeClearScanQueue ActionType = "CLEAR_SCAN_QUEUE"
 )
 
-// ActivePolicyOrderField
+// ActivePolicyOrderField represents active policy order field.
 type ActivePolicyOrderField string
 
+// Active policy order field.
 const (
 	ActivePolicyOrderFieldAffectedAssets ActivePolicyOrderField = "AFFECTED_ASSETS"
 	ActivePolicyOrderFieldName           ActivePolicyOrderField = "NAME"
@@ -101,9 +103,10 @@ const (
 	AggregateScoreOrderFieldFirstDetectedAt AggregateScoreOrderField = "FIRST_DETECTED_AT" // First detected.
 )
 
-// AggregateScoreState
+// AggregateScoreState represents aggregate score state.
 type AggregateScoreState string
 
+// Aggregate score state.
 const (
 	AggregateScoreStatePreview       AggregateScoreState = "PREVIEW"
 	AggregateScoreStateEnabled       AggregateScoreState = "ENABLED"
@@ -174,9 +177,10 @@ const (
 	AssetReportQueryOrderFieldScore    AssetReportQueryOrderField = "SCORE"
 )
 
-// AssetSearchOrderField
+// AssetSearchOrderField represents asset search order field.
 type AssetSearchOrderField string
 
+// Asset search order field.
 const (
 	AssetSearchOrderFieldId   AssetSearchOrderField = "ID"
 	AssetSearchOrderFieldName AssetSearchOrderField = "NAME"
@@ -213,9 +217,10 @@ const (
 	AssetSummaryOrderFieldScore     AssetSummaryOrderField = "SCORE"
 )
 
-// AssetUrlStatsCategory
+// AssetUrlStatsCategory represents asset url stats category.
 type AssetUrlStatsCategory string
 
+// Asset url stats category.
 const (
 	AssetUrlStatsCategoryUnscored AssetUrlStatsCategory = "UNSCORED"
 	AssetUrlStatsCategoryOk       AssetUrlStatsCategory = "OK"
@@ -225,9 +230,10 @@ const (
 	AssetUrlStatsCategoryCritical AssetUrlStatsCategory = "CRITICAL"
 )
 
-// AssetUrlStatsScope
+// AssetUrlStatsScope represents asset url stats scope.
 type AssetUrlStatsScope string
 
+// Asset url stats scope.
 const (
 	AssetUrlStatsScopeAll             AssetUrlStatsScope = "ALL"             // Score based on vulnerabilities and security.
 	AssetUrlStatsScopeVulnerabilities AssetUrlStatsScope = "VULNERABILITIES" // Score based on vulnerabilities.
@@ -244,16 +250,18 @@ const (
 	AuditLogFilterTypeIdentity  AuditLogFilterType = "IDENTITY"  // Filter by identity name.
 )
 
-// AuditLogOrderField
+// AuditLogOrderField represents field to order audit log entries by.
 type AuditLogOrderField string
 
+// Field to order audit log entries by.
 const (
-	AuditLogOrderFieldTimestamp AuditLogOrderField = "TIMESTAMP"
+	AuditLogOrderFieldTimestamp AuditLogOrderField = "TIMESTAMP" // Order by timestamp.
 )
 
-// AuthBindingOrderField
+// AuthBindingOrderField represents field to order WIF auth bindings by.
 type AuthBindingOrderField string
 
+// Field to order WIF auth bindings by.
 const (
 	AuthBindingOrderFieldName       AuthBindingOrderField = "NAME"
 	AuthBindingOrderFieldIssuerUri  AuthBindingOrderField = "ISSUER_URI"
@@ -315,7 +323,7 @@ type CheckScoreOrderField string
 
 // Asset order field.
 const (
-	CheckScoreOrderFieldAssetName   CheckScoreOrderField = "ASSET_NAME"
+	CheckScoreOrderFieldAssetName   CheckScoreOrderField = "ASSET_NAME" // ID.
 	CheckScoreOrderFieldScore       CheckScoreOrderField = "SCORE"
 	CheckScoreOrderFieldRiskValue   CheckScoreOrderField = "RISK_VALUE"
 	CheckScoreOrderFieldLastUpdated CheckScoreOrderField = "LAST_UPDATED"
@@ -341,9 +349,10 @@ const (
 	ChecksOrderFieldCompletion  ChecksOrderField = "COMPLETION"
 )
 
-// CicdProjectOrderField
+// CicdProjectOrderField represents input for ordering CI/CD projects.
 type CicdProjectOrderField string
 
+// Input for ordering CI/CD projects.
 const (
 	CicdProjectOrderFieldName CicdProjectOrderField = "NAME"
 )
@@ -441,7 +450,7 @@ type ControlScoreOrderField string
 
 // Control Score order field.
 const (
-	ControlScoreOrderFieldAssetName   ControlScoreOrderField = "ASSET_NAME"
+	ControlScoreOrderFieldAssetName   ControlScoreOrderField = "ASSET_NAME" // ID.
 	ControlScoreOrderFieldScore       ControlScoreOrderField = "SCORE"
 	ControlScoreOrderFieldLastUpdated ControlScoreOrderField = "LAST_UPDATED"
 )
@@ -543,9 +552,10 @@ const (
 	EOLStatusEol       EOLStatus = "EOL"
 )
 
-// EmailPreferenceList
+// EmailPreferenceList represents email preference list.
 type EmailPreferenceList string
 
+// Email preference list.
 const (
 	EmailPreferenceListNewsletterGeneral         EmailPreferenceList = "NEWSLETTER_GENERAL"
 	EmailPreferenceListNewsletterProduct         EmailPreferenceList = "NEWSLETTER_PRODUCT"
@@ -588,6 +598,17 @@ const (
 	ExceptionTypeAdvisory   ExceptionType = "ADVISORY"
 )
 
+// FindingFilterType represents finding filter type.
+type FindingFilterType string
+
+// Finding filter type.
+const (
+	FindingFilterTypeState     FindingFilterType = "STATE"      // State filter.
+	FindingFilterTypeTypes     FindingFilterType = "TYPES"      // Filter by finding types (CHECK, CVE, ADVISORY, PACKAGE, etc.).
+	FindingFilterTypeRating    FindingFilterType = "RATING"     // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
+	FindingFilterTypePolicyMrn FindingFilterType = "POLICY_MRN" // Filter by policy MRN.
+)
+
 // FindingType represents finding type.
 type FindingType string
 
@@ -606,7 +627,7 @@ type FindingsOrderField string
 
 // Findings order field.
 const (
-	FindingsOrderFieldAssetName   FindingsOrderField = "ASSET_NAME"
+	FindingsOrderFieldAssetName   FindingsOrderField = "ASSET_NAME" // ID.
 	FindingsOrderFieldBaseScore   FindingsOrderField = "BASE_SCORE"
 	FindingsOrderFieldRiskScore   FindingsOrderField = "RISK_SCORE"
 	FindingsOrderFieldRiskValue   FindingsOrderField = "RISK_VALUE"
@@ -627,9 +648,10 @@ const (
 	FormatTypeCsv  FormatType = "CSV"
 )
 
-// GitPipelineKind
+// GitPipelineKind represents enum representing the different types of Git pipelines.
 type GitPipelineKind string
 
+// Enum representing the different types of Git pipelines.
 const (
 	GitPipelineKindPullRequest GitPipelineKind = "PULL_REQUEST"
 	GitPipelineKindBranch      GitPipelineKind = "BRANCH"
@@ -646,10 +668,10 @@ const (
 	GithubIntegrationTypeOrg  GithubIntegrationType = "ORG"
 )
 
-// GitlabIntegrationType represents gitlab configuration options.
+// GitlabIntegrationType represents gitlab integration type.
 type GitlabIntegrationType string
 
-// Gitlab configuration options.
+// Gitlab integration type.
 const (
 	GitlabIntegrationTypeGroup GitlabIntegrationType = "GROUP" // denotes a limiting group for the integration, we do not want to discover groups not related to this group.
 	GitlabIntegrationTypeNone  GitlabIntegrationType = "NONE"  // nothing is limited, discover all groups.
@@ -802,16 +824,18 @@ const (
 	IntegrationTypeCrowdstrikeFalcon       IntegrationType = "CROWDSTRIKE_FALCON"
 )
 
-// InvitationOrderField
+// InvitationOrderField represents field to order invitations by.
 type InvitationOrderField string
 
+// Field to order invitations by.
 const (
 	InvitationOrderFieldCreated InvitationOrderField = "CREATED"
 )
 
-// InvitationState
+// InvitationState represents state of an invitation.
 type InvitationState string
 
+// State of an invitation.
 const (
 	InvitationStatePending  InvitationState = "PENDING"
 	InvitationStateAccepted InvitationState = "ACCEPTED"
@@ -848,17 +872,19 @@ const (
 	ListExceptionGroupsOrderFieldValidUntil ListExceptionGroupsOrderField = "VALID_UNTIL"
 )
 
-// ListFrameworksFilterState
+// ListFrameworksFilterState represents list frameworks filter state.
 type ListFrameworksFilterState string
 
+// List frameworks filter state.
 const (
 	ListFrameworksFilterStateActive    ListFrameworksFilterState = "ACTIVE"
 	ListFrameworksFilterStateAvailable ListFrameworksFilterState = "AVAILABLE"
 )
 
-// MembershipOrderField
+// MembershipOrderField represents field to order memberships by.
 type MembershipOrderField string
 
+// Field to order memberships by.
 const (
 	MembershipOrderFieldName MembershipOrderField = "NAME"
 )
@@ -891,9 +917,10 @@ const (
 	MqueryTypeScoring MqueryType = "SCORING"
 )
 
-// MvdEcosystem
+// MvdEcosystem represents mVD ecosystem.
 type MvdEcosystem string
 
+// MVD ecosystem.
 const (
 	MvdEcosystemAlmalinux   MvdEcosystem = "ALMALINUX"
 	MvdEcosystemAlpine      MvdEcosystem = "ALPINE"
@@ -1070,13 +1097,14 @@ const (
 	QueryImpactInfo     QueryImpact = "INFO"     // Impact is none when 0.
 )
 
-// RegistrationTokenOrderField
+// RegistrationTokenOrderField represents field to order registration tokens by.
 type RegistrationTokenOrderField string
 
+// Field to order registration tokens by.
 const (
-	RegistrationTokenOrderFieldCreated     RegistrationTokenOrderField = "CREATED"
-	RegistrationTokenOrderFieldDescription RegistrationTokenOrderField = "DESCRIPTION"
-	RegistrationTokenOrderFieldMrn         RegistrationTokenOrderField = "MRN"
+	RegistrationTokenOrderFieldCreated     RegistrationTokenOrderField = "CREATED"     // Order by creation time.
+	RegistrationTokenOrderFieldDescription RegistrationTokenOrderField = "DESCRIPTION" // Order by description.
+	RegistrationTokenOrderFieldMrn         RegistrationTokenOrderField = "MRN"         // Order by MRN.
 )
 
 // RemediationScriptType represents remediation script type.
@@ -1112,26 +1140,29 @@ const (
 	ReviewStatusRejected    ReviewStatus = "REJECTED"
 )
 
-// RiskFactorAction
+// RiskFactorAction represents risk factor action.
 type RiskFactorAction string
 
+// Risk factor action.
 const (
 	RiskFactorActionEnable  RiskFactorAction = "ENABLE"  // Enable risk factor.
 	RiskFactorActionDisable RiskFactorAction = "DISABLE" // Disable risk factor.
 )
 
-// RiskMagnitudeExplaination
+// RiskMagnitudeExplaination represents risk magnitude explanation.
 type RiskMagnitudeExplaination string
 
+// Risk magnitude explanation.
 const (
 	RiskMagnitudeExplainationIncreasesRisk RiskMagnitudeExplaination = "INCREASES_RISK"
 	RiskMagnitudeExplainationDecreasesRisk RiskMagnitudeExplaination = "DECREASES_RISK"
 	RiskMagnitudeExplainationNoEffect      RiskMagnitudeExplaination = "NO_EFFECT"
 )
 
-// ScoreRating
+// ScoreRating represents score rating.
 type ScoreRating string
 
+// Score rating.
 const (
 	ScoreRatingCritical ScoreRating = "CRITICAL" // Critical - 0-10.
 	ScoreRatingHigh     ScoreRating = "HIGH"     // High - 11-30.
@@ -1141,9 +1172,10 @@ const (
 	ScoreRatingUnscored ScoreRating = "UNSCORED" // Unscored, no scan ran yet.
 )
 
-// ScoreResultType
+// ScoreResultType represents score result type.
 type ScoreResultType string
 
+// Score result type.
 const (
 	ScoreResultTypeUnknown  ScoreResultType = "UNKNOWN"  // Was not scored for an unknown reason.
 	ScoreResultTypeResult   ScoreResultType = "RESULT"   // Score represents a result.
@@ -1223,14 +1255,15 @@ const (
 	SearchTypeMvdV2          SearchType = "MVD_V2"          // Returns matching osv vulnerabilities in MVD V2.
 )
 
-// ServiceAccountOrderField
+// ServiceAccountOrderField represents field to order service accounts by.
 type ServiceAccountOrderField string
 
+// Field to order service accounts by.
 const (
-	ServiceAccountOrderFieldId        ServiceAccountOrderField = "ID"
-	ServiceAccountOrderFieldName      ServiceAccountOrderField = "NAME"
-	ServiceAccountOrderFieldLastUsed  ServiceAccountOrderField = "LAST_USED"
-	ServiceAccountOrderFieldCreatedAt ServiceAccountOrderField = "CREATED_AT"
+	ServiceAccountOrderFieldId        ServiceAccountOrderField = "ID"         // Order by ID.
+	ServiceAccountOrderFieldName      ServiceAccountOrderField = "NAME"       // Order by name.
+	ServiceAccountOrderFieldLastUsed  ServiceAccountOrderField = "LAST_USED"  // Order by last used time.
+	ServiceAccountOrderFieldCreatedAt ServiceAccountOrderField = "CREATED_AT" // Order by creation time.
 )
 
 // Severity represents possible severities.
@@ -1271,9 +1304,10 @@ const (
 	TrustLevelPrivate           TrustLevel = "PRIVATE"
 )
 
-// UserState
+// UserState represents state of a user.
 type UserState string
 
+// State of a user.
 const (
 	UserStateUnknown    UserState = "UNKNOWN"
 	UserStateWaitlisted UserState = "WAITLISTED"
@@ -1353,9 +1387,10 @@ const (
 	WorkspaceSelectionConditionNumericOperatorLt       WorkspaceSelectionConditionNumericOperator = "LT"        // Less than operator.
 )
 
-// WorkspaceSelectionConditionOperator
+// WorkspaceSelectionConditionOperator represents workspace selection condition operator.
 type WorkspaceSelectionConditionOperator string
 
+// Workspace selection condition operator.
 const (
 	WorkspaceSelectionConditionOperatorUnknown WorkspaceSelectionConditionOperator = "UNKNOWN" // Unknown operator.
 	WorkspaceSelectionConditionOperatorAnd     WorkspaceSelectionConditionOperator = "AND"     // AND operator, meaning the condition will be "ANDed" to other conditions.
