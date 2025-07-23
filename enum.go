@@ -90,6 +90,18 @@ const (
 	AgentStateMissing AgentState = "MISSING"
 )
 
+// AggScoresFilterType represents supported filter types for aggScoresSuggestions.
+type AggScoresFilterType string
+
+// Supported filter types for aggScoresSuggestions.
+const (
+	AggScoresFilterTypeState       AggScoresFilterType = "STATE"        // Filter by aggregate score state (PREVIEW, ENABLED, SNOOZED, DISABLED, FALSE_POSITIVE, WORKAROUND, RISK_ACCEPTED).
+	AggScoresFilterTypeTypes       AggScoresFilterType = "TYPES"        // Filter by aggregate score types (VULNERABILITY, ADVISORY, ADVISORY, CHECK, POLICY, RISK, ASSET, CONTROL, FRAMEWORK).
+	AggScoresFilterTypeRating      AggScoresFilterType = "RATING"       // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
+	AggScoresFilterTypePolicyMrn   AggScoresFilterType = "POLICY_MRN"   // Filter by policy MRN.
+	AggScoresFilterTypeRiskFactors AggScoresFilterType = "RISK_FACTORS" // Filter by risk factor.
+)
+
 // AggregateScoreOrderField represents aggregate score order field.
 type AggregateScoreOrderField string
 
@@ -267,6 +279,15 @@ const (
 	AuthBindingOrderFieldIssuerUri  AuthBindingOrderField = "ISSUER_URI"
 	AuthBindingOrderFieldCreateTime AuthBindingOrderField = "CREATE_TIME"
 	AuthBindingOrderFieldLastUsed   AuthBindingOrderField = "LAST_USED"
+)
+
+// AuthorType represents the type of author.
+type AuthorType string
+
+// The type of author.
+const (
+	AuthorTypeUser           AuthorType = "USER"            // A registered user.
+	AuthorTypeServiceAccount AuthorType = "SERVICE_ACCOUNT" // A valid service account.
 )
 
 // AzureDevopsTicketContextType represents the type of the ticket context.
@@ -603,10 +624,11 @@ type FindingFilterType string
 
 // Finding filter type.
 const (
-	FindingFilterTypeState     FindingFilterType = "STATE"      // State filter.
-	FindingFilterTypeTypes     FindingFilterType = "TYPES"      // Filter by finding types (CHECK, CVE, ADVISORY, PACKAGE, etc.).
-	FindingFilterTypeRating    FindingFilterType = "RATING"     // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
-	FindingFilterTypePolicyMrn FindingFilterType = "POLICY_MRN" // Filter by policy MRN.
+	FindingFilterTypeState       FindingFilterType = "STATE"        // State filter.
+	FindingFilterTypeTypes       FindingFilterType = "TYPES"        // Filter by finding types (CHECK, CVE, ADVISORY, PACKAGE, etc.).
+	FindingFilterTypeRating      FindingFilterType = "RATING"       // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
+	FindingFilterTypePolicyMrn   FindingFilterType = "POLICY_MRN"   // Filter by policy MRN.
+	FindingFilterTypeSoftwareMrn FindingFilterType = "SOFTWARE_MRN" // Filter vulnerabilities by software MRN.
 )
 
 // FindingType represents finding type.
