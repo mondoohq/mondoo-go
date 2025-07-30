@@ -629,6 +629,7 @@ const (
 	FindingFilterTypeRating      FindingFilterType = "RATING"       // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
 	FindingFilterTypePolicyMrn   FindingFilterType = "POLICY_MRN"   // Filter by policy MRN.
 	FindingFilterTypeSoftwareMrn FindingFilterType = "SOFTWARE_MRN" // Filter vulnerabilities by software MRN.
+	FindingFilterTypeRiskFactors FindingFilterType = "RISK_FACTORS" // Filter by risk factor.
 )
 
 // FindingType represents finding type.
