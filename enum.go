@@ -147,6 +147,15 @@ const (
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
 )
 
+// AssetFilterType represents supported filter types for asset inventory suggestions.
+type AssetFilterType string
+
+// Supported filter types for asset inventory suggestions.
+const (
+	AssetFilterTypeRiskRating AssetFilterType = "RISK_RATING" // Filter by risk rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
+	AssetFilterTypePlatform   AssetFilterType = "PLATFORM"    // Filter by platform name (e.g., "ubuntu", "windows", "macos").
+)
+
 // AssetLinkType represents asset link type.
 type AssetLinkType string
 
@@ -326,6 +335,14 @@ const (
 	CaseStatusOpen    CaseStatus = "OPEN"
 	CaseStatusClosed  CaseStatus = "CLOSED"
 	CaseStatusError   CaseStatus = "ERROR"
+)
+
+// CasesOrderField represents cases order field.
+type CasesOrderField string
+
+// Cases order field.
+const (
+	CasesOrderFieldSpaceRiskDelta CasesOrderField = "SPACE_RISK_DELTA"
 )
 
 // CatalogType represents type of the object.
