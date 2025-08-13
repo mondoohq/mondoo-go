@@ -595,11 +595,13 @@ type EmailPreferenceList string
 
 // Email preference list.
 const (
-	EmailPreferenceListNewsletterGeneral         EmailPreferenceList = "NEWSLETTER_GENERAL"
-	EmailPreferenceListNewsletterProduct         EmailPreferenceList = "NEWSLETTER_PRODUCT"
-	EmailPreferenceListNewsletterEvents          EmailPreferenceList = "NEWSLETTER_EVENTS"
-	EmailPreferenceListNotificationWeeklyReports EmailPreferenceList = "NOTIFICATION_WEEKLY_REPORTS"
-	EmailPreferenceListNotificationSpaceAlerts   EmailPreferenceList = "NOTIFICATION_SPACE_ALERTS"
+	EmailPreferenceListNewsletterGeneral                   EmailPreferenceList = "NEWSLETTER_GENERAL"
+	EmailPreferenceListNewsletterProduct                   EmailPreferenceList = "NEWSLETTER_PRODUCT"
+	EmailPreferenceListNewsletterEvents                    EmailPreferenceList = "NEWSLETTER_EVENTS"
+	EmailPreferenceListNotificationWeeklyReports           EmailPreferenceList = "NOTIFICATION_WEEKLY_REPORTS"
+	EmailPreferenceListNotificationSpaceAlerts             EmailPreferenceList = "NOTIFICATION_SPACE_ALERTS"
+	EmailPreferenceListNotificationExpiringExceptions      EmailPreferenceList = "NOTIFICATION_EXPIRING_EXCEPTIONS"
+	EmailPreferenceListNotificationExceptionsPendingReview EmailPreferenceList = "NOTIFICATION_EXCEPTIONS_PENDING_REVIEW"
 )
 
 // ExceptionMutationAction represents the action to apply to the exception.
@@ -740,6 +742,8 @@ const (
 	ICON_IDSAtlassian                 ICON_IDS = "ATLASSIAN"
 	ICON_IDSArista                    ICON_IDS = "ARISTA"
 	ICON_IDSArch                      ICON_IDS = "ARCH"
+	ICON_IDSApple                     ICON_IDS = "APPLE"
+	ICON_IDSSafari                    ICON_IDS = "SAFARI"
 	ICON_IDSManjaro                   ICON_IDS = "MANJARO"
 	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
