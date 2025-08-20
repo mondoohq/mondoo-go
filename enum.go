@@ -152,8 +152,11 @@ type AssetFilterType string
 
 // Supported filter types for asset inventory suggestions.
 const (
-	AssetFilterTypeRiskRating AssetFilterType = "RISK_RATING" // Filter by risk rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
-	AssetFilterTypePlatform   AssetFilterType = "PLATFORM"    // Filter by platform name (e.g., "ubuntu", "windows", "macos").
+	AssetFilterTypeRiskRating  AssetFilterType = "RISK_RATING" // Filter by risk rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
+	AssetFilterTypePlatform    AssetFilterType = "PLATFORM"    // Filter by platform name (e.g., "ubuntu", "windows", "macos").
+	AssetFilterTypeName        AssetFilterType = "NAME"        // Filter by asset name (e.g., "prod-database-1").
+	AssetFilterTypeLabels      AssetFilterType = "LABELS"      // Filter by labels (e.g., "owner:sre-team").
+	AssetFilterTypeAnnotations AssetFilterType = "ANNOTATIONS" // Filter by annotations (e.g., "mondoo.com/organization: "mondoo-internal").
 )
 
 // AssetLinkType represents asset link type.
@@ -432,6 +435,7 @@ const (
 	ClientIntegrationTypeTicketSystemAzureDevops ClientIntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
 	ClientIntegrationTypeSentinelOne             ClientIntegrationType = "SENTINEL_ONE"
 	ClientIntegrationTypeCrowdstrikeFalcon       ClientIntegrationType = "CROWDSTRIKE_FALCON"
+	ClientIntegrationTypeSecurityPipelineGithub  ClientIntegrationType = "SECURITY_PIPELINE_GITHUB"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -866,6 +870,7 @@ const (
 	IntegrationTypeTicketSystemAzureDevops IntegrationType = "TICKET_SYSTEM_AZURE_DEVOPS"
 	IntegrationTypeSentinelOne             IntegrationType = "SENTINEL_ONE"
 	IntegrationTypeCrowdstrikeFalcon       IntegrationType = "CROWDSTRIKE_FALCON"
+	IntegrationTypeSecurityPipelineGithub  IntegrationType = "SECURITY_PIPELINE_GITHUB"
 )
 
 // InvitationOrderField represents field to order invitations by.
