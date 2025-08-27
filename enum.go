@@ -817,6 +817,7 @@ const (
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
 	ICON_IDSMetasploit                ICON_IDS = "METASPLOIT"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
+	ICON_IDSAdobe                     ICON_IDS = "ADOBE"
 )
 
 // IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
