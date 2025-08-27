@@ -2682,6 +2682,8 @@ type SecurityDashboardPageInfo struct {
 // SecurityPipelineGithubConfigurationOptionsInput represents security pipeline for Github integration input.
 type SecurityPipelineGithubConfigurationOptionsInput struct {
 
+	// Whether to generate a SSH key-pair. If false, the user should provision their own SSH key in the repo. (Optional.)
+	GenerateSSHKey *Boolean `json:"generateSSHKey,omitempty" tfgen:"required=0"`
 	// The list of Github repos to configure. (Optional.)
 	Repositories *[]SecurityPipelineGithubConfigurationOptionsRepoInput `json:"repositories,omitempty" tfgen:"required=0"`
 }
