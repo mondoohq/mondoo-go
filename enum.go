@@ -346,6 +346,7 @@ type CasesOrderField string
 // Cases order field.
 const (
 	CasesOrderFieldSpaceRiskDelta CasesOrderField = "SPACE_RISK_DELTA"
+	CasesOrderFieldCreatedAt      CasesOrderField = "CREATED_AT"
 )
 
 // CatalogType represents type of the object.
@@ -606,6 +607,18 @@ const (
 	EmailPreferenceListNotificationSpaceAlerts             EmailPreferenceList = "NOTIFICATION_SPACE_ALERTS"
 	EmailPreferenceListNotificationExpiringExceptions      EmailPreferenceList = "NOTIFICATION_EXPIRING_EXCEPTIONS"
 	EmailPreferenceListNotificationExceptionsPendingReview EmailPreferenceList = "NOTIFICATION_EXCEPTIONS_PENDING_REVIEW"
+)
+
+// ExceptionFilterType represents exception filter type.
+type ExceptionFilterType string
+
+// Exception filter type.
+const (
+	ExceptionFilterTypeStatus        ExceptionFilterType = "STATUS"         // Filter by exception status (NOT_REVIEWED, APPROVED, REJECTED, etc.).
+	ExceptionFilterTypeCreatedBy     ExceptionFilterType = "CREATED_BY"     // Filter by who created the exception.
+	ExceptionFilterTypeApprovedBy    ExceptionFilterType = "APPROVED_BY"    // Filter by who approved the exception.
+	ExceptionFilterTypeExceptionType ExceptionFilterType = "EXCEPTION_TYPE" // Filter by exception type (CVE, ADVISORY, SECURITY, COMPLIANCE).
+	ExceptionFilterTypeExpiring      ExceptionFilterType = "EXPIRING"       // Filter by expiration status (EXPIRING, NOT_EXPIRING).
 )
 
 // ExceptionMutationAction represents the action to apply to the exception.
