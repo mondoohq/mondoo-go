@@ -621,6 +621,16 @@ const (
 	ExceptionFilterTypeExpiring      ExceptionFilterType = "EXPIRING"       // Filter by expiration status (EXPIRING, NOT_EXPIRING).
 )
 
+// ExceptionGroupExtensionStatus represents the review status for an exception group extension.
+type ExceptionGroupExtensionStatus string
+
+// The review status for an exception group extension.
+const (
+	ExceptionGroupExtensionStatusNotReviewed ExceptionGroupExtensionStatus = "NOT_REVIEWED"
+	ExceptionGroupExtensionStatusApproved    ExceptionGroupExtensionStatus = "APPROVED"
+	ExceptionGroupExtensionStatusRejected    ExceptionGroupExtensionStatus = "REJECTED"
+)
+
 // ExceptionMutationAction represents the action to apply to the exception.
 type ExceptionMutationAction string
 
@@ -1198,9 +1208,10 @@ type ReviewStatus string
 
 // The review status for an exception group.
 const (
-	ReviewStatusNotReviewed ReviewStatus = "NOT_REVIEWED"
-	ReviewStatusApproved    ReviewStatus = "APPROVED"
-	ReviewStatusRejected    ReviewStatus = "REJECTED"
+	ReviewStatusNotReviewed      ReviewStatus = "NOT_REVIEWED"
+	ReviewStatusApproved         ReviewStatus = "APPROVED"
+	ReviewStatusRejected         ReviewStatus = "REJECTED"
+	ReviewStatusPendingExtension ReviewStatus = "PENDING_EXTENSION"
 )
 
 // RiskFactorAction represents risk factor action.
