@@ -95,11 +95,12 @@ type AggScoresFilterType string
 
 // Supported filter types for aggScoresSuggestions.
 const (
-	AggScoresFilterTypeState       AggScoresFilterType = "STATE"        // Filter by aggregate score state (PREVIEW, ENABLED, SNOOZED, DISABLED, FALSE_POSITIVE, WORKAROUND, RISK_ACCEPTED).
+	AggScoresFilterTypeState       AggScoresFilterType = "STATE"        // Filter by aggregate score state (Exception Created, Ticket Created, Needs Action).
 	AggScoresFilterTypeTypes       AggScoresFilterType = "TYPES"        // Filter by aggregate score types (VULNERABILITY, ADVISORY, ADVISORY, CHECK, POLICY, RISK, ASSET, CONTROL, FRAMEWORK).
 	AggScoresFilterTypeRating      AggScoresFilterType = "RATING"       // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
 	AggScoresFilterTypePolicyMrn   AggScoresFilterType = "POLICY_MRN"   // Filter by policy MRN.
 	AggScoresFilterTypeRiskFactors AggScoresFilterType = "RISK_FACTORS" // Filter by risk factor.
+	AggScoresFilterTypePlatform    AggScoresFilterType = "PLATFORM"     // Filter by platform.
 )
 
 // AggregateScoreOrderField represents aggregate score order field.
@@ -127,6 +128,16 @@ const (
 	AggregateScoreStateFalsePositive AggregateScoreState = "FALSE_POSITIVE"
 	AggregateScoreStateWorkaround    AggregateScoreState = "WORKAROUND"
 	AggregateScoreStateRiskAccepted  AggregateScoreState = "RISK_ACCEPTED"
+)
+
+// AggregateScoreStatus represents status of the agg score.
+type AggregateScoreStatus string
+
+// Status of the agg score.
+const (
+	AggregateScoreStatusExceptionCreated AggregateScoreStatus = "EXCEPTION_CREATED" // Exception is created for the agg score.
+	AggregateScoreStatusTicketCreated    AggregateScoreStatus = "TICKET_CREATED"    // Ticket is created for the agg score.
+	AggregateScoreStatusNeedsAction      AggregateScoreStatus = "NEEDS_ACTION"      // Agg score needs action.
 )
 
 // AggregateScoreType represents aggregate score type field.
