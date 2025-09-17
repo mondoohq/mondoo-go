@@ -140,6 +140,8 @@ type AggregateScoreFilter struct {
 
 	// filter by textfield input. ex.: ["CHROME-2023"] elements will be ANDed. (Optional.)
 	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
+	// Platforms of the findings assets. (Optional.)
+	Platforms *[]String `json:"platforms,omitempty" tfgen:"required=0"`
 	// filter by aggregated score by finding. (Optional.)
 	FindingMrn *String `json:"findingMrn,omitempty" tfgen:"required=0"`
 	// filter by aggregated score type. (Optional.)
@@ -162,6 +164,12 @@ type AggregateScoreFilter struct {
 	HasRemediation *Boolean `json:"hasRemediation,omitempty" tfgen:"required=0"`
 	// Filters the aggregate scores by a list of risk ratings. Accepts an array of `ScoreRating` enums (e.g., `CRITICAL`, `HIGH`). (Optional.)
 	Rating *[]ScoreRating `json:"rating,omitempty" tfgen:"required=0"`
+	// Filter agg scores that have active exceptions. This filter filters out agg scores based only on valid exceptions. Exceptions that are expired, rejected or deleted do not count. (Optional.)
+	HasActiveExceptions *Boolean `json:"hasActiveExceptions,omitempty" tfgen:"required=0"`
+	// Filter agg scores that have either pending or active exceptions. This filter filters out agg scores based on valid exceptions or pending exceptions. Exceptions that are expired, rejected or deleted do not count. Space setting for exceptions being active only if approved doesn't count for this filter - meaning that regardless of the setting, the filter takes pending exceptions into account. (Optional.)
+	HasExceptions *Boolean `json:"hasExceptions,omitempty" tfgen:"required=0"`
+	// Filter that lists agg scores that have tickets. (Optional.)
+	HasTickets *Boolean `json:"hasTickets,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
@@ -357,11 +365,17 @@ type AssetResourceInput struct {
 type AssetSearchFilter struct {
 
 	// Filters assets by one or more risk ratings. Uses OR logic. (Optional.)
-	Rating *[]ScoreRating `json:"rating,omitempty" tfgen:"required=0"`
+	RiskRating *[]ScoreRating `json:"riskRating,omitempty" tfgen:"required=0"`
 	// Filters assets by one or more platform names. Uses OR logic. (Optional.)
 	Platform *[]String `json:"platform,omitempty" tfgen:"required=0"`
 	// Filters assets by a partial name match. (Optional.)
 	Name *String `json:"name,omitempty" tfgen:"required=0"`
+	// Filters assets by labels (key-value pairs). Uses OR logic. (Optional.)
+	Labels *[]String `json:"labels,omitempty" tfgen:"required=0"`
+	// Filters assets by annotations (key-value pairs). Uses OR logic. (Optional.)
+	Annotations *[]String `json:"annotations,omitempty" tfgen:"required=0"`
+	// @deprecated Use riskRating instead. Filters assets by one or more risk ratings. Uses OR logic. (Optional.)
+	Rating *[]ScoreRating `json:"rating,omitempty" tfgen:"required=0"`
 }
 
 // AssetSearchInput represents asset search input.
@@ -2001,6 +2015,10 @@ type ListExceptionGroupsFilter struct {
 	IncludeDeleted *Boolean `json:"includeDeleted,omitempty" tfgen:"required=0"`
 	// Include exception extensions. (Optional.)
 	IncludeExtension *Boolean `json:"includeExtension,omitempty" tfgen:"required=0"`
+	// Filter by users who created the exceptions. (Optional.)
+	CreatedBy *[]String `json:"createdBy,omitempty" tfgen:"required=0"`
+	// Filter by users who approved the exceptions. (Optional.)
+	ApprovedBy *[]String `json:"approvedBy,omitempty" tfgen:"required=0"`
 }
 
 // ListExceptionGroupsInput represents the input to get a list of exception groups.
