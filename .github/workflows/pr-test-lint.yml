@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
         with:
           go-version: ${{ env.GO_VERSION }}
           cache: false
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Check go mod
         run: |
           go mod tidy
@@ -32,14 +32,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
         with:
           go-version: ${{ env.GO_VERSION }}
           cache: false
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v6.2.0
+        uses: golangci/golangci-lint-action@ec5d18412c0aeab7936cb16880d708ba2a64e1ae # v6.2.0
         with:
           version: latest
           args: --timeout=30m
@@ -48,14 +48,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
         with:
           go-version: ${{ env.GO_VERSION }}
           cache: false
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       # https://github.com/actions/cache/blob/main/examples.md#go---modules
-      - uses: actions/cache@v4
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: |
             ~/.cache/go-build
@@ -64,7 +64,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - run: make test
-      - uses: actions/upload-artifact@v4  # upload test results
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: success() || failure()        # run this step even if previous step failed
         with:
           name: test-results
