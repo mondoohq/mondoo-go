@@ -1823,6 +1823,8 @@ type HostConfigurationOptionsInput struct {
 	Https *Boolean `json:"https,omitempty" tfgen:"required=0"`
 	// Whether to use HTTP. (Optional.)
 	Http *Boolean `json:"http,omitempty" tfgen:"required=0"`
+	// Discover all subdomains for the given domain. (Optional.)
+	DiscoverSubdomains *Boolean `json:"discoverSubdomains,omitempty" tfgen:"required=0"`
 }
 
 // HostedAwsConfigurationOptionsInput represents hosted AWS integration input.
