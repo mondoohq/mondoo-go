@@ -1431,6 +1431,49 @@ const (
 	VulnerabilityScoreSourceVendorSentinelOne VulnerabilityScoreSourceVendor = "SENTINEL_ONE"
 )
 
+// WorkflowRefStatus represents workflow reference status.
+type WorkflowRefStatus string
+
+// Workflow reference status.
+const (
+	WorkflowRefStatusOpen   WorkflowRefStatus = "OPEN"
+	WorkflowRefStatusClosed WorkflowRefStatus = "CLOSED"
+)
+
+// WorkflowStatus represents workflow status.
+type WorkflowStatus string
+
+// Workflow status.
+const (
+	WorkflowStatusPending    WorkflowStatus = "PENDING"
+	WorkflowStatusInProgress WorkflowStatus = "IN_PROGRESS"
+	WorkflowStatusCompleted  WorkflowStatus = "COMPLETED"
+	WorkflowStatusAborted    WorkflowStatus = "ABORTED"
+	WorkflowStatusFailed     WorkflowStatus = "FAILED"
+)
+
+// WorkflowTaskStatus represents workflow task status.
+type WorkflowTaskStatus string
+
+// Workflow task status.
+const (
+	WorkflowTaskStatusPending    WorkflowTaskStatus = "PENDING"
+	WorkflowTaskStatusInProgress WorkflowTaskStatus = "IN_PROGRESS"
+	WorkflowTaskStatusCompleted  WorkflowTaskStatus = "COMPLETED"
+	WorkflowTaskStatusAborted    WorkflowTaskStatus = "ABORTED"
+	WorkflowTaskStatusFailed     WorkflowTaskStatus = "FAILED"
+)
+
+// WorkflowTaskType represents workflow task type.
+type WorkflowTaskType string
+
+// Workflow task type.
+const (
+	WorkflowTaskTypeCreatePr   WorkflowTaskType = "CREATE_PR"
+	WorkflowTaskTypeClosePr    WorkflowTaskType = "CLOSE_PR"
+	WorkflowTaskTypeConfirmFix WorkflowTaskType = "CONFIRM_FIX"
+)
+
 // WorkspaceSelectionConditionIntField represents workspace selection condition int fields.
 type WorkspaceSelectionConditionIntField string
 
