@@ -796,7 +796,6 @@ const (
 	ICON_IDSScientificLinux           ICON_IDS = "SCIENTIFIC_LINUX"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
 	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
-	ICON_IDSUbios                     ICON_IDS = "UBIOS"
 	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSAws                       ICON_IDS = "AWS"
@@ -1340,6 +1339,16 @@ const (
 	SearchTypeMvdV2          SearchType = "MVD_V2"          // Returns matching osv vulnerabilities in MVD V2.
 )
 
+// SecurityPipelineScheduledWorkflowCadence represents security pipeline scheduled workflow cadence.
+type SecurityPipelineScheduledWorkflowCadence string
+
+// Security pipeline scheduled workflow cadence.
+const (
+	SecurityPipelineScheduledWorkflowCadenceDaily   SecurityPipelineScheduledWorkflowCadence = "DAILY"
+	SecurityPipelineScheduledWorkflowCadenceWeekly  SecurityPipelineScheduledWorkflowCadence = "WEEKLY"
+	SecurityPipelineScheduledWorkflowCadenceMonthly SecurityPipelineScheduledWorkflowCadence = "MONTHLY"
+)
+
 // ServiceAccountOrderField represents field to order service accounts by.
 type ServiceAccountOrderField string
 
@@ -1448,7 +1457,7 @@ const (
 	WorkflowStatusPending    WorkflowStatus = "PENDING"
 	WorkflowStatusInProgress WorkflowStatus = "IN_PROGRESS"
 	WorkflowStatusCompleted  WorkflowStatus = "COMPLETED"
-	WorkflowStatusAborted    WorkflowStatus = "ABORTED"
+	WorkflowStatusCanceled   WorkflowStatus = "CANCELED"
 	WorkflowStatusFailed     WorkflowStatus = "FAILED"
 )
 
@@ -1460,7 +1469,7 @@ const (
 	WorkflowTaskStatusPending    WorkflowTaskStatus = "PENDING"
 	WorkflowTaskStatusInProgress WorkflowTaskStatus = "IN_PROGRESS"
 	WorkflowTaskStatusCompleted  WorkflowTaskStatus = "COMPLETED"
-	WorkflowTaskStatusAborted    WorkflowTaskStatus = "ABORTED"
+	WorkflowTaskStatusCanceled   WorkflowTaskStatus = "CANCELED"
 	WorkflowTaskStatusFailed     WorkflowTaskStatus = "FAILED"
 )
 
