@@ -851,6 +851,14 @@ const (
 	ICON_IDSMetasploit                ICON_IDS = "METASPLOIT"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
 	ICON_IDSAdobe                     ICON_IDS = "ADOBE"
+	ICON_IDSVmwareTools               ICON_IDS = "VMWARE_TOOLS"
+	ICON_IDSVmwareFusion              ICON_IDS = "VMWARE_FUSION"
+	ICON_IDSMicrosoftWord             ICON_IDS = "MICROSOFT_WORD"
+	ICON_IDSMicrosoftPowerpoint       ICON_IDS = "MICROSOFT_POWERPOINT"
+	ICON_IDSMicrosoftExcel            ICON_IDS = "MICROSOFT_EXCEL"
+	ICON_IDSVlcMediaPlayer            ICON_IDS = "VLC_MEDIA_PLAYER"
+	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
+	ICON_IDSMicrosoftTeams            ICON_IDS = "MICROSOFT_TEAMS"
 )
 
 // IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
@@ -1440,6 +1448,15 @@ const (
 	VulnerabilityScoreSourceVendorSentinelOne VulnerabilityScoreSourceVendor = "SENTINEL_ONE"
 )
 
+// WorkflowRefMethod represents workflow reference method. This indicates how the reference was added to the workflow.
+type WorkflowRefMethod string
+
+// Workflow reference method. This indicates how the reference was added to the workflow.
+const (
+	WorkflowRefMethodSelected WorkflowRefMethod = "SELECTED" // The reference was selected when the workflow got created.
+	WorkflowRefMethodRelated  WorkflowRefMethod = "RELATED"  // The reference was added because it would implicitly be fixed when all selected references are fixed.
+)
+
 // WorkflowRefStatus represents workflow reference status.
 type WorkflowRefStatus string
 
@@ -1454,11 +1471,12 @@ type WorkflowStatus string
 
 // Workflow status.
 const (
-	WorkflowStatusPending    WorkflowStatus = "PENDING"
-	WorkflowStatusInProgress WorkflowStatus = "IN_PROGRESS"
-	WorkflowStatusCompleted  WorkflowStatus = "COMPLETED"
-	WorkflowStatusCanceled   WorkflowStatus = "CANCELED"
-	WorkflowStatusFailed     WorkflowStatus = "FAILED"
+	WorkflowStatusPending   WorkflowStatus = "PENDING"
+	WorkflowStatusPrCreated WorkflowStatus = "PR_CREATED"
+	WorkflowStatusPrMerged  WorkflowStatus = "PR_MERGED"
+	WorkflowStatusFixed     WorkflowStatus = "FIXED"
+	WorkflowStatusCanceled  WorkflowStatus = "CANCELED"
+	WorkflowStatusFailed    WorkflowStatus = "FAILED"
 )
 
 // WorkflowTaskStatus represents workflow task status.
