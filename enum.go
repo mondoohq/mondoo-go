@@ -448,6 +448,7 @@ const (
 	ClientIntegrationTypeSentinelOne             ClientIntegrationType = "SENTINEL_ONE"
 	ClientIntegrationTypeCrowdstrikeFalcon       ClientIntegrationType = "CROWDSTRIKE_FALCON"
 	ClientIntegrationTypeSecurityPipelineGithub  ClientIntegrationType = "SECURITY_PIPELINE_GITHUB"
+	ClientIntegrationTypeTicketSystemWebhook     ClientIntegrationType = "TICKET_SYSTEM_WEBHOOK"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -859,6 +860,9 @@ const (
 	ICON_IDSVlcMediaPlayer            ICON_IDS = "VLC_MEDIA_PLAYER"
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
 	ICON_IDSMicrosoftTeams            ICON_IDS = "MICROSOFT_TEAMS"
+	ICON_IDSAdobePhotoshop            ICON_IDS = "ADOBE_PHOTOSHOP"
+	ICON_IDSAdobeIllustrator          ICON_IDS = "ADOBE_ILLUSTRATOR"
+	ICON_IDSAdobeIndesign             ICON_IDS = "ADOBE_INDESIGN"
 )
 
 // IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
@@ -913,6 +917,7 @@ const (
 	IntegrationTypeSentinelOne             IntegrationType = "SENTINEL_ONE"
 	IntegrationTypeCrowdstrikeFalcon       IntegrationType = "CROWDSTRIKE_FALCON"
 	IntegrationTypeSecurityPipelineGithub  IntegrationType = "SECURITY_PIPELINE_GITHUB"
+	IntegrationTypeTicketSystemWebhook     IntegrationType = "TICKET_SYSTEM_WEBHOOK"
 )
 
 // InvitationOrderField represents field to order invitations by.
@@ -1455,15 +1460,6 @@ type WorkflowRefMethod string
 const (
 	WorkflowRefMethodSelected WorkflowRefMethod = "SELECTED" // The reference was selected when the workflow got created.
 	WorkflowRefMethodRelated  WorkflowRefMethod = "RELATED"  // The reference was added because it would implicitly be fixed when all selected references are fixed.
-)
-
-// WorkflowRefStatus represents workflow reference status.
-type WorkflowRefStatus string
-
-// Workflow reference status.
-const (
-	WorkflowRefStatusOpen   WorkflowRefStatus = "OPEN"
-	WorkflowRefStatusClosed WorkflowRefStatus = "CLOSED"
 )
 
 // WorkflowStatus represents workflow status.
