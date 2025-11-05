@@ -1362,6 +1362,14 @@ const (
 	SecurityPipelineScheduledWorkflowCadenceMonthly SecurityPipelineScheduledWorkflowCadence = "MONTHLY"
 )
 
+// SecurityPipelineWorkflowOrderField represents security pipeline workflow order field.
+type SecurityPipelineWorkflowOrderField string
+
+// Security pipeline workflow order field.
+const (
+	SecurityPipelineWorkflowOrderFieldCreatedAt SecurityPipelineWorkflowOrderField = "CREATED_AT"
+)
+
 // ServiceAccountOrderField represents field to order service accounts by.
 type ServiceAccountOrderField string
 
@@ -1397,6 +1405,7 @@ const (
 	TicketRefTypeGithub      TicketRefType = "GITHUB"
 	TicketRefTypeGitlab      TicketRefType = "GITLAB"
 	TicketRefTypeAzureDevops TicketRefType = "AZURE_DEVOPS"
+	TicketRefTypeWebhook     TicketRefType = "WEBHOOK"
 )
 
 // TrustLevel represents trust level of the object.
