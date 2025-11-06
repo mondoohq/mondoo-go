@@ -1055,6 +1055,8 @@ type CreateOrganizationInput struct {
 	Id *String `json:"id,omitempty" tfgen:"required=0"`
 	// Description. (Optional.)
 	Description *String `json:"description,omitempty" tfgen:"required=0"`
+	// Company name. (Optional.)
+	Company *String `json:"company,omitempty" tfgen:"required=0"`
 }
 
 // CreateSecurityPipelinePullRequestInput represents create a new security pipeline pull request input.
@@ -3158,6 +3160,8 @@ type UpdateOrganizationInput struct {
 	// Name. (Required.)
 	Name String `json:"name" tfgen:"required=1"`
 
+	// Company name. (Optional.)
+	Company *String `json:"company,omitempty" tfgen:"required=0"`
 	// Description. (Optional.)
 	Description *String `json:"description,omitempty" tfgen:"required=0"`
 }
