@@ -5,10 +5,11 @@ package mondoogql
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/shurcooL/graphql"
 	"go.mondoo.com/mondoo-go/internal"
-	"go.mondoo.com/mondoo-go/internal/http"
+	internal_http "go.mondoo.com/mondoo-go/internal/http"
 	"go.mondoo.com/mondoo-go/option"
 )
 
@@ -21,7 +22,7 @@ type Client struct {
 func NewClient(opts ...option.ClientOption) (*Client, error) {
 	// NOTE: we need to prepend options, so we don't override user-specified options
 	opts = append([]option.ClientOption{option.WithDefaultEndpoint(), option.WithUserAgent("mondoo-graphql-client/" + internal.Version)}, opts...)
-	httpClient, endpoint, err := http.NewHttpClient(opts...)
+	httpClient, endpoint, err := internal_http.NewHttpClient(opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -53,4 +54,9 @@ func (c *Client) Mutate(ctx context.Context, m interface{}, input Input, variabl
 		}
 	}
 	return c.client.Mutate(ctx, m, variables)
+}
+
+// NewHttpClient creates a new *http.Client instance based on the given options.
+func NewHttpClient(opts ...option.ClientOption) (*http.Client, string, error) {
+	return internal_http.NewHttpClient(opts...)
 }
