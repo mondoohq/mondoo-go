@@ -1348,6 +1348,16 @@ const (
 	ScoringSystemHighestImpact   ScoringSystem = "HIGHEST_IMPACT"
 )
 
+// SearchItemStatus represents status of the search item. Only applies to CVEs.
+type SearchItemStatus string
+
+// Status of the search item. Only applies to CVEs.
+const (
+	SearchItemStatusAffected    SearchItemStatus = "AFFECTED"
+	SearchItemStatusNotAffected SearchItemStatus = "NOT_AFFECTED"
+	SearchItemStatusUnsupported SearchItemStatus = "UNSUPPORTED"
+)
+
 // SearchType represents possible search types for the search query.
 type SearchType string
 
@@ -1374,6 +1384,8 @@ type SecurityPipelineWorkflowOrderField string
 // Security pipeline workflow order field.
 const (
 	SecurityPipelineWorkflowOrderFieldCreatedAt SecurityPipelineWorkflowOrderField = "CREATED_AT"
+	SecurityPipelineWorkflowOrderFieldUpdatedAt SecurityPipelineWorkflowOrderField = "UPDATED_AT"
+	SecurityPipelineWorkflowOrderFieldTitle     SecurityPipelineWorkflowOrderField = "TITLE"
 )
 
 // ServiceAccountOrderField represents field to order service accounts by.
