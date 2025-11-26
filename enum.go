@@ -828,6 +828,7 @@ const (
 	ICON_IDSMicrosoftTeams            ICON_IDS = "MICROSOFT_TEAMS"
 	ICON_IDSMicrosoftVisualStudioCode ICON_IDS = "MICROSOFT_VISUAL_STUDIO_CODE"
 	ICON_IDSMicrosoftWord             ICON_IDS = "MICROSOFT_WORD"
+	ICON_IDSMondoo                    ICON_IDS = "MONDOO"
 	ICON_IDSMozilla                   ICON_IDS = "MOZILLA"
 	ICON_IDSMozillaFirefox            ICON_IDS = "MOZILLA_FIREFOX"
 	ICON_IDSMs365                     ICON_IDS = "MS365"
@@ -1069,6 +1070,7 @@ const (
 	PackageManagerZypper     PackageManager = "ZYPPER"     // ZYPPER.
 	PackageManagerPowershell PackageManager = "POWERSHELL" // POWERSHELL.
 	PackageManagerAix        PackageManager = "AIX"        // AIX.
+	PackageManagerBrew       PackageManager = "BREW"       // BREW aka. HOMEBREW.
 )
 
 // PackageScoresOrderField represents packageScores order fields.
