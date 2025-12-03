@@ -114,6 +114,8 @@ const (
 	AggregateScoreOrderFieldBlastRadius     AggregateScoreOrderField = "BLAST_RADIUS"      // Risk score blast radius.
 	AggregateScoreOrderFieldTitle           AggregateScoreOrderField = "TITLE"             // Title.
 	AggregateScoreOrderFieldFirstDetectedAt AggregateScoreOrderField = "FIRST_DETECTED_AT" // First detected.
+	AggregateScoreOrderFieldSlaOverdueCount AggregateScoreOrderField = "SLA_OVERDUE_COUNT" // SLA overdue count.
+	AggregateScoreOrderFieldSlaAtRiskCount  AggregateScoreOrderField = "SLA_AT_RISK_COUNT" // SLA at risk count.
 )
 
 // AggregateScoreState represents aggregate score state.
@@ -795,6 +797,7 @@ const (
 	ICON_IDSCentos                    ICON_IDS = "CENTOS"
 	ICON_IDSCheck                     ICON_IDS = "CHECK"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
+	ICON_IDSCisco                     ICON_IDS = "CISCO"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSCve                       ICON_IDS = "CVE"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
@@ -805,6 +808,7 @@ const (
 	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
 	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
 	ICON_IDSFedora                    ICON_IDS = "FEDORA"
+	ICON_IDSFortios                   ICON_IDS = "FORTIOS"
 	ICON_IDSGcp                       ICON_IDS = "GCP"
 	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
 	ICON_IDSGithub                    ICON_IDS = "GITHUB"
@@ -843,6 +847,7 @@ const (
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
 	ICON_IDSOracle                    ICON_IDS = "ORACLE"
 	ICON_IDSOther                     ICON_IDS = "OTHER"
+	ICON_IDSPanos                     ICON_IDS = "PANOS"
 	ICON_IDSPolicy                    ICON_IDS = "POLICY"
 	ICON_IDSPop                       ICON_IDS = "POP"
 	ICON_IDSPython                    ICON_IDS = "PYTHON"
@@ -870,6 +875,35 @@ const (
 	ICON_IDSWindows11                 ICON_IDS = "WINDOWS_11"
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
+)
+
+// InitiativeOrderField represents initiative order field.
+type InitiativeOrderField string
+
+// Initiative order field.
+const (
+	InitiativeOrderFieldScoreDelta InitiativeOrderField = "SCORE_DELTA"
+	InitiativeOrderFieldUpdatedAt  InitiativeOrderField = "UPDATED_AT"
+)
+
+// InitiativeStatus represents initiative status.
+type InitiativeStatus string
+
+// Initiative status.
+const (
+	InitiativeStatusNotStarted InitiativeStatus = "NOT_STARTED"
+	InitiativeStatusInProgress InitiativeStatus = "IN_PROGRESS"
+	InitiativeStatusFixed      InitiativeStatus = "FIXED"
+	InitiativeStatusCanceled   InitiativeStatus = "CANCELED"
+)
+
+// InitiativeType represents type of initiative.
+type InitiativeType string
+
+// Type of initiative.
+const (
+	InitiativeTypeAsset     InitiativeType = "ASSET"
+	InitiativeTypeAggregate InitiativeType = "AGGREGATE"
 )
 
 // IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
@@ -1071,6 +1105,9 @@ const (
 	PackageManagerPowershell PackageManager = "POWERSHELL" // POWERSHELL.
 	PackageManagerAix        PackageManager = "AIX"        // AIX.
 	PackageManagerBrew       PackageManager = "BREW"       // BREW aka. HOMEBREW.
+	PackageManagerManual     PackageManager = "MANUAL"     // Manual Instructions.
+	PackageManagerApk        PackageManager = "APK"        // APK.
+	PackageManagerSnap       PackageManager = "SNAP"       // SNAP.
 )
 
 // PackageScoresOrderField represents packageScores order fields.
@@ -1216,9 +1253,10 @@ type RemediationScriptType string
 
 // Remediation script type.
 const (
-	RemediationScriptTypeShell      RemediationScriptType = "SHELL"      // Shell script.
-	RemediationScriptTypeAnsible    RemediationScriptType = "ANSIBLE"    // Ansible playbook.
-	RemediationScriptTypePowershell RemediationScriptType = "POWERSHELL" // Powershell script.
+	RemediationScriptTypeShell             RemediationScriptType = "SHELL"              // Shell script.
+	RemediationScriptTypeAnsible           RemediationScriptType = "ANSIBLE"            // Ansible playbook.
+	RemediationScriptTypePowershell        RemediationScriptType = "POWERSHELL"         // Powershell script.
+	RemediationScriptTypeManualInstruction RemediationScriptType = "MANUAL_INSTRUCTION" // Manual Instruction.
 )
 
 // ReportViewedPage represents report viewed page defines the pages that can be reported as viewed.
