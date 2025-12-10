@@ -185,6 +185,8 @@ type AggregateScoreFilter struct {
 	HasOverdueSla *Boolean `json:"hasOverdueSla,omitempty" tfgen:"required=0"`
 	// Filter agg scores that have at risk SLAs. (Optional.)
 	HasAtRiskSla *Boolean `json:"hasAtRiskSla,omitempty" tfgen:"required=0"`
+	// Filter agg scores that have any SLA violations (overdue OR at risk). (Optional.)
+	HasAnySla *Boolean `json:"hasAnySla,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
@@ -1112,6 +1114,8 @@ type CreateSecurityPipelineWorkflowInput struct {
 	FindingMrns *[]String `json:"findingMrns,omitempty" tfgen:"required=0"`
 	// An optional list of asset MRNs. If provided, we create a patch only for the specified assets. (Optional.)
 	AssetMrns *[]String `json:"assetMrns,omitempty" tfgen:"required=0"`
+	// An optional list of initiative MRNs. If provided, we create a patch only for the specified initiatives. (Optional.)
+	InitiativeMrns *[]String `json:"initiativeMrns,omitempty" tfgen:"required=0"`
 }
 
 // CreateServiceAccountInput represents input for creating a service account.
@@ -3357,6 +3361,10 @@ type WIFAuthBindingOrder struct {
 type WebhookConfigurationOptionsInput struct {
 	// Url which will be used for calling the webhook. (Required.)
 	Url String `json:"url" tfgen:"required=1"`
+	// Whether to auto-close tickets. (Required.)
+	AutoCloseTickets Boolean `json:"autoCloseTickets" tfgen:"required=1"`
+	// Whether to auto-create tickets. (Required.)
+	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 }
 
 // WorkspaceConditionPossibleValuesInput represents workspace condition possible values input.
