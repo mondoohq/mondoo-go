@@ -697,12 +697,16 @@ type FindingType string
 
 // Finding type.
 const (
-	FindingTypeCheck      FindingType = "CHECK"
-	FindingTypeCve        FindingType = "CVE"
-	FindingTypeAdvisory   FindingType = "ADVISORY"
-	FindingTypePackage    FindingType = "PACKAGE"
-	FindingTypeOsPackage  FindingType = "OS_PACKAGE"
-	FindingTypeAppPackage FindingType = "APP_PACKAGE"
+	FindingTypeCheck         FindingType = "CHECK"
+	FindingTypeCve           FindingType = "CVE"
+	FindingTypeAdvisory      FindingType = "ADVISORY"
+	FindingTypePackage       FindingType = "PACKAGE"
+	FindingTypeOsPackage     FindingType = "OS_PACKAGE"
+	FindingTypeAppPackage    FindingType = "APP_PACKAGE"
+	FindingTypeMalware       FindingType = "MALWARE"
+	FindingTypeThreat        FindingType = "THREAT"
+	FindingTypeInformational FindingType = "INFORMATIONAL"
+	FindingTypeSecurity      FindingType = "SECURITY"
 )
 
 // FindingsOrderField represents findings order field.
@@ -800,6 +804,7 @@ const (
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSCve                       ICON_IDS = "CVE"
+	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
 	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
 	ICON_IDSDns                       ICON_IDS = "DNS"
@@ -1358,9 +1363,10 @@ type ScoreStateFilter string
 
 // Score state filter.
 const (
-	ScoreStateFilterAll    ScoreStateFilter = "ALL"    // All.
-	ScoreStateFilterOpen   ScoreStateFilter = "OPEN"   // Only not fixed/failed.
-	ScoreStateFilterClosed ScoreStateFilter = "CLOSED" // Only fixed/passed.
+	ScoreStateFilterAll       ScoreStateFilter = "ALL"       // All.
+	ScoreStateFilterOpen      ScoreStateFilter = "OPEN"      // Only not fixed/failed.
+	ScoreStateFilterClosed    ScoreStateFilter = "CLOSED"    // Only fixed/passed.
+	ScoreStateFilterException ScoreStateFilter = "EXCEPTION" // Only scores with exceptions.
 )
 
 // ScoreType represents score type.
