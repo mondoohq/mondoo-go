@@ -820,6 +820,7 @@ const (
 	ICON_IDSGitlab                    ICON_IDS = "GITLAB"
 	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
+	ICON_IDSHuawei                    ICON_IDS = "HUAWEI"
 	ICON_IDSIac                       ICON_IDS = "IAC"
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
 	ICON_IDSK8s                       ICON_IDS = "K8S"
@@ -848,6 +849,7 @@ const (
 	ICON_IDSOci                       ICON_IDS = "OCI"
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
 	ICON_IDSOpcua                     ICON_IDS = "OPCUA"
+	ICON_IDSOpeneuler                 ICON_IDS = "OPENEULER"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
 	ICON_IDSOracle                    ICON_IDS = "ORACLE"
@@ -861,6 +863,7 @@ const (
 	ICON_IDSRisk                      ICON_IDS = "RISK"
 	ICON_IDSRockyLinux                ICON_IDS = "ROCKY_LINUX"
 	ICON_IDSSafari                    ICON_IDS = "SAFARI"
+	ICON_IDSSbom                      ICON_IDS = "SBOM"
 	ICON_IDSScientificLinux           ICON_IDS = "SCIENTIFIC_LINUX"
 	ICON_IDSSevenZip                  ICON_IDS = "SEVEN_ZIP"
 	ICON_IDSSlack                     ICON_IDS = "SLACK"
@@ -1275,6 +1278,8 @@ const (
 	ReportViewedPageCicdJob                ReportViewedPage = "CICD_JOB"
 	ReportViewedPageVulnerabilityDashboard ReportViewedPage = "VULNERABILITY_DASHBOARD"
 	ReportViewedPageSecurityDashboard      ReportViewedPage = "SECURITY_DASHBOARD"
+	ReportViewedPageFindingOnAsset         ReportViewedPage = "FINDING_ON_ASSET"
+	ReportViewedPageFinding                ReportViewedPage = "FINDING"
 )
 
 // ReviewStatus represents the review status for an exception group.
