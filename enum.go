@@ -103,6 +103,17 @@ const (
 	AggScoresFilterTypePlatform    AggScoresFilterType = "PLATFORM"     // Filter by platform.
 )
 
+// AggregateScoreAggregationType represents describes how to aggregate.
+type AggregateScoreAggregationType string
+
+// Describes how to aggregate.
+const (
+	AggregateScoreAggregationTypeEntity       AggregateScoreAggregationType = "ENTITY"       // Aggregate by the entity provided (the default).
+	AggregateScoreAggregationTypeOrganization AggregateScoreAggregationType = "ORGANIZATION" // Break down by organization.
+	AggregateScoreAggregationTypeSpace        AggregateScoreAggregationType = "SPACE"        // Break down by space.
+	AggregateScoreAggregationTypeWorkspace    AggregateScoreAggregationType = "WORKSPACE"    // Break down by workspace.
+)
+
 // AggregateScoreOrderField represents aggregate score order field.
 type AggregateScoreOrderField string
 
@@ -786,6 +797,8 @@ const (
 	ICON_IDSAdobeIllustrator          ICON_IDS = "ADOBE_ILLUSTRATOR"
 	ICON_IDSAdobeIndesign             ICON_IDS = "ADOBE_INDESIGN"
 	ICON_IDSAdobePhotoshop            ICON_IDS = "ADOBE_PHOTOSHOP"
+	ICON_IDSAdobePremierePro          ICON_IDS = "ADOBE_PREMIERE_PRO"
+	ICON_IDSAdobeReader               ICON_IDS = "ADOBE_READER"
 	ICON_IDSAix                       ICON_IDS = "AIX"
 	ICON_IDSAlmaLinux                 ICON_IDS = "ALMA_LINUX"
 	ICON_IDSAlpine                    ICON_IDS = "ALPINE"
@@ -797,6 +810,7 @@ const (
 	ICON_IDSAtlassian                 ICON_IDS = "ATLASSIAN"
 	ICON_IDSAws                       ICON_IDS = "AWS"
 	ICON_IDSAzure                     ICON_IDS = "AZURE"
+	ICON_IDSBitwarden                 ICON_IDS = "BITWARDEN"
 	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
 	ICON_IDSCentos                    ICON_IDS = "CENTOS"
 	ICON_IDSCheck                     ICON_IDS = "CHECK"
@@ -810,13 +824,17 @@ const (
 	ICON_IDSDns                       ICON_IDS = "DNS"
 	ICON_IDSDockerDesktop             ICON_IDS = "DOCKER_DESKTOP"
 	ICON_IDSDomainsAndHosts           ICON_IDS = "DOMAINS_AND_HOSTS"
+	ICON_IDSDropbox                   ICON_IDS = "DROPBOX"
 	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
 	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
 	ICON_IDSFedora                    ICON_IDS = "FEDORA"
 	ICON_IDSFortios                   ICON_IDS = "FORTIOS"
+	ICON_IDSFortiClient               ICON_IDS = "FORTI_CLIENT"
 	ICON_IDSGcp                       ICON_IDS = "GCP"
 	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
+	ICON_IDSGimp                      ICON_IDS = "GIMP"
 	ICON_IDSGithub                    ICON_IDS = "GITHUB"
+	ICON_IDSGithubDesktop             ICON_IDS = "GITHUB_DESKTOP"
 	ICON_IDSGitlab                    ICON_IDS = "GITLAB"
 	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
@@ -825,6 +843,7 @@ const (
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
 	ICON_IDSK8s                       ICON_IDS = "K8S"
 	ICON_IDSKali                      ICON_IDS = "KALI"
+	ICON_IDSLibreOffice               ICON_IDS = "LIBRE_OFFICE"
 	ICON_IDSLinux                     ICON_IDS = "LINUX"
 	ICON_IDSLinuxMint                 ICON_IDS = "LINUX_MINT"
 	ICON_IDSMacos                     ICON_IDS = "MACOS"
@@ -835,6 +854,7 @@ const (
 	ICON_IDSMicrosoftEdge             ICON_IDS = "MICROSOFT_EDGE"
 	ICON_IDSMicrosoftExcel            ICON_IDS = "MICROSOFT_EXCEL"
 	ICON_IDSMicrosoftPowerpoint       ICON_IDS = "MICROSOFT_POWERPOINT"
+	ICON_IDSMicrosoftSqlServer        ICON_IDS = "MICROSOFT_SQL_SERVER"
 	ICON_IDSMicrosoftTeams            ICON_IDS = "MICROSOFT_TEAMS"
 	ICON_IDSMicrosoftVisualStudioCode ICON_IDS = "MICROSOFT_VISUAL_STUDIO_CODE"
 	ICON_IDSMicrosoftWord             ICON_IDS = "MICROSOFT_WORD"
@@ -853,6 +873,7 @@ const (
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
 	ICON_IDSOracle                    ICON_IDS = "ORACLE"
+	ICON_IDSOracleJava                ICON_IDS = "ORACLE_JAVA"
 	ICON_IDSOther                     ICON_IDS = "OTHER"
 	ICON_IDSPanos                     ICON_IDS = "PANOS"
 	ICON_IDSPolicy                    ICON_IDS = "POLICY"
@@ -869,6 +890,7 @@ const (
 	ICON_IDSSlack                     ICON_IDS = "SLACK"
 	ICON_IDSSuse                      ICON_IDS = "SUSE"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
+	ICON_IDSTeamviewer                ICON_IDS = "TEAMVIEWER"
 	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
 	ICON_IDSUbuntu                    ICON_IDS = "UBUNTU"
 	ICON_IDSVcd                       ICON_IDS = "VCD"
