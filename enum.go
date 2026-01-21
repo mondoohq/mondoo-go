@@ -462,6 +462,9 @@ const (
 	ClientIntegrationTypeCrowdstrikeFalcon       ClientIntegrationType = "CROWDSTRIKE_FALCON"
 	ClientIntegrationTypeSecurityPipelineGithub  ClientIntegrationType = "SECURITY_PIPELINE_GITHUB"
 	ClientIntegrationTypeTicketSystemWebhook     ClientIntegrationType = "TICKET_SYSTEM_WEBHOOK"
+	ClientIntegrationTypeTicketSystemServiceNow  ClientIntegrationType = "TICKET_SYSTEM_SERVICE_NOW"
+	ClientIntegrationTypeTenable                 ClientIntegrationType = "TENABLE"
+	ClientIntegrationTypeQualys                  ClientIntegrationType = "QUALYS"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -639,11 +642,12 @@ type ExceptionFilterType string
 
 // Exception filter type.
 const (
-	ExceptionFilterTypeStatus        ExceptionFilterType = "STATUS"         // Filter by exception status (NOT_REVIEWED, APPROVED, REJECTED, etc.).
-	ExceptionFilterTypeCreatedBy     ExceptionFilterType = "CREATED_BY"     // Filter by who created the exception.
-	ExceptionFilterTypeApprovedBy    ExceptionFilterType = "APPROVED_BY"    // Filter by who approved the exception.
-	ExceptionFilterTypeExceptionType ExceptionFilterType = "EXCEPTION_TYPE" // Filter by exception type (CVE, ADVISORY, SECURITY, COMPLIANCE).
-	ExceptionFilterTypeExpiring      ExceptionFilterType = "EXPIRING"       // Filter by expiration status (EXPIRING, NOT_EXPIRING).
+	ExceptionFilterTypeStatus          ExceptionFilterType = "STATUS"           // Filter by exception review status (NOT_REVIEWED, APPROVED, REJECTED, etc.).
+	ExceptionFilterTypeExceptionStatus ExceptionFilterType = "EXCEPTION_STATUS" // Filter by exception status (NEW, APPROVED, REJECTED, EXPIRED etc.).
+	ExceptionFilterTypeCreatedBy       ExceptionFilterType = "CREATED_BY"       // Filter by who created the exception.
+	ExceptionFilterTypeApprovedBy      ExceptionFilterType = "APPROVED_BY"      // Filter by who approved the exception.
+	ExceptionFilterTypeExceptionType   ExceptionFilterType = "EXCEPTION_TYPE"   // Filter by exception type (CVE, ADVISORY, SECURITY, COMPLIANCE).
+	ExceptionFilterTypeExpiring        ExceptionFilterType = "EXPIRING"         // Filter by expiration status (EXPIRING, NOT_EXPIRING).
 )
 
 // ExceptionGroupExtensionStatus represents the review status for an exception group extension.
@@ -677,6 +681,19 @@ type ExceptionReviewAction string
 const (
 	ExceptionReviewActionApproved ExceptionReviewAction = "APPROVED"
 	ExceptionReviewActionRejected ExceptionReviewAction = "REJECTED"
+)
+
+// ExceptionStatus represents the status for an exception group.
+type ExceptionStatus string
+
+// The status for an exception group.
+const (
+	ExceptionStatusNew            ExceptionStatus = "NEW"
+	ExceptionStatusApproved       ExceptionStatus = "APPROVED"
+	ExceptionStatusRejected       ExceptionStatus = "REJECTED"
+	ExceptionStatusRemoved        ExceptionStatus = "REMOVED"
+	ExceptionStatusExpired        ExceptionStatus = "EXPIRED"
+	ExceptionStatusNeedsExtension ExceptionStatus = "NEEDS_EXTENSION"
 )
 
 // ExceptionType represents the type of the exception.
@@ -989,6 +1006,9 @@ const (
 	IntegrationTypeCrowdstrikeFalcon       IntegrationType = "CROWDSTRIKE_FALCON"
 	IntegrationTypeSecurityPipelineGithub  IntegrationType = "SECURITY_PIPELINE_GITHUB"
 	IntegrationTypeTicketSystemWebhook     IntegrationType = "TICKET_SYSTEM_WEBHOOK"
+	IntegrationTypeTicketSystemServiceNow  IntegrationType = "TICKET_SYSTEM_SERVICE_NOW"
+	IntegrationTypeTenable                 IntegrationType = "TENABLE"
+	IntegrationTypeQualys                  IntegrationType = "QUALYS"
 )
 
 // InvitationOrderField represents field to order invitations by.
@@ -1294,14 +1314,13 @@ type ReportViewedPage string
 
 // Report viewed page defines the pages that can be reported as viewed.
 const (
-	ReportViewedPageOrgView                ReportViewedPage = "ORG_VIEW"
-	ReportViewedPageAssetOverview          ReportViewedPage = "ASSET_OVERVIEW"
-	ReportViewedPageCicdProject            ReportViewedPage = "CICD_PROJECT"
-	ReportViewedPageCicdJob                ReportViewedPage = "CICD_JOB"
-	ReportViewedPageVulnerabilityDashboard ReportViewedPage = "VULNERABILITY_DASHBOARD"
-	ReportViewedPageSecurityDashboard      ReportViewedPage = "SECURITY_DASHBOARD"
-	ReportViewedPageFindingOnAsset         ReportViewedPage = "FINDING_ON_ASSET"
-	ReportViewedPageFinding                ReportViewedPage = "FINDING"
+	ReportViewedPageOrgView         ReportViewedPage = "ORG_VIEW"
+	ReportViewedPageAssetOverview   ReportViewedPage = "ASSET_OVERVIEW"
+	ReportViewedPageCicdProject     ReportViewedPage = "CICD_PROJECT"
+	ReportViewedPageCicdJob         ReportViewedPage = "CICD_JOB"
+	ReportViewedPageFindingOnAsset  ReportViewedPage = "FINDING_ON_ASSET"
+	ReportViewedPageFinding         ReportViewedPage = "FINDING"
+	ReportViewedPageRemediationCopy ReportViewedPage = "REMEDIATION_COPY"
 )
 
 // ReviewStatus represents the review status for an exception group.
@@ -1497,6 +1516,7 @@ const (
 	TicketRefTypeGitlab      TicketRefType = "GITLAB"
 	TicketRefTypeAzureDevops TicketRefType = "AZURE_DEVOPS"
 	TicketRefTypeWebhook     TicketRefType = "WEBHOOK"
+	TicketRefTypeServiceNow  TicketRefType = "SERVICE_NOW"
 )
 
 // TrustLevel represents trust level of the object.
