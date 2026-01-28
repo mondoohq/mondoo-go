@@ -1068,6 +1068,17 @@ const (
 	ListFrameworksFilterStateAvailable ListFrameworksFilterState = "AVAILABLE"
 )
 
+// MemberIdentityType represents filter options for member identity types.
+type MemberIdentityType string
+
+// Filter options for member identity types.
+const (
+	MemberIdentityTypeUser           MemberIdentityType = "USER"            // Regular user.
+	MemberIdentityTypeTeam           MemberIdentityType = "TEAM"            // Team.
+	MemberIdentityTypeServiceAccount MemberIdentityType = "SERVICE_ACCOUNT" // Service account.
+	MemberIdentityTypePendingUser    MemberIdentityType = "PENDING_USER"    // User who has been invited but hasn't signed up yet.
+)
+
 // MembershipOrderField represents field to order memberships by.
 type MembershipOrderField string
 
@@ -1351,6 +1362,15 @@ const (
 	RiskMagnitudeExplainationIncreasesRisk RiskMagnitudeExplaination = "INCREASES_RISK"
 	RiskMagnitudeExplainationDecreasesRisk RiskMagnitudeExplaination = "DECREASES_RISK"
 	RiskMagnitudeExplainationNoEffect      RiskMagnitudeExplaination = "NO_EFFECT"
+)
+
+// SLAStartDateConfig represents sLA start date type.
+type SLAStartDateConfig string
+
+// SLA start date type.
+const (
+	SLAStartDateConfigCveDetected  SLAStartDateConfig = "CVE_DETECTED"  // SLA timer starts when Mondoo first discovers the vulnerability on an asset (default).
+	SLAStartDateConfigCvePublished SLAStartDateConfig = "CVE_PUBLISHED" // SLA timer starts from the original CVE publication date.
 )
 
 // ScoreRating represents score rating.
