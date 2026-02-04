@@ -127,6 +127,7 @@ const (
 	AggregateScoreOrderFieldFirstDetectedAt AggregateScoreOrderField = "FIRST_DETECTED_AT" // First detected.
 	AggregateScoreOrderFieldSlaOverdueCount AggregateScoreOrderField = "SLA_OVERDUE_COUNT" // SLA overdue count.
 	AggregateScoreOrderFieldSlaAtRiskCount  AggregateScoreOrderField = "SLA_AT_RISK_COUNT" // SLA at risk count.
+	AggregateScoreOrderFieldCompletion      AggregateScoreOrderField = "COMPLETION"        // Completion percentage.
 )
 
 // AggregateScoreState represents aggregate score state.
@@ -707,6 +708,40 @@ const (
 	ExceptionTypeAdvisory   ExceptionType = "ADVISORY"
 )
 
+// FindingActionState represents # TODO: will be added in a follow-up The action state for a finding.
+type FindingActionState string
+
+// # TODO: will be added in a follow-up The action state for a finding.
+const (
+	FindingActionStateUnknown           FindingActionState = "UNKNOWN"
+	FindingActionStateDetected          FindingActionState = "DETECTED"
+	FindingActionStateManualInstruction FindingActionState = "MANUAL_INSTRUCTION"
+	FindingActionStateScript            FindingActionState = "SCRIPT"
+	FindingActionStateMitigation        FindingActionState = "MITIGATION"
+	FindingActionStateSecurityPipeline  FindingActionState = "SECURITY_PIPELINE"
+)
+
+// FindingAgeState represents the age state for a finding - whether it is new or not.
+type FindingAgeState string
+
+// The age state for a finding - whether it is new or not.
+const (
+	FindingAgeStateNone FindingAgeState = "NONE"
+	FindingAgeStateNew  FindingAgeState = "NEW"
+)
+
+// FindingExceptionState represents the exception state for a finding - is the finding part of an active exception.
+type FindingExceptionState string
+
+// The exception state for a finding - is the finding part of an active exception.
+const (
+	FindingExceptionStateNone          FindingExceptionState = "NONE"
+	FindingExceptionStateWorkaround    FindingExceptionState = "WORKAROUND"
+	FindingExceptionStateFalsePositive FindingExceptionState = "FALSE_POSITIVE"
+	FindingExceptionStateRiskAccepted  FindingExceptionState = "RISK_ACCEPTED"
+	FindingExceptionStateDisabled      FindingExceptionState = "DISABLED"
+)
+
 // FindingFilterType represents finding filter type.
 type FindingFilterType string
 
@@ -718,6 +753,52 @@ const (
 	FindingFilterTypePolicyMrn   FindingFilterType = "POLICY_MRN"   // Filter by policy MRN.
 	FindingFilterTypeSoftwareMrn FindingFilterType = "SOFTWARE_MRN" // Filter vulnerabilities by software MRN.
 	FindingFilterTypeRiskFactors FindingFilterType = "RISK_FACTORS" // Filter by risk factor.
+)
+
+// FindingOverallState represents the overall state for a finding.
+type FindingOverallState string
+
+// The overall state for a finding.
+const (
+	FindingOverallStateNew           FindingOverallState = "NEW"
+	FindingOverallStateRegressed     FindingOverallState = "REGRESSED"
+	FindingOverallStateDetected      FindingOverallState = "DETECTED"
+	FindingOverallStateFixAvailable  FindingOverallState = "FIX_AVAILABLE"
+	FindingOverallStateTicketed      FindingOverallState = "TICKETED"
+	FindingOverallStateInProgress    FindingOverallState = "IN_PROGRESS"
+	FindingOverallStateWorkaround    FindingOverallState = "WORKAROUND"
+	FindingOverallStateFalsePositive FindingOverallState = "FALSE_POSITIVE"
+	FindingOverallStateRiskAccepted  FindingOverallState = "RISK_ACCEPTED"
+	FindingOverallStateDisabled      FindingOverallState = "DISABLED"
+	FindingOverallStateFixed         FindingOverallState = "FIXED"
+)
+
+// FindingScoreState represents the score state for a finding.
+type FindingScoreState string
+
+// The score state for a finding.
+const (
+	FindingScoreStateRegressed FindingScoreState = "REGRESSED"
+	FindingScoreStateFailed    FindingScoreState = "FAILED"
+	FindingScoreStateFixed     FindingScoreState = "FIXED"
+)
+
+// FindingSecurityPipelineState represents the security pipeline state for a finding.
+type FindingSecurityPipelineState string
+
+// The security pipeline state for a finding.
+const (
+	FindingSecurityPipelineStateNone       FindingSecurityPipelineState = "NONE"
+	FindingSecurityPipelineStateInProgress FindingSecurityPipelineState = "IN_PROGRESS"
+)
+
+// FindingTicketState represents the ticket state for a finding - is the finding included in an open ticket.
+type FindingTicketState string
+
+// The ticket state for a finding - is the finding included in an open ticket.
+const (
+	FindingTicketStateNone     FindingTicketState = "NONE"
+	FindingTicketStateTicketed FindingTicketState = "TICKETED"
 )
 
 // FindingType represents finding type.
@@ -1549,6 +1630,33 @@ const (
 	TrustLevelVerifiedPublisher TrustLevel = "VERIFIED_PUBLISHER"
 	TrustLevelOss               TrustLevel = "OSS"
 	TrustLevelPrivate           TrustLevel = "PRIVATE"
+)
+
+// UIAction represents the action taken in the UI.
+type UIAction string
+
+// The action taken in the UI.
+const (
+	UIActionView                 UIAction = "VIEW"                  // Finding or asset or dashboard view.
+	UIActionRemediationCopy      UIAction = "REMEDIATION_COPY"      // Copy of remediation text.
+	UIActionPrivateinstanceLogin UIAction = "PRIVATEINSTANCE_LOGIN" // Login button on private instance clicked.
+)
+
+// UIPage represents the page in the UI where the action was taken.
+type UIPage string
+
+// The page in the UI where the action was taken.
+const (
+	UIPageUnknown             UIPage = "UNKNOWN"              // Unknown or unspecified page.
+	UIPageOrgDashboard        UIPage = "ORG_DASHBOARD"        // Organization dashboard page.
+	UIPageSpaceDashboard      UIPage = "SPACE_DASHBOARD"      // Space dashboard page.
+	UIPageAsset               UIPage = "ASSET"                // Asset detail page.
+	UIPageCicdProject         UIPage = "CICD_PROJECT"         // CI/CD project page.
+	UIPageCicdJob             UIPage = "CICD_JOB"             // CI/CD job page.
+	UIPageFindingOnAsset      UIPage = "FINDING_ON_ASSET"     // Finding viewed in the context of an asset.
+	UIPageFinding             UIPage = "FINDING"              // Finding detail page (not in asset context).
+	UIPageComplianceDashboard UIPage = "COMPLIANCE_DASHBOARD" // Compliance dashboard page.
+	UIPageComplianceFramework UIPage = "COMPLIANCE_FRAMEWORK" // Compliance framework detail page.
 )
 
 // UserState represents state of a user.
