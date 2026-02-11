@@ -638,6 +638,15 @@ const (
 	EmailPreferenceListNotificationExceptionsPendingReview EmailPreferenceList = "NOTIFICATION_EXCEPTIONS_PENDING_REVIEW"
 )
 
+// EnforcementState represents enforcement state for checks (computed from policy override groups).
+type EnforcementState string
+
+// Enforcement state for checks (computed from policy override groups).
+const (
+	EnforcementStateEnforcing EnforcementState = "ENFORCING" // Check is enforcing and affects the asset score.
+	EnforcementStatePreview   EnforcementState = "PREVIEW"   // Check is in preview mode and does not affect the asset score.
+)
+
 // ExceptionFilterType represents exception filter type.
 type ExceptionFilterType string
 
@@ -713,12 +722,11 @@ type FindingActionState string
 
 // # TODO: will be added in a follow-up The action state for a finding.
 const (
-	FindingActionStateUnknown           FindingActionState = "UNKNOWN"
-	FindingActionStateDetected          FindingActionState = "DETECTED"
-	FindingActionStateManualInstruction FindingActionState = "MANUAL_INSTRUCTION"
-	FindingActionStateScript            FindingActionState = "SCRIPT"
-	FindingActionStateMitigation        FindingActionState = "MITIGATION"
-	FindingActionStateSecurityPipeline  FindingActionState = "SECURITY_PIPELINE"
+	FindingActionStateUnknown          FindingActionState = "UNKNOWN"
+	FindingActionStateDetected         FindingActionState = "DETECTED"
+	FindingActionStateNoFixedVersion   FindingActionState = "NO_FIXED_VERSION"
+	FindingActionStateScript           FindingActionState = "SCRIPT"
+	FindingActionStateSecurityPipeline FindingActionState = "SECURITY_PIPELINE"
 )
 
 // FindingAgeState represents the age state for a finding - whether it is new or not.
@@ -740,6 +748,7 @@ const (
 	FindingExceptionStateFalsePositive FindingExceptionState = "FALSE_POSITIVE"
 	FindingExceptionStateRiskAccepted  FindingExceptionState = "RISK_ACCEPTED"
 	FindingExceptionStateDisabled      FindingExceptionState = "DISABLED"
+	FindingExceptionStateExceptions    FindingExceptionState = "EXCEPTIONS"
 )
 
 // FindingFilterType represents finding filter type.
@@ -934,6 +943,7 @@ const (
 	ICON_IDSGithub                    ICON_IDS = "GITHUB"
 	ICON_IDSGithubDesktop             ICON_IDS = "GITHUB_DESKTOP"
 	ICON_IDSGitlab                    ICON_IDS = "GITLAB"
+	ICON_IDSGardenLinux               ICON_IDS = "GARDEN_LINUX"
 	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
 	ICON_IDSHuawei                    ICON_IDS = "HUAWEI"
@@ -1310,6 +1320,31 @@ type PolicyAction string
 const (
 	PolicyActionActive PolicyAction = "ACTIVE"
 	PolicyActionIgnore PolicyAction = "IGNORE"
+)
+
+// PolicyAnalyticsOrderField represents policy analytics order field.
+type PolicyAnalyticsOrderField string
+
+// Policy analytics order field.
+const (
+	PolicyAnalyticsOrderFieldTitle       PolicyAnalyticsOrderField = "TITLE"
+	PolicyAnalyticsOrderFieldCompletion  PolicyAnalyticsOrderField = "COMPLETION"
+	PolicyAnalyticsOrderFieldBlastRadius PolicyAnalyticsOrderField = "BLAST_RADIUS"
+)
+
+// PolicyGroupType represents type of policy group.
+type PolicyGroupType string
+
+// Type of policy group.
+const (
+	PolicyGroupTypeUncategorized PolicyGroupType = "UNCATEGORIZED" // Regular group of checks/queries.
+	PolicyGroupTypeChapter       PolicyGroupType = "CHAPTER"       // Chapter/section grouping.
+	PolicyGroupTypeImport        PolicyGroupType = "IMPORT"        // Imported from another policy.
+	PolicyGroupTypeOverride      PolicyGroupType = "OVERRIDE"      // Override group - modifies existing checks (preview, impact changes, etc.).
+	PolicyGroupTypeIgnored       PolicyGroupType = "IGNORED"       // Ignored/preview checks - not scoring.
+	PolicyGroupTypeDisable       PolicyGroupType = "DISABLE"       // Disabled checks - not executing.
+	PolicyGroupTypeProperties    PolicyGroupType = "PROPERTIES"    // Property modifications.
+	PolicyGroupTypeOutOfScope    PolicyGroupType = "OUT_OF_SCOPE"  // Out of scope checks.
 )
 
 // PolicyReportEntryState represents policy report entry state.
