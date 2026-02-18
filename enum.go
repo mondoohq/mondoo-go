@@ -401,9 +401,10 @@ type CheckState string
 
 // Check state.
 const (
-	CheckStateActive   CheckState = "ACTIVE"
-	CheckStateSnoozed  CheckState = "SNOOZED"
-	CheckStateDisabled CheckState = "DISABLED"
+	CheckStateActive       CheckState = "ACTIVE"
+	CheckStateSnoozed      CheckState = "SNOOZED"
+	CheckStateDisabled     CheckState = "DISABLED"
+	CheckStateRiskAccepted CheckState = "RISK_ACCEPTED"
 )
 
 // ChecksOrderField represents checks order field.
@@ -592,6 +593,7 @@ type DocumentStatus string
 
 // Document status.
 const (
+	DocumentStatusPending   DocumentStatus = "PENDING"
 	DocumentStatusQueued    DocumentStatus = "QUEUED"
 	DocumentStatusRunning   DocumentStatus = "RUNNING"
 	DocumentStatusCompleted DocumentStatus = "COMPLETED"
@@ -779,6 +781,7 @@ const (
 	FindingOverallStateFalsePositive FindingOverallState = "FALSE_POSITIVE"
 	FindingOverallStateRiskAccepted  FindingOverallState = "RISK_ACCEPTED"
 	FindingOverallStateDisabled      FindingOverallState = "DISABLED"
+	FindingOverallStateExceptions    FindingOverallState = "EXCEPTIONS"
 	FindingOverallStateFixed         FindingOverallState = "FIXED"
 )
 
@@ -1191,10 +1194,11 @@ type MqueryState string
 
 // Mquery state.
 const (
-	MqueryStateEnabled  MqueryState = "ENABLED"
-	MqueryStateDisabled MqueryState = "DISABLED"
-	MqueryStateIgnored  MqueryState = "IGNORED"
-	MqueryStateSnoozed  MqueryState = "SNOOZED"
+	MqueryStateEnabled      MqueryState = "ENABLED"
+	MqueryStateDisabled     MqueryState = "DISABLED"
+	MqueryStateIgnored      MqueryState = "IGNORED"
+	MqueryStateSnoozed      MqueryState = "SNOOZED"
+	MqueryStateRiskAccepted MqueryState = "RISK_ACCEPTED"
 )
 
 // MqueryType represents mquery type.
