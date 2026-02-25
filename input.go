@@ -931,6 +931,8 @@ type ClientIntegrationConfigurationInput struct {
 	TenableConfigurationOptions *TenableConfigurationOptionsInput `json:"tenableConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	QualysConfigurationOptions *QualysConfigurationOptionsInput `json:"qualysConfigurationOptions,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	MsIntuneConfigurationOptions *MsIntuneConfigurationOptionsInput `json:"msIntuneConfigurationOptions,omitempty" tfgen:"required=0"`
 }
 
 // ClientIntegrationInput represents input for client integration.
@@ -2410,6 +2412,17 @@ type MqueryScoreInput struct {
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 	// queryMrn is the MRN of the query to run. (Required.)
 	QueryMrn String `json:"queryMrn" tfgen:"required=1"`
+}
+
+// MsIntuneConfigurationOptionsInput represents MS Intune integration input.
+type MsIntuneConfigurationOptionsInput struct {
+	// The Intune tenant ID. (Required.)
+	TenantId String `json:"tenantId" tfgen:"required=1"`
+	// The Intune client ID. (Required.)
+	ClientId String `json:"clientId" tfgen:"required=1"`
+
+	// The Intune client secret. (Optional.)
+	ClientSecret *String `json:"clientSecret,omitempty" tfgen:"required=0"`
 }
 
 // Ms365ConfigurationOptionsInput represents mS365 integration input.

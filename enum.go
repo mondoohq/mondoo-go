@@ -467,6 +467,7 @@ const (
 	ClientIntegrationTypeTicketSystemServiceNow  ClientIntegrationType = "TICKET_SYSTEM_SERVICE_NOW"
 	ClientIntegrationTypeTenable                 ClientIntegrationType = "TENABLE"
 	ClientIntegrationTypeQualys                  ClientIntegrationType = "QUALYS"
+	ClientIntegrationTypeMsIntune                ClientIntegrationType = "MS_INTUNE"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1114,6 +1115,7 @@ const (
 	IntegrationTypeTicketSystemServiceNow  IntegrationType = "TICKET_SYSTEM_SERVICE_NOW"
 	IntegrationTypeTenable                 IntegrationType = "TENABLE"
 	IntegrationTypeQualys                  IntegrationType = "QUALYS"
+	IntegrationTypeMsIntune                IntegrationType = "MS_INTUNE"
 )
 
 // InvitationOrderField represents field to order invitations by.
