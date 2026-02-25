@@ -740,6 +740,15 @@ const (
 	FindingAgeStateNew  FindingAgeState = "NEW"
 )
 
+// FindingEnforcementState represents the enforcement state for a finding - whether the check is enforcing or in preview mode.
+type FindingEnforcementState string
+
+// The enforcement state for a finding - whether the check is enforcing or in preview mode.
+const (
+	FindingEnforcementStateEnforcing FindingEnforcementState = "ENFORCING"
+	FindingEnforcementStatePreview   FindingEnforcementState = "PREVIEW"
+)
+
 // FindingExceptionState represents the exception state for a finding - is the finding part of an active exception.
 type FindingExceptionState string
 
@@ -927,6 +936,7 @@ const (
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
+	ICON_IDSCumulusLinux              ICON_IDS = "CUMULUS_LINUX"
 	ICON_IDSCve                       ICON_IDS = "CVE"
 	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
@@ -975,6 +985,7 @@ const (
 	ICON_IDSMs365                     ICON_IDS = "MS365"
 	ICON_IDSNetworkDevices            ICON_IDS = "NETWORK_DEVICES"
 	ICON_IDSNistNvd                   ICON_IDS = "NIST_NVD"
+	ICON_IDSNvidia                    ICON_IDS = "NVIDIA"
 	ICON_IDSNmap                      ICON_IDS = "NMAP"
 	ICON_IDSNotepadPlusPlus           ICON_IDS = "NOTEPAD_PLUS_PLUS"
 	ICON_IDSOci                       ICON_IDS = "OCI"
@@ -1463,6 +1474,19 @@ const (
 	ReviewStatusApproved         ReviewStatus = "APPROVED"
 	ReviewStatusRejected         ReviewStatus = "REJECTED"
 	ReviewStatusPendingExtension ReviewStatus = "PENDING_EXTENSION"
+)
+
+// RiskCategoryImpactLabel represents impact label for risk category scoring.
+type RiskCategoryImpactLabel string
+
+// Impact label for risk category scoring.
+const (
+	RiskCategoryImpactLabelDisabled RiskCategoryImpactLabel = "DISABLED" // Category is disabled and does not participate in scoring.
+	RiskCategoryImpactLabelNone     RiskCategoryImpactLabel = "NONE"     // Enabled, but no impact on the risk score.
+	RiskCategoryImpactLabelLow      RiskCategoryImpactLabel = "LOW"      // Low impact on the risk score.
+	RiskCategoryImpactLabelMedium   RiskCategoryImpactLabel = "MEDIUM"   // Medium impact on the risk score.
+	RiskCategoryImpactLabelHigh     RiskCategoryImpactLabel = "HIGH"     // High impact on the risk score.
+	RiskCategoryImpactLabelCritical RiskCategoryImpactLabel = "CRITICAL" // Critical impact on the risk score.
 )
 
 // RiskFactorAction represents risk factor action.
