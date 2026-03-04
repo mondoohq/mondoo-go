@@ -623,8 +623,10 @@ type BigqueryConfigurationOptionsInput struct {
 	// note: this is the content of the service account JSON file. (Required.)
 	ServiceAccount String `json:"serviceAccount" tfgen:"required=1"`
 
-	// Optional workload identity pool ID for GCP workload identity federation. (Optional.)
-	WorkloadIdentityPoolId *String `json:"workloadIdentityPoolId,omitempty" tfgen:"required=0"`
+	// WIF audience URL for GCP workload identity federation. e.g., https://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID. (Optional.)
+	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
+	// Optional GCP service account email for WIF service account impersonation. (Optional.)
+	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
 }
 
 // BillingSessionInput represents input for creating a billing session.
@@ -1838,8 +1840,10 @@ type GcsBucketConfigurationOptionsInput struct {
 	// note: this is the content of the service account JSON file. (Required.)
 	ServiceAccount String `json:"serviceAccount" tfgen:"required=1"`
 
-	// Optional workload identity pool ID for GCP workload identity federation. (Optional.)
-	WorkloadIdentityPoolId *String `json:"workloadIdentityPoolId,omitempty" tfgen:"required=0"`
+	// WIF audience URL for GCP workload identity federation. e.g., https://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID. (Optional.)
+	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
+	// Optional GCP service account email for WIF service account impersonation. (Optional.)
+	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
 }
 
 // GenerateAPITokenInput represents input for generating a new API token.
