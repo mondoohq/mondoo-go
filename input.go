@@ -7,7 +7,7 @@ package mondoogql
 
 // Input represents one of the Input structs:
 //
-// APITokenOrder, AWSConfigurationOptionsInput, AWSEventPatternInput, AWSRoleCredential, AWSSecretKeyCredential, AcceptLegalPolicy, ActivePoliciesInput, ActivePolicyOrder, AddSSHKeyRequest, AddTeamExternalGroupMappingInput, AddTeamMemberInput, AdvisoryDocumentOptionsInput, AgentOrder, AgentVersionFilter, AggregateScoreCasesFilter, AggregateScoreFilter, AggregateScoreOrder, AnalyseAssetVulnerabilitiesInput, AnalyseIncognitoAssetInput, ApplyExceptionForScopesInput, AssetDocumentOptionsInput, AssetEolFilter, AssetExploitableFilter, AssetFieldFiltersMutation, AssetGroupOrder, AssetLastPackageUpdateTimeInput, AssetLinkInfoInput, AssetListPoliciesFilter, AssetOSRebootFilter, AssetOrder, AssetOverviewPageInfo, AssetPackagesStatsInput, AssetReportListPoliciesFilter, AssetReportPolicyOrder, AssetReportQueryOrder, AssetResourceInput, AssetSearchFilter, AssetSearchInput, AssetSearchSuggestionsInput, AssetSummaryOrder, AssetUpdateFilter, AssetUrlSegmentInput, AssetUrlStatsInput, AssetVulnerabilityReportInput, AttackSurfaceConfigurationInput, AttackSurfaceImpactInput, AuditLogOrder, AuditLogsFilter, AwsS3ConfigurationOptionsInput, AwsScanOptions, AzureBlobConfigurationOptionsInput, AzureConfigurationOptionsInput, AzureDevopsConfigurationOptionsInput, AzureDevopsTicketConfigInput, AzureDevopsTicketContextInput, AzureDevopsTicketContextProjectsInput, BigqueryConfigurationOptionsInput, BillingSessionInput, BusinessPriorityConfigurationInput, BusinessPriorityGroupInput, BusinessPriorityTagInput, CaseContentInput, CaseInitiativeRefInput, CaseRefInput, CaseTicketConfigInput, CasesConfigurationInput, CasesInput, CasesOrder, CategoriesListInput, ChangeSubscriptionPlanInput, CheckScoreFilter, CheckScoreOrder, ChecksOrder, ChecksSearchInput, CiCdJobPageInfo, CiCdProjectPageInfo, CicdProjectJobsInput, CicdProjectOrder, CicdProjectsInput, ClientIntegrationConfigurationInput, ClientIntegrationInput, CloseCaseInput, ComplianceAssetOrder, ComplianceAssetsSearchInput, ComplianceControlInput, ComplianceFrameworkInput, ComplianceFrameworkMutationInput, ComplianceFrameworksInput, ConnectivityConfigurationInput, ConnectivityImpactInput, ContentSearchInput, ContentSearchResultItemOrder, ControlDocumentOptionsInput, ControlScoreFilter, ControlScoreOrder, ControlsOrder, ControlsSearchInput, CreateCaseInput, CreateClientIntegrationInput, CreateInvitationInput, CreateOrganizationInput, CreateSecurityPipelinePullRequestInput, CreateSecurityPipelineScheduledWorkflowInput, CreateSecurityPipelineWorkflowInput, CreateServiceAccountInput, CreateSpaceInput, CreateTeamInput, CreateWIFAuthBindingInput, CreateWorkspaceInput, CrowdstrikeFalconConfigurationOptionsInput, DataQueryFilter, DataQueryOrder, DeleteAPITokenInput, DeleteAgentsInput, DeleteAssetsInput, DeleteCasesInput, DeleteClientIntegrationInput, DeleteCustomPolicyInput, DeleteCustomQueryPackInput, DeleteFrameworkInput, DeleteProjectsInput, DeleteSSHKeyRequest, DeleteSSOProviderInput, DeleteServiceAccountsInput, DeleteWorkspacesInput, DownloadBundleInput, DownloadFrameworkInput, EbsScanOptionsInput, Ec2ScanOptionsInput, EmailConfigurationOptionsInput, EmailPreferenceInput, EmailRecipientInput, EmailTicketConfigInput, EnableSSOProviderInput, EolAssetsConfigurationInput, EpssConfigurationInput, EvidenceInput, EvidenceInputFilter, ExceptionGroupsInput, ExceptionMutationInput, ExceptionReviewInput, ExceptionsConfigurationInput, ExceptionsDeleteInput, ExploitabilityConfigurationInput, ExportReportFilterChecks, ExportReportFilterInventoryInput, ExportReportFilterPackages, ExportReportFilterVulnerabilitiesInput, ExportReportOptionsInput, ExtendExceptionInput, ExtendExceptionReviewInput, FindingCasesFilter, FindingDocumentOptionsInput, FindingsFilter, FindingsOrder, FindingsPackagesFilter, FindingsWebhookPostRequest, ForkFrameworkInput, FrameworkDocumentOptionsInput, GarbageCollectAssetsConfigurationInput, GcpConfigurationOptionsInput, GcsBucketConfigurationOptionsInput, GenerateAPITokenInput, GenerateDocumentInput, GeneratePolicyInput, GetClientIntegrationDeleteCommandInput, GetClientIntegrationTokenInput, GithubConfigurationOptionsInput, GithubTicketConfigInput, GithubTicketingConfigurationOptionsInput, GitlabConfigurationOptionsInput, GitlabTicketConfigInput, GitlabTicketingConfigurationOptionsInput, GoogleWorkspaceConfigurationOptionsInput, GroupFilter, HostConfigurationOptionsInput, HostedAwsConfigurationOptionsInput, IDSuggestionInput, IdentityFilter, InitiativeOrder, InitiativesInput, IntegrationInput, IntegrationOptionsInput, IntegrationsSummaryInput, InvitationOrder, JiraConfigurationOptionsInput, JiraTicketConfigInput, JiraTicketContextInput, JiraTicketContextProjectsInput, JiraTicketContextUsersInput, K8sConfigurationOptionsInput, KevConfigurationInput, KeyValueInput, ListClientIntegrationsFilterInput, ListClientIntegrationsInput, ListDiscoveryResultsInput, ListExceptionGroupsFilter, ListExceptionGroupsInput, ListExceptionGroupsOrder, ListFrameworksInput, ManagedClientsFilters, MembershipOrder, MicrosoftDefenderConfigurationOptionsInput, ModifyRiskFactorInput, MqueryAssetDataInput, MqueryAssetScoresInput, MqueryInput, MqueryScoreInput, Ms365ConfigurationOptionsInput, MvdExperimentalSourcesConfigurationInput, MvdSourceInput, NewsArticlesConfigurationInput, NewsConfigurationInput, OciConfigurationOptionsInput, OktaConfigurationOptionsInput, OrgViewPageInfo, OrganizationOverviewInput, OrganizationSettingsInput, PackageFilter, PackageInput, PackageReferenceInput, PackageScoresFilter, PackageScoresInput, PackageScoresOrder, PackagesOrder, PerformDiscoveryInput, PingIntegrationInput, PlatformInput, PlatformMqlVexConfigurationInput, PlatformVulnerabilityConfigurationInput, PlatformsListInput, PolicyAddInput, PolicyAnalyticsInput, PolicyAnalyticsOrder, PolicyAssignmentInput, PolicyDeleteInput, PolicyInput, PolicyReportMquerySummaryOrder, PolicyReportSummaryOrder, PostgresConfigurationOptionsInput, ProcessCaseEventsInput, PropertyQueryMutationInput, PropertyQueryMutationTarget, PropertyQueryOverride, QualysConfigurationOptionsInput, QueryPackAddInput, RatedPoliciesInput, RegisterUserActionInput, RegistrationTokenInput, RegistrationTokenOrder, RemediationFilter, RemediationInput, RemediationPackageFields, RemoveOrganizationMembershipInput, RemoveSpaceMembershipInput, RemoveTeamMemberInput, RenderedAssetQueryDataInput, ReportViewedInfo, ReportViewedInput, RevokeRegistrationTokenInput, RiskCategoriesConfigurationInput, RiskFactorFilter, RiskFactorFilterQuery, RiskFactorMagnitudeModification, RoleInput, S3ConfigurationOptionsInput, SSOProviderInput, ScanConfigurationInput, ScimGroupMapping, ScopeDocumentOptionsInput, ScoreRange, SearchFilters, SecurityDashboardPageInfo, SecurityPipelineGithubConfigurationOptionsInput, SecurityPipelineGithubConfigurationOptionsRepoInput, SecurityPipelineScheduledWorkflowConfigurationInput, SecurityPipelineScheduledWorkflowSelectionInput, SecurityPipelineScheduledWorkflowsInput, SecurityPipelineWorkflowOrder, SecurityPipelineWorkflowsInput, SentinelOneConfigurationOptionsInput, ServiceAccountOrder, ServiceNowConfigurationOptionsInput, ServiceNowTicketConfigInput, SetAssetAnnotationsInput, SetCustomPolicyInput, SetCustomQueryPackInput, SetOrganizationMembershipInput, SetRoleInput, SetRolesInput, SetSSOProviderInput, SetScimGroupMappingInput, SetSpaceMembershipInput, ShodanConfigurationOptionsInput, SlackConfigurationOptionsInput, SnowflakeConfigurationOptionsInput, SocialMediaConfigurationInput, SpacePolicySummaryInput, SpaceSettingsInput, SubscriptionItem, SuppressIntegrationMessageInput, TenableConfigurationOptionsInput, TerminatedAssetsConfigurationInput, TicketContextInput, TicketingIntegrationsInput, TimeRange, TimestampFilter, TriggerActionInput, TriggerActionOptionsInput, UnusedServiceAccountsConfigurationInput, UpdateAPITokenInput, UpdateAgentInput, UpdateClientIntegrationConfigurationInput, UpdateClientIntegrationNameInput, UpdateFindingsSLAInput, UpdateOrganizationInput, UpdateSLAsInput, UpdateSecurityModelInput, UpdateSecurityPipelineScheduledWorkflowInput, UpdateServiceAccountInput, UpdateSpaceInput, UpdateTeamInput, UpdateUserInput, UpdateWorkspaceInput, UploadFrameworkInput, VPCConfigurationInput, VPCTagInput, VulnerabilityDashboardPageInfo, VulnerabilityDocumentOptionsInput, WIFAuthBindingOrder, WebhookConfigurationOptionsInput, WorkspaceConditionPossibleValuesInput, WorkspaceSelectionConditionInput, WorkspaceSelectionInput, WorkspaceSelectionIntConditionInput, WorkspaceSelectionKeyValueConditionInput, WorkspaceSelectionRatingConditionInput, WorkspaceSelectionStringConditionInput, WorkspaceSelectionsInput, WorkspacesInput, ZendeskConfigurationOptionsInput, ZendeskCustomFieldInput, ZendeskTicketConfigInput, ZendeskTicketContextInput.
+// APITokenOrder, AWSConfigurationOptionsInput, AWSEventPatternInput, AWSRoleCredential, AWSSecretKeyCredential, AcceptLegalPolicy, ActivePoliciesInput, ActivePolicyOrder, AddSSHKeyRequest, AddTeamExternalGroupMappingInput, AddTeamMemberInput, AdvisoryDocumentOptionsInput, AgentOrder, AgentVersionFilter, AggregateScoreCasesFilter, AggregateScoreFilter, AggregateScoreOrder, AnalyseAssetVulnerabilitiesInput, AnalyseIncognitoAssetInput, ApplyExceptionForScopesInput, AssetDocumentOptionsInput, AssetEolFilter, AssetExploitableFilter, AssetFieldFiltersMutation, AssetGroupOrder, AssetLastPackageUpdateTimeInput, AssetLinkInfoInput, AssetListPoliciesFilter, AssetOSRebootFilter, AssetOrder, AssetOverviewPageInfo, AssetPackagesStatsInput, AssetReportListPoliciesFilter, AssetReportPolicyOrder, AssetReportQueryOrder, AssetResourceInput, AssetSearchFilter, AssetSearchInput, AssetSearchSuggestionsInput, AssetSummaryOrder, AssetUpdateFilter, AssetUrlSegmentInput, AssetUrlStatsInput, AssetVulnerabilityReportInput, AttackSurfaceConfigurationInput, AttackSurfaceImpactInput, AuditLogOrder, AuditLogsFilter, AwsS3ConfigurationOptionsInput, AwsScanOptions, AzureBlobConfigurationOptionsInput, AzureConfigurationOptionsInput, AzureDevopsConfigurationOptionsInput, AzureDevopsTicketConfigInput, AzureDevopsTicketContextInput, AzureDevopsTicketContextProjectsInput, BigqueryConfigurationOptionsInput, BillingSessionInput, BusinessPriorityConfigurationInput, BusinessPriorityGroupInput, BusinessPriorityTagInput, CaseContentInput, CaseInitiativeRefInput, CaseRefInput, CaseTicketConfigInput, CasesConfigurationInput, CasesInput, CasesOrder, CategoriesListInput, ChangeSubscriptionPlanInput, CheckScoreFilter, CheckScoreOrder, ChecksOrder, ChecksSearchInput, CiCdJobPageInfo, CiCdProjectPageInfo, CicdProjectJobsInput, CicdProjectOrder, CicdProjectsInput, ClientIntegrationConfigurationInput, ClientIntegrationInput, CloseCaseInput, ComplianceAssetOrder, ComplianceAssetsSearchInput, ComplianceControlInput, ComplianceFrameworkInput, ComplianceFrameworkMutationInput, ComplianceFrameworksInput, ConnectivityConfigurationInput, ConnectivityImpactInput, ContentSearchInput, ContentSearchResultItemOrder, ControlDocumentOptionsInput, ControlScoreFilter, ControlScoreOrder, ControlsOrder, ControlsSearchInput, CreateCaseInput, CreateClientIntegrationInput, CreateInvitationInput, CreateOrganizationInput, CreateSecurityPipelinePullRequestInput, CreateSecurityPipelineScheduledWorkflowInput, CreateSecurityPipelineWorkflowInput, CreateServiceAccountInput, CreateSpaceInput, CreateTeamInput, CreateWIFAuthBindingInput, CreateWorkspaceInput, CrowdstrikeFalconConfigurationOptionsInput, DataQueryFilter, DataQueryOrder, DeleteAPITokenInput, DeleteAgentsInput, DeleteAssetsInput, DeleteCasesInput, DeleteClientIntegrationInput, DeleteCustomPolicyInput, DeleteCustomQueryPackInput, DeleteFrameworkInput, DeleteProjectsInput, DeleteSSHKeyRequest, DeleteSSOProviderInput, DeleteServiceAccountsInput, DeleteWorkspacesInput, DownloadBundleInput, DownloadFrameworkInput, EbsScanOptionsInput, Ec2ScanOptionsInput, EmailConfigurationOptionsInput, EmailPreferenceInput, EmailRecipientInput, EmailTicketConfigInput, EnableSSOProviderInput, EolAssetsConfigurationInput, EpssConfigurationInput, EvidenceInput, EvidenceInputFilter, ExceptionGroupsInput, ExceptionMutationInput, ExceptionReviewInput, ExceptionsConfigurationInput, ExceptionsDeleteInput, ExploitabilityConfigurationInput, ExportReportFilterChecks, ExportReportFilterInventoryInput, ExportReportFilterPackages, ExportReportFilterVulnerabilitiesInput, ExportReportOptionsInput, ExtendExceptionInput, ExtendExceptionReviewInput, FindingCasesFilter, FindingDocumentOptionsInput, FindingsFilter, FindingsOrder, FindingsPackagesFilter, FindingsWebhookPostRequest, ForkFrameworkInput, FrameworkDocumentOptionsInput, GarbageCollectAssetsConfigurationInput, GcpConfigurationOptionsInput, GcsBucketConfigurationOptionsInput, GenerateAPITokenInput, GenerateDocumentInput, GeneratePolicyInput, GetClientIntegrationDeleteCommandInput, GetClientIntegrationTokenInput, GithubConfigurationOptionsInput, GithubTicketConfigInput, GithubTicketingConfigurationOptionsInput, GitlabConfigurationOptionsInput, GitlabTicketConfigInput, GitlabTicketingConfigurationOptionsInput, GoogleWorkspaceConfigurationOptionsInput, GroupFilter, HostConfigurationOptionsInput, HostedAwsConfigurationOptionsInput, IDSuggestionInput, IdentityFilter, InitiativeOrder, InitiativesInput, IntegrationInput, IntegrationOptionsInput, IntegrationsSummaryInput, InvitationOrder, JiraConfigurationOptionsInput, JiraTicketConfigInput, JiraTicketContextInput, JiraTicketContextProjectsInput, JiraTicketContextUsersInput, K8sConfigurationOptionsInput, KevConfigurationInput, KeyValueInput, ListClientIntegrationsFilterInput, ListClientIntegrationsInput, ListDiscoveryResultsInput, ListExceptionGroupsFilter, ListExceptionGroupsInput, ListExceptionGroupsOrder, ListFrameworksInput, ManagedClientsFilters, MembershipOrder, MicrosoftDefenderConfigurationOptionsInput, ModifyRiskFactorInput, MqueryAssetDataInput, MqueryAssetScoresInput, MqueryInput, MqueryScoreInput, Ms365ConfigurationOptionsInput, MsIntuneConfigurationOptionsInput, MvdExperimentalSourcesConfigurationInput, MvdSourceInput, NewsArticlesConfigurationInput, NewsConfigurationInput, OciConfigurationOptionsInput, OktaConfigurationOptionsInput, OrgViewPageInfo, OrganizationOverviewInput, OrganizationSettingsInput, OrganizationTagInput, PackageFilter, PackageInput, PackageReferenceInput, PackageScoresFilter, PackageScoresInput, PackageScoresOrder, PackagesOrder, PerformDiscoveryInput, PingIntegrationInput, PlatformInput, PlatformMqlVexConfigurationInput, PlatformVulnerabilityConfigurationInput, PlatformsListInput, PolicyAddInput, PolicyAnalyticsInput, PolicyAnalyticsOrder, PolicyAssignmentInput, PolicyDeleteInput, PolicyInput, PolicyReportMquerySummaryOrder, PolicyReportSummaryOrder, PostgresConfigurationOptionsInput, ProcessCaseEventsInput, PropertyQueryMutationInput, PropertyQueryMutationTarget, PropertyQueryOverride, QualysConfigurationOptionsInput, QueryPackAddInput, RatedPoliciesInput, RegisterUserActionInput, RegistrationTokenInput, RegistrationTokenOrder, RemediationFilter, RemediationInput, RemediationPackageFields, RemoveOrganizationMembershipInput, RemoveSpaceMembershipInput, RemoveTeamMemberInput, RenderedAssetQueryDataInput, ReportViewedInfo, ReportViewedInput, RevokeRegistrationTokenInput, RiskCategoriesConfigurationInput, RiskFactorFilter, RiskFactorFilterQuery, RiskFactorMagnitudeModification, RoleInput, S3ConfigurationOptionsInput, SSOProviderInput, ScanConfigurationInput, ScimGroupMapping, ScopeDocumentOptionsInput, ScoreRange, SearchFilters, SecurityDashboardPageInfo, SecurityPipelineGithubConfigurationOptionsInput, SecurityPipelineGithubConfigurationOptionsRepoInput, SecurityPipelineScheduledWorkflowConfigurationInput, SecurityPipelineScheduledWorkflowSelectionInput, SecurityPipelineScheduledWorkflowsInput, SecurityPipelineWorkflowOrder, SecurityPipelineWorkflowsInput, SentinelOneConfigurationOptionsInput, ServiceAccountOrder, ServiceNowConfigurationOptionsInput, ServiceNowTicketConfigInput, SetAssetAnnotationsInput, SetCustomPolicyInput, SetCustomQueryPackInput, SetOrganizationMembershipInput, SetRoleInput, SetRolesInput, SetSSOProviderInput, SetScimGroupMappingInput, SetSpaceMembershipInput, ShodanConfigurationOptionsInput, SlackConfigurationOptionsInput, SnowflakeConfigurationOptionsInput, SocialMediaConfigurationInput, SpacePolicySummaryInput, SpaceSettingsInput, SpaceTagInput, SubscriptionItem, SuppressIntegrationMessageInput, TenableConfigurationOptionsInput, TenableSCConfigurationOptionsInput, TerminatedAssetsConfigurationInput, TicketContextInput, TicketingIntegrationsInput, TimeRange, TimestampFilter, TriggerActionInput, TriggerActionOptionsInput, UnusedServiceAccountsConfigurationInput, UpdateAPITokenInput, UpdateAgentInput, UpdateClientIntegrationConfigurationInput, UpdateClientIntegrationNameInput, UpdateFindingsSLAInput, UpdateOrganizationInput, UpdateSLAsInput, UpdateSecurityModelInput, UpdateSecurityPipelineScheduledWorkflowInput, UpdateServiceAccountInput, UpdateSpaceInput, UpdateTeamInput, UpdateUserInput, UpdateWorkspaceInput, UploadFrameworkInput, VPCConfigurationInput, VPCTagInput, VulnerabilityDashboardPageInfo, VulnerabilityDocumentOptionsInput, WIFAuthBindingOrder, WebhookConfigurationOptionsInput, WorkspaceConditionPossibleValuesInput, WorkspaceSelectionConditionInput, WorkspaceSelectionInput, WorkspaceSelectionIntConditionInput, WorkspaceSelectionKeyValueConditionInput, WorkspaceSelectionRatingConditionInput, WorkspaceSelectionStringConditionInput, WorkspaceSelectionsInput, WorkspacesInput, ZendeskConfigurationOptionsInput, ZendeskCustomFieldInput, ZendeskTicketConfigInput, ZendeskTicketContextInput.
 type Input interface{}
 
 // APITokenOrder represents input for ordering API tokens.
@@ -933,6 +933,10 @@ type ClientIntegrationConfigurationInput struct {
 	TenableConfigurationOptions *TenableConfigurationOptionsInput `json:"tenableConfigurationOptions,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	QualysConfigurationOptions *QualysConfigurationOptionsInput `json:"qualysConfigurationOptions,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	TenableSCConfigurationOptions *TenableSCConfigurationOptionsInput `json:"tenableSCConfigurationOptions,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	MsIntuneConfigurationOptions *MsIntuneConfigurationOptionsInput `json:"msIntuneConfigurationOptions,omitempty" tfgen:"required=0"`
 }
 
 // ClientIntegrationInput represents input for client integration.
@@ -1187,6 +1191,8 @@ type CreateOrganizationInput struct {
 	Company *String `json:"company,omitempty" tfgen:"required=0"`
 	// Settings. (Optional.)
 	Settings *OrganizationSettingsInput `json:"settings,omitempty" tfgen:"required=0"`
+	// Tags. (Optional.)
+	Tags *[]OrganizationTagInput `json:"tags,omitempty" tfgen:"required=0"`
 }
 
 // CreateSecurityPipelinePullRequestInput represents create a new security pipeline pull request input.
@@ -1261,6 +1267,8 @@ type CreateSpaceInput struct {
 	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// Settings. (Optional.)
 	Settings *SpaceSettingsInput `json:"settings,omitempty" tfgen:"required=0"`
+	// Tags. (Optional.)
+	Tags *[]SpaceTagInput `json:"tags,omitempty" tfgen:"required=0"`
 }
 
 // CreateTeamInput represents input for creating a team.
@@ -2427,6 +2435,19 @@ type Ms365ConfigurationOptionsInput struct {
 	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
 }
 
+// MsIntuneConfigurationOptionsInput represents mS Intune configuration options input.
+type MsIntuneConfigurationOptionsInput struct {
+	// The MS Intune tenant ID. (Required.)
+	TenantId String `json:"tenantId" tfgen:"required=1"`
+	// The MS Intune client ID. (Required.)
+	ClientId String `json:"clientId" tfgen:"required=1"`
+
+	// The PEM certificate for certificate-based authentication. (Optional.)
+	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
+	// The client secret for password-based authentication. (Optional.)
+	Password *String `json:"password,omitempty" tfgen:"required=0"`
+}
+
 // MvdExperimentalSourcesConfigurationInput represents mVD experimental sources configuration.
 type MvdExperimentalSourcesConfigurationInput struct {
 
@@ -2501,6 +2522,14 @@ type OrganizationSettingsInput struct {
 
 	// Risk category configuration. (Optional.)
 	RiskCategoriesConfiguration *RiskCategoriesConfigurationInput `json:"riskCategoriesConfiguration,omitempty" tfgen:"required=0"`
+}
+
+// OrganizationTagInput represents organization tag input.
+type OrganizationTagInput struct {
+	// Tag key. (Required.)
+	Key String `json:"key" tfgen:"required=1"`
+	// Tag value. (Required.)
+	Value String `json:"value" tfgen:"required=1"`
 }
 
 // PackageFilter represents package filters.
@@ -3376,6 +3405,14 @@ type SpaceSettingsInput struct {
 	MvdExperimentalSourcesConfiguration *MvdExperimentalSourcesConfigurationInput `json:"mvdExperimentalSourcesConfiguration,omitempty" tfgen:"required=0"`
 }
 
+// SpaceTagInput represents space tag input.
+type SpaceTagInput struct {
+	// Tag key. (Required.)
+	Key String `json:"key" tfgen:"required=1"`
+	// Tag value. (Required.)
+	Value String `json:"value" tfgen:"required=1"`
+}
+
 // SubscriptionItem represents input for subscription item details.
 type SubscriptionItem struct {
 	// The price ID for the subscription item. (Required.)
@@ -3406,6 +3443,23 @@ type TenableConfigurationOptionsInput struct {
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
 	// mondooEnrichment is a flag to enable mondoo scans based on the Tenable data. (Optional.)
 	MondooEnrichment *Boolean `json:"mondooEnrichment,omitempty" tfgen:"required=0"`
+}
+
+// TenableSCConfigurationOptionsInput represents tenable SC configuration options input.
+type TenableSCConfigurationOptionsInput struct {
+
+	// The base URL for the Tenable SC server (e.g., https://tenablesc.example.com/rest). (Optional.)
+	ServerUrl *String `json:"serverUrl,omitempty" tfgen:"required=0"`
+	// The access key for the Tenable SC API. (Optional.)
+	AccessKey *String `json:"accessKey,omitempty" tfgen:"required=0"`
+	// The secret key for the Tenable SC API. (Optional.)
+	SecretKey *String `json:"secretKey,omitempty" tfgen:"required=0"`
+	// Whether to create assets in the backend when they are not found. (Optional.)
+	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
+	// Optional comma-separated repository IDs to filter vulnerabilities. (Optional.)
+	RepositoryIDs *String `json:"repositoryIds,omitempty" tfgen:"required=0"`
+	// Allow connections to servers with self-signed or untrusted TLS certificates. (Optional.)
+	AllowInsecureTls *Boolean `json:"allowInsecureTls,omitempty" tfgen:"required=0"`
 }
 
 // TerminatedAssetsConfigurationInput represents terminated assets configuration input.
@@ -3542,6 +3596,8 @@ type UpdateOrganizationInput struct {
 	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// Settings. (Optional.)
 	Settings *OrganizationSettingsInput `json:"settings,omitempty" tfgen:"required=0"`
+	// Tags. (Optional.)
+	Tags *[]OrganizationTagInput `json:"tags,omitempty" tfgen:"required=0"`
 }
 
 // UpdateSLAsInput represents update SLAs input.
@@ -3599,6 +3655,8 @@ type UpdateSpaceInput struct {
 	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// Settings. (Optional.)
 	Settings *SpaceSettingsInput `json:"settings,omitempty" tfgen:"required=0"`
+	// Tags. (Optional.)
+	Tags *[]SpaceTagInput `json:"tags,omitempty" tfgen:"required=0"`
 }
 
 // UpdateTeamInput represents input for updating a team.

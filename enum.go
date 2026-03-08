@@ -128,6 +128,7 @@ const (
 	AggregateScoreOrderFieldSlaOverdueCount AggregateScoreOrderField = "SLA_OVERDUE_COUNT" // SLA overdue count.
 	AggregateScoreOrderFieldSlaAtRiskCount  AggregateScoreOrderField = "SLA_AT_RISK_COUNT" // SLA at risk count.
 	AggregateScoreOrderFieldCompletion      AggregateScoreOrderField = "COMPLETION"        // Completion percentage.
+	AggregateScoreOrderFieldAssetCount      AggregateScoreOrderField = "ASSET_COUNT"       // Total number of assets.
 )
 
 // AggregateScoreState represents aggregate score state.
@@ -467,6 +468,8 @@ const (
 	ClientIntegrationTypeTicketSystemServiceNow  ClientIntegrationType = "TICKET_SYSTEM_SERVICE_NOW"
 	ClientIntegrationTypeTenable                 ClientIntegrationType = "TENABLE"
 	ClientIntegrationTypeQualys                  ClientIntegrationType = "QUALYS"
+	ClientIntegrationTypeTenableSc               ClientIntegrationType = "TENABLE_SC"
+	ClientIntegrationTypeMsIntune                ClientIntegrationType = "MS_INTUNE"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1114,6 +1117,8 @@ const (
 	IntegrationTypeTicketSystemServiceNow  IntegrationType = "TICKET_SYSTEM_SERVICE_NOW"
 	IntegrationTypeTenable                 IntegrationType = "TENABLE"
 	IntegrationTypeQualys                  IntegrationType = "QUALYS"
+	IntegrationTypeTenableSc               IntegrationType = "TENABLE_SC"
+	IntegrationTypeMsIntune                IntegrationType = "MS_INTUNE"
 )
 
 // InvitationOrderField represents field to order invitations by.
@@ -1275,6 +1280,7 @@ const (
 	PackageManagerManual     PackageManager = "MANUAL"     // Manual Instructions.
 	PackageManagerApk        PackageManager = "APK"        // APK.
 	PackageManagerSnap       PackageManager = "SNAP"       // SNAP.
+	PackageManagerWinget     PackageManager = "WINGET"     // WINGET.
 )
 
 // PackageScoresOrderField represents packageScores order fields.
@@ -1345,6 +1351,7 @@ const (
 	PolicyAnalyticsOrderFieldTitle       PolicyAnalyticsOrderField = "TITLE"
 	PolicyAnalyticsOrderFieldCompletion  PolicyAnalyticsOrderField = "COMPLETION"
 	PolicyAnalyticsOrderFieldBlastRadius PolicyAnalyticsOrderField = "BLAST_RADIUS"
+	PolicyAnalyticsOrderFieldAssetCount  PolicyAnalyticsOrderField = "ASSET_COUNT"
 )
 
 // PolicyGroupType represents type of policy group.
@@ -1449,6 +1456,8 @@ const (
 	RemediationScriptTypeAnsible           RemediationScriptType = "ANSIBLE"            // Ansible playbook.
 	RemediationScriptTypePowershell        RemediationScriptType = "POWERSHELL"         // Powershell script.
 	RemediationScriptTypeManualInstruction RemediationScriptType = "MANUAL_INSTRUCTION" // Manual Instruction.
+	RemediationScriptTypeIntuneDetection   RemediationScriptType = "INTUNE_DETECTION"   // Intune Detection Script.
+	RemediationScriptTypeIntuneRemediation RemediationScriptType = "INTUNE_REMEDIATION" // Intune Remediation Script.
 )
 
 // ReportViewedPage represents report viewed page defines the pages that can be reported as viewed.
