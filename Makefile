@@ -21,7 +21,7 @@ test/go:
 test/lint: test/lint/golangci-lint/run
 
 prep/tools:
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
 
 .PHONY: test/lint/golangci-lint/run
 test/lint/golangci-lint/run: prep/tools
