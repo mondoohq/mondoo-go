@@ -227,6 +227,27 @@ const (
 	AssetReportQueryOrderFieldScore    AssetReportQueryOrderField = "SCORE"
 )
 
+// AssetRoutingField represents asset fields available for routing conditions.
+type AssetRoutingField string
+
+// Asset fields available for routing conditions.
+const (
+	AssetRoutingFieldHostname AssetRoutingField = "HOSTNAME" // Match on asset hostname.
+	AssetRoutingFieldPlatform AssetRoutingField = "PLATFORM" // Match on asset platform name.
+	AssetRoutingFieldLabel    AssetRoutingField = "LABEL"    // Match on asset label key/value.
+)
+
+// AssetRoutingOperator represents comparison operators for routing conditions.
+type AssetRoutingOperator string
+
+// Comparison operators for routing conditions.
+const (
+	AssetRoutingOperatorEqual    AssetRoutingOperator = "EQUAL"     // Exact equality match.
+	AssetRoutingOperatorNotEqual AssetRoutingOperator = "NOT_EQUAL" // Negated equality match.
+	AssetRoutingOperatorContains AssetRoutingOperator = "CONTAINS"  // Substring containment check.
+	AssetRoutingOperatorMatches  AssetRoutingOperator = "MATCHES"   // Glob/wildcard match (e.g. "prod-*.example.com").
+)
+
 // AssetSearchOrderField represents asset search order field.
 type AssetSearchOrderField string
 
