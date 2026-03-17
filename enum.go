@@ -580,6 +580,16 @@ const (
 	ControlsOrderFieldQueries    ControlsOrderField = "QUERIES"
 )
 
+// CveMentionSourceType represents source type of a CVE mention.
+type CveMentionSourceType string
+
+// Source type of a CVE mention.
+const (
+	CveMentionSourceTypeRss      CveMentionSourceType = "RSS"      // RSS feed source.
+	CveMentionSourceTypeMastodon CveMentionSourceType = "MASTODON" // Mastodon social media source.
+	CveMentionSourceTypeBluesky  CveMentionSourceType = "BLUESKY"  // Bluesky social media source.
+)
+
 // CveState represents possible CVE states.
 type CveState string
 
@@ -591,6 +601,14 @@ const (
 	CveStateReplacedBy CveState = "REPLACED_BY"
 	CveStateSplitFrom  CveState = "SPLIT_FROM"
 	CveStateMergedTo   CveState = "MERGED_TO"
+)
+
+// CveTrendsOrderField represents order field for CVE trends.
+type CveTrendsOrderField string
+
+// Order field for CVE trends.
+const (
+	CveTrendsOrderFieldTrendScore CveTrendsOrderField = "TREND_SCORE" // Order by overall trend score.
 )
 
 // DataQueryOrderField represents data query order field.
@@ -946,6 +964,7 @@ const (
 	ICON_IDSAlmaLinux                 ICON_IDS = "ALMA_LINUX"
 	ICON_IDSAlpine                    ICON_IDS = "ALPINE"
 	ICON_IDSAmazon                    ICON_IDS = "AMAZON"
+	ICON_IDSAnsible                   ICON_IDS = "ANSIBLE"
 	ICON_IDSApple                     ICON_IDS = "APPLE"
 	ICON_IDSArch                      ICON_IDS = "ARCH"
 	ICON_IDSArista                    ICON_IDS = "ARISTA"
@@ -959,6 +978,8 @@ const (
 	ICON_IDSCheck                     ICON_IDS = "CHECK"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
+	ICON_IDSCloudflare                ICON_IDS = "CLOUDFLARE"
+	ICON_IDSCloudformation            ICON_IDS = "CLOUDFORMATION"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSCumulusLinux              ICON_IDS = "CUMULUS_LINUX"
 	ICON_IDSCve                       ICON_IDS = "CVE"
@@ -968,12 +989,14 @@ const (
 	ICON_IDSDns                       ICON_IDS = "DNS"
 	ICON_IDSDockerDesktop             ICON_IDS = "DOCKER_DESKTOP"
 	ICON_IDSDomainsAndHosts           ICON_IDS = "DOMAINS_AND_HOSTS"
+	ICON_IDSDragonflyBsd              ICON_IDS = "DRAGONFLY_BSD"
 	ICON_IDSDropbox                   ICON_IDS = "DROPBOX"
 	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
 	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
 	ICON_IDSFedora                    ICON_IDS = "FEDORA"
 	ICON_IDSFortios                   ICON_IDS = "FORTIOS"
 	ICON_IDSFortiClient               ICON_IDS = "FORTI_CLIENT"
+	ICON_IDSFreebsd                   ICON_IDS = "FREEBSD"
 	ICON_IDSGcp                       ICON_IDS = "GCP"
 	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
 	ICON_IDSGimp                      ICON_IDS = "GIMP"
@@ -986,6 +1009,7 @@ const (
 	ICON_IDSHuawei                    ICON_IDS = "HUAWEI"
 	ICON_IDSIac                       ICON_IDS = "IAC"
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
+	ICON_IDSJunos                     ICON_IDS = "JUNOS"
 	ICON_IDSK8s                       ICON_IDS = "K8S"
 	ICON_IDSKali                      ICON_IDS = "KALI"
 	ICON_IDSLibreOffice               ICON_IDS = "LIBRE_OFFICE"
@@ -1007,6 +1031,7 @@ const (
 	ICON_IDSMozilla                   ICON_IDS = "MOZILLA"
 	ICON_IDSMozillaFirefox            ICON_IDS = "MOZILLA_FIREFOX"
 	ICON_IDSMs365                     ICON_IDS = "MS365"
+	ICON_IDSNetbsd                    ICON_IDS = "NETBSD"
 	ICON_IDSNetworkDevices            ICON_IDS = "NETWORK_DEVICES"
 	ICON_IDSNistNvd                   ICON_IDS = "NIST_NVD"
 	ICON_IDSNvidia                    ICON_IDS = "NVIDIA"
@@ -1015,6 +1040,7 @@ const (
 	ICON_IDSOci                       ICON_IDS = "OCI"
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
 	ICON_IDSOpcua                     ICON_IDS = "OPCUA"
+	ICON_IDSOpenbsd                   ICON_IDS = "OPENBSD"
 	ICON_IDSOpeneuler                 ICON_IDS = "OPENEULER"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
@@ -1033,12 +1059,15 @@ const (
 	ICON_IDSSbom                      ICON_IDS = "SBOM"
 	ICON_IDSScientificLinux           ICON_IDS = "SCIENTIFIC_LINUX"
 	ICON_IDSSevenZip                  ICON_IDS = "SEVEN_ZIP"
+	ICON_IDSShodan                    ICON_IDS = "SHODAN"
 	ICON_IDSSlack                     ICON_IDS = "SLACK"
+	ICON_IDSSnowflake                 ICON_IDS = "SNOWFLAKE"
 	ICON_IDSSuse                      ICON_IDS = "SUSE"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
 	ICON_IDSTeamviewer                ICON_IDS = "TEAMVIEWER"
 	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
 	ICON_IDSUbuntu                    ICON_IDS = "UBUNTU"
+	ICON_IDSUnifi                     ICON_IDS = "UNIFI"
 	ICON_IDSVcd                       ICON_IDS = "VCD"
 	ICON_IDSVlcMediaPlayer            ICON_IDS = "VLC_MEDIA_PLAYER"
 	ICON_IDSVmware                    ICON_IDS = "VMWARE"
@@ -1808,12 +1837,14 @@ type WorkflowStatus string
 
 // Workflow status.
 const (
-	WorkflowStatusPending   WorkflowStatus = "PENDING"
-	WorkflowStatusPrCreated WorkflowStatus = "PR_CREATED"
-	WorkflowStatusPrMerged  WorkflowStatus = "PR_MERGED"
-	WorkflowStatusFixed     WorkflowStatus = "FIXED"
-	WorkflowStatusCanceled  WorkflowStatus = "CANCELED"
-	WorkflowStatusFailed    WorkflowStatus = "FAILED"
+	WorkflowStatusPending       WorkflowStatus = "PENDING"
+	WorkflowStatusPrCreated     WorkflowStatus = "PR_CREATED"
+	WorkflowStatusPrMerged      WorkflowStatus = "PR_MERGED"
+	WorkflowStatusDeployed      WorkflowStatus = "DEPLOYED"
+	WorkflowStatusConfirmingFix WorkflowStatus = "CONFIRMING_FIX"
+	WorkflowStatusFixed         WorkflowStatus = "FIXED"
+	WorkflowStatusCanceled      WorkflowStatus = "CANCELED"
+	WorkflowStatusFailed        WorkflowStatus = "FAILED"
 )
 
 // WorkflowTaskStatus represents workflow task status.
@@ -1833,9 +1864,11 @@ type WorkflowTaskType string
 
 // Workflow task type.
 const (
-	WorkflowTaskTypeCreatePr   WorkflowTaskType = "CREATE_PR"
-	WorkflowTaskTypeClosePr    WorkflowTaskType = "CLOSE_PR"
-	WorkflowTaskTypeConfirmFix WorkflowTaskType = "CONFIRM_FIX"
+	WorkflowTaskTypeCreatePr          WorkflowTaskType = "CREATE_PR"
+	WorkflowTaskTypeClosePr           WorkflowTaskType = "CLOSE_PR"
+	WorkflowTaskTypeConfirmFix        WorkflowTaskType = "CONFIRM_FIX"
+	WorkflowTaskTypeDeployRemediation WorkflowTaskType = "DEPLOY_REMEDIATION"
+	WorkflowTaskTypeMonitorExecution  WorkflowTaskType = "MONITOR_EXECUTION"
 )
 
 // WorkspaceSelectionConditionIntField represents workspace selection condition int fields.
