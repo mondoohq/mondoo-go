@@ -129,6 +129,7 @@ const (
 	AggregateScoreOrderFieldSlaAtRiskCount  AggregateScoreOrderField = "SLA_AT_RISK_COUNT" // SLA at risk count.
 	AggregateScoreOrderFieldCompletion      AggregateScoreOrderField = "COMPLETION"        // Completion percentage.
 	AggregateScoreOrderFieldAssetCount      AggregateScoreOrderField = "ASSET_COUNT"       // Total number of assets.
+	AggregateScoreOrderFieldWorkspaceCount  AggregateScoreOrderField = "WORKSPACE_COUNT"   // Number of workspaces containing this finding.
 )
 
 // AggregateScoreState represents aggregate score state.
@@ -588,6 +589,15 @@ const (
 	CveMentionSourceTypeRss      CveMentionSourceType = "RSS"      // RSS feed source.
 	CveMentionSourceTypeMastodon CveMentionSourceType = "MASTODON" // Mastodon social media source.
 	CveMentionSourceTypeBluesky  CveMentionSourceType = "BLUESKY"  // Bluesky social media source.
+)
+
+// CveMentionType represents the type of a CVE mention.
+type CveMentionType string
+
+// The type of a CVE mention.
+const (
+	CveMentionTypeNews        CveMentionType = "NEWS"         // News mention (e.g. RSS feed article).
+	CveMentionTypeSocialMedia CveMentionType = "SOCIAL_MEDIA" // Social media mention (e.g. Mastodon, Bluesky post).
 )
 
 // CveState represents possible CVE states.
