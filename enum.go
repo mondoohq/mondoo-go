@@ -492,6 +492,7 @@ const (
 	ClientIntegrationTypeQualys                  ClientIntegrationType = "QUALYS"
 	ClientIntegrationTypeTenableSc               ClientIntegrationType = "TENABLE_SC"
 	ClientIntegrationTypeMsIntune                ClientIntegrationType = "MS_INTUNE"
+	ClientIntegrationTypeMondooBi                ClientIntegrationType = "MONDOO_BI"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1179,6 +1180,7 @@ const (
 	IntegrationTypeQualys                  IntegrationType = "QUALYS"
 	IntegrationTypeTenableSc               IntegrationType = "TENABLE_SC"
 	IntegrationTypeMsIntune                IntegrationType = "MS_INTUNE"
+	IntegrationTypeMondooBi                IntegrationType = "MONDOO_BI"
 )
 
 // InvitationOrderField represents field to order invitations by.
@@ -1635,6 +1637,7 @@ const (
 	ScoreStateRiskAccepted  ScoreState = "RISK_ACCEPTED"  // Risk Accepted.
 	ScoreStateWorkaround    ScoreState = "WORKAROUND"     // Workaround.
 	ScoreStateFalsePositive ScoreState = "FALSE_POSITIVE" // False Positive.
+	ScoreStateError         ScoreState = "ERROR"          // Error.
 )
 
 // ScoreStateFilter represents score state filter.
@@ -1810,6 +1813,14 @@ const (
 	VPCFlavourMondooNatgw VPCFlavour = "MONDOO_NATGW"
 	VPCFlavourMondooIgw   VPCFlavour = "MONDOO_IGW"
 	VPCFlavourCustomVpc   VPCFlavour = "CUSTOM_VPC"
+)
+
+// VulnerabilityExploitOrderField represents order field for vulnerability exploit.
+type VulnerabilityExploitOrderField string
+
+// Order field for vulnerability exploit.
+const (
+	VulnerabilityExploitOrderFieldId VulnerabilityExploitOrderField = "ID"
 )
 
 // VulnerabilityOrderType represents possible vulnerability order types.
