@@ -1183,6 +1183,37 @@ const (
 	IntegrationTypeMondooBi                IntegrationType = "MONDOO_BI"
 )
 
+// InterconnectionEdgeType represents edge type in the asset interconnection graph.
+type InterconnectionEdgeType string
+
+// Edge type in the asset interconnection graph.
+const (
+	InterconnectionEdgeTypeSubnet     InterconnectionEdgeType = "SUBNET"     // Soft match: asset belongs to a subnet based on IP address.
+	InterconnectionEdgeTypeConnection InterconnectionEdgeType = "CONNECTION" // Hard match: direct connection observed via listening ports.
+)
+
+// InterconnectionGraphStatus represents status of the precomputed interconnection graph.
+type InterconnectionGraphStatus string
+
+// Status of the precomputed interconnection graph.
+const (
+	InterconnectionGraphStatusPending      InterconnectionGraphStatus = "PENDING"
+	InterconnectionGraphStatusGenerating   InterconnectionGraphStatus = "GENERATING"
+	InterconnectionGraphStatusCompleted    InterconnectionGraphStatus = "COMPLETED"
+	InterconnectionGraphStatusFailed       InterconnectionGraphStatus = "FAILED"
+	InterconnectionGraphStatusNotAvailable InterconnectionGraphStatus = "NOT_AVAILABLE"
+)
+
+// InterconnectionNodeType represents node type in the asset interconnection graph.
+type InterconnectionNodeType string
+
+// Node type in the asset interconnection graph.
+const (
+	InterconnectionNodeTypeAsset    InterconnectionNodeType = "ASSET"
+	InterconnectionNodeTypeSubnet   InterconnectionNodeType = "SUBNET"
+	InterconnectionNodeTypeSupernet InterconnectionNodeType = "SUPERNET"
+)
+
 // InvitationOrderField represents field to order invitations by.
 type InvitationOrderField string
 
