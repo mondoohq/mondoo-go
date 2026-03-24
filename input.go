@@ -109,6 +109,8 @@ type AddTeamMemberInput struct {
 	// The MRN of the team. (Required.)
 	TeamMrn String `json:"teamMrn" tfgen:"required=1"`
 
+	// The identity of the user (MRN or email). (Optional.)
+	Identity *String `json:"identity,omitempty" tfgen:"required=0"`
 	// The MRN of the user (for existing users). (Optional.)
 	MemberMrn *String `json:"memberMrn,omitempty" tfgen:"required=0"`
 	// The email of the user (for pending users or to identify existing users). (Optional.)
@@ -3071,6 +3073,8 @@ type RemoveTeamMemberInput struct {
 	// The MRN of the team. (Required.)
 	TeamMrn String `json:"teamMrn" tfgen:"required=1"`
 
+	// The identity of the user (MRN or email). (Optional.)
+	Identity *String `json:"identity,omitempty" tfgen:"required=0"`
 	// The MRN of the user (for existing users). (Optional.)
 	MemberMrn *String `json:"memberMrn,omitempty" tfgen:"required=0"`
 	// The email of the user (for pending users). (Optional.)

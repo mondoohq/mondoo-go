@@ -393,6 +393,9 @@ type CasesOrderField string
 
 // Cases order field.
 const (
+	CasesOrderFieldMrn            CasesOrderField = "MRN"
+	CasesOrderFieldTitle          CasesOrderField = "TITLE"
+	CasesOrderFieldLastUpdated    CasesOrderField = "LAST_UPDATED"
 	CasesOrderFieldSpaceRiskDelta CasesOrderField = "SPACE_RISK_DELTA"
 	CasesOrderFieldCreatedAt      CasesOrderField = "CREATED_AT"
 )
