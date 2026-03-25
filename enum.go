@@ -1876,6 +1876,7 @@ const (
 	VulnerabilityScoreSourceVendorMicrosoft   VulnerabilityScoreSourceVendor = "MICROSOFT"
 	VulnerabilityScoreSourceVendorCrowdstrike VulnerabilityScoreSourceVendor = "CROWDSTRIKE"
 	VulnerabilityScoreSourceVendorSentinelOne VulnerabilityScoreSourceVendor = "SENTINEL_ONE"
+	VulnerabilityScoreSourceVendorTenable     VulnerabilityScoreSourceVendor = "TENABLE"
 )
 
 // WorkflowRefMethod represents workflow reference method. This indicates how the reference was added to the workflow.

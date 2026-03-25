@@ -1972,10 +1972,14 @@ type GcpConfigurationOptionsInput struct {
 	ProjectId *String `json:"projectId,omitempty" tfgen:"required=0"`
 	// The GCP organization ID. (Optional.)
 	OrganizationId *String `json:"organizationId,omitempty" tfgen:"required=0"`
-	// note: this is the content of the service account JSON file. (Optional.)
+	// note: this is the content of the service account JSON file. Optional when using WIF (workload identity federation) credentials. (Optional.)
 	ServiceAccount *String `json:"serviceAccount,omitempty" tfgen:"required=0"`
 	// Whether to discover all resources. (Optional.)
 	DiscoverAll *Boolean `json:"discoverAll,omitempty" tfgen:"required=0"`
+	// WIF audience URL for GCP workload identity federation. Required together with wifServiceAccountEmail for WIF authentication. e.g., https://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID. (Optional.)
+	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
+	// GCP service account email for WIF service account impersonation. Required together with wifAudience for WIF authentication. (Optional.)
+	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
 }
 
 // GcsBucketConfigurationOptionsInput represents gCS Bucket integration input.
