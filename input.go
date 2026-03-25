@@ -713,9 +713,9 @@ type BiUpdateScheduledExportInput struct {
 type BigqueryConfigurationOptionsInput struct {
 	// The BigQuery dataset ID. (Required.)
 	DatasetId String `json:"datasetId" tfgen:"required=1"`
-	// note: this is the content of the service account JSON file. (Required.)
-	ServiceAccount String `json:"serviceAccount" tfgen:"required=1"`
 
+	// note: this is the content of the service account JSON file. Optional when using WIF (workload identity federation) credentials. (Optional.)
+	ServiceAccount *String `json:"serviceAccount,omitempty" tfgen:"required=0"`
 	// WIF audience URL for GCP workload identity federation. e.g., https://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID. (Optional.)
 	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
 	// Optional GCP service account email for WIF service account impersonation. (Optional.)
@@ -1984,9 +1984,9 @@ type GcsBucketConfigurationOptionsInput struct {
 	Output BucketOutputType `json:"output" tfgen:"required=1"`
 	// The GCS bucket name. (Required.)
 	Bucket String `json:"bucket" tfgen:"required=1"`
-	// note: this is the content of the service account JSON file. (Required.)
-	ServiceAccount String `json:"serviceAccount" tfgen:"required=1"`
 
+	// note: this is the content of the service account JSON file. Optional when using WIF (workload identity federation) credentials. (Optional.)
+	ServiceAccount *String `json:"serviceAccount,omitempty" tfgen:"required=0"`
 	// WIF audience URL for GCP workload identity federation. e.g., https://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID. (Optional.)
 	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
 	// Optional GCP service account email for WIF service account impersonation. (Optional.)
