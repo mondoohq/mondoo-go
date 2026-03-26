@@ -1038,6 +1038,7 @@ const (
 	ICON_IDSMicrosoftExcel            ICON_IDS = "MICROSOFT_EXCEL"
 	ICON_IDSMicrosoftPowerpoint       ICON_IDS = "MICROSOFT_POWERPOINT"
 	ICON_IDSMicrosoftSqlServer        ICON_IDS = "MICROSOFT_SQL_SERVER"
+	ICON_IDSMicrosoftOnenote          ICON_IDS = "MICROSOFT_ONENOTE"
 	ICON_IDSMicrosoftTeams            ICON_IDS = "MICROSOFT_TEAMS"
 	ICON_IDSMicrosoftVisualStudioCode ICON_IDS = "MICROSOFT_VISUAL_STUDIO_CODE"
 	ICON_IDSMicrosoftWord             ICON_IDS = "MICROSOFT_WORD"
@@ -1048,6 +1049,7 @@ const (
 	ICON_IDSNetbsd                    ICON_IDS = "NETBSD"
 	ICON_IDSNetworkDevices            ICON_IDS = "NETWORK_DEVICES"
 	ICON_IDSNistNvd                   ICON_IDS = "NIST_NVD"
+	ICON_IDSNodeJs                    ICON_IDS = "NODE_JS"
 	ICON_IDSNvidia                    ICON_IDS = "NVIDIA"
 	ICON_IDSNmap                      ICON_IDS = "NMAP"
 	ICON_IDSNotepadPlusPlus           ICON_IDS = "NOTEPAD_PLUS_PLUS"
@@ -1633,6 +1635,7 @@ const (
 	ScoreRatingLow      ScoreRating = "LOW"      // Low - 61-99.
 	ScoreRatingNone     ScoreRating = "NONE"     // None - 100.
 	ScoreRatingUnscored ScoreRating = "UNSCORED" // Unscored, no scan ran yet.
+	ScoreRatingError    ScoreRating = "ERROR"    // Error - the check encountered an error during execution.
 )
 
 // ScoreResultType represents score result type.
