@@ -2404,9 +2404,11 @@ type ListClientIntegrationsFilterInput struct {
 
 // ListClientIntegrationsInput represents listClientIntegrationsInput describes the input for listing the integrations.
 type ListClientIntegrationsInput struct {
-	// The space MRN. (Required.)
-	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
 
+	// The space MRN. (Optional.)
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
+	// The scope MRN (space or organization). (Optional.)
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// The filter query. (Optional.)
 	FilterQuery *ListClientIntegrationsFilterInput `json:"filterQuery,omitempty" tfgen:"required=0"`
 }
