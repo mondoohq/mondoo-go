@@ -50,6 +50,8 @@ type ActivePolicyOrderField string
 const (
 	ActivePolicyOrderFieldAffectedAssets ActivePolicyOrderField = "AFFECTED_ASSETS"
 	ActivePolicyOrderFieldName           ActivePolicyOrderField = "NAME"
+	ActivePolicyOrderFieldRiskValue      ActivePolicyOrderField = "RISK_VALUE"
+	ActivePolicyOrderFieldVersion        ActivePolicyOrderField = "VERSION"
 )
 
 // AdvisoryPlatformFilter represents possible Advisory filters.
