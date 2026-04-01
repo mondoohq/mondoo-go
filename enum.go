@@ -1583,6 +1583,16 @@ const (
 	ReportViewedPageRemediationCopy ReportViewedPage = "REMEDIATION_COPY"
 )
 
+// ResourceContactType represents type of resource contact.
+type ResourceContactType string
+
+// Type of resource contact.
+const (
+	ResourceContactTypeUser  ResourceContactType = "USER"
+	ResourceContactTypeTeam  ResourceContactType = "TEAM"
+	ResourceContactTypeEmail ResourceContactType = "EMAIL"
+)
+
 // ReviewStatus represents the review status for an exception group.
 type ReviewStatus string
 
