@@ -132,6 +132,11 @@ const (
 	AggregateScoreOrderFieldCompletion      AggregateScoreOrderField = "COMPLETION"        // Completion percentage.
 	AggregateScoreOrderFieldAssetCount      AggregateScoreOrderField = "ASSET_COUNT"       // Total number of assets.
 	AggregateScoreOrderFieldWorkspaceCount  AggregateScoreOrderField = "WORKSPACE_COUNT"   // Number of workspaces containing this finding.
+	AggregateScoreOrderFieldNumChildren     AggregateScoreOrderField = "NUM_CHILDREN"      // Number of children (merged items).
+	AggregateScoreOrderFieldNumControls     AggregateScoreOrderField = "NUM_CONTROLS"      // Number of controls (frameworks).
+	AggregateScoreOrderFieldNumChecks       AggregateScoreOrderField = "NUM_CHECKS"        // Number of checks (policies).
+	AggregateScoreOrderFieldNumQueries      AggregateScoreOrderField = "NUM_QUERIES"       // Number of queries (policies).
+	AggregateScoreOrderFieldNumExceptions   AggregateScoreOrderField = "NUM_EXCEPTIONS"    // Number of exceptions (frameworks).
 )
 
 // AggregateScoreState represents aggregate score state.
