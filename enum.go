@@ -780,6 +780,7 @@ const (
 	ExceptionTypeSecurity   ExceptionType = "SECURITY"
 	ExceptionTypeCve        ExceptionType = "CVE"
 	ExceptionTypeAdvisory   ExceptionType = "ADVISORY"
+	ExceptionTypeFex        ExceptionType = "FEX"
 )
 
 // FindingActionState represents # TODO: will be added in a follow-up The action state for a finding.

@@ -261,6 +261,8 @@ type ApplyExceptionForScopesInput struct {
 	CveMrns *[]String `json:"cveMrns,omitempty" tfgen:"required=0"`
 	// List of advisory mrns that are excepted. Applies only for advisory exceptions. (Optional.)
 	AdvisoryMrns *[]String `json:"advisoryMrns,omitempty" tfgen:"required=0"`
+	// List of finding exchange mrns that are excepted. Applies only for FEX exceptions. (Optional.)
+	FexMrns *[]String `json:"fexMrns,omitempty" tfgen:"required=0"`
 	// Apply the exception to the CVEs that are part of the advisories. Applies only for advisory exceptions. (Optional.)
 	ApplyToCves *Boolean `json:"applyToCves,omitempty" tfgen:"required=0"`
 }
@@ -1770,6 +1772,8 @@ type ExceptionMutationInput struct {
 	CveMrns *[]String `json:"cveMrns,omitempty" tfgen:"required=0"`
 	// List of advisory mrns that are excepted. Applies only for advisory exceptions. (Optional.)
 	AdvisoryMrns *[]String `json:"advisoryMrns,omitempty" tfgen:"required=0"`
+	// List of finding exchange mrns that are excepted. Applies only for FEX exceptions. (Optional.)
+	FexMrns *[]String `json:"fexMrns,omitempty" tfgen:"required=0"`
 	// Apply the exception to the CVEs that are part of the advisories. Applies only for advisory exceptions. (Optional.)
 	ApplyToCves *Boolean `json:"applyToCves,omitempty" tfgen:"required=0"`
 }
