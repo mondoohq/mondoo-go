@@ -503,6 +503,8 @@ const (
 	ClientIntegrationTypeTenableSc               ClientIntegrationType = "TENABLE_SC"
 	ClientIntegrationTypeMsIntune                ClientIntegrationType = "MS_INTUNE"
 	ClientIntegrationTypeMondooBi                ClientIntegrationType = "MONDOO_BI"
+	ClientIntegrationTypeGoogleSccExport         ClientIntegrationType = "GOOGLE_SCC_EXPORT"
+	ClientIntegrationTypeGoogleSccImport         ClientIntegrationType = "GOOGLE_SCC_IMPORT"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1203,6 +1205,8 @@ const (
 	IntegrationTypeTenableSc               IntegrationType = "TENABLE_SC"
 	IntegrationTypeMsIntune                IntegrationType = "MS_INTUNE"
 	IntegrationTypeMondooBi                IntegrationType = "MONDOO_BI"
+	IntegrationTypeGoogleSccExport         IntegrationType = "GOOGLE_SCC_EXPORT"
+	IntegrationTypeGoogleSccImport         IntegrationType = "GOOGLE_SCC_IMPORT"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
