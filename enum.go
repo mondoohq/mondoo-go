@@ -785,10 +785,10 @@ const (
 	ExceptionTypeFex        ExceptionType = "FEX"
 )
 
-// FindingActionState represents # TODO: will be added in a follow-up The action state for a finding.
+// FindingActionState represents the action state for a finding.
 type FindingActionState string
 
-// # TODO: will be added in a follow-up The action state for a finding.
+// The action state for a finding.
 const (
 	FindingActionStateUnknown          FindingActionState = "UNKNOWN"
 	FindingActionStateDetected         FindingActionState = "DETECTED"
