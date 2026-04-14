@@ -1288,8 +1288,6 @@ type CreateCaseInput struct {
 // CreateClientIntegrationInput represents input provided when creating a client integration.
 type CreateClientIntegrationInput struct {
 	// (Required.)
-	SpaceMrn String `json:"spaceMrn" tfgen:"required=1"`
-	// (Required.)
 	Name String `json:"name" tfgen:"required=1"`
 	// (Required.)
 	Type ClientIntegrationType `json:"type" tfgen:"required=1"`
@@ -1297,6 +1295,11 @@ type CreateClientIntegrationInput struct {
 	LongLivedToken Boolean `json:"longLivedToken" tfgen:"required=1"`
 	// (Required.)
 	ConfigurationOptions ClientIntegrationConfigurationInput `json:"configurationOptions" tfgen:"required=1"`
+
+	// The scope MRN for the integration (space, organization, or platform). Preferred over spaceMrn. (Optional.)
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 }
 
 // CreateInvitationInput represents input for creating an invitation.
