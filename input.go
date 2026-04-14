@@ -31,6 +31,8 @@ type AWSConfigurationOptionsInput struct {
 	IsOrganization *Boolean `json:"isOrganization,omitempty" tfgen:"required=0"`
 	// Whether to use v2 template. (Optional.)
 	V2Template *Boolean `json:"v2Template,omitempty" tfgen:"required=0"`
+	// Whether to enable cross-account scanning. Currently a no-op placeholder: the field is accepted by the API but not yet wired up to the backend. (Optional.)
+	CrossAccountScan *Boolean `json:"crossAccountScan,omitempty" tfgen:"required=0"`
 }
 
 // AWSEventPatternInput represents aWSEventPatternInput describes the options for event pattern based scan triggers.
@@ -209,6 +211,8 @@ type AggregateScoreFilter struct {
 	PreviewUntilWithinDays *Int `json:"previewUntilWithinDays,omitempty" tfgen:"required=0"`
 	// Filter by finding states. Each entry can specify any combination of state fields. Multiple entries are ORed. Returns scores matching any of the provided state filters. (Optional.)
 	States *[]FindingStateFilter `json:"states,omitempty" tfgen:"required=0"`
+	// Retrieve control scores by framework MRN. (Optional.)
+	FrameworkMrn *String `json:"frameworkMrn,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
