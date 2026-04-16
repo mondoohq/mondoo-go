@@ -1083,6 +1083,7 @@ const (
 	ICON_IDSPgadmin                   ICON_IDS = "PGADMIN"
 	ICON_IDSPolicy                    ICON_IDS = "POLICY"
 	ICON_IDSPop                       ICON_IDS = "POP"
+	ICON_IDSProxmox                   ICON_IDS = "PROXMOX"
 	ICON_IDSPython                    ICON_IDS = "PYTHON"
 	ICON_IDSRaspbian                  ICON_IDS = "RASPBIAN"
 	ICON_IDSRedhat                    ICON_IDS = "REDHAT"
