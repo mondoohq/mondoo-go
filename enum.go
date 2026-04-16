@@ -1135,6 +1135,7 @@ const (
 	InitiativeStatusInProgress InitiativeStatus = "IN_PROGRESS"
 	InitiativeStatusFixed      InitiativeStatus = "FIXED"
 	InitiativeStatusCanceled   InitiativeStatus = "CANCELED"
+	InitiativeStatusTicketed   InitiativeStatus = "TICKETED"
 )
 
 // InitiativeType represents type of initiative.
