@@ -5,6 +5,17 @@
 
 package mondoogql
 
+// AISummaryState represents the lifecycle state of an AI-generated summary.
+type AISummaryState string
+
+// The lifecycle state of an AI-generated summary.
+const (
+	AISummaryStateNotAvailable AISummaryState = "NOT_AVAILABLE"
+	AISummaryStateGenerating   AISummaryState = "GENERATING"
+	AISummaryStateGenerated    AISummaryState = "GENERATED"
+	AISummaryStateError        AISummaryState = "ERROR"
+)
+
 // APITokenOrderField represents field to order API tokens by.
 type APITokenOrderField string
 
@@ -505,6 +516,8 @@ const (
 	ClientIntegrationTypeMondooBi                ClientIntegrationType = "MONDOO_BI"
 	ClientIntegrationTypeGoogleSccExport         ClientIntegrationType = "GOOGLE_SCC_EXPORT"
 	ClientIntegrationTypeGoogleSccImport         ClientIntegrationType = "GOOGLE_SCC_IMPORT"
+	ClientIntegrationTypeSplunk                  ClientIntegrationType = "SPLUNK"
+	ClientIntegrationTypeElastic                 ClientIntegrationType = "ELASTIC"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1209,6 +1222,8 @@ const (
 	IntegrationTypeMondooBi                IntegrationType = "MONDOO_BI"
 	IntegrationTypeGoogleSccExport         IntegrationType = "GOOGLE_SCC_EXPORT"
 	IntegrationTypeGoogleSccImport         IntegrationType = "GOOGLE_SCC_IMPORT"
+	IntegrationTypeSplunk                  IntegrationType = "SPLUNK"
+	IntegrationTypeElastic                 IntegrationType = "ELASTIC"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
