@@ -656,6 +656,17 @@ const (
 	DataQueryOrderFieldLastUpdated DataQueryOrderField = "LAST_UPDATED"
 )
 
+// DeviceType represents device type classification.
+type DeviceType string
+
+// Device type classification.
+const (
+	DeviceTypeServer      DeviceType = "SERVER"
+	DeviceTypeWorkstation DeviceType = "WORKSTATION"
+	DeviceTypeContainer   DeviceType = "CONTAINER"
+	DeviceTypeUnknown     DeviceType = "UNKNOWN"
+)
+
 // DocumentFormat represents document format.
 type DocumentFormat string
 
@@ -725,6 +736,15 @@ type EnforcementState string
 const (
 	EnforcementStateEnforcing EnforcementState = "ENFORCING" // Check is enforcing and affects the asset score.
 	EnforcementStatePreview   EnforcementState = "PREVIEW"   // Check is in preview mode and does not affect the asset score.
+)
+
+// EolStatus represents eOL status values for filtering.
+type EolStatus string
+
+// EOL status values for filtering.
+const (
+	EolStatusEol       EolStatus = "EOL"       // Past end-of-life (CVSS Critical severity).
+	EolStatusScheduled EolStatus = "SCHEDULED" // Approaching end-of-life (CVSS non-Critical, non-None severity).
 )
 
 // ExceptionFilterType represents exception filter type.
