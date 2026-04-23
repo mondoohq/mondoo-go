@@ -40,6 +40,10 @@ type AWSConfigurationOptionsInput struct {
 	IsOrganization *Boolean `json:"isOrganization,omitempty" tfgen:"required=0"`
 	// Whether to use v2 template. (Optional.)
 	V2Template *Boolean `json:"v2Template,omitempty" tfgen:"required=0"`
+	// Whether to authenticate callbacks via Workload Identity Federation instead of a static Mondoo token. Required true for organization-scoped integrations. Requires v2Template=true. (Optional.)
+	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
+	// AWS account id where the serverless Lambda is deployed. Required when useWif is true; rejected when useWif is false. (Optional.)
+	AwsAccountId *String `json:"awsAccountId,omitempty" tfgen:"required=0"`
 }
 
 // AWSCrossAccountScanOptionsInput represents options for AWS cross-account scanning (input).
@@ -229,6 +233,8 @@ type AggregateScoreFilter struct {
 	States *[]FindingStateFilter `json:"states,omitempty" tfgen:"required=0"`
 	// Retrieve control scores by framework MRN. (Optional.)
 	FrameworkMrn *String `json:"frameworkMrn,omitempty" tfgen:"required=0"`
+	// When true, exclude aggregate scores tied to CI/CD assets. Defaults to false — CI/CD assets are included unless explicitly excluded. Has no effect on rolled-up scores (space/workspace/org level), which are not tied to a real asset. (Optional.)
+	ExcludeCicd *Boolean `json:"excludeCicd,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
