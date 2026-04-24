@@ -738,15 +738,6 @@ const (
 	EnforcementStatePreview   EnforcementState = "PREVIEW"   // Check is in preview mode and does not affect the asset score.
 )
 
-// EolStatus represents eOL status values for filtering.
-type EolStatus string
-
-// EOL status values for filtering.
-const (
-	EolStatusEol       EolStatus = "EOL"       // Past end-of-life (CVSS Critical severity).
-	EolStatusScheduled EolStatus = "SCHEDULED" // Approaching end-of-life (CVSS non-Critical, non-None severity).
-)
-
 // ExceptionFilterType represents exception filter type.
 type ExceptionFilterType string
 
