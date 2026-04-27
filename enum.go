@@ -809,6 +809,17 @@ const (
 	ExceptionTypeFex        ExceptionType = "FEX"
 )
 
+// ExploitSource represents the upstream source that reported or published an exploit.
+type ExploitSource string
+
+// The upstream source that reported or published an exploit.
+const (
+	ExploitSourceCisaKev    ExploitSource = "CISA_KEV"   // CISA Known Exploited Vulnerabilities catalog.
+	ExploitSourceMetasploit ExploitSource = "METASPLOIT" // Metasploit framework exploit modules.
+	ExploitSourceEpss       ExploitSource = "EPSS"       // First EPSS (Exploit Prediction Scoring System).
+	ExploitSourceOther      ExploitSource = "OTHER"      // Any other upstream source not represented by a dedicated enum member. Returned in responses when the source is unmapped. Not valid as a filter input.
+)
+
 // FindingActionState represents the action state for a finding.
 type FindingActionState string
 
