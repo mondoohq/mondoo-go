@@ -518,6 +518,7 @@ const (
 	ClientIntegrationTypeGoogleSccImport         ClientIntegrationType = "GOOGLE_SCC_IMPORT"
 	ClientIntegrationTypeSplunk                  ClientIntegrationType = "SPLUNK"
 	ClientIntegrationTypeElastic                 ClientIntegrationType = "ELASTIC"
+	ClientIntegrationTypeAuditLogExport          ClientIntegrationType = "AUDIT_LOG_EXPORT"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1246,6 +1247,7 @@ const (
 	IntegrationTypeGoogleSccImport         IntegrationType = "GOOGLE_SCC_IMPORT"
 	IntegrationTypeSplunk                  IntegrationType = "SPLUNK"
 	IntegrationTypeElastic                 IntegrationType = "ELASTIC"
+	IntegrationTypeAuditLogExport          IntegrationType = "AUDIT_LOG_EXPORT"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
