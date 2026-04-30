@@ -1370,6 +1370,8 @@ type CreateClientIntegrationInput struct {
 	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
+	// Annotations applied to every asset discovered by this integration's scans. Only meaningful for hosted scan-job integration types; ignored for ticketing/export/import types. (Optional.)
+	Annotations *[]KeyValueInput `json:"annotations,omitempty" tfgen:"required=0"`
 }
 
 // CreateInvitationInput represents input for creating an invitation.
@@ -3994,6 +3996,8 @@ type UpdateClientIntegrationConfigurationInput struct {
 
 	// (Optional.)
 	Name *String `json:"name,omitempty" tfgen:"required=0"`
+	// Annotations applied to every asset discovered by this integration's scans. Only meaningful for hosted scan-job integration types; ignored for ticketing/export/import types. (Optional.)
+	Annotations *[]KeyValueInput `json:"annotations,omitempty" tfgen:"required=0"`
 }
 
 // UpdateFindingsSLAInput represents update findings SLA input.
