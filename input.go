@@ -1323,16 +1323,19 @@ type ControlsSearchInput struct {
 	OrderBy *ControlsOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 }
 
-// CreateAssetRoutingRuleInput represents input for creating a new individual asset routing rule.
+// CreateAssetRoutingRuleInput represents input for creating a new individual asset routing rule. Provide either orgMrn (deprecated) or scopeMrn.
 type CreateAssetRoutingRuleInput struct {
-	// Organization MRN that owns this routing rule. (Required.)
-	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// MRN of the target space for matching assets. (Required.)
 	TargetSpaceMrn String `json:"targetSpaceMrn" tfgen:"required=1"`
 	// Conditions that must all match for this rule to apply. (Required.)
 	Conditions []AssetRoutingConditionInput `json:"conditions" tfgen:"required=1"`
 	// Priority for rule ordering (lower values evaluated first). (Required.)
 	Priority Int `json:"priority" tfgen:"required=1"`
+
+	// Deprecated alias for scopeMrn. (Optional.)
+	OrgMrn *String `json:"orgMrn,omitempty" tfgen:"required=0"`
+	// Scope MRN that owns this routing rule (org MRN or platform MRN). (Optional.)
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 }
 
 // CreateBIDashboardInput represents input for creating a new BI dashboard.
@@ -3647,12 +3650,15 @@ type SetAssetAnnotationsInput struct {
 	Annotations []KeyValueInput `json:"annotations" tfgen:"required=1"`
 }
 
-// SetAssetRoutingTableInput represents input for setting the asset routing table for an organization.
+// SetAssetRoutingTableInput represents input for setting the asset routing table. Provide either orgMrn (deprecated) or scopeMrn.
 type SetAssetRoutingTableInput struct {
-	// Organization MRN to set the routing table for. (Required.)
-	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
 	// Ordered list of routing rules. (Required.)
 	Rules []AssetRoutingRuleInput `json:"rules" tfgen:"required=1"`
+
+	// Deprecated alias for scopeMrn. (Optional.)
+	OrgMrn *String `json:"orgMrn,omitempty" tfgen:"required=0"`
+	// Scope MRN to set the routing table for (org MRN or platform MRN). (Optional.)
+	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 }
 
 // SetCustomPolicyInput represents uploads policy content.
