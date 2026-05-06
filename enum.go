@@ -192,6 +192,19 @@ const (
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
 )
 
+// AssessmentStatus represents lifecycle status of an Assessment.
+type AssessmentStatus string
+
+// Lifecycle status of an Assessment.
+const (
+	AssessmentStatusUnknown    AssessmentStatus = "UNKNOWN"
+	AssessmentStatusInProgress AssessmentStatus = "IN_PROGRESS"
+	AssessmentStatusAborted    AssessmentStatus = "ABORTED"
+	AssessmentStatusNoResults  AssessmentStatus = "NO_RESULTS"
+	AssessmentStatusCompleted  AssessmentStatus = "COMPLETED"
+	AssessmentStatusErrored    AssessmentStatus = "ERRORED"
+)
+
 // AssetFilterType represents supported filter types for asset inventory suggestions.
 type AssetFilterType string
 
@@ -519,6 +532,10 @@ const (
 	ClientIntegrationTypeSplunk                  ClientIntegrationType = "SPLUNK"
 	ClientIntegrationTypeElastic                 ClientIntegrationType = "ELASTIC"
 	ClientIntegrationTypeAuditLogExport          ClientIntegrationType = "AUDIT_LOG_EXPORT"
+	ClientIntegrationTypeCloudflare              ClientIntegrationType = "CLOUDFLARE"
+	ClientIntegrationTypeHetzner                 ClientIntegrationType = "HETZNER"
+	ClientIntegrationTypeDigitalocean            ClientIntegrationType = "DIGITALOCEAN"
+	ClientIntegrationTypeSecurityScorecard       ClientIntegrationType = "SECURITY_SCORECARD"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1248,6 +1265,10 @@ const (
 	IntegrationTypeSplunk                  IntegrationType = "SPLUNK"
 	IntegrationTypeElastic                 IntegrationType = "ELASTIC"
 	IntegrationTypeAuditLogExport          IntegrationType = "AUDIT_LOG_EXPORT"
+	IntegrationTypeCloudflare              IntegrationType = "CLOUDFLARE"
+	IntegrationTypeHetzner                 IntegrationType = "HETZNER"
+	IntegrationTypeDigitalocean            IntegrationType = "DIGITALOCEAN"
+	IntegrationTypeSecurityScorecard       IntegrationType = "SECURITY_SCORECARD"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
@@ -1694,6 +1715,18 @@ type SLAStartDateConfig string
 const (
 	SLAStartDateConfigCveDetected  SLAStartDateConfig = "CVE_DETECTED"  // SLA timer starts when Mondoo first discovers the vulnerability on an asset (default).
 	SLAStartDateConfigCvePublished SLAStartDateConfig = "CVE_PUBLISHED" // SLA timer starts from the original CVE publication date.
+)
+
+// ScanProcessingStatus represents status of an asset scan upload as it moves through the processing pipeline.
+type ScanProcessingStatus string
+
+// Status of an asset scan upload as it moves through the processing pipeline.
+const (
+	ScanProcessingStatusPending    ScanProcessingStatus = "PENDING"    // Upload session created; waiting for the client to push data.
+	ScanProcessingStatusUploaded   ScanProcessingStatus = "UPLOADED"   // Client has signalled that the upload is complete; ingestion has not started yet.
+	ScanProcessingStatusProcessing ScanProcessingStatus = "PROCESSING" // Server is ingesting the uploaded data.
+	ScanProcessingStatusProcessed  ScanProcessingStatus = "PROCESSED"  // Ingestion completed successfully.
+	ScanProcessingStatusFailed     ScanProcessingStatus = "FAILED"     // Ingestion failed; see errorMessage.
 )
 
 // ScoreRating represents score rating.
