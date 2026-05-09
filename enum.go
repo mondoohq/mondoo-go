@@ -52,6 +52,7 @@ const (
 	ActionTypeUpdate         ActionType = "UPDATE"
 	ActionTypeDiagnostics    ActionType = "DIAGNOSTICS"
 	ActionTypeClearScanQueue ActionType = "CLEAR_SCAN_QUEUE"
+	ActionTypeRun            ActionType = "RUN" // Generic run — triggers the integration's primary operation (scan, import, or export) without the caller needing to know the integration category.
 )
 
 // ActivePolicyOrderField represents active policy order field.
@@ -1478,10 +1479,10 @@ const (
 	PackageScoresOrderFieldRiskScore   PackageScoresOrderField = "RISK_SCORE"
 )
 
-// PackageType represents possible package types.
+// PackageType represents possible package types Deprecated: the OS_PACKAGE/APPLICATION distinction is no longer surfaced in the UI. Tracked for removal: #15402.
 type PackageType string
 
-// possible package types.
+// possible package types Deprecated: the OS_PACKAGE/APPLICATION distinction is no longer surfaced in the UI. Tracked for removal: #15402.
 const (
 	PackageTypeOsPackage   PackageType = "OS_PACKAGE"
 	PackageTypeApplication PackageType = "APPLICATION"
