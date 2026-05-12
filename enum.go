@@ -109,12 +109,13 @@ type AggScoresFilterType string
 
 // Supported filter types for aggScoresSuggestions.
 const (
-	AggScoresFilterTypeState       AggScoresFilterType = "STATE"        // Filter by aggregate score state (Exception Created, Ticket Created, Needs Action).
-	AggScoresFilterTypeTypes       AggScoresFilterType = "TYPES"        // Filter by aggregate score types (VULNERABILITY, ADVISORY, ADVISORY, CHECK, POLICY, RISK, ASSET, CONTROL, FRAMEWORK).
-	AggScoresFilterTypeRating      AggScoresFilterType = "RATING"       // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
-	AggScoresFilterTypePolicyMrn   AggScoresFilterType = "POLICY_MRN"   // Filter by policy MRN.
-	AggScoresFilterTypeRiskFactors AggScoresFilterType = "RISK_FACTORS" // Filter by risk factor.
-	AggScoresFilterTypePlatform    AggScoresFilterType = "PLATFORM"     // Filter by platform.
+	AggScoresFilterTypeState               AggScoresFilterType = "STATE"                 // Filter by aggregate score state (Exception Created, Ticket Created, Needs Action).
+	AggScoresFilterTypeTypes               AggScoresFilterType = "TYPES"                 // Filter by aggregate score types (VULNERABILITY, ADVISORY, ADVISORY, CHECK, POLICY, RISK, ASSET, CONTROL, FRAMEWORK).
+	AggScoresFilterTypeRating              AggScoresFilterType = "RATING"                // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
+	AggScoresFilterTypePolicyMrn           AggScoresFilterType = "POLICY_MRN"            // Filter by policy MRN.
+	AggScoresFilterTypeRiskFactors         AggScoresFilterType = "RISK_FACTORS"          // Filter by risk factor.
+	AggScoresFilterTypePlatform            AggScoresFilterType = "PLATFORM"              // Filter by platform.
+	AggScoresFilterTypeRiskCategoryImpacts AggScoresFilterType = "RISK_CATEGORY_IMPACTS" // Filter by risk category impact labels.
 )
 
 // AggregateScoreAggregationType represents describes how to aggregate.
@@ -212,11 +213,12 @@ type AssetFilterType string
 
 // Supported filter types for asset inventory suggestions.
 const (
-	AssetFilterTypeRiskRating  AssetFilterType = "RISK_RATING" // Filter by risk rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
-	AssetFilterTypePlatform    AssetFilterType = "PLATFORM"    // Filter by platform name (e.g., "ubuntu", "windows", "macos").
-	AssetFilterTypeName        AssetFilterType = "NAME"        // Filter by asset name (e.g., "prod-database-1").
-	AssetFilterTypeLabels      AssetFilterType = "LABELS"      // Filter by labels (e.g., "owner:sre-team").
-	AssetFilterTypeAnnotations AssetFilterType = "ANNOTATIONS" // Filter by annotations (e.g., "mondoo.com/organization: "mondoo-internal").
+	AssetFilterTypeRiskRating          AssetFilterType = "RISK_RATING"           // Filter by risk rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
+	AssetFilterTypePlatform            AssetFilterType = "PLATFORM"              // Filter by platform name (e.g., "ubuntu", "windows", "macos").
+	AssetFilterTypeName                AssetFilterType = "NAME"                  // Filter by asset name (e.g., "prod-database-1").
+	AssetFilterTypeLabels              AssetFilterType = "LABELS"                // Filter by labels (e.g., "owner:sre-team").
+	AssetFilterTypeAnnotations         AssetFilterType = "ANNOTATIONS"           // Filter by annotations (e.g., "mondoo.com/organization: "mondoo-internal").
+	AssetFilterTypeRiskCategoryImpacts AssetFilterType = "RISK_CATEGORY_IMPACTS" // Filter by risk category impact labels.
 )
 
 // AssetLinkType represents asset link type.
@@ -538,6 +540,7 @@ const (
 	ClientIntegrationTypeHetzner                 ClientIntegrationType = "HETZNER"
 	ClientIntegrationTypeDigitalocean            ClientIntegrationType = "DIGITALOCEAN"
 	ClientIntegrationTypeSecurityScorecard       ClientIntegrationType = "SECURITY_SCORECARD"
+	ClientIntegrationTypeTailscale               ClientIntegrationType = "TAILSCALE"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1065,6 +1068,7 @@ const (
 	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
 	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
+	ICON_IDSDigitalOcean              ICON_IDS = "DIGITAL_OCEAN"
 	ICON_IDSDns                       ICON_IDS = "DNS"
 	ICON_IDSDockerDesktop             ICON_IDS = "DOCKER_DESKTOP"
 	ICON_IDSDomainsAndHosts           ICON_IDS = "DOMAINS_AND_HOSTS"
@@ -1086,6 +1090,7 @@ const (
 	ICON_IDSGardenLinux               ICON_IDS = "GARDEN_LINUX"
 	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
+	ICON_IDSHetzner                   ICON_IDS = "HETZNER"
 	ICON_IDSHuawei                    ICON_IDS = "HUAWEI"
 	ICON_IDSIac                       ICON_IDS = "IAC"
 	ICON_IDSIntellijIdea              ICON_IDS = "INTELLIJ_IDEA"
@@ -1099,6 +1104,7 @@ const (
 	ICON_IDSLinuxMint                 ICON_IDS = "LINUX_MINT"
 	ICON_IDSMacos                     ICON_IDS = "MACOS"
 	ICON_IDSManjaro                   ICON_IDS = "MANJARO"
+	ICON_IDSMcp                       ICON_IDS = "MCP"
 	ICON_IDSMetasploit                ICON_IDS = "METASPLOIT"
 	ICON_IDSMicrosoft                 ICON_IDS = "MICROSOFT"
 	ICON_IDSMicrosoftDotnet           ICON_IDS = "MICROSOFT_DOTNET"
@@ -1127,6 +1133,7 @@ const (
 	ICON_IDSOpcua                     ICON_IDS = "OPCUA"
 	ICON_IDSOpenbsd                   ICON_IDS = "OPENBSD"
 	ICON_IDSOpeneuler                 ICON_IDS = "OPENEULER"
+	ICON_IDSOpenstack                 ICON_IDS = "OPENSTACK"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
 	ICON_IDSOracle                    ICON_IDS = "ORACLE"
@@ -1271,6 +1278,7 @@ const (
 	IntegrationTypeHetzner                 IntegrationType = "HETZNER"
 	IntegrationTypeDigitalocean            IntegrationType = "DIGITALOCEAN"
 	IntegrationTypeSecurityScorecard       IntegrationType = "SECURITY_SCORECARD"
+	IntegrationTypeTailscale               IntegrationType = "TAILSCALE"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
