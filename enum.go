@@ -478,6 +478,16 @@ const (
 	ChecksOrderFieldCompletion  ChecksOrderField = "COMPLETION"
 )
 
+// CicdAssetFilter represents control how findings on CI/CD assets are returned.
+type CicdAssetFilter string
+
+// Control how findings on CI/CD assets are returned.
+const (
+	CicdAssetFilterExclude  CicdAssetFilter = "EXCLUDE"   // Only return findings on non-CI/CD assets (default).
+	CicdAssetFilterInclude  CicdAssetFilter = "INCLUDE"   // Return findings on both CI/CD and non-CI/CD assets.
+	CicdAssetFilterCicdOnly CicdAssetFilter = "CICD_ONLY" // Only return findings on CI/CD assets.
+)
+
 // CicdProjectOrderField represents input for ordering CI/CD projects.
 type CicdProjectOrderField string
 
@@ -717,16 +727,17 @@ type DocumentType string
 
 // Document type.
 const (
-	DocumentTypeFrameworkReport       DocumentType = "FRAMEWORK_REPORT"
-	DocumentTypeControlReport         DocumentType = "CONTROL_REPORT"
-	DocumentTypeExport                DocumentType = "EXPORT"
-	DocumentTypeAssetReport           DocumentType = "ASSET_REPORT"
-	DocumentTypeAdvisoryReport        DocumentType = "ADVISORY_REPORT"
-	DocumentTypeVulnerabilityReport   DocumentType = "VULNERABILITY_REPORT"
-	DocumentTypeCheckReport           DocumentType = "CHECK_REPORT"
-	DocumentTypeSecurityReport        DocumentType = "SECURITY_REPORT"
-	DocumentTypeChecksReport          DocumentType = "CHECKS_REPORT"
-	DocumentTypeVulnerabilitiesReport DocumentType = "VULNERABILITIES_REPORT"
+	DocumentTypeFrameworkReport             DocumentType = "FRAMEWORK_REPORT"
+	DocumentTypeControlReport               DocumentType = "CONTROL_REPORT"
+	DocumentTypeExport                      DocumentType = "EXPORT"
+	DocumentTypeAssetReport                 DocumentType = "ASSET_REPORT"
+	DocumentTypeAdvisoryReport              DocumentType = "ADVISORY_REPORT"
+	DocumentTypeVulnerabilityReport         DocumentType = "VULNERABILITY_REPORT"
+	DocumentTypeCheckReport                 DocumentType = "CHECK_REPORT"
+	DocumentTypeSecurityReport              DocumentType = "SECURITY_REPORT"
+	DocumentTypeChecksReport                DocumentType = "CHECKS_REPORT"
+	DocumentTypeVulnerabilitiesReport       DocumentType = "VULNERABILITIES_REPORT"
+	DocumentTypePolicyAggregateScoresExport DocumentType = "POLICY_AGGREGATE_SCORES_EXPORT"
 )
 
 // EOLStatus represents end-of-life status.
@@ -1454,6 +1465,15 @@ type OrderDirection string
 const (
 	OrderDirectionAsc  OrderDirection = "ASC"  // Ascending order. For example, from A to Z or from lowest to highest.
 	OrderDirectionDesc OrderDirection = "DESC" // Descending order. For example, from Z to A or from highest to lowest.
+)
+
+// OrganizationEffortFindingState represents which slice of organization-wide findings Organization.effortTotals should roll up. Both slices require the has-remediation tag.
+type OrganizationEffortFindingState string
+
+// Which slice of organization-wide findings Organization.effortTotals should roll up. Both slices require the has-remediation tag.
+const (
+	OrganizationEffortFindingStateOpen       OrganizationEffortFindingState = "OPEN"       // Open backlog — risk score ≤ 99.
+	OrganizationEffortFindingStateRemediated OrganizationEffortFindingState = "REMEDIATED" // Already-fixed findings — risk score = 100. Surfaces past labor saved.
 )
 
 // PackageManager represents remediation script type.
