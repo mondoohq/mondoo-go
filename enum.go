@@ -1071,10 +1071,12 @@ const (
 	ICON_IDSCheck                     ICON_IDS = "CHECK"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
+	ICON_IDSClaude                    ICON_IDS = "CLAUDE"
 	ICON_IDSCloudflare                ICON_IDS = "CLOUDFLARE"
 	ICON_IDSCloudformation            ICON_IDS = "CLOUDFORMATION"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSCumulusLinux              ICON_IDS = "CUMULUS_LINUX"
+	ICON_IDSCursor                    ICON_IDS = "CURSOR"
 	ICON_IDSCve                       ICON_IDS = "CVE"
 	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
@@ -1186,6 +1188,7 @@ const (
 	ICON_IDSWindows                   ICON_IDS = "WINDOWS"
 	ICON_IDSWindows10                 ICON_IDS = "WINDOWS_10"
 	ICON_IDSWindows11                 ICON_IDS = "WINDOWS_11"
+	ICON_IDSWindsurf                  ICON_IDS = "WINDSURF"
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
 	ICON_IDSXcode                     ICON_IDS = "XCODE"
@@ -1738,6 +1741,15 @@ const (
 	RiskMagnitudeExplainationNoEffect      RiskMagnitudeExplaination = "NO_EFFECT"
 )
 
+// SLARatingSource represents sLA rating source — controls how findings are bucketed into SLA severity tiers.
+type SLARatingSource string
+
+// SLA rating source — controls how findings are bucketed into SLA severity tiers.
+const (
+	SLARatingSourceRisk SLARatingSource = "RISK" // Mondoo risk rating (default). Buckets are derived from the contextual risk score.
+	SLARatingSourceCvss SLARatingSource = "CVSS" // CVSS base score thresholds (Critical 9.0-10.0, High 7.0-8.9, Medium 4.0-6.9, Low 0.1-3.9).
+)
+
 // SLAStartDateConfig represents sLA start date type.
 type SLAStartDateConfig string
 
@@ -1856,6 +1868,8 @@ const (
 	SearchItemStatusAffected    SearchItemStatus = "AFFECTED"
 	SearchItemStatusNotAffected SearchItemStatus = "NOT_AFFECTED"
 	SearchItemStatusUnsupported SearchItemStatus = "UNSUPPORTED"
+	SearchItemStatusNotFound    SearchItemStatus = "NOT_FOUND"
+	SearchItemStatusNotReal     SearchItemStatus = "NOT_REAL"
 )
 
 // SearchType represents possible search types for the search query.
