@@ -4274,6 +4274,8 @@ type UpdateSLAsInput struct {
 
 	// When the SLA timer should start (default: CVE_DETECTED). (Optional.)
 	StartDateConfig *SLAStartDateConfig `json:"startDateConfig,omitempty" tfgen:"required=0"`
+	// How findings are classified into SLA severity buckets (default: RISK). (Optional.)
+	RatingSource *SLARatingSource `json:"ratingSource,omitempty" tfgen:"required=0"`
 }
 
 // UpdateSecurityModelInput represents update security model input.
