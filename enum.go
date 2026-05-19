@@ -1669,9 +1669,36 @@ const (
 	RemediationScriptTypeShell             RemediationScriptType = "SHELL"              // Shell script.
 	RemediationScriptTypeAnsible           RemediationScriptType = "ANSIBLE"            // Ansible playbook.
 	RemediationScriptTypePowershell        RemediationScriptType = "POWERSHELL"         // Powershell script.
-	RemediationScriptTypeManualInstruction RemediationScriptType = "MANUAL_INSTRUCTION" // Manual Instruction.
+	RemediationScriptTypeManualInstruction RemediationScriptType = "MANUAL_INSTRUCTION" // Free-form prose instructions that don't fit a more specific tooling category. Used as the fallback for unrecognized TypedDoc ids.
 	RemediationScriptTypeIntuneDetection   RemediationScriptType = "INTUNE_DETECTION"   // Intune Detection Script.
 	RemediationScriptTypeIntuneRemediation RemediationScriptType = "INTUNE_REMEDIATION" // Intune Remediation Script.
+	RemediationScriptTypeTerraform         RemediationScriptType = "TERRAFORM"          // Terraform (HCL) infrastructure-as-code snippet.
+	RemediationScriptTypeCli               RemediationScriptType = "CLI"                // Command-line invocation (cloud provider CLI, kubectl, etc.).
+	RemediationScriptTypeConsole           RemediationScriptType = "CONSOLE"            // Click-through instructions for a cloud provider web console.
+	RemediationScriptTypeAzurePortal       RemediationScriptType = "AZURE_PORTAL"       // Click-through instructions for the Azure Portal.
+	RemediationScriptTypeGithubUi          RemediationScriptType = "GITHUB_UI"          // Click-through instructions for the GitHub web UI.
+	RemediationScriptTypeGitlabUi          RemediationScriptType = "GITLAB_UI"          // Click-through instructions for the GitLab web UI.
+	RemediationScriptTypeGroupPolicy       RemediationScriptType = "GROUP_POLICY"       // Windows Group Policy configuration steps.
+	RemediationScriptTypeCloudformation    RemediationScriptType = "CLOUDFORMATION"     // AWS CloudFormation template snippet.
+)
+
+// RemediationSource represents source of a remediation in the unified list.
+type RemediationSource string
+
+// Source of a remediation in the unified list.
+const (
+	RemediationSourceSourceVulnerability RemediationSource = "SOURCE_VULNERABILITY" // Remediation derives from a vulnerability finding (package upgrade).
+	RemediationSourceSourceCheck         RemediationSource = "SOURCE_CHECK"         // Remediation derives from a failed check (MqueryDocs.remediation guidance).
+)
+
+// RemediationsOrderField represents fields available for ordering the remediations list.
+type RemediationsOrderField string
+
+// Fields available for ordering the remediations list.
+const (
+	RemediationsOrderFieldFindingCount   RemediationsOrderField = "FINDING_COUNT"   // Number of (finding × asset) pairs the remediation fixes.
+	RemediationsOrderFieldTitle          RemediationsOrderField = "TITLE"           // Item title: package name for vuln items, check title for check items.
+	RemediationsOrderFieldAssetsAffected RemediationsOrderField = "ASSETS_AFFECTED" // Number of unique assets the remediation touches (blast radius).
 )
 
 // ReportViewedPage represents report viewed page defines the pages that can be reported as viewed.
@@ -1923,6 +1950,22 @@ const (
 	SeverityMedium   Severity = "MEDIUM"
 	SeverityLow      Severity = "LOW"
 	SeverityNone     Severity = "NONE"
+)
+
+// Technology represents coarse technology bucket for filtering and grouping remediations.
+type Technology string
+
+// Coarse technology bucket for filtering and grouping remediations.
+const (
+	TechnologyUnknown    Technology = "UNKNOWN" // The item's platform could not be classified into one of the known buckets.
+	TechnologyLinux      Technology = "LINUX"
+	TechnologyWindows    Technology = "WINDOWS"
+	TechnologyMacos      Technology = "MACOS"
+	TechnologyAws        Technology = "AWS"
+	TechnologyAzure      Technology = "AZURE"
+	TechnologyGcp        Technology = "GCP"
+	TechnologyKubernetes Technology = "KUBERNETES"
+	TechnologyContainer  Technology = "CONTAINER"
 )
 
 // TicketRefType represents ticket reference type.
