@@ -2833,6 +2833,8 @@ type ListExceptionGroupsInput struct {
 	Filter *ListExceptionGroupsFilter `json:"filter,omitempty" tfgen:"required=0"`
 	// Flag indicating whether to include exceptions in child scopes If scopeMrn is a space and this flag is true, all exceptions defined on the space and on all of the space's assets will be returned. (Optional.)
 	IncludeChildScopes *Boolean `json:"includeChildScopes,omitempty" tfgen:"required=0"`
+	// Restrict results to exception groups owned by these space MRNs. Used to scope an org-wide query to a subset of spaces. Composes with scopeMrn + includeChildScopes (further restricts the result set). (Optional.)
+	SpaceMrns *[]String `json:"spaceMrns,omitempty" tfgen:"required=0"`
 }
 
 // ListExceptionGroupsOrder represents exception groups order.
