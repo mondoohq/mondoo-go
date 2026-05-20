@@ -239,6 +239,8 @@ type AggregateScoreFilter struct {
 	ExcludeCicd *Boolean `json:"excludeCicd,omitempty" tfgen:"required=0"`
 	// Filter by risk-category impact. Multiple entries are ANDed (a finding must match every category); impact labels within an entry are ORed. (Optional.)
 	RiskCategoryFilters *[]RiskCategoryFilterInput `json:"riskCategoryFilters,omitempty" tfgen:"required=0"`
+	// Restrict results to scores whose containing space is in this list. Matches both asset-level scores (asset's space) and space-level rolled-up scores for the listed spaces. Used to scope an org-wide aggregateScores call to a subset of spaces. (Optional.)
+	SpaceMrns *[]String `json:"spaceMrns,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
@@ -1047,11 +1049,13 @@ type CicdProjectOrder struct {
 
 // CicdProjectsInput represents input for retrieving CI/CD projects.
 type CicdProjectsInput struct {
-	// The MRN of the space. (Required.)
-	SpaceMrn ID `json:"spaceMrn" tfgen:"required=1"`
 
+	// The MRN of a single space. Required when spaceMrns is not provided. Callers using the multi-space spaceMrns path should omit this field (previously required, now nullable to avoid forcing a dummy value). (Optional.)
+	SpaceMrn *ID `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// Filter by project type. (Optional.)
 	TypeFilter *String `json:"typeFilter,omitempty" tfgen:"required=0"`
+	// Optional list of space MRNs. When set, returns projects across all of the listed spaces (used by the org-wide executive report to scope results to a subset of spaces). Pagination is preserved by pushing the filter into a single SQL query rather than fanning out N requests. Mutually exclusive with spaceMrn — providing both is an error. (Optional.)
+	SpaceMrns *[]String `json:"spaceMrns,omitempty" tfgen:"required=0"`
 }
 
 // ClientIntegrationConfigurationInput represents configuration options for client integrations.
