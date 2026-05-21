@@ -1954,6 +1954,16 @@ const (
 	SeverityNone     Severity = "NONE"
 )
 
+// SoftwareOrderField represents available ordering keys for the software inventory list.
+type SoftwareOrderField string
+
+// Available ordering keys for the software inventory list.
+const (
+	SoftwareOrderFieldName          SoftwareOrderField = "NAME"           // Order by package name.
+	SoftwareOrderFieldFirstObserved SoftwareOrderField = "FIRST_OBSERVED" // Order by the timestamp the package was first observed on the asset.
+	SoftwareOrderFieldLastObserved  SoftwareOrderField = "LAST_OBSERVED"  // Order by the timestamp of the most recent scan that confirmed the package.
+)
+
 // Technology represents coarse technology bucket for filtering and grouping remediations.
 type Technology string
 
