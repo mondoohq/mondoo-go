@@ -640,6 +640,15 @@ const (
 	ControlsOrderFieldQueries    ControlsOrderField = "QUERIES"
 )
 
+// CredentialTemplateTier represents support tier for a credential template. Supported providers have dedicated health-check testers; experimental providers are untested and hidden in the UI by default.
+type CredentialTemplateTier string
+
+// Support tier for a credential template. Supported providers have dedicated health-check testers; experimental providers are untested and hidden in the UI by default.
+const (
+	CredentialTemplateTierSupported    CredentialTemplateTier = "SUPPORTED"
+	CredentialTemplateTierExperimental CredentialTemplateTier = "EXPERIMENTAL"
+)
+
 // CveMentionSourceType represents source type of a CVE mention.
 type CveMentionSourceType string
 
