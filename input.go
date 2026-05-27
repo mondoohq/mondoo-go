@@ -7,7 +7,7 @@ package mondoogql
 
 // Input represents one of the Input structs:
 //
-// AISummaryInput, APITokenOrder, AWSConfigurationOptionsInput, AWSCrossAccountScanOptionsInput, AWSEventPatternInput, AWSRoleCredential, AWSSecretKeyCredential, AWSWifCredential, AcceptLegalPolicy, ActivePoliciesInput, ActivePolicyOrder, AddSSHKeyRequest, AddTeamExternalGroupMappingInput, AddTeamMemberInput, AdvisoryDocumentOptionsInput, AgentOrder, AgentVersionFilter, AggregateScoreCasesFilter, AggregateScoreFilter, AggregateScoreOrder, AnalyseAssetVulnerabilitiesInput, AnalyseIncognitoAssetInput, AnnotationInput, ApplyExceptionForScopesInput, ApplyIntuneRemediationInput, AssetDeviceTypeFilter, AssetDocumentOptionsInput, AssetEolFilter, AssetEolStatusFilter, AssetExploitableFilter, AssetFieldFiltersMutation, AssetGroupOrder, AssetLastPackageUpdateTimeInput, AssetLinkInfoInput, AssetListPoliciesFilter, AssetOSRebootFilter, AssetOrder, AssetOverviewPageInfo, AssetPackagesStatsInput, AssetReportListPoliciesFilter, AssetReportPolicyOrder, AssetReportQueryOrder, AssetResourceInput, AssetRoutingConditionInput, AssetRoutingRuleInput, AssetSearchFilter, AssetSearchInput, AssetSearchSuggestionsInput, AssetSummaryOrder, AssetUpdateFilter, AssetUrlSegmentInput, AssetUrlStatsInput, AssetVulnerabilityReportInput, AttackSurfaceConfigurationInput, AttackSurfaceImpactInput, AuditLogExportConfigurationOptionsInput, AuditLogOrder, AuditLogsFilter, AwsS3ConfigurationOptionsInput, AwsScanOptions, AzureBlobConfigurationOptionsInput, AzureConfigurationOptionsInput, AzureDevopsConfigurationOptionsInput, AzureDevopsTicketConfigInput, AzureDevopsTicketContextInput, AzureDevopsTicketContextProjectsInput, BIPinVersionInput, BiCreateScheduledExportInput, BiDeleteScheduledExportInput, BiUpdateScheduledExportInput, BigqueryConfigurationOptionsInput, BillingSessionInput, BlastRadiusConfigurationInput, BlastRadiusImpactInput, BusinessPriorityConfigurationInput, BusinessPriorityGroupInput, BusinessPriorityTagInput, CaseContentInput, CaseInitiativeRefInput, CaseRefInput, CaseTicketConfigInput, CasesConfigurationInput, CasesInput, CasesOrder, CategoriesListInput, ChangeSubscriptionPlanInput, CheckScoreFilter, CheckScoreOrder, ChecksOrder, ChecksSearchInput, CiCdJobPageInfo, CiCdProjectPageInfo, CicdProjectJobsInput, CicdProjectOrder, CicdProjectsInput, ClientIntegrationConfigurationInput, ClientIntegrationInput, CloseCaseInput, CloudflareConfigurationOptionsInput, ComplianceAssetOrder, ComplianceAssetsSearchInput, ComplianceControlInput, ComplianceFrameworkInput, ComplianceFrameworkMutationInput, ComplianceFrameworksByOrgInput, ComplianceFrameworksInput, ContentSearchInput, ContentSearchResultItemOrder, ControlDocumentOptionsInput, ControlScoreFilter, ControlScoreOrder, ControlsOrder, ControlsSearchInput, CreateAssetRoutingRuleInput, CreateBIDashboardInput, CreateCaseInput, CreateClientIntegrationInput, CreateInvitationInput, CreateOrganizationInput, CreateSecurityPipelinePullRequestInput, CreateSecurityPipelineScheduledWorkflowInput, CreateSecurityPipelineWorkflowInput, CreateServiceAccountInput, CreateSpaceInput, CreateTeamInput, CreateWIFAuthBindingInput, CreateWorkspaceInput, CrowdstrikeFalconConfigurationOptionsInput, CveTrendsOrder, DataQueryFilter, DataQueryOrder, DeleteAPITokenInput, DeleteAgentsInput, DeleteAssetsInput, DeleteBIDashboardInput, DeleteCasesInput, DeleteClientIntegrationInput, DeleteCustomPolicyInput, DeleteCustomQueryPackInput, DeleteFrameworkInput, DeleteProjectsInput, DeleteSSHKeyRequest, DeleteSSOProviderInput, DeleteServiceAccountsInput, DeleteWorkspacesInput, DigitaloceanConfigurationOptionsInput, DownloadBundleInput, DownloadFrameworkInput, EbsScanOptionsInput, Ec2ScanOptionsInput, ElasticConfigurationOptionsInput, EmailConfigurationOptionsInput, EmailPreferenceInput, EmailRecipientInput, EmailTicketConfigInput, EnableSSOProviderInput, EolAssetsConfigurationInput, EpssConfigurationInput, EvidenceInput, EvidenceInputFilter, ExceptionGroupsInput, ExceptionMutationInput, ExceptionReviewInput, ExceptionsConfigurationInput, ExceptionsDeleteInput, ExploitabilityConfigurationInput, ExportReportFilterChecks, ExportReportFilterInventoryInput, ExportReportFilterPackages, ExportReportFilterVulnerabilitiesInput, ExportReportOptionsInput, ExtendExceptionInput, ExtendExceptionReviewInput, FindingCasesFilter, FindingDocumentOptionsInput, FindingStateFilter, FindingsFilter, FindingsOrder, FindingsPackagesFilter, FindingsWebhookPostRequest, ForkFrameworkInput, FrameworkDocumentOptionsInput, GarbageCollectAssetsConfigurationInput, GcpConfigurationOptionsInput, GcsBucketConfigurationOptionsInput, GenerateAPITokenInput, GenerateDocumentInput, GeneratePolicyInput, GetClientIntegrationDeleteCommandInput, GetClientIntegrationTokenInput, GithubConfigurationOptionsInput, GithubTicketConfigInput, GithubTicketingConfigurationOptionsInput, GitlabConfigurationOptionsInput, GitlabTicketConfigInput, GitlabTicketingConfigurationOptionsInput, GoogleSccExportConfigurationOptionsInput, GoogleSccImportConfigurationOptionsInput, GoogleWorkspaceConfigurationOptionsInput, GroupFilter, HetznerConfigurationOptionsInput, HostConfigurationOptionsInput, HostedAwsConfigurationOptionsInput, IDSuggestionInput, IdentityFilter, InitiativeOrder, InitiativeRefInput, InitiativesInput, IntegrationInput, IntegrationOptionsInput, IntegrationsSummaryInput, IntuneDeviceGroupsInput, InvitationOrder, JiraConfigurationOptionsInput, JiraTicketConfigInput, JiraTicketContextInput, JiraTicketContextProjectsInput, JiraTicketContextUsersInput, K8sAksWifInput, K8sConfigurationOptionsInput, K8sContainersWifInput, K8sEksWifInput, K8sExternalClusterInput, K8sGkeWifInput, K8sSpiffeAuthInput, K8sVaultAuthInput, KevConfigurationInput, KeyValueInput, ListClientIntegrationsFilterInput, ListClientIntegrationsInput, ListDiscoveryResultsInput, ListExceptionGroupsFilter, ListExceptionGroupsInput, ListExceptionGroupsOrder, ListFrameworksInput, ManagedClientsFilters, MembershipOrder, MicrosoftDefenderConfigurationOptionsInput, ModifyRiskFactorInput, MqueryAssetDataInput, MqueryAssetScoresInput, MqueryInput, MqueryScoreInput, Ms365ConfigurationOptionsInput, MsIntuneConfigurationOptionsInput, MvdExperimentalSourcesConfigurationInput, MvdSourceInput, NewsArticlesConfigurationInput, NewsConfigurationInput, OciConfigurationOptionsInput, OktaConfigurationOptionsInput, OrgViewPageInfo, OrganizationOverviewInput, OrganizationSettingsInput, PackageFilter, PackageInput, PackageReferenceInput, PackageScoresFilter, PackageScoresInput, PackageScoresOrder, PackagesOrder, PerformDiscoveryInput, PingIntegrationInput, PlatformInput, PlatformMqlVexConfigurationInput, PlatformVulnerabilityConfigurationInput, PlatformsListInput, PolicyAddInput, PolicyAggregateScoresExportOptionsInput, PolicyAnalyticsInput, PolicyAnalyticsOrder, PolicyAssignmentInput, PolicyDeleteInput, PolicyInput, PolicyReportMquerySummaryOrder, PolicyReportSummaryOrder, PostgresConfigurationOptionsInput, ProcessCaseEventsInput, PropertyQueryMutationInput, PropertyQueryMutationTarget, PropertyQueryOverride, QualysConfigurationOptionsInput, QueryPackAddInput, RatedPoliciesInput, RcPackagesConfigurationInput, RegisterUserActionInput, RegistrationTokenInput, RegistrationTokenOrder, RemediationFilter, RemediationInput, RemediationPackageFields, RemediationsForScopeInput, RemediationsOrder, RemediationsPageInput, RemoveOrganizationMembershipInput, RemoveSpaceMembershipInput, RemoveTeamMemberInput, RenderedAssetQueryDataInput, ReportViewedInfo, ReportViewedInput, ResourceContactInput, RestoreBIDashboardVersionInput, RevokeRegistrationTokenInput, RiskCategoriesConfigurationInput, RiskCategoryFilterInput, RiskFactorFilter, RiskFactorFilterQuery, RiskFactorMagnitudeModification, RoleInput, S3ConfigurationOptionsInput, SSOProviderInput, SaveBIDashboardVersionInput, ScanConfigurationInput, ScimGroupMapping, ScopeDocumentOptionsInput, ScoreRange, SearchFilters, SecurityDashboardPageInfo, SecurityPipelineGithubConfigurationOptionsInput, SecurityPipelineGithubConfigurationOptionsRepoInput, SecurityPipelineScheduledWorkflowConfigurationInput, SecurityPipelineScheduledWorkflowSelectionInput, SecurityPipelineScheduledWorkflowsInput, SecurityPipelineWorkflowOrder, SecurityPipelineWorkflowsInput, SecurityScorecardConfigurationOptionsInput, SentinelOneConfigurationOptionsInput, ServiceAccountOrder, ServiceNowConfigurationOptionsInput, ServiceNowTicketConfigInput, SetAssetAnnotationsInput, SetAssetRoutingTableInput, SetCustomPolicyInput, SetCustomQueryPackInput, SetOrganizationMembershipInput, SetResourceContactsInput, SetRoleInput, SetRolesInput, SetSSOProviderInput, SetScimGroupMappingInput, SetSpaceMembershipInput, ShodanConfigurationOptionsInput, SlackConfigurationOptionsInput, SnowflakeConfigurationOptionsInput, SocialMediaConfigurationInput, SoftwareFilter, SoftwareOrder, SpacePolicySummaryInput, SpaceSettingsInput, SplunkConfigurationOptionsInput, SubscriptionItem, SuppressIntegrationMessageInput, TagInput, TailscaleConfigurationOptionsInput, TenableConfigurationOptionsInput, TenableSCConfigurationOptionsInput, TerminatedAssetsConfigurationInput, TicketContextInput, TicketingIntegrationsInput, TimeRange, TimestampFilter, TriggerActionInput, TriggerActionOptionsInput, TriggerInterconnectionGraphRegenerationInput, UnusedServiceAccountsConfigurationInput, UpdateAPITokenInput, UpdateAgentInput, UpdateAssetRoutingRuleInput, UpdateBIDashboardInput, UpdateClientIntegrationConfigurationInput, UpdateFindingsSLAInput, UpdateOrganizationInput, UpdateSLAsInput, UpdateSecurityModelInput, UpdateSecurityPipelineScheduledWorkflowInput, UpdateServiceAccountInput, UpdateSpaceInput, UpdateTeamInput, UpdateUserInput, UpdateWorkspaceInput, UploadFrameworkInput, VPCConfigurationInput, VPCTagInput, VulnerabilityDashboardPageInfo, VulnerabilityDocumentOptionsInput, VulnerabilityExploitOrder, WIFAuthBindingOrder, WebhookConfigurationOptionsInput, WildcardRoutingConfigInput, WorkspaceConditionPossibleValuesInput, WorkspaceSelectionConditionInput, WorkspaceSelectionInput, WorkspaceSelectionIntConditionInput, WorkspaceSelectionKeyValueConditionInput, WorkspaceSelectionRatingConditionInput, WorkspaceSelectionStringConditionInput, WorkspaceSelectionsInput, WorkspacesInput, ZendeskConfigurationOptionsInput, ZendeskCustomFieldInput, ZendeskTicketConfigInput, ZendeskTicketContextInput.
+// AISummaryInput, APITokenOrder, AWSConfigurationOptionsInput, AWSCrossAccountScanOptionsInput, AWSEventPatternInput, AWSRoleCredential, AWSSecretKeyCredential, AWSWifCredential, AcceptLegalPolicy, ActivePoliciesInput, ActivePolicyOrder, AddSSHKeyRequest, AddTeamExternalGroupMappingInput, AddTeamMemberInput, AddWorkflowEdgeInput, AddWorkflowNodeInput, AdvisoryDocumentOptionsInput, AgentOrder, AgentVersionFilter, AggregateScoreCasesFilter, AggregateScoreFilter, AggregateScoreOrder, AnalyseAssetVulnerabilitiesInput, AnalyseIncognitoAssetInput, AnnotationInput, ApplyExceptionForScopesInput, ApplyIntuneRemediationInput, ApproveWorkflowStepInput, AssetDeviceTypeFilter, AssetDocumentOptionsInput, AssetEolFilter, AssetEolStatusFilter, AssetExploitableFilter, AssetFieldFiltersMutation, AssetGroupOrder, AssetLastPackageUpdateTimeInput, AssetLinkInfoInput, AssetListPoliciesFilter, AssetOSRebootFilter, AssetOrder, AssetOverviewPageInfo, AssetPackagesStatsInput, AssetReportListPoliciesFilter, AssetReportPolicyOrder, AssetReportQueryOrder, AssetResourceInput, AssetRoutingConditionInput, AssetRoutingRuleInput, AssetSearchFilter, AssetSearchInput, AssetSearchSuggestionsInput, AssetSummaryOrder, AssetUpdateFilter, AssetUrlSegmentInput, AssetUrlStatsInput, AssetVulnerabilityReportInput, AttackSurfaceConfigurationInput, AttackSurfaceImpactInput, AuditLogExportConfigurationOptionsInput, AuditLogOrder, AuditLogsFilter, AwsS3ConfigurationOptionsInput, AwsScanOptions, AzureBlobConfigurationOptionsInput, AzureConfigurationOptionsInput, AzureDevopsConfigurationOptionsInput, AzureDevopsTicketConfigInput, AzureDevopsTicketContextInput, AzureDevopsTicketContextProjectsInput, BIPinVersionInput, BiCreateScheduledExportInput, BiDeleteScheduledExportInput, BiUpdateScheduledExportInput, BigqueryConfigurationOptionsInput, BillingSessionInput, BlastRadiusConfigurationInput, BlastRadiusImpactInput, BusinessPriorityConfigurationInput, BusinessPriorityGroupInput, BusinessPriorityTagInput, CancelWorkflowExecutionInput, CaseContentInput, CaseInitiativeRefInput, CaseRefInput, CaseTicketConfigInput, CasesConfigurationInput, CasesInput, CasesOrder, CategoriesListInput, ChangeSubscriptionPlanInput, CheckScoreFilter, CheckScoreOrder, ChecksOrder, ChecksSearchInput, CiCdJobPageInfo, CiCdProjectPageInfo, CicdProjectJobsInput, CicdProjectOrder, CicdProjectsInput, ClientIntegrationConfigurationInput, ClientIntegrationInput, CloseCaseInput, CloudflareConfigurationOptionsInput, ComplianceAssetOrder, ComplianceAssetsSearchInput, ComplianceControlInput, ComplianceFrameworkInput, ComplianceFrameworkMutationInput, ComplianceFrameworksByOrgInput, ComplianceFrameworksInput, ContentSearchInput, ContentSearchResultItemOrder, ControlDocumentOptionsInput, ControlScoreFilter, ControlScoreOrder, ControlsOrder, ControlsSearchInput, CreateAssetRoutingRuleInput, CreateBIDashboardInput, CreateCaseInput, CreateClientIntegrationInput, CreateCredentialInput, CreateInvitationInput, CreateOrganizationInput, CreateSecurityPipelinePullRequestInput, CreateSecurityPipelineScheduledWorkflowInput, CreateSecurityPipelineWorkflowInput, CreateServiceAccountInput, CreateSpaceInput, CreateTeamInput, CreateWIFAuthBindingInput, CreateWorkflowFromTemplateInput, CreateWorkflowInput, CreateWorkflowResourceInput, CreateWorkflowScheduleInput, CreateWorkspaceInput, CrowdstrikeFalconConfigurationOptionsInput, CveTrendsOrder, DataQueryFilter, DataQueryOrder, DeleteAPITokenInput, DeleteAgentsInput, DeleteAssetsInput, DeleteBIDashboardInput, DeleteCasesInput, DeleteClientIntegrationInput, DeleteCredentialInput, DeleteCustomPolicyInput, DeleteCustomQueryPackInput, DeleteFrameworkInput, DeleteProjectsInput, DeleteSSHKeyRequest, DeleteSSOProviderInput, DeleteServiceAccountsInput, DeleteWorkflowEdgeInput, DeleteWorkflowInput, DeleteWorkflowNodeInput, DeleteWorkflowResourceInput, DeleteWorkflowScheduleInput, DeleteWorkspacesInput, DenyWorkflowStepInput, DigitaloceanConfigurationOptionsInput, DownloadBundleInput, DownloadFrameworkInput, EbsScanOptionsInput, Ec2ScanOptionsInput, ElasticConfigurationOptionsInput, EmailConfigurationOptionsInput, EmailPreferenceInput, EmailRecipientInput, EmailTicketConfigInput, EnableSSOProviderInput, EolAssetsConfigurationInput, EpssConfigurationInput, EvidenceInput, EvidenceInputFilter, ExceptionGroupsInput, ExceptionMutationInput, ExceptionReviewInput, ExceptionsConfigurationInput, ExceptionsDeleteInput, ExploitabilityConfigurationInput, ExportReportFilterChecks, ExportReportFilterInventoryInput, ExportReportFilterPackages, ExportReportFilterVulnerabilitiesInput, ExportReportOptionsInput, ExportWorkflowYamlInput, ExtendExceptionInput, ExtendExceptionReviewInput, FindingCasesFilter, FindingDocumentOptionsInput, FindingStateFilter, FindingsFilter, FindingsOrder, FindingsPackagesFilter, FindingsWebhookPostRequest, ForkFrameworkInput, FrameworkDocumentOptionsInput, GarbageCollectAssetsConfigurationInput, GcpConfigurationOptionsInput, GcsBucketConfigurationOptionsInput, GenerateAPITokenInput, GenerateDocumentInput, GeneratePolicyInput, GetClientIntegrationDeleteCommandInput, GetClientIntegrationTokenInput, GithubConfigurationOptionsInput, GithubTicketConfigInput, GithubTicketingConfigurationOptionsInput, GitlabConfigurationOptionsInput, GitlabTicketConfigInput, GitlabTicketingConfigurationOptionsInput, GoogleSccExportConfigurationOptionsInput, GoogleSccImportConfigurationOptionsInput, GoogleWorkspaceConfigurationOptionsInput, GroupFilter, HetznerConfigurationOptionsInput, HostConfigurationOptionsInput, HostedAwsConfigurationOptionsInput, IDSuggestionInput, IdentityFilter, ImportWorkflowYamlInput, InitiativeOrder, InitiativeRefInput, InitiativesInput, IntegrationInput, IntegrationOptionsInput, IntegrationsSummaryInput, IntuneDeviceGroupsInput, InvitationOrder, JiraConfigurationOptionsInput, JiraTicketConfigInput, JiraTicketContextInput, JiraTicketContextProjectsInput, JiraTicketContextUsersInput, K8sAksWifInput, K8sConfigurationOptionsInput, K8sContainersWifInput, K8sEksWifInput, K8sExternalClusterInput, K8sGkeWifInput, K8sSpiffeAuthInput, K8sVaultAuthInput, KevConfigurationInput, KeyValueInput, ListClientIntegrationsFilterInput, ListClientIntegrationsInput, ListDiscoveryResultsInput, ListExceptionGroupsFilter, ListExceptionGroupsInput, ListExceptionGroupsOrder, ListFrameworksInput, ManagedClientsFilters, MembershipOrder, MicrosoftDefenderConfigurationOptionsInput, ModifyRiskFactorInput, MqueryAssetDataInput, MqueryAssetScoresInput, MqueryInput, MqueryScoreInput, Ms365ConfigurationOptionsInput, MsIntuneConfigurationOptionsInput, MvdExperimentalSourcesConfigurationInput, MvdSourceInput, NewsArticlesConfigurationInput, NewsConfigurationInput, NodePositionInput, OciConfigurationOptionsInput, OktaConfigurationOptionsInput, OrgViewPageInfo, OrganizationOverviewInput, OrganizationSettingsInput, PackageFilter, PackageInput, PackageReferenceInput, PackageScoresFilter, PackageScoresInput, PackageScoresOrder, PackagesOrder, PauseWorkflowScheduleInput, PerformDiscoveryInput, PingIntegrationInput, PlatformInput, PlatformMqlVexConfigurationInput, PlatformVulnerabilityConfigurationInput, PlatformsListInput, PolicyAddInput, PolicyAggregateScoresExportOptionsInput, PolicyAnalyticsInput, PolicyAnalyticsOrder, PolicyAssignmentInput, PolicyDeleteInput, PolicyInput, PolicyReportMquerySummaryOrder, PolicyReportSummaryOrder, PostgresConfigurationOptionsInput, ProcessCaseEventsInput, PropertyQueryMutationInput, PropertyQueryMutationTarget, PropertyQueryOverride, QualysConfigurationOptionsInput, QueryPackAddInput, RatedPoliciesInput, RcPackagesConfigurationInput, RegisterUserActionInput, RegistrationTokenInput, RegistrationTokenOrder, RemediationFilter, RemediationInput, RemediationPackageFields, RemediationsForScopeInput, RemediationsOrder, RemediationsPageInput, RemoveOrganizationMembershipInput, RemoveSpaceMembershipInput, RemoveTeamMemberInput, RenderedAssetQueryDataInput, ReportViewedInfo, ReportViewedInput, ResetWorkflowToTemplateInput, ResourceContactInput, RestoreBIDashboardVersionInput, ResumeWorkflowScheduleInput, RevokeRegistrationTokenInput, RiskCategoriesConfigurationInput, RiskCategoryFilterInput, RiskFactorFilter, RiskFactorFilterQuery, RiskFactorMagnitudeModification, RoleInput, RotateCredentialInput, S3ConfigurationOptionsInput, SSOProviderInput, SaveBIDashboardVersionInput, ScanConfigurationInput, ScimGroupMapping, ScopeDocumentOptionsInput, ScoreRange, SearchFilters, SecurityDashboardPageInfo, SecurityPipelineGithubConfigurationOptionsInput, SecurityPipelineGithubConfigurationOptionsRepoInput, SecurityPipelineScheduledWorkflowConfigurationInput, SecurityPipelineScheduledWorkflowSelectionInput, SecurityPipelineScheduledWorkflowsInput, SecurityPipelineWorkflowOrder, SecurityPipelineWorkflowsInput, SecurityScorecardConfigurationOptionsInput, SentinelOneConfigurationOptionsInput, ServiceAccountOrder, ServiceNowConfigurationOptionsInput, ServiceNowTicketConfigInput, SetAssetAnnotationsInput, SetAssetRoutingTableInput, SetCustomPolicyInput, SetCustomQueryPackInput, SetOrganizationMembershipInput, SetResourceContactsInput, SetRoleInput, SetRolesInput, SetSSOProviderInput, SetScimGroupMappingInput, SetSpaceMembershipInput, ShodanConfigurationOptionsInput, SlackConfigurationOptionsInput, SnowflakeConfigurationOptionsInput, SocialMediaConfigurationInput, SoftwareFilter, SoftwareOrder, SpacePolicySummaryInput, SpaceSettingsInput, SplunkConfigurationOptionsInput, SubscriptionItem, SuppressIntegrationMessageInput, TagInput, TailscaleConfigurationOptionsInput, TenableConfigurationOptionsInput, TenableSCConfigurationOptionsInput, TerminatedAssetsConfigurationInput, TestCredentialInput, TicketContextInput, TicketingIntegrationsInput, TimeRange, TimestampFilter, TriggerActionInput, TriggerActionOptionsInput, TriggerInterconnectionGraphRegenerationInput, TriggerWorkflowInput, UnusedServiceAccountsConfigurationInput, UpdateAPITokenInput, UpdateAgentInput, UpdateAssetRoutingRuleInput, UpdateBIDashboardInput, UpdateClientIntegrationConfigurationInput, UpdateFindingsSLAInput, UpdateOrganizationInput, UpdateSLAsInput, UpdateSecurityModelInput, UpdateSecurityPipelineScheduledWorkflowInput, UpdateServiceAccountInput, UpdateSpaceInput, UpdateTeamInput, UpdateUserInput, UpdateWorkflowInput, UpdateWorkflowNodeInput, UpdateWorkflowPositionsInput, UpdateWorkflowResourceInput, UpdateWorkflowScheduleInput, UpdateWorkspaceInput, UploadFrameworkInput, VPCConfigurationInput, VPCTagInput, ValidateWorkflowInput, VulnerabilityDashboardPageInfo, VulnerabilityDocumentOptionsInput, VulnerabilityExploitOrder, WIFAuthBindingOrder, WebhookConfigurationOptionsInput, WildcardRoutingConfigInput, WorkflowExecutionsInput, WorkflowsInput, WorkspaceConditionPossibleValuesInput, WorkspaceSelectionConditionInput, WorkspaceSelectionInput, WorkspaceSelectionIntConditionInput, WorkspaceSelectionKeyValueConditionInput, WorkspaceSelectionRatingConditionInput, WorkspaceSelectionStringConditionInput, WorkspaceSelectionsInput, WorkspacesInput, ZendeskConfigurationOptionsInput, ZendeskCustomFieldInput, ZendeskTicketConfigInput, ZendeskTicketContextInput.
 type Input interface{}
 
 // AISummaryInput represents input for requesting an AI-generated summary for an asset or its findings.
@@ -147,6 +147,40 @@ type AddTeamMemberInput struct {
 	MemberMrn *String `json:"memberMrn,omitempty" tfgen:"required=0"`
 	// The email of the user (for pending users or to identify existing users). (Optional.)
 	Email *String `json:"email,omitempty" tfgen:"required=0"`
+}
+
+// AddWorkflowEdgeInput represents input for adding an edge to a workflow.
+type AddWorkflowEdgeInput struct {
+	// MRN of the workflow to modify. (Required.)
+	WorkflowMrn ID `json:"workflowMrn" tfgen:"required=1"`
+	// Source node ID. (Required.)
+	From ID `json:"from" tfgen:"required=1"`
+	// Destination node ID. (Required.)
+	To ID `json:"to" tfgen:"required=1"`
+
+	// Output label for branching (e.g. "true", "false"). (Optional.)
+	Output *String `json:"output,omitempty" tfgen:"required=0"`
+}
+
+// AddWorkflowNodeInput represents input for adding a node to a workflow.
+type AddWorkflowNodeInput struct {
+	// MRN of the workflow to modify. (Required.)
+	WorkflowMrn ID `json:"workflowMrn" tfgen:"required=1"`
+	// Unique node identifier within this workflow. (Required.)
+	Id ID `json:"id" tfgen:"required=1"`
+	// Node type (action, condition, transform, merge, noop, etc.). (Required.)
+	Type String `json:"type" tfgen:"required=1"`
+
+	// Human-readable label. (Optional.)
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
+	// Plugin that provides the action. (Optional.)
+	Plugin *String `json:"plugin,omitempty" tfgen:"required=0"`
+	// Action to invoke on the plugin. (Optional.)
+	Action *String `json:"action,omitempty" tfgen:"required=0"`
+	// Template name or MRN for execute_workflow nodes. (Optional.)
+	SubWorkflow *String `json:"subWorkflow,omitempty" tfgen:"required=0"`
+	// Canvas position as [x, y] coordinates. (Optional.)
+	Position *[]Int `json:"position,omitempty" tfgen:"required=0"`
 }
 
 // AdvisoryDocumentOptionsInput represents input options for the advisory of the document.
@@ -313,6 +347,17 @@ type ApplyIntuneRemediationInput struct {
 	GroupId String `json:"groupId" tfgen:"required=1"`
 	// The MRN of the asset from whose context the remediation was triggered. (Required.)
 	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
+}
+
+// ApproveWorkflowStepInput represents input for approving a workflow step.
+type ApproveWorkflowStepInput struct {
+	// MRN of the execution containing the approval step. (Required.)
+	ExecutionMrn ID `json:"executionMrn" tfgen:"required=1"`
+	// ID of the node to approve. (Required.)
+	NodeId ID `json:"nodeId" tfgen:"required=1"`
+
+	// Optional data to pass to the approved node. (Optional.)
+	Data *Map `json:"data,omitempty" tfgen:"required=0"`
 }
 
 // AssetDeviceTypeFilter represents filter assets by device type.
@@ -865,6 +910,12 @@ type BusinessPriorityTagInput struct {
 	Value String `json:"value" tfgen:"required=1"`
 }
 
+// CancelWorkflowExecutionInput represents input for cancelling a workflow execution.
+type CancelWorkflowExecutionInput struct {
+	// MRN of the execution to cancel. (Required.)
+	ExecutionMrn ID `json:"executionMrn" tfgen:"required=1"`
+}
+
 // CaseContentInput represents case content input.
 type CaseContentInput struct {
 	// References. (Required.)
@@ -1408,6 +1459,21 @@ type CreateClientIntegrationInput struct {
 	Annotations *[]KeyValueInput `json:"annotations,omitempty" tfgen:"required=0"`
 }
 
+// CreateCredentialInput represents input for creating a new credential.
+type CreateCredentialInput struct {
+	// MRN of the owning space or organization. (Required.)
+	OwnerMrn ID `json:"ownerMrn" tfgen:"required=1"`
+	// Human-readable display name. (Required.)
+	Name String `json:"name" tfgen:"required=1"`
+	// Credential type key matching a credential template (e.g. "github"). (Required.)
+	Type String `json:"type" tfgen:"required=1"`
+	// Secret field values (keys must match the template's field definitions). (Required.)
+	Data Map `json:"data" tfgen:"required=1"`
+
+	// Optional expiration timestamp (RFC 3339). (Optional.)
+	ExpiresAt *String `json:"expiresAt,omitempty" tfgen:"required=0"`
+}
+
 // CreateInvitationInput represents input for creating an invitation.
 type CreateInvitationInput struct {
 	// The MRN of the resource (space or organization). (Required.)
@@ -1566,6 +1632,52 @@ type CreateWIFAuthBindingInput struct {
 	AllowedAudiences *[]String `json:"allowedAudiences,omitempty" tfgen:"required=0"`
 }
 
+// CreateWorkflowFromTemplateInput represents input for creating a workflow from a template.
+type CreateWorkflowFromTemplateInput struct {
+	// MRN of the owning space or organization. (Required.)
+	OwnerMrn ID `json:"ownerMrn" tfgen:"required=1"`
+	// Template to instantiate. (Required.)
+	TemplateId ID `json:"templateId" tfgen:"required=1"`
+
+	// Optional display name. Defaults to the template's name. Names that collide with an existing workflow are auto-disambiguated with " (2)", " (3)", etc. (Optional.)
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
+	// Variables to substitute into the template's {{ var_name }} placeholders. Required template variables must be present; optional ones fall back to defaults. (Optional.)
+	Variables *Map `json:"variables,omitempty" tfgen:"required=0"`
+}
+
+// CreateWorkflowInput represents input for creating a workflow.
+type CreateWorkflowInput struct {
+	// MRN of the owning space or organization. (Required.)
+	OwnerMrn ID `json:"ownerMrn" tfgen:"required=1"`
+	// Human-readable display name. (Required.)
+	Name String `json:"name" tfgen:"required=1"`
+	// Full workflow definition in YAML. (Required.)
+	Yaml String `json:"yaml" tfgen:"required=1"`
+
+	// Optional longer description. (Optional.)
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
+}
+
+// CreateWorkflowResourceInput represents input for creating a workflow resource.
+type CreateWorkflowResourceInput struct {
+	// MRN of the owning space or organization. (Required.)
+	OwnerMrn ID `json:"ownerMrn" tfgen:"required=1"`
+	// Resource key. (Required.)
+	Name String `json:"name" tfgen:"required=1"`
+	// Resource type (string, secret, json). (Required.)
+	Type String `json:"type" tfgen:"required=1"`
+	// Initial value. (Required.)
+	Value String `json:"value" tfgen:"required=1"`
+}
+
+// CreateWorkflowScheduleInput represents input for creating a workflow schedule.
+type CreateWorkflowScheduleInput struct {
+	// MRN of the workflow to schedule. (Required.)
+	WorkflowMrn ID `json:"workflowMrn" tfgen:"required=1"`
+	// Cron expression defining the recurrence. (Required.)
+	CronExpression String `json:"cronExpression" tfgen:"required=1"`
+}
+
 // CreateWorkspaceInput represents create workspace input.
 type CreateWorkspaceInput struct {
 	// The MRN of the owner of the workspace. (Required.)
@@ -1671,6 +1783,12 @@ type DeleteClientIntegrationInput struct {
 	Mrn String `json:"mrn" tfgen:"required=1"`
 }
 
+// DeleteCredentialInput represents input for deleting a credential.
+type DeleteCredentialInput struct {
+	// MRN of the credential to delete. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
+}
+
 // DeleteCustomPolicyInput represents input for deleting a policy.
 type DeleteCustomPolicyInput struct {
 	// The mrn of the policy. (Required.)
@@ -1717,10 +1835,59 @@ type DeleteServiceAccountsInput struct {
 	Mrns []String `json:"mrns" tfgen:"required=1"`
 }
 
+// DeleteWorkflowEdgeInput represents input for deleting an edge from a workflow.
+type DeleteWorkflowEdgeInput struct {
+	// MRN of the workflow to modify. (Required.)
+	WorkflowMrn ID `json:"workflowMrn" tfgen:"required=1"`
+	// Source node ID. (Required.)
+	From ID `json:"from" tfgen:"required=1"`
+	// Destination node ID. (Required.)
+	To ID `json:"to" tfgen:"required=1"`
+}
+
+// DeleteWorkflowInput represents input for deleting a workflow.
+type DeleteWorkflowInput struct {
+	// MRN of the workflow to delete. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
+}
+
+// DeleteWorkflowNodeInput represents input for deleting a workflow node.
+type DeleteWorkflowNodeInput struct {
+	// MRN of the workflow containing the node. (Required.)
+	WorkflowMrn ID `json:"workflowMrn" tfgen:"required=1"`
+	// ID of the node to delete. (Required.)
+	NodeId ID `json:"nodeId" tfgen:"required=1"`
+}
+
+// DeleteWorkflowResourceInput represents input for deleting a workflow resource.
+type DeleteWorkflowResourceInput struct {
+	// MRN of the scope containing the resource. (Required.)
+	ScopeMrn ID `json:"scopeMrn" tfgen:"required=1"`
+	// Resource key to delete. (Required.)
+	Name String `json:"name" tfgen:"required=1"`
+}
+
+// DeleteWorkflowScheduleInput represents input for deleting a workflow schedule.
+type DeleteWorkflowScheduleInput struct {
+	// MRN of the schedule to delete. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
+}
+
 // DeleteWorkspacesInput represents delete workspaces input.
 type DeleteWorkspacesInput struct {
 	// MRNs of workspaces to delete. (Required.)
 	Mrns []String `json:"mrns" tfgen:"required=1"`
+}
+
+// DenyWorkflowStepInput represents input for denying a workflow step.
+type DenyWorkflowStepInput struct {
+	// MRN of the execution containing the approval step. (Required.)
+	ExecutionMrn ID `json:"executionMrn" tfgen:"required=1"`
+	// ID of the node to deny. (Required.)
+	NodeId ID `json:"nodeId" tfgen:"required=1"`
+
+	// Reason for denial. (Optional.)
+	Reason *String `json:"reason,omitempty" tfgen:"required=0"`
 }
 
 // DigitaloceanConfigurationOptionsInput represents digitalOcean integration input.
@@ -2006,6 +2173,12 @@ type ExportReportOptionsInput struct {
 	Checks *ExportReportFilterChecks `json:"checks,omitempty" tfgen:"required=0"`
 	// Filter packages. (Optional.)
 	Packages *ExportReportFilterPackages `json:"packages,omitempty" tfgen:"required=0"`
+}
+
+// ExportWorkflowYamlInput represents input for exporting a workflow as YAML.
+type ExportWorkflowYamlInput struct {
+	// MRN of the workflow to export. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
 }
 
 // ExtendExceptionInput represents exception extend input.
@@ -2450,6 +2623,14 @@ type IdentityFilter struct {
 	Mrn *String `json:"mrn,omitempty" tfgen:"required=0"`
 	// Filter by identity name. (Optional.)
 	Name *String `json:"name,omitempty" tfgen:"required=0"`
+}
+
+// ImportWorkflowYamlInput represents input for importing a workflow from YAML.
+type ImportWorkflowYamlInput struct {
+	// MRN of the owning space or organization. (Required.)
+	OwnerMrn ID `json:"ownerMrn" tfgen:"required=1"`
+	// YAML content to import. (Required.)
+	Yaml String `json:"yaml" tfgen:"required=1"`
 }
 
 // InitiativeOrder represents initiative order object.
@@ -3015,6 +3196,14 @@ type NewsConfigurationInput struct {
 	SocialMedia SocialMediaConfigurationInput `json:"socialMedia" tfgen:"required=1"`
 }
 
+// NodePositionInput represents position update for a single node.
+type NodePositionInput struct {
+	// ID of the node to reposition. (Required.)
+	NodeId ID `json:"nodeId" tfgen:"required=1"`
+	// New canvas position as [x, y] coordinates. (Required.)
+	Position []Int `json:"position" tfgen:"required=1"`
+}
+
 // OciConfigurationOptionsInput represents oCI integration input.
 type OciConfigurationOptionsInput struct {
 	// The tenancy OCID for the OCI integration. (Required.)
@@ -3137,6 +3326,12 @@ type PackagesOrder struct {
 	Direction OrderDirection `json:"direction" tfgen:"required=1"`
 	// Order field. (Required.)
 	Field PackagesOrderField `json:"field" tfgen:"required=1"`
+}
+
+// PauseWorkflowScheduleInput represents input for pausing a workflow schedule.
+type PauseWorkflowScheduleInput struct {
+	// MRN of the schedule to pause. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
 }
 
 // PerformDiscoveryInput represents input options for discovery job on client integration.
@@ -3548,6 +3743,12 @@ type ReportViewedInput struct {
 	Info ReportViewedInfo `json:"info" tfgen:"required=1"`
 }
 
+// ResetWorkflowToTemplateInput represents input for resetting a workflow to its source template.
+type ResetWorkflowToTemplateInput struct {
+	// MRN of the workflow to reset. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
+}
+
 // ResourceContactInput represents input for a single contact. The contact type is inferred from the identity: user MRNs become USER contacts, team MRNs become TEAM contacts, and email addresses become EMAIL contacts.
 type ResourceContactInput struct {
 	// The identity: user MRN, team MRN, or email address. (Required.)
@@ -3560,6 +3761,12 @@ type RestoreBIDashboardVersionInput struct {
 	Mrn String `json:"mrn" tfgen:"required=1"`
 	// Version ID to restore from. (Required.)
 	VersionId ID `json:"versionId" tfgen:"required=1"`
+}
+
+// ResumeWorkflowScheduleInput represents input for resuming a workflow schedule.
+type ResumeWorkflowScheduleInput struct {
+	// MRN of the schedule to resume. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
 }
 
 // RevokeRegistrationTokenInput represents input for revoking a registration token.
@@ -3623,6 +3830,14 @@ type RiskFactorMagnitudeModification struct {
 type RoleInput struct {
 	// The MRN of the role. (Required.)
 	Mrn String `json:"mrn" tfgen:"required=1"`
+}
+
+// RotateCredentialInput represents input for rotating a credential's secret data.
+type RotateCredentialInput struct {
+	// MRN of the credential to rotate. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
+	// New secret field values (replaces all existing data). (Required.)
+	NewData Map `json:"newData" tfgen:"required=1"`
 }
 
 // S3ConfigurationOptionsInput represents s3 integration input.
@@ -4165,6 +4380,12 @@ type TerminatedAssetsConfigurationInput struct {
 	Cleanup *Boolean `json:"cleanup,omitempty" tfgen:"required=0"`
 }
 
+// TestCredentialInput represents input for testing a credential's health.
+type TestCredentialInput struct {
+	// MRN of the credential to test. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
+}
+
 // TicketContextInput represents fetch Jira ticket context information.
 type TicketContextInput struct {
 	// The MRN of the scope for which the context is fetched. (Required.)
@@ -4225,6 +4446,17 @@ type TriggerActionOptionsInput struct {
 type TriggerInterconnectionGraphRegenerationInput struct {
 	// The organization MRN to regenerate the graph for. (Required.)
 	OrgMrn String `json:"orgMrn" tfgen:"required=1"`
+}
+
+// TriggerWorkflowInput represents input for triggering a workflow execution.
+type TriggerWorkflowInput struct {
+	// MRN of the workflow to trigger. (Required.)
+	WorkflowMrn ID `json:"workflowMrn" tfgen:"required=1"`
+
+	// Runtime variable values for this execution. (Optional.)
+	TriggerData *Map `json:"triggerData,omitempty" tfgen:"required=0"`
+	// Run without side effects. (Optional.)
+	DryRun *Boolean `json:"dryRun,omitempty" tfgen:"required=0"`
 }
 
 // UnusedServiceAccountsConfigurationInput represents unused service accounts configuration input.
@@ -4410,6 +4642,85 @@ type UpdateUserInput struct {
 	Name String `json:"name" tfgen:"required=1"`
 }
 
+// UpdateWorkflowInput represents input for updating a workflow.
+type UpdateWorkflowInput struct {
+	// MRN of the workflow to update. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
+
+	// New display name. (Optional.)
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
+	// New description. (Optional.)
+	Description *String `json:"description,omitempty" tfgen:"required=0"`
+	// Updated YAML definition. (Optional.)
+	Yaml *String `json:"yaml,omitempty" tfgen:"required=0"`
+	// Enable or disable the workflow. (Optional.)
+	Enabled *Boolean `json:"enabled,omitempty" tfgen:"required=0"`
+	// New lifecycle status. (Optional.)
+	Status *String `json:"status,omitempty" tfgen:"required=0"`
+	// Updated credential bindings. (Optional.)
+	CredentialBindings *Map `json:"credentialBindings,omitempty" tfgen:"required=0"`
+}
+
+// UpdateWorkflowNodeInput represents input for updating a workflow node.
+type UpdateWorkflowNodeInput struct {
+	// MRN of the workflow containing the node. (Required.)
+	WorkflowMrn ID `json:"workflowMrn" tfgen:"required=1"`
+	// ID of the node to update. (Required.)
+	NodeId ID `json:"nodeId" tfgen:"required=1"`
+
+	// Updated label. (Optional.)
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
+	// Updated plugin. (Optional.)
+	Plugin *String `json:"plugin,omitempty" tfgen:"required=0"`
+	// Updated action. (Optional.)
+	Action *String `json:"action,omitempty" tfgen:"required=0"`
+	// Updated expression. (Optional.)
+	Expression *String `json:"expression,omitempty" tfgen:"required=0"`
+	// Updated comment. (Optional.)
+	Comment *String `json:"comment,omitempty" tfgen:"required=0"`
+	// Enable or disable the node. (Optional.)
+	Disabled *Boolean `json:"disabled,omitempty" tfgen:"required=0"`
+	// Updated timeout. (Optional.)
+	Timeout *String `json:"timeout,omitempty" tfgen:"required=0"`
+	// Updated error handling strategy. (Optional.)
+	OnError *String `json:"onError,omitempty" tfgen:"required=0"`
+	// Updated action parameters. (Optional.)
+	Params *Map `json:"params,omitempty" tfgen:"required=0"`
+	// Updated input mapping for execute_workflow nodes (ADR-047). (Optional.)
+	Input *Map `json:"input,omitempty" tfgen:"required=0"`
+	// Updated credential mapping for execute_workflow nodes (ADR-047). (Optional.)
+	Credentials *Map `json:"credentials,omitempty" tfgen:"required=0"`
+}
+
+// UpdateWorkflowPositionsInput represents input for updating node positions.
+type UpdateWorkflowPositionsInput struct {
+	// MRN of the workflow to modify. (Required.)
+	WorkflowMrn ID `json:"workflowMrn" tfgen:"required=1"`
+	// Position updates. (Required.)
+	Positions []NodePositionInput `json:"positions" tfgen:"required=1"`
+}
+
+// UpdateWorkflowResourceInput represents input for updating a workflow resource.
+type UpdateWorkflowResourceInput struct {
+	// MRN of the scope containing the resource. (Required.)
+	ScopeMrn ID `json:"scopeMrn" tfgen:"required=1"`
+	// Resource key. (Required.)
+	Name String `json:"name" tfgen:"required=1"`
+	// New value. (Required.)
+	Value String `json:"value" tfgen:"required=1"`
+}
+
+// UpdateWorkflowScheduleInput represents input for updating a workflow schedule.
+type UpdateWorkflowScheduleInput struct {
+	// MRN of the schedule to update. (Required.)
+	Mrn ID `json:"mrn" tfgen:"required=1"`
+
+	// New cron expression. (Optional.)
+	CronExpression *String `json:"cronExpression,omitempty" tfgen:"required=0"`
+	// Pause or unpause the schedule. (Optional.)
+	Paused *Boolean `json:"paused,omitempty" tfgen:"required=0"`
+}
+
 // UpdateWorkspaceInput represents update workspace input.
 type UpdateWorkspaceInput struct {
 	// MRN. (Required.)
@@ -4454,6 +4765,12 @@ type VPCTagInput struct {
 	Key String `json:"key" tfgen:"required=1"`
 	// The value of the tag. (Required.)
 	Value String `json:"value" tfgen:"required=1"`
+}
+
+// ValidateWorkflowInput represents input for validating a workflow YAML.
+type ValidateWorkflowInput struct {
+	// YAML content to validate. (Required.)
+	Yaml String `json:"yaml" tfgen:"required=1"`
 }
 
 // VulnerabilityDashboardPageInfo represents vuln Dashboard pagination info.
@@ -4505,6 +4822,28 @@ type WildcardRoutingConfigInput struct {
 	SpacePrefix String `json:"spacePrefix" tfgen:"required=1"`
 	// (Required.)
 	TagKey String `json:"tagKey" tfgen:"required=1"`
+}
+
+// WorkflowExecutionsInput represents input for listing workflow executions.
+type WorkflowExecutionsInput struct {
+
+	// Filter by a specific workflow. (Optional.)
+	WorkflowMrn *ID `json:"workflowMrn,omitempty" tfgen:"required=0"`
+	// Filter by scope. (Optional.)
+	ScopeMrn *ID `json:"scopeMrn,omitempty" tfgen:"required=0"`
+	// Filter by execution status. (Optional.)
+	Status *String `json:"status,omitempty" tfgen:"required=0"`
+}
+
+// WorkflowsInput represents input for listing workflows.
+type WorkflowsInput struct {
+	// MRN of the space or organization to list workflows for. (Required.)
+	ScopeMrn ID `json:"scopeMrn" tfgen:"required=1"`
+
+	// Filter by lifecycle status. (Optional.)
+	Status *String `json:"status,omitempty" tfgen:"required=0"`
+	// Filter by enabled state. (Optional.)
+	Enabled *Boolean `json:"enabled,omitempty" tfgen:"required=0"`
 }
 
 // WorkspaceConditionPossibleValuesInput represents workspace condition possible values input.
