@@ -2782,6 +2782,8 @@ type K8sAksWifInput struct {
 	TenantId *String `json:"tenantId,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	LoginServer *String `json:"loginServer,omitempty" tfgen:"required=0"`
+	// Optional Kubernetes API server endpoint override URL (must start with https://). Consumed by the mondoo-operator, not by the server. (Optional.)
+	Endpoint *String `json:"endpoint,omitempty" tfgen:"required=0"`
 }
 
 // K8sConfigurationOptionsInput represents k8s integration input.
@@ -2843,6 +2845,8 @@ type K8sEksWifInput struct {
 	ClusterName *String `json:"clusterName,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	RoleArn *String `json:"roleArn,omitempty" tfgen:"required=0"`
+	// Optional Kubernetes API server endpoint override URL (must start with https://). Consumed by the mondoo-operator, not by the server. (Optional.)
+	Endpoint *String `json:"endpoint,omitempty" tfgen:"required=0"`
 }
 
 // K8sExternalClusterInput represents external cluster configuration for K8s integration.
@@ -2891,6 +2895,8 @@ type K8sGkeWifInput struct {
 	ClusterLocation *String `json:"clusterLocation,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	GoogleServiceAccount *String `json:"googleServiceAccount,omitempty" tfgen:"required=0"`
+	// Optional Kubernetes API server endpoint override URL (must start with https://). Consumed by the mondoo-operator, not by the server. (Optional.)
+	Endpoint *String `json:"endpoint,omitempty" tfgen:"required=0"`
 }
 
 // K8sSpiffeAuthInput represents sPIFFE authentication configuration input.
