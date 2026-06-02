@@ -2274,6 +2274,8 @@ type FindingsFilter struct {
 	VulnerabilityMrn *String `json:"vulnerabilityMrn,omitempty" tfgen:"required=0"`
 	// Filter by finding states. Each entry can specify any combination of state fields. Multiple entries are ORed. Returns findings matching any of the provided state filters. (Optional.)
 	States *[]FindingStateFilter `json:"states,omitempty" tfgen:"required=0"`
+	// Filter by the detection source(s) that reported the finding. Values are the VexSourceName strings stored on the score (e.g., "VEX_SOURCE_CNSPEC", "VEX_SOURCE_SENTINEL_ONE", "VEX_SOURCE_MSDEFENDER"). Findings match when their source set overlaps with this list (OR semantics). An empty or null list means no source filtering. Use this to filter findings reported by Mondoo vs third-party scanners (SentinelOne, Microsoft Defender, CrowdStrike Falcon, etc.). (Optional.)
+	DetectionSources *[]String `json:"detectionSources,omitempty" tfgen:"required=0"`
 }
 
 // FindingsOrder represents findings order.
@@ -4249,6 +4251,8 @@ type SoftwareFilter struct {
 	PackageName *String `json:"packageName,omitempty" tfgen:"required=0"`
 	// Exact match on ecosystem identifier (e.g. "ubuntu/22.04", "pypi"). (Optional.)
 	Ecosystem *String `json:"ecosystem,omitempty" tfgen:"required=0"`
+	// Filter by risk factor MRNs attached to the package. Mirrors the RiskFactorFilterQuery shape used by `findings(filter.riskFactors.mrns)` so the same input drives both APIs. AND requires every listed MRN to be present; OR matches any. EOL packages can be selected with `risks: { and: ["//policy.api.mondoo.app/risks/software-is-eol"] }`. (Optional.)
+	Risks *RiskFactorFilterQuery `json:"risks,omitempty" tfgen:"required=0"`
 }
 
 // SoftwareOrder represents ordering spec for the software inventory list. Direction is required and field defaults to NAME at the server when omitted.
