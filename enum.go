@@ -2032,6 +2032,7 @@ const (
 	UIActionView                 UIAction = "VIEW"                  // Finding or asset or dashboard view.
 	UIActionRemediationCopy      UIAction = "REMEDIATION_COPY"      // Copy of remediation text.
 	UIActionPrivateinstanceLogin UIAction = "PRIVATEINSTANCE_LOGIN" // Login button on private instance clicked.
+	UIActionRemediationMissing   UIAction = "REMEDIATION_MISSING"   // Remediation is missing for a finding.
 )
 
 // UIPage represents the page in the UI where the action was taken.
