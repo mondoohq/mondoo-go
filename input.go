@@ -743,6 +743,8 @@ type AzureConfigurationOptionsInput struct {
 	ScanVms *Boolean `json:"scanVms,omitempty" tfgen:"required=0"`
 	// The client secret for authentication (optional). (Optional.)
 	ClientSecret *String `json:"clientSecret,omitempty" tfgen:"required=0"`
+	// Selected discovery targets. Empty means use the default discovery behavior. (Optional.)
+	DiscoveryTargets *[]String `json:"discoveryTargets,omitempty" tfgen:"required=0"`
 }
 
 // AzureDevopsConfigurationOptionsInput represents azure Devops integration input.
@@ -2344,6 +2346,8 @@ type GcpConfigurationOptionsInput struct {
 	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
 	// GCP service account email for WIF service account impersonation. Required together with wifAudience for WIF authentication. (Optional.)
 	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
+	// Selected discovery targets. Empty means use the default discovery behavior. (Optional.)
+	DiscoveryTargets *[]String `json:"discoveryTargets,omitempty" tfgen:"required=0"`
 }
 
 // GcsBucketConfigurationOptionsInput represents gCS Bucket integration input.
@@ -2607,6 +2611,8 @@ type HostedAwsConfigurationOptionsInput struct {
 	RoleCredential *AWSRoleCredential `json:"roleCredential,omitempty" tfgen:"required=0"`
 	// WIF credential for the hosted AWS integration. Uses Mondoo as an OIDC identity provider with AWS IAM. (Optional.)
 	WifCredential *AWSWifCredential `json:"wifCredential,omitempty" tfgen:"required=0"`
+	// Selected discovery targets. Empty means use the default discovery behavior. (Optional.)
+	DiscoveryTargets *[]String `json:"discoveryTargets,omitempty" tfgen:"required=0"`
 }
 
 // IDSuggestionInput represents iD suggestion input.

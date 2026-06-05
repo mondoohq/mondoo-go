@@ -709,6 +709,16 @@ const (
 	DeviceTypeUnknown     DeviceType = "UNKNOWN"
 )
 
+// DiscoveryProvider represents integration provider whose discovery targets can be listed.
+type DiscoveryProvider string
+
+// Integration provider whose discovery targets can be listed.
+const (
+	DiscoveryProviderAws   DiscoveryProvider = "AWS"
+	DiscoveryProviderGcp   DiscoveryProvider = "GCP"
+	DiscoveryProviderAzure DiscoveryProvider = "AZURE"
+)
+
 // DocumentFormat represents document format.
 type DocumentFormat string
 
