@@ -3670,6 +3670,8 @@ type RemediationsForScopeInput struct {
 	ScriptTypes *[]RemediationScriptType `json:"scriptTypes,omitempty" tfgen:"required=0"`
 	// Filter to items whose technology is in this set. (Optional.)
 	Technologies *[]Technology `json:"technologies,omitempty" tfgen:"required=0"`
+	// Filter to remediations that touch at least one of these asset MRNs. Used to scope the list to a single asset (e.g. "download all remediations for this asset"). Empty = no filter. (Optional.)
+	AssetMrns *[]String `json:"assetMrns,omitempty" tfgen:"required=0"`
 	// Case-insensitive substring match against package name (vuln) or check title (check). (Optional.)
 	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// Pagination control. (Optional.)

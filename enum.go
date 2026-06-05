@@ -2043,6 +2043,7 @@ const (
 	UIActionRemediationCopy      UIAction = "REMEDIATION_COPY"      // Copy of remediation text.
 	UIActionPrivateinstanceLogin UIAction = "PRIVATEINSTANCE_LOGIN" // Login button on private instance clicked.
 	UIActionRemediationMissing   UIAction = "REMEDIATION_MISSING"   // Remediation is missing for a finding.
+	UIActionRemediationDownload  UIAction = "REMEDIATION_DOWNLOAD"  // Download of one or more remediations (scripts) as a file.
 )
 
 // UIPage represents the page in the UI where the action was taken.
