@@ -192,6 +192,8 @@ const (
 	AggregateScoreTypeSoftware          AggregateScoreType = "SOFTWARE"           // Aggregate score for a software package across all versions currently affected by a vulnerability.
 	AggregateScoreTypeVersionedSoftware AggregateScoreType = "VERSIONED_SOFTWARE" // Aggregate score for a software package with a specific version affected by a vulnerability.
 	AggregateScoreTypeProduct           AggregateScoreType = "PRODUCT"            // Aggregate score for a product (e.g., Firefox, Chrome) that rolls up all underlying SOFTWARE entries — across operating systems, package formats, and architectures — into a single entry per upstream product as defined in the Mondoo product catalog.
+	AggregateScoreTypeInstalledSoftware AggregateScoreType = "INSTALLED_SOFTWARE" // Aggregate score for an installed software package across all versions, covering ALL installed software (not just versions affected by a vulnerability). Powers the full software inventory view.
+	AggregateScoreTypeInstalledProduct  AggregateScoreType = "INSTALLED_PRODUCT"  // Aggregate score for an installed product that rolls up all underlying INSTALLED_SOFTWARE entries into a single entry per upstream product (Mondoo product catalog), covering ALL installed software. Powers the per-product software inventory view.
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
 )
 
