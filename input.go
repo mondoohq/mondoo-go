@@ -3672,6 +3672,8 @@ type RemediationsForScopeInput struct {
 	Technologies *[]Technology `json:"technologies,omitempty" tfgen:"required=0"`
 	// Filter to remediations that touch at least one of these asset MRNs. Used to scope the list to a single asset (e.g. "download all remediations for this asset"). Empty = no filter. (Optional.)
 	AssetMrns *[]String `json:"assetMrns,omitempty" tfgen:"required=0"`
+	// Filter to remediations that fix at least one of these finding MRNs. A finding MRN matches a check item when it equals the item's check MRN, or a vuln item when it is one of the item's covered CVE MRNs. Used to scope a download to a selected set of findings. Empty = no filter. (Optional.)
+	FindingMrns *[]String `json:"findingMrns,omitempty" tfgen:"required=0"`
 	// Case-insensitive substring match against package name (vuln) or check title (check). (Optional.)
 	Query *String `json:"query,omitempty" tfgen:"required=0"`
 	// Pagination control. (Optional.)
