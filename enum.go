@@ -1167,6 +1167,7 @@ const (
 	ICON_IDSNvidia                    ICON_IDS = "NVIDIA"
 	ICON_IDSNmap                      ICON_IDS = "NMAP"
 	ICON_IDSNotepadPlusPlus           ICON_IDS = "NOTEPAD_PLUS_PLUS"
+	ICON_IDSNutanix                   ICON_IDS = "NUTANIX"
 	ICON_IDSOci                       ICON_IDS = "OCI"
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
 	ICON_IDSOllama                    ICON_IDS = "OLLAMA"
