@@ -116,6 +116,7 @@ const (
 	AggScoresFilterTypeRiskFactors         AggScoresFilterType = "RISK_FACTORS"          // Filter by risk factor.
 	AggScoresFilterTypePlatform            AggScoresFilterType = "PLATFORM"              // Filter by platform.
 	AggScoresFilterTypeRiskCategoryImpacts AggScoresFilterType = "RISK_CATEGORY_IMPACTS" // Filter by risk category impact labels.
+	AggScoresFilterTypeDetectionSources    AggScoresFilterType = "DETECTION_SOURCES"     // Filter by detection source (cnspec vs third-party scanners — SentinelOne, MS Defender, CrowdStrike Falcon, etc.). Values are VexSourceName strings.
 )
 
 // AggregateScoreAggregationType represents describes how to aggregate.
@@ -923,12 +924,13 @@ type FindingFilterType string
 
 // Finding filter type.
 const (
-	FindingFilterTypeState       FindingFilterType = "STATE"        // State filter.
-	FindingFilterTypeTypes       FindingFilterType = "TYPES"        // Filter by finding types (CHECK, CVE, ADVISORY, PACKAGE, etc.).
-	FindingFilterTypeRating      FindingFilterType = "RATING"       // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
-	FindingFilterTypePolicyMrn   FindingFilterType = "POLICY_MRN"   // Filter by policy MRN.
-	FindingFilterTypeSoftwareMrn FindingFilterType = "SOFTWARE_MRN" // Filter vulnerabilities by software MRN.
-	FindingFilterTypeRiskFactors FindingFilterType = "RISK_FACTORS" // Filter by risk factor.
+	FindingFilterTypeState           FindingFilterType = "STATE"            // State filter.
+	FindingFilterTypeTypes           FindingFilterType = "TYPES"            // Filter by finding types (CHECK, CVE, ADVISORY, PACKAGE, etc.).
+	FindingFilterTypeRating          FindingFilterType = "RATING"           // Filter by rating (CRITICAL, HIGH, MEDIUM, LOW, etc.).
+	FindingFilterTypePolicyMrn       FindingFilterType = "POLICY_MRN"       // Filter by policy MRN.
+	FindingFilterTypeSoftwareMrn     FindingFilterType = "SOFTWARE_MRN"     // Filter vulnerabilities by software MRN.
+	FindingFilterTypeRiskFactors     FindingFilterType = "RISK_FACTORS"     // Filter by risk factor.
+	FindingFilterTypeDetectionSource FindingFilterType = "DETECTION_SOURCE" // Filter by detection source (cnspec vs third-party scanners — SentinelOne, MS Defender, CrowdStrike Falcon, etc.). Values are VexSourceName strings.
 )
 
 // FindingOverallState represents the overall state for a finding.
