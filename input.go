@@ -55,6 +55,8 @@ type AWSCrossAccountScanOptionsInput struct {
 	AccountIDs *[]String `json:"accountIds,omitempty" tfgen:"required=0"`
 	// The IAM role name to assume in each target account. (Optional.)
 	RoleName *String `json:"roleName,omitempty" tfgen:"required=0"`
+	// Key-value tags indicating which accounts to consider for cross-account scanning. They are evaluated using a logical OR. When empty, all discovered accounts are applicable. When not empty, only accounts that match at least one of the specified tags are applicable. A value of `*` is treated as a wildcard: only the tag key is matched, regardless of its value. Defaults to an empty list. (Optional.)
+	AccountTags *[]TagInput `json:"accountTags,omitempty" tfgen:"required=0"`
 }
 
 // AWSEventPatternInput represents aWSEventPatternInput describes the options for event pattern based scan triggers.
@@ -275,6 +277,8 @@ type AggregateScoreFilter struct {
 	RiskCategoryFilters *[]RiskCategoryFilterInput `json:"riskCategoryFilters,omitempty" tfgen:"required=0"`
 	// Restrict results to scores whose containing space is in this list. Matches both asset-level scores (asset's space) and space-level rolled-up scores for the listed spaces. Used to scope an org-wide aggregateScores call to a subset of spaces. (Optional.)
 	SpaceMrns *[]String `json:"spaceMrns,omitempty" tfgen:"required=0"`
+	// Filter by the detection source(s) that reported the finding. Values are VexSourceName strings (e.g. "VEX_SOURCE_CNSPEC", "VEX_SOURCE_SENTINEL_ONE"). Matching is OR/overlap; an empty or omitted list applies no source filter. Used to filter aggregate scores reported by Mondoo (cnspec) vs third-party scanners. VULN/ADVISORY aggregates match on their real source set; all other types (checks, policies, frameworks, software, etc.) match "VEX_SOURCE_CNSPEC". (Optional.)
+	DetectionSources *[]String `json:"detectionSources,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreOrder represents aggregate score order object.
