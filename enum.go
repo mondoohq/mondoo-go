@@ -198,6 +198,16 @@ const (
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
 )
 
+// ArdEntityOrderField represents fields an ARD entity listing can be ordered by.
+type ArdEntityOrderField string
+
+// Fields an ARD entity listing can be ordered by.
+const (
+	ArdEntityOrderFieldName       ArdEntityOrderField = "NAME"
+	ArdEntityOrderFieldScore      ArdEntityOrderField = "SCORE"
+	ArdEntityOrderFieldAssetCount ArdEntityOrderField = "ASSET_COUNT"
+)
+
 // AssessmentStatus represents lifecycle status of an Assessment.
 type AssessmentStatus string
 
