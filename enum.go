@@ -2054,11 +2054,12 @@ type UIAction string
 
 // The action taken in the UI.
 const (
-	UIActionView                 UIAction = "VIEW"                  // Finding or asset or dashboard view.
-	UIActionRemediationCopy      UIAction = "REMEDIATION_COPY"      // Copy of remediation text.
-	UIActionPrivateinstanceLogin UIAction = "PRIVATEINSTANCE_LOGIN" // Login button on private instance clicked.
-	UIActionRemediationMissing   UIAction = "REMEDIATION_MISSING"   // Remediation is missing for a finding.
-	UIActionRemediationDownload  UIAction = "REMEDIATION_DOWNLOAD"  // Download of one or more remediations (scripts) as a file.
+	UIActionView                    UIAction = "VIEW"                      // Finding or asset or dashboard view.
+	UIActionRemediationCopy         UIAction = "REMEDIATION_COPY"          // Copy of remediation text.
+	UIActionPrivateinstanceLogin    UIAction = "PRIVATEINSTANCE_LOGIN"     // Login button on private instance clicked.
+	UIActionRemediationMissing      UIAction = "REMEDIATION_MISSING"       // Remediation is missing for a finding.
+	UIActionRemediationDownload     UIAction = "REMEDIATION_DOWNLOAD"      // Download of one or more remediations (scripts) as a file.
+	UIActionExecutiveReportGenerate UIAction = "EXECUTIVE_REPORT_GENERATE" // Generation of an executive report.
 )
 
 // UIPage represents the page in the UI where the action was taken.
@@ -2076,6 +2077,9 @@ const (
 	UIPageFinding             UIPage = "FINDING"              // Finding detail page (not in asset context).
 	UIPageComplianceDashboard UIPage = "COMPLIANCE_DASHBOARD" // Compliance dashboard page.
 	UIPageComplianceFramework UIPage = "COMPLIANCE_FRAMEWORK" // Compliance framework detail page.
+	UIPageExecutiveReport     UIPage = "EXECUTIVE_REPORT"     // Executive report generation wizard.
+	UIPageSoftware            UIPage = "SOFTWARE"             // Vulnerable software finding detail page.
+	UIPageSoftwareOnAsset     UIPage = "SOFTWARE_ON_ASSET"    // Software finding detail page viewed in the context of an asset.
 )
 
 // UserState represents state of a user.
