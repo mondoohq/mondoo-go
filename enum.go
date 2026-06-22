@@ -891,11 +891,12 @@ type FindingActionState string
 
 // The action state for a finding.
 const (
-	FindingActionStateUnknown          FindingActionState = "UNKNOWN"
-	FindingActionStateDetected         FindingActionState = "DETECTED"
-	FindingActionStateNoFixedVersion   FindingActionState = "NO_FIXED_VERSION"
-	FindingActionStateScript           FindingActionState = "SCRIPT"
-	FindingActionStateSecurityPipeline FindingActionState = "SECURITY_PIPELINE"
+	FindingActionStateUnknown           FindingActionState = "UNKNOWN"
+	FindingActionStateDetected          FindingActionState = "DETECTED"
+	FindingActionStateNoFixedVersion    FindingActionState = "NO_FIXED_VERSION"
+	FindingActionStateScript            FindingActionState = "SCRIPT"
+	FindingActionStateSecurityPipeline  FindingActionState = "SECURITY_PIPELINE"
+	FindingActionStateIntuneRemediation FindingActionState = "INTUNE_REMEDIATION" // Finding can be remediated through the Microsoft Intune integration — its affected Windows software is in the product mapping catalog with a winget_id. Ranked above SCRIPT/SECURITY_PIPELINE in the action-dimension picker. The UI gates the "Send to Intune" action on `state.action == INTUNE_REMEDIATION`. The flag does NOT consider whether the space has an Intune integration configured or whether the asset is enrolled in Intune — those are checked separately.
 )
 
 // FindingAgeState represents the age state for a finding - whether it is new or not.
@@ -1527,17 +1528,18 @@ type PackageManager string
 
 // Remediation script type.
 const (
-	PackageManagerDpkg       PackageManager = "DPKG"       // DPKG.
-	PackageManagerYum        PackageManager = "YUM"        // YUM.
-	PackageManagerDnf        PackageManager = "DNF"        // DNF.
-	PackageManagerZypper     PackageManager = "ZYPPER"     // ZYPPER.
-	PackageManagerPowershell PackageManager = "POWERSHELL" // POWERSHELL.
-	PackageManagerAix        PackageManager = "AIX"        // AIX.
-	PackageManagerBrew       PackageManager = "BREW"       // BREW aka. HOMEBREW.
-	PackageManagerManual     PackageManager = "MANUAL"     // Manual Instructions.
-	PackageManagerApk        PackageManager = "APK"        // APK.
-	PackageManagerSnap       PackageManager = "SNAP"       // SNAP.
-	PackageManagerWinget     PackageManager = "WINGET"     // WINGET.
+	PackageManagerDpkg           PackageManager = "DPKG"            // DPKG.
+	PackageManagerYum            PackageManager = "YUM"             // YUM.
+	PackageManagerDnf            PackageManager = "DNF"             // DNF.
+	PackageManagerZypper         PackageManager = "ZYPPER"          // ZYPPER.
+	PackageManagerPowershell     PackageManager = "POWERSHELL"      // POWERSHELL.
+	PackageManagerAix            PackageManager = "AIX"             // AIX.
+	PackageManagerBrew           PackageManager = "BREW"            // BREW aka. HOMEBREW.
+	PackageManagerManual         PackageManager = "MANUAL"          // Manual Instructions.
+	PackageManagerApk            PackageManager = "APK"             // APK.
+	PackageManagerSnap           PackageManager = "SNAP"            // SNAP.
+	PackageManagerWinget         PackageManager = "WINGET"          // WINGET.
+	PackageManagerSoftwareUpdate PackageManager = "SOFTWARE_UPDATE" // SOFTWARE_UPDATE (macOS Software Update).
 )
 
 // PackageScoresOrderField represents packageScores order fields.
