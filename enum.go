@@ -1143,6 +1143,7 @@ const (
 	ICON_IDSHuggingFace               ICON_IDS = "HUGGING_FACE"
 	ICON_IDSIac                       ICON_IDS = "IAC"
 	ICON_IDSIntellijIdea              ICON_IDS = "INTELLIJ_IDEA"
+	ICON_IDSInthewild                 ICON_IDS = "INTHEWILD"
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
 	ICON_IDSJunos                     ICON_IDS = "JUNOS"
