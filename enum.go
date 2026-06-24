@@ -1122,6 +1122,7 @@ const (
 	ICON_IDSDomainsAndHosts           ICON_IDS = "DOMAINS_AND_HOSTS"
 	ICON_IDSDragonflyBsd              ICON_IDS = "DRAGONFLY_BSD"
 	ICON_IDSDropbox                   ICON_IDS = "DROPBOX"
+	ICON_IDSEndeavourOs               ICON_IDS = "ENDEAVOUR_OS"
 	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
 	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
 	ICON_IDSFedora                    ICON_IDS = "FEDORA"
