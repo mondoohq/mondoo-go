@@ -1216,6 +1216,7 @@ const (
 	ICON_IDSSkype                     ICON_IDS = "SKYPE"
 	ICON_IDSSlack                     ICON_IDS = "SLACK"
 	ICON_IDSSnowflake                 ICON_IDS = "SNOWFLAKE"
+	ICON_IDSStackit                   ICON_IDS = "STACKIT"
 	ICON_IDSSuse                      ICON_IDS = "SUSE"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
 	ICON_IDSTeamviewer                ICON_IDS = "TEAMVIEWER"
