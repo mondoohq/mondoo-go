@@ -564,6 +564,8 @@ const (
 	ClientIntegrationTypeDigitalocean            ClientIntegrationType = "DIGITALOCEAN"
 	ClientIntegrationTypeSecurityScorecard       ClientIntegrationType = "SECURITY_SCORECARD"
 	ClientIntegrationTypeTailscale               ClientIntegrationType = "TAILSCALE"
+	ClientIntegrationTypeSnowflakeScan           ClientIntegrationType = "SNOWFLAKE_SCAN"
+	ClientIntegrationTypeStackit                 ClientIntegrationType = "STACKIT"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1169,6 +1171,7 @@ const (
 	ICON_IDSMicrosoftTeams            ICON_IDS = "MICROSOFT_TEAMS"
 	ICON_IDSMicrosoftVisualStudioCode ICON_IDS = "MICROSOFT_VISUAL_STUDIO_CODE"
 	ICON_IDSMicrosoftWord             ICON_IDS = "MICROSOFT_WORD"
+	ICON_IDSMikrotik                  ICON_IDS = "MIKROTIK"
 	ICON_IDSMistral                   ICON_IDS = "MISTRAL"
 	ICON_IDSMondoo                    ICON_IDS = "MONDOO"
 	ICON_IDSMozilla                   ICON_IDS = "MOZILLA"
@@ -1177,6 +1180,7 @@ const (
 	ICON_IDSMs365                     ICON_IDS = "MS365"
 	ICON_IDSNetbsd                    ICON_IDS = "NETBSD"
 	ICON_IDSNetworkDevices            ICON_IDS = "NETWORK_DEVICES"
+	ICON_IDSNextdns                   ICON_IDS = "NEXTDNS"
 	ICON_IDSNistNvd                   ICON_IDS = "NIST_NVD"
 	ICON_IDSNodeJs                    ICON_IDS = "NODE_JS"
 	ICON_IDSNvidia                    ICON_IDS = "NVIDIA"
@@ -1340,6 +1344,8 @@ const (
 	IntegrationTypeDigitalocean            IntegrationType = "DIGITALOCEAN"
 	IntegrationTypeSecurityScorecard       IntegrationType = "SECURITY_SCORECARD"
 	IntegrationTypeTailscale               IntegrationType = "TAILSCALE"
+	IntegrationTypeSnowflakeScan           IntegrationType = "SNOWFLAKE_SCAN"
+	IntegrationTypeStackit                 IntegrationType = "STACKIT"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
