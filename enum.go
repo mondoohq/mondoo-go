@@ -566,6 +566,7 @@ const (
 	ClientIntegrationTypeTailscale               ClientIntegrationType = "TAILSCALE"
 	ClientIntegrationTypeSnowflakeScan           ClientIntegrationType = "SNOWFLAKE_SCAN"
 	ClientIntegrationTypeStackit                 ClientIntegrationType = "STACKIT"
+	ClientIntegrationTypeNextdns                 ClientIntegrationType = "NEXTDNS"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1116,6 +1117,7 @@ const (
 	ICON_IDSCloudformation            ICON_IDS = "CLOUDFORMATION"
 	ICON_IDSCloudLinux                ICON_IDS = "CLOUD_LINUX"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
+	ICON_IDSCoreos                    ICON_IDS = "COREOS"
 	ICON_IDSCumulusLinux              ICON_IDS = "CUMULUS_LINUX"
 	ICON_IDSCursor                    ICON_IDS = "CURSOR"
 	ICON_IDSCve                       ICON_IDS = "CVE"
@@ -1371,6 +1373,7 @@ const (
 	IntegrationTypeTailscale               IntegrationType = "TAILSCALE"
 	IntegrationTypeSnowflakeScan           IntegrationType = "SNOWFLAKE_SCAN"
 	IntegrationTypeStackit                 IntegrationType = "STACKIT"
+	IntegrationTypeNextdns                 IntegrationType = "NEXTDNS"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
