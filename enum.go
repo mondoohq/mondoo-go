@@ -772,6 +772,7 @@ const (
 	DocumentTypeChecksReport                DocumentType = "CHECKS_REPORT"
 	DocumentTypeVulnerabilitiesReport       DocumentType = "VULNERABILITIES_REPORT"
 	DocumentTypePolicyAggregateScoresExport DocumentType = "POLICY_AGGREGATE_SCORES_EXPORT"
+	DocumentTypeAuditLogExport              DocumentType = "AUDIT_LOG_EXPORT"
 )
 
 // EOLStatus represents end-of-life status.
@@ -1119,6 +1120,7 @@ const (
 	ICON_IDSCursor                    ICON_IDS = "CURSOR"
 	ICON_IDSCve                       ICON_IDS = "CVE"
 	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
+	ICON_IDSDatadog                   ICON_IDS = "DATADOG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
 	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
 	ICON_IDSDigitalOcean              ICON_IDS = "DIGITAL_OCEAN"
