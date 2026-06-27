@@ -367,8 +367,10 @@ type ApproveWorkflowStepInput struct {
 // ArdEntityFilter represents filter applied when listing ARD entities.
 type ArdEntityFilter struct {
 
-	// (Optional.)
+	// Case-insensitive substring search term, matched against the dimensions named in searchDimensions (or the queried level's own name when that is empty). (Optional.)
 	Name *String `json:"name,omitempty" tfgen:"required=0"`
+	// Which grouping-chain dimensions the `name` term searches (substring, OR-ed). Empty matches only the queried level's own name. A dimension one level deeper than the queried level is matched on the child nodes and folded back to their parent — e.g. listing os-by-vendor (level 1) with searchDimensions ["vendor","name"] surfaces a vendor whose name OR a product under it matches. (Optional.)
+	SearchDimensions *[]String `json:"searchDimensions,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	Dimensions *Map `json:"dimensions,omitempty" tfgen:"required=0"`
 	// Score / risk filtering delegates to the existing AggregateScore filter. (Optional.)
@@ -768,6 +770,8 @@ type AzureConfigurationOptionsInput struct {
 	ClientSecret *String `json:"clientSecret,omitempty" tfgen:"required=0"`
 	// Selected discovery targets. Empty means use the default discovery behavior. (Optional.)
 	DiscoveryTargets *[]String `json:"discoveryTargets,omitempty" tfgen:"required=0"`
+	// Opt into Workload Identity Federation (keyless). When true, provide tenantId and clientId only — no clientSecret/certificate. (Optional.)
+	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
 }
 
 // AzureDevopsConfigurationOptionsInput represents azure Devops integration input.
