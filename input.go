@@ -768,6 +768,9 @@ type AzureConfigurationOptionsInput struct {
 	ClientSecret *String `json:"clientSecret,omitempty" tfgen:"required=0"`
 	// Selected discovery targets. Empty means use the default discovery behavior. (Optional.)
 	DiscoveryTargets *[]String `json:"discoveryTargets,omitempty" tfgen:"required=0"`
+	// INTERIM: hand-added; re-confirm via make generate once the server schema is deployed.
+	// Opt into Workload Identity Federation (keyless). (Optional.)
+	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
 }
 
 // AzureDevopsConfigurationOptionsInput represents azure Devops integration input.
