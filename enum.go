@@ -1109,6 +1109,7 @@ const (
 	ICON_IDSCachyOs                   ICON_IDS = "CACHY_OS"
 	ICON_IDSCentos                    ICON_IDS = "CENTOS"
 	ICON_IDSCheck                     ICON_IDS = "CHECK"
+	ICON_IDSCheckPoint                ICON_IDS = "CHECK_POINT"
 	ICON_IDSCirros                    ICON_IDS = "CIRROS"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
