@@ -567,6 +567,7 @@ const (
 	ClientIntegrationTypeSnowflakeScan           ClientIntegrationType = "SNOWFLAKE_SCAN"
 	ClientIntegrationTypeStackit                 ClientIntegrationType = "STACKIT"
 	ClientIntegrationTypeNextdns                 ClientIntegrationType = "NEXTDNS"
+	ClientIntegrationTypeGcpServerless           ClientIntegrationType = "GCP_SERVERLESS"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1375,6 +1376,7 @@ const (
 	IntegrationTypeSnowflakeScan           IntegrationType = "SNOWFLAKE_SCAN"
 	IntegrationTypeStackit                 IntegrationType = "STACKIT"
 	IntegrationTypeNextdns                 IntegrationType = "NEXTDNS"
+	IntegrationTypeGcpServerless           IntegrationType = "GCP_SERVERLESS"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
