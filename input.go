@@ -2381,6 +2381,8 @@ type GcpConfigurationOptionsInput struct {
 	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
 	// GCP service account email for WIF service account impersonation. Required together with wifAudience for WIF authentication. (Optional.)
 	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
+	// GCP project number (digits). When set, the server derives the WIF audience and scanner service-account email; the client need not send wifAudience or wifServiceAccountEmail. (Optional.)
+	ProjectNumber *String `json:"projectNumber,omitempty" tfgen:"required=0"`
 	// Selected discovery targets. Empty means use the default discovery behavior. (Optional.)
 	DiscoveryTargets *[]String `json:"discoveryTargets,omitempty" tfgen:"required=0"`
 }
