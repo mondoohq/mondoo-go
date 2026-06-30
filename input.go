@@ -1644,6 +1644,8 @@ type CreateTeamInput struct {
 	Description *String `json:"description,omitempty" tfgen:"required=0"`
 	// The contact email for the team. (Optional.)
 	Email *String `json:"email,omitempty" tfgen:"required=0"`
+	// Optional role MRNs to grant the team at the scope at creation time. When set, the team is created and bound in a single call; if the binding fails the team is rolled back. When omitted, the team is created without any membership. (Optional.)
+	Roles *[]String `json:"roles,omitempty" tfgen:"required=0"`
 }
 
 // CreateWIFAuthBindingInput represents input for creating a Workload Identity Federation (WIF) auth binding.
