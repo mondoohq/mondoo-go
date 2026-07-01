@@ -685,10 +685,10 @@ const (
 	CveMentionTypeSocialMedia CveMentionType = "SOCIAL_MEDIA" // Social media mention (e.g. Mastodon, Bluesky post).
 )
 
-// CveState represents possible CVE states.
+// CveState represents possible CVE states (MITRE/cve.org lifecycle).
 type CveState string
 
-// Possible CVE states.
+// Possible CVE states (MITRE/cve.org lifecycle).
 const (
 	CveStateInvalid    CveState = "INVALID"
 	CveStatePublic     CveState = "PUBLIC"
@@ -696,6 +696,7 @@ const (
 	CveStateReplacedBy CveState = "REPLACED_BY"
 	CveStateSplitFrom  CveState = "SPLIT_FROM"
 	CveStateMergedTo   CveState = "MERGED_TO"
+	CveStateRejected   CveState = "REJECTED"
 )
 
 // CveTrendsOrderField represents order field for CVE trends.
@@ -1544,6 +1545,21 @@ type NotificationType string
 const (
 	NotificationTypeTriageConversations NotificationType = "TRIAGE_CONVERSATIONS" // Send triage conversations for findings.
 	NotificationTypeAssetUpdates        NotificationType = "ASSET_UPDATES"        // Send asset update notfication streams.
+)
+
+// NvdStatus represents nVD enrichment status for a CVE. Answers "has NVD analyzed this CVE?", separate from the MITRE lifecycle `CveState`. See https://nvd.nist.gov/vuln/vulnerability-status.
+type NvdStatus string
+
+// NVD enrichment status for a CVE. Answers "has NVD analyzed this CVE?", separate from the MITRE lifecycle `CveState`. See https://nvd.nist.gov/vuln/vulnerability-status.
+const (
+	NvdStatusUnknown                 NvdStatus = "UNKNOWN"
+	NvdStatusReceived                NvdStatus = "RECEIVED"
+	NvdStatusAwaitingEnrichment      NvdStatus = "AWAITING_ENRICHMENT"
+	NvdStatusUndergoingEnrichment    NvdStatus = "UNDERGOING_ENRICHMENT"
+	NvdStatusEnriched                NvdStatus = "ENRICHED"
+	NvdStatusModifiedAfterEnrichment NvdStatus = "MODIFIED_AFTER_ENRICHMENT"
+	NvdStatusNotScheduled            NvdStatus = "NOT_SCHEDULED"
+	NvdStatusRejected                NvdStatus = "REJECTED"
 )
 
 // OrderDirection represents defines the possible directions in which to sort a list of items.
