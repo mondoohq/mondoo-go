@@ -1227,6 +1227,7 @@ const (
 	ICON_IDSPlcnext                   ICON_IDS = "PLCNEXT"
 	ICON_IDSPolicy                    ICON_IDS = "POLICY"
 	ICON_IDSPop                       ICON_IDS = "POP"
+	ICON_IDSPortainer                 ICON_IDS = "PORTAINER"
 	ICON_IDSProxmox                   ICON_IDS = "PROXMOX"
 	ICON_IDSPython                    ICON_IDS = "PYTHON"
 	ICON_IDSQubes                     ICON_IDS = "QUBES"
