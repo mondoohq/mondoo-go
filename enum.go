@@ -232,6 +232,7 @@ const (
 	AssetFilterTypeLabels              AssetFilterType = "LABELS"                // Filter by labels (e.g., "owner:sre-team").
 	AssetFilterTypeAnnotations         AssetFilterType = "ANNOTATIONS"           // Filter by annotations (e.g., "mondoo.com/organization: "mondoo-internal").
 	AssetFilterTypeRiskCategoryImpacts AssetFilterType = "RISK_CATEGORY_IMPACTS" // Filter by risk category impact labels.
+	AssetFilterTypeDetectionSource     AssetFilterType = "DETECTION_SOURCE"      // Filter by detection source (e.g., "CrowdStrike", "Microsoft Defender").
 )
 
 // AssetLinkType represents asset link type.
