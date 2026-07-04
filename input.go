@@ -874,6 +874,10 @@ type BigqueryConfigurationOptionsInput struct {
 	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
 	// Optional GCP service account email for WIF service account impersonation. (Optional.)
 	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
+	// GCP project id. With projectNumber, the server derives the WIF audience and the mondoo-export service-account email; the client need not send wifAudience or wifServiceAccountEmail. (Optional.)
+	ProjectId *String `json:"projectId,omitempty" tfgen:"required=0"`
+	// GCP project number (digits). See projectId. (Optional.)
+	ProjectNumber *String `json:"projectNumber,omitempty" tfgen:"required=0"`
 }
 
 // BillingSessionInput represents input for creating a billing session.
@@ -2424,6 +2428,10 @@ type GcsBucketConfigurationOptionsInput struct {
 	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
 	// Optional GCP service account email for WIF service account impersonation. (Optional.)
 	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
+	// GCP project id. With projectNumber, the server derives the WIF audience and the mondoo-export service-account email; the client need not send wifAudience or wifServiceAccountEmail. (Optional.)
+	ProjectId *String `json:"projectId,omitempty" tfgen:"required=0"`
+	// GCP project number (digits). See projectId. (Optional.)
+	ProjectNumber *String `json:"projectNumber,omitempty" tfgen:"required=0"`
 }
 
 // GenerateAPITokenInput represents input for generating a new API token.
