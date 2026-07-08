@@ -2426,6 +2426,8 @@ type GcpServerlessScanConfigurationInput struct {
 	TagsFilter *[]KeyValueInput `json:"tagsFilter,omitempty" tfgen:"required=0"`
 	// Exclude filter: projects whose tags match at least one of these key-value pairs are skipped, even if they match the include filter. A value of "*" matches any value for that tag key. (Optional.)
 	ExcludedTagsFilter *[]KeyValueInput `json:"excludedTagsFilter,omitempty" tfgen:"required=0"`
+	// How often (in hours) the deployed scanner runs a scan. (Optional.)
+	ScanScheduleHours *Int `json:"scanScheduleHours,omitempty" tfgen:"required=0"`
 }
 
 // GcsBucketConfigurationOptionsInput represents gCS Bucket integration input.
