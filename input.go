@@ -2408,13 +2408,13 @@ type GcpConfigurationOptionsInput struct {
 
 // GcpServerlessConfigurationOptionsInput represents gCP serverless integration input. The customer deploys a serverless scanner into their own host project; the platform stores only what to scan and where the scanner is deployed (auth is configured separately).
 type GcpServerlessConfigurationOptionsInput struct {
-	// The GCP scope to scan. Accepts either a folder ID or an organization ID. (Required.)
-	Scope String `json:"scope" tfgen:"required=1"`
 	// The GCP project ID where the serverless scanner is deployed. (Required.)
 	HostProjectId String `json:"hostProjectId" tfgen:"required=1"`
 	// The GCP region where the serverless scanner is deployed. (Required.)
 	Region String `json:"region" tfgen:"required=1"`
 
+	// The GCP scope to scan. Accepts either a folder ID or an organization ID. Optional: when omitted, the scanner falls back to its default scope. (Optional.)
+	Scope *String `json:"scope,omitempty" tfgen:"required=0"`
 	// Scan options that control what the deployed scanner scans. (Optional.)
 	ScanConfiguration *GcpServerlessScanConfigurationInput `json:"scanConfiguration,omitempty" tfgen:"required=0"`
 }
