@@ -782,13 +782,15 @@ const (
 	DocumentTypeAuditLogExport              DocumentType = "AUDIT_LOG_EXPORT"
 )
 
-// EOLStatus represents end-of-life status.
+// EOLStatus represents end-of-life status of an operating system (`Asset.eol`) or a package (`Software.eol`), classified relative to the space's EOL warning window (`eolAssetsConfiguration.monthsInAdvance`, default 6 months) — the same window that drives the EOL risk factor, so the status is consistent across the product.
 type EOLStatus string
 
-// End-of-life status.
+// End-of-life status of an operating system (`Asset.eol`) or a package (`Software.eol`), classified relative to the space's EOL warning window (`eolAssetsConfiguration.monthsInAdvance`, default 6 months) — the same window that drives the EOL risk factor, so the status is consistent across the product.
 const (
-	EOLStatusScheduled EOLStatus = "SCHEDULED"
-	EOLStatusEol       EOLStatus = "EOL"
+	EOLStatusScheduled EOLStatus = "SCHEDULED" // A published EOL date exists and is still more than `monthsInAdvance` months in the future. End-of-life is known but not yet approaching.
+	EOLStatusSoon      EOLStatus = "SOON"      // A published EOL date exists and falls within the next `monthsInAdvance` months (but has not passed). This is the population surfaced as "EOL soon" in the inventory.
+	EOLStatusEol       EOLStatus = "EOL"       // The published EOL date has already passed — the OS/package is end-of-life today.
+	EOLStatusUnknown   EOLStatus = "UNKNOWN"   // No EOL date is known for this OS/package (e.g. the platform has no published end-of-life date yet). Previously reported as `SCHEDULED`.
 )
 
 // EmailPreferenceList represents email preference list.
