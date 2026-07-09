@@ -2254,7 +2254,8 @@ type WorkspaceSelectionConditionIntField string
 // Workspace selection condition int fields.
 const (
 	WorkspaceSelectionConditionIntFieldUnknown   WorkspaceSelectionConditionIntField = "UNKNOWN"    // Unknwon int field.
-	WorkspaceSelectionConditionIntFieldRiskScore WorkspaceSelectionConditionIntField = "RISK_SCORE" // Risk score field.
+	WorkspaceSelectionConditionIntFieldRiskValue WorkspaceSelectionConditionIntField = "RISK_VALUE" // Risk value field (user-facing risk magnitude, higher = worse).
+	WorkspaceSelectionConditionIntFieldRiskScore WorkspaceSelectionConditionIntField = "RISK_SCORE" // Deprecated alias for RISK_VALUE, kept so existing clients keep working until they migrate. Remove once the console sends RISK_VALUE.
 )
 
 // WorkspaceSelectionConditionKeyValueField represents workspace selection condition key-value fields.
