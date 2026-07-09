@@ -2417,6 +2417,8 @@ type GcpServerlessConfigurationOptionsInput struct {
 	Scope *String `json:"scope,omitempty" tfgen:"required=0"`
 	// Scan options that control what the deployed scanner scans. (Optional.)
 	ScanConfiguration *GcpServerlessScanConfigurationInput `json:"scanConfiguration,omitempty" tfgen:"required=0"`
+	// A customer-provided service account identity to run this integration with, instead of the platform automatically creating one (bring-your-own-identity). Stored and returned verbatim. (Optional.)
+	SuppliedSaIdentity *String `json:"suppliedSaIdentity,omitempty" tfgen:"required=0"`
 }
 
 // GcpServerlessScanConfigurationInput represents scan options for a GCP serverless integration.
