@@ -752,8 +752,17 @@ type AwsScanOptions struct {
 type AzureBlobConfigurationOptionsInput struct {
 	// The output format for the Azure blob. (Required.)
 	Output BucketOutputType `json:"output" tfgen:"required=1"`
-	// The Azure blob SAS URL. (Required.)
-	BlobSasURL String `json:"blobSasURL" tfgen:"required=1"`
+
+	// The Azure blob SAS URL (static-credential auth). Optional when useWif is set. (Optional.)
+	BlobSasURL *String `json:"blobSasURL,omitempty" tfgen:"required=0"`
+	// Use keyless Workload Identity Federation instead of a SAS token. (Optional.)
+	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
+	// Azure tenant id of the customer's Entra app (required with useWif). (Optional.)
+	TenantId *String `json:"tenantId,omitempty" tfgen:"required=0"`
+	// Client id of the customer's Entra app that Mondoo federates into (required with useWif). (Optional.)
+	ClientId *String `json:"clientId,omitempty" tfgen:"required=0"`
+	// SAS-less container URL to export into (required with useWif), e.g. https://<account>.blob.core.windows.net/<container>. (Optional.)
+	BlobURL *String `json:"blobURL,omitempty" tfgen:"required=0"`
 }
 
 // AzureConfigurationOptionsInput represents azure integration input.
@@ -2634,6 +2643,10 @@ type GoogleSccExportConfigurationOptionsInput struct {
 	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
 	// Optional GCP service account email for WIF service account impersonation. (Optional.)
 	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
+	// One-click WIF: GCP project id. With projectNumber, the server derives the export service-account email and WIF audience and returns a setup script. (Optional.)
+	ProjectId *String `json:"projectId,omitempty" tfgen:"required=0"`
+	// One-click WIF: GCP project number (used to build the WIF pool audience). (Optional.)
+	ProjectNumber *String `json:"projectNumber,omitempty" tfgen:"required=0"`
 }
 
 // GoogleSccImportConfigurationOptionsInput represents google SCC import integration input.
@@ -3255,6 +3268,8 @@ type Ms365ConfigurationOptionsInput struct {
 
 	// TODO: temporary optional, fix by having separate update models. (Optional.)
 	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
+	// Use keyless Workload Identity Federation instead of a certificate/secret. tenantId + clientId remain required; no certificate is provided in this mode. (Optional.)
+	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
 }
 
 // MsIntuneConfigurationOptionsInput represents mS Intune configuration options input.
@@ -4056,6 +4071,8 @@ type ScanConfigurationInput struct {
 	CrossAccountScan *Boolean `json:"crossAccountScan,omitempty" tfgen:"required=0"`
 	// Options controlling which accounts are targeted by cross-account scans and which IAM role is assumed in each target account. (Optional.)
 	CrossAccountScanOptions *AWSCrossAccountScanOptionsInput `json:"crossAccountScanOptions,omitempty" tfgen:"required=0"`
+	// When true, the AWS account tags are propagated to all assets discovered under the account. (Optional.)
+	PropagateAccountTags *Boolean `json:"propagateAccountTags,omitempty" tfgen:"required=0"`
 }
 
 // ScimGroupMapping represents a mapping of SCIM group to organization or its spaces and an IAM role.
