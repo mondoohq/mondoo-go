@@ -44,7 +44,7 @@ type AWSConfigurationOptionsInput struct {
 	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
 	// AWS account id where the serverless Lambda is deployed. Required when useWif is true; rejected when useWif is false. (Optional.)
 	AwsAccountId *String `json:"awsAccountId,omitempty" tfgen:"required=0"`
-	// Allow this integration to land scanned assets in spaces across multiple orgs via a platform-scoped agent role and platform-scoped routing rules. Immutable after creation. Only valid on organization-scoped AWS serverless integrations and only on private-instance deployments (rejected on prod and prod-eu environments). (Optional.)
+	// Allow this integration to land scanned assets in spaces across multiple orgs. Immutable after creation. Only valid on organization-scoped AWS serverless integrations and only on private-instance deployments (rejected on prod and prod-eu environments). (Optional.)
 	CrossOrg *Boolean `json:"crossOrg,omitempty" tfgen:"required=0"`
 }
 
@@ -2428,6 +2428,12 @@ type GcpServerlessConfigurationOptionsInput struct {
 	ScanConfiguration *GcpServerlessScanConfigurationInput `json:"scanConfiguration,omitempty" tfgen:"required=0"`
 	// A customer-provided service account identity to run this integration with, instead of the platform automatically creating one (bring-your-own-identity). Stored and returned verbatim. (Optional.)
 	SuppliedSaIdentity *String `json:"suppliedSaIdentity,omitempty" tfgen:"required=0"`
+	// Allow this integration to land scanned assets in spaces across multiple orgs. Immutable after creation. Only valid on organization-scoped GCP serverless integrations and only on private-instance deployments (rejected on prod and prod-eu environments). (Optional.)
+	CrossOrg *Boolean `json:"crossOrg,omitempty" tfgen:"required=0"`
+	// When true, the deployed scanner authenticates back to the platform via GCP Workload Identity Federation: a WIF auth binding is minted at create time. Immutable after creation. (Optional.)
+	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
+	// The numeric unique ID of the GCP service account the deployed scanner runs as. Used as the WIF binding subject (matched against the Google OIDC token's sub claim). Required when useWif is true; immutable after creation. (Optional.)
+	ServiceAccountId *String `json:"serviceAccountId,omitempty" tfgen:"required=0"`
 }
 
 // GcpServerlessScanConfigurationInput represents scan options for a GCP serverless integration.
@@ -2439,6 +2445,8 @@ type GcpServerlessScanConfigurationInput struct {
 	ExcludedTagsFilter *[]KeyValueInput `json:"excludedTagsFilter,omitempty" tfgen:"required=0"`
 	// How often (in hours) the deployed scanner runs a scan. (Optional.)
 	ScanScheduleHours *Int `json:"scanScheduleHours,omitempty" tfgen:"required=0"`
+	// When true, the GCP project tags are propagated to all assets discovered under the project. (Optional.)
+	PropagateProjectTags *Boolean `json:"propagateProjectTags,omitempty" tfgen:"required=0"`
 }
 
 // GcsBucketConfigurationOptionsInput represents gCS Bucket integration input.
