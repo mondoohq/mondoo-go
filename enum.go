@@ -65,6 +65,7 @@ const (
 	ActivePolicyOrderFieldName           ActivePolicyOrderField = "NAME"
 	ActivePolicyOrderFieldRiskValue      ActivePolicyOrderField = "RISK_VALUE"
 	ActivePolicyOrderFieldVersion        ActivePolicyOrderField = "VERSION"
+	ActivePolicyOrderFieldAction         ActivePolicyOrderField = "ACTION"
 )
 
 // AdvisoryPlatformFilter represents possible Advisory filters.
@@ -1018,6 +1019,7 @@ const (
 	FindingTypeThreat        FindingType = "THREAT"
 	FindingTypeInformational FindingType = "INFORMATIONAL"
 	FindingTypeSecurity      FindingType = "SECURITY"
+	FindingTypeSecret        FindingType = "SECRET"
 )
 
 // FindingsOrderField represents findings order field.
@@ -1676,6 +1678,7 @@ const (
 	PolicyAnalyticsOrderFieldCompletion  PolicyAnalyticsOrderField = "COMPLETION"
 	PolicyAnalyticsOrderFieldBlastRadius PolicyAnalyticsOrderField = "BLAST_RADIUS"
 	PolicyAnalyticsOrderFieldAssetCount  PolicyAnalyticsOrderField = "ASSET_COUNT"
+	PolicyAnalyticsOrderFieldAction      PolicyAnalyticsOrderField = "ACTION"
 )
 
 // PolicyGroupType represents type of policy group.

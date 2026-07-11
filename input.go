@@ -2569,6 +2569,12 @@ type GithubConfigurationOptionsInput struct {
 	DiscoverTerraform *Boolean `json:"discoverTerraform,omitempty" tfgen:"required=0"`
 	// Discover k8s manifests in the repositories. (Optional.)
 	DiscoverK8sManifests *Boolean `json:"discoverK8sManifests,omitempty" tfgen:"required=0"`
+	// Enable code scanning (SAST) of the repository source. (Optional.)
+	EnableCodeScan *Boolean `json:"enableCodeScan,omitempty" tfgen:"required=0"`
+	// Enable secrets detection across the repository. (Optional.)
+	EnableSecretScan *Boolean `json:"enableSecretScan,omitempty" tfgen:"required=0"`
+	// Enable dependency vulnerability scanning (SCA) of the repository. (Optional.)
+	EnableVulnScan *Boolean `json:"enableVulnScan,omitempty" tfgen:"required=0"`
 	// Github Enterprise Server URL. (Optional.)
 	EnterpriseUrl *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
 }
@@ -3565,6 +3571,8 @@ type PolicyAggregateScoresExportOptionsInput struct {
 
 	// When true, walks the hierarchy downward from the request scopeMRN: platform -> orgs -> spaces -> workspaces organization -> spaces -> workspaces space -> workspaces workspace -> leaf When false, only the scope's own aggregate scores are emitted. (Optional.)
 	Recursive *Boolean `json:"recursive,omitempty" tfgen:"required=0"`
+	// When true, additionally include per-asset rows (asset↔policy and asset↔check) beneath each space/workspace. Off by default. Can be large. (Optional.)
+	IncludeAssetScores *Boolean `json:"includeAssetScores,omitempty" tfgen:"required=0"`
 }
 
 // PolicyAnalyticsInput represents policy analytics input.
@@ -4272,7 +4280,7 @@ type SetCustomPolicyInput struct {
 
 	// The mrn of the space. (Optional.)
 	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
-	// Scope mrn is the mrn of the space or platform. (Optional.)
+	// Scope mrn is the mrn of the space, organization, or platform. A platform scope mrn (//platform.api.mondoo.app) is mapped to the global policy owner server-side. (Optional.)
 	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// Overwrites the policy if it already exists. (Optional.)
 	Overwrite *Boolean `json:"overwrite,omitempty" tfgen:"required=0"`
