@@ -573,6 +573,7 @@ const (
 	ClientIntegrationTypeGcpServerless             ClientIntegrationType = "GCP_SERVERLESS"
 	ClientIntegrationTypeNetworkDiscoveryCollector ClientIntegrationType = "NETWORK_DISCOVERY_COLLECTOR"
 	ClientIntegrationTypeNetworkScan               ClientIntegrationType = "NETWORK_SCAN"
+	ClientIntegrationTypeAttackSurface             ClientIntegrationType = "ATTACK_SURFACE"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -621,7 +622,9 @@ type ContentSearchResultItemOrderField string
 
 // Order fields for content search results.
 const (
-	ContentSearchResultItemOrderFieldName ContentSearchResultItemOrderField = "NAME"
+	ContentSearchResultItemOrderFieldName          ContentSearchResultItemOrderField = "NAME"
+	ContentSearchResultItemOrderFieldAssignedScope ContentSearchResultItemOrderField = "ASSIGNED_SCOPE" // Order by where the policy is assigned/inherited from, following the platform -> organization -> space -> unassigned hierarchy.
+	ContentSearchResultItemOrderFieldAction        ContentSearchResultItemOrderField = "ACTION"         // Order by assignment/scoring state: Active (Scored) -> Ignore (Preview) -> unassigned.
 )
 
 // ControlScoreOrderField represents control Score order field.
@@ -660,6 +663,7 @@ const (
 	ControlsOrderFieldAssets     ControlsOrderField = "ASSETS"
 	ControlsOrderFieldExceptions ControlsOrderField = "EXCEPTIONS"
 	ControlsOrderFieldQueries    ControlsOrderField = "QUERIES"
+	ControlsOrderFieldState      ControlsOrderField = "STATE" // Order by control state/status: Active, then the exception states (Disabled, Out of scope, Risk accepted, Workaround, False positive).
 )
 
 // CredentialTemplateTier represents support tier for a credential template. Supported providers have dedicated health-check testers; experimental providers are untested and hidden in the UI by default.
@@ -1389,6 +1393,7 @@ const (
 	IntegrationTypeGcpServerless             IntegrationType = "GCP_SERVERLESS"
 	IntegrationTypeNetworkDiscoveryCollector IntegrationType = "NETWORK_DISCOVERY_COLLECTOR"
 	IntegrationTypeNetworkScan               IntegrationType = "NETWORK_SCAN"
+	IntegrationTypeAttackSurface             IntegrationType = "ATTACK_SURFACE"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
