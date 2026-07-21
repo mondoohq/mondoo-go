@@ -2141,6 +2141,8 @@ const (
 	UIActionRemediationMissing      UIAction = "REMEDIATION_MISSING"       // Remediation is missing for a finding.
 	UIActionRemediationDownload     UIAction = "REMEDIATION_DOWNLOAD"      // Download of one or more remediations (scripts) as a file.
 	UIActionExecutiveReportGenerate UIAction = "EXECUTIVE_REPORT_GENERATE" // Generation of an executive report.
+	UIActionRemediationShown        UIAction = "REMEDIATION_SHOWN"         // Remediation is shown (available) for a finding — the positive counterpart to REMEDIATION_MISSING.
+	UIActionThirdPartyFindingView   UIAction = "THIRD_PARTY_FINDING_VIEW"  // A viewed finding is sourced from a third-party scanner (vs Mondoo-native / cnspec).
 )
 
 // UIPage represents the page in the UI where the action was taken.
