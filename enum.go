@@ -553,6 +553,8 @@ const (
 	ClientIntegrationTypeTicketSystemWebhook       ClientIntegrationType = "TICKET_SYSTEM_WEBHOOK"
 	ClientIntegrationTypeTicketSystemServiceNow    ClientIntegrationType = "TICKET_SYSTEM_SERVICE_NOW"
 	ClientIntegrationTypeTenable                   ClientIntegrationType = "TENABLE"
+	ClientIntegrationTypeSnyk                      ClientIntegrationType = "SNYK"
+	ClientIntegrationTypeSonarqube                 ClientIntegrationType = "SONARQUBE"
 	ClientIntegrationTypeQualys                    ClientIntegrationType = "QUALYS"
 	ClientIntegrationTypeTenableSc                 ClientIntegrationType = "TENABLE_SC"
 	ClientIntegrationTypeMsIntune                  ClientIntegrationType = "MS_INTUNE"
@@ -1379,6 +1381,8 @@ const (
 	IntegrationTypeTicketSystemWebhook       IntegrationType = "TICKET_SYSTEM_WEBHOOK"
 	IntegrationTypeTicketSystemServiceNow    IntegrationType = "TICKET_SYSTEM_SERVICE_NOW"
 	IntegrationTypeTenable                   IntegrationType = "TENABLE"
+	IntegrationTypeSnyk                      IntegrationType = "SNYK"
+	IntegrationTypeSonarqube                 IntegrationType = "SONARQUBE"
 	IntegrationTypeQualys                    IntegrationType = "QUALYS"
 	IntegrationTypeTenableSc                 IntegrationType = "TENABLE_SC"
 	IntegrationTypeMsIntune                  IntegrationType = "MS_INTUNE"
@@ -2150,19 +2154,25 @@ type UIPage string
 
 // The page in the UI where the action was taken.
 const (
-	UIPageUnknown             UIPage = "UNKNOWN"              // Unknown or unspecified page.
-	UIPageOrgDashboard        UIPage = "ORG_DASHBOARD"        // Organization dashboard page.
-	UIPageSpaceDashboard      UIPage = "SPACE_DASHBOARD"      // Space dashboard page.
-	UIPageAsset               UIPage = "ASSET"                // Asset detail page.
-	UIPageCicdProject         UIPage = "CICD_PROJECT"         // CI/CD project page.
-	UIPageCicdJob             UIPage = "CICD_JOB"             // CI/CD job page.
-	UIPageFindingOnAsset      UIPage = "FINDING_ON_ASSET"     // Finding viewed in the context of an asset.
-	UIPageFinding             UIPage = "FINDING"              // Finding detail page (not in asset context).
-	UIPageComplianceDashboard UIPage = "COMPLIANCE_DASHBOARD" // Compliance dashboard page.
-	UIPageComplianceFramework UIPage = "COMPLIANCE_FRAMEWORK" // Compliance framework detail page.
-	UIPageExecutiveReport     UIPage = "EXECUTIVE_REPORT"     // Executive report generation wizard.
-	UIPageSoftware            UIPage = "SOFTWARE"             // Vulnerable software finding detail page.
-	UIPageSoftwareOnAsset     UIPage = "SOFTWARE_ON_ASSET"    // Software finding detail page viewed in the context of an asset.
+	UIPageUnknown                       UIPage = "UNKNOWN"                         // Unknown or unspecified page.
+	UIPageOrgDashboard                  UIPage = "ORG_DASHBOARD"                   // Organization dashboard page.
+	UIPageSpaceDashboard                UIPage = "SPACE_DASHBOARD"                 // Space dashboard page.
+	UIPageAsset                         UIPage = "ASSET"                           // Asset detail page.
+	UIPageCicdProject                   UIPage = "CICD_PROJECT"                    // CI/CD project page.
+	UIPageCicdJob                       UIPage = "CICD_JOB"                        // CI/CD job page.
+	UIPageFindingOnAsset                UIPage = "FINDING_ON_ASSET"                // Finding viewed in the context of an asset.
+	UIPageFinding                       UIPage = "FINDING"                         // Finding detail page (not in asset context).
+	UIPageComplianceDashboard           UIPage = "COMPLIANCE_DASHBOARD"            // Compliance dashboard page.
+	UIPageComplianceFramework           UIPage = "COMPLIANCE_FRAMEWORK"            // Compliance framework detail page.
+	UIPageComplianceControls            UIPage = "COMPLIANCE_CONTROLS"             // Compliance controls list for a framework.
+	UIPageComplianceControl             UIPage = "COMPLIANCE_CONTROL"              // Compliance control detail page.
+	UIPageComplianceControlExceptions   UIPage = "COMPLIANCE_CONTROL_EXCEPTIONS"   // Compliance control exceptions tab.
+	UIPageComplianceFrameworkExceptions UIPage = "COMPLIANCE_FRAMEWORK_EXCEPTIONS" // Compliance framework exceptions tab.
+	UIPageComplianceFrameworkPolicies   UIPage = "COMPLIANCE_FRAMEWORK_POLICIES"   // Compliance framework policies tab.
+	UIPageComplianceFrameworkAssets     UIPage = "COMPLIANCE_FRAMEWORK_ASSETS"     // Compliance framework assets tab.
+	UIPageExecutiveReport               UIPage = "EXECUTIVE_REPORT"                // Executive report generation wizard.
+	UIPageSoftware                      UIPage = "SOFTWARE"                        // Vulnerable software finding detail page.
+	UIPageSoftwareOnAsset               UIPage = "SOFTWARE_ON_ASSET"               // Software finding detail page viewed in the context of an asset.
 )
 
 // UserState represents state of a user.
