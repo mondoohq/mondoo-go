@@ -676,7 +676,7 @@ type AttackSurfaceConfigurationOptionsInput struct {
 
 	// Domains to scan (e.g. "example.com"). (Optional.)
 	Domains *[]String `json:"domains,omitempty" tfgen:"required=0"`
-	// Scan cadence as a Go duration (e.g. "24h"), a cron expression, "once", or empty = daily. (Optional.)
+	// Scan cadence as a Go duration (e.g. "24h"), a cron expression, "once", or empty = daily. Recurring scans run at most once every 24h; a shorter cadence is rejected. (Optional.)
 	Schedule *String `json:"schedule,omitempty" tfgen:"required=0"`
 	// Target space findings upload to. Required at org scope; ignored at space scope. (Optional.)
 	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`

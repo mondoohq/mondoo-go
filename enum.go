@@ -258,6 +258,7 @@ const (
 	AssetOrderFieldLastUpdated AssetOrderField = "LAST_UPDATED"
 	AssetOrderFieldRiskScore   AssetOrderField = "RISK_SCORE"
 	AssetOrderFieldRiskValue   AssetOrderField = "RISK_VALUE"
+	AssetOrderFieldEolDate     AssetOrderField = "EOL_DATE" // Order by the per-asset end-of-life date (nulls last). Pairs with the eolStatus filter to build date-ordered "what goes EOL next" listings.
 )
 
 // AssetOverviewReferenceTypeEnum represents an enumeration of the possible reference types for a item for an asset overview.
@@ -1109,6 +1110,7 @@ const (
 	ICON_IDSAdobeReader               ICON_IDS = "ADOBE_READER"
 	ICON_IDSAi                        ICON_IDS = "AI"
 	ICON_IDSAix                       ICON_IDS = "AIX"
+	ICON_IDSAlibabaCloud              ICON_IDS = "ALIBABA_CLOUD"
 	ICON_IDSAlmaLinux                 ICON_IDS = "ALMA_LINUX"
 	ICON_IDSAlpine                    ICON_IDS = "ALPINE"
 	ICON_IDSAmazon                    ICON_IDS = "AMAZON"
@@ -1139,6 +1141,7 @@ const (
 	ICON_IDSCursor                    ICON_IDS = "CURSOR"
 	ICON_IDSCve                       ICON_IDS = "CVE"
 	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
+	ICON_IDSDatabricks                ICON_IDS = "DATABRICKS"
 	ICON_IDSDatadog                   ICON_IDS = "DATADOG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
 	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
@@ -1206,6 +1209,7 @@ const (
 	ICON_IDSMikrotik                  ICON_IDS = "MIKROTIK"
 	ICON_IDSMistral                   ICON_IDS = "MISTRAL"
 	ICON_IDSMondoo                    ICON_IDS = "MONDOO"
+	ICON_IDSMongodbAtlas              ICON_IDS = "MONGODB_ATLAS"
 	ICON_IDSMozilla                   ICON_IDS = "MOZILLA"
 	ICON_IDSMozillaFirefox            ICON_IDS = "MOZILLA_FIREFOX"
 	ICON_IDSMozillaThunderbird        ICON_IDS = "MOZILLA_THUNDERBIRD"
@@ -1277,6 +1281,7 @@ const (
 	ICON_IDSUbuntu                    ICON_IDS = "UBUNTU"
 	ICON_IDSUnifi                     ICON_IDS = "UNIFI"
 	ICON_IDSVcd                       ICON_IDS = "VCD"
+	ICON_IDSVercel                    ICON_IDS = "VERCEL"
 	ICON_IDSVlcMediaPlayer            ICON_IDS = "VLC_MEDIA_PLAYER"
 	ICON_IDSVllm                      ICON_IDS = "VLLM"
 	ICON_IDSVmware                    ICON_IDS = "VMWARE"
@@ -2088,6 +2093,7 @@ const (
 	SoftwareOrderFieldName          SoftwareOrderField = "NAME"           // Order by package name.
 	SoftwareOrderFieldFirstObserved SoftwareOrderField = "FIRST_OBSERVED" // Order by the timestamp the package was first observed on the asset.
 	SoftwareOrderFieldLastObserved  SoftwareOrderField = "LAST_OBSERVED"  // Order by the timestamp of the most recent scan that confirmed the package.
+	SoftwareOrderFieldRisk          SoftwareOrderField = "RISK"           // Order by the software's per-asset risk value (0–100, higher = worse). DESC lists the most-at-risk software first; healthy and unscored (no-risk) packages sort last.
 )
 
 // Technology represents coarse technology bucket for filtering and grouping remediations.
