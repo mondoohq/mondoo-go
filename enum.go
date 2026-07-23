@@ -556,6 +556,7 @@ const (
 	ClientIntegrationTypeTenable                   ClientIntegrationType = "TENABLE"
 	ClientIntegrationTypeSnyk                      ClientIntegrationType = "SNYK"
 	ClientIntegrationTypeSonarqube                 ClientIntegrationType = "SONARQUBE"
+	ClientIntegrationTypeOpenvas                   ClientIntegrationType = "OPENVAS"
 	ClientIntegrationTypeQualys                    ClientIntegrationType = "QUALYS"
 	ClientIntegrationTypeTenableSc                 ClientIntegrationType = "TENABLE_SC"
 	ClientIntegrationTypeMsIntune                  ClientIntegrationType = "MS_INTUNE"
@@ -1137,10 +1138,12 @@ const (
 	ICON_IDSCloudLinux                ICON_IDS = "CLOUD_LINUX"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSCoreos                    ICON_IDS = "COREOS"
+	ICON_IDSCrates                    ICON_IDS = "CRATES"
 	ICON_IDSCumulusLinux              ICON_IDS = "CUMULUS_LINUX"
 	ICON_IDSCursor                    ICON_IDS = "CURSOR"
 	ICON_IDSCve                       ICON_IDS = "CVE"
 	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
+	ICON_IDSDart                      ICON_IDS = "DART"
 	ICON_IDSDatabricks                ICON_IDS = "DATABRICKS"
 	ICON_IDSDatadog                   ICON_IDS = "DATADOG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
@@ -1165,6 +1168,7 @@ const (
 	ICON_IDSGarageband                ICON_IDS = "GARAGEBAND"
 	ICON_IDSGcp                       ICON_IDS = "GCP"
 	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
+	ICON_IDSGo                        ICON_IDS = "GO"
 	ICON_IDSGimp                      ICON_IDS = "GIMP"
 	ICON_IDSGithub                    ICON_IDS = "GITHUB"
 	ICON_IDSGithubDesktop             ICON_IDS = "GITHUB_DESKTOP"
@@ -1173,6 +1177,7 @@ const (
 	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
 	ICON_IDSGoogleProjectZero         ICON_IDS = "GOOGLE_PROJECT_ZERO"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
+	ICON_IDSHex                       ICON_IDS = "HEX"
 	ICON_IDSHetzner                   ICON_IDS = "HETZNER"
 	ICON_IDSHpeIlo                    ICON_IDS = "HPE_ILO"
 	ICON_IDSHuawei                    ICON_IDS = "HUAWEI"
@@ -1182,6 +1187,7 @@ const (
 	ICON_IDSInthewild                 ICON_IDS = "INTHEWILD"
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
+	ICON_IDSJava                      ICON_IDS = "JAVA"
 	ICON_IDSJunos                     ICON_IDS = "JUNOS"
 	ICON_IDSK8s                       ICON_IDS = "K8S"
 	ICON_IDSKali                      ICON_IDS = "KALI"
@@ -1224,6 +1230,8 @@ const (
 	ICON_IDSNixos                     ICON_IDS = "NIXOS"
 	ICON_IDSNobara                    ICON_IDS = "NOBARA"
 	ICON_IDSNodeJs                    ICON_IDS = "NODE_JS"
+	ICON_IDSNpm                       ICON_IDS = "NPM"
+	ICON_IDSNuget                     ICON_IDS = "NUGET"
 	ICON_IDSNvidia                    ICON_IDS = "NVIDIA"
 	ICON_IDSNmap                      ICON_IDS = "NMAP"
 	ICON_IDSNotepadPlusPlus           ICON_IDS = "NOTEPAD_PLUS_PLUS"
@@ -1243,6 +1251,7 @@ const (
 	ICON_IDSOracleVirtualbox          ICON_IDS = "ORACLE_VIRTUALBOX"
 	ICON_IDSPages                     ICON_IDS = "PAGES"
 	ICON_IDSOther                     ICON_IDS = "OTHER"
+	ICON_IDSPackagist                 ICON_IDS = "PACKAGIST"
 	ICON_IDSPanos                     ICON_IDS = "PANOS"
 	ICON_IDSParrot                    ICON_IDS = "PARROT"
 	ICON_IDSPgadmin                   ICON_IDS = "PGADMIN"
@@ -1252,9 +1261,12 @@ const (
 	ICON_IDSPortainer                 ICON_IDS = "PORTAINER"
 	ICON_IDSProxmox                   ICON_IDS = "PROXMOX"
 	ICON_IDSPython                    ICON_IDS = "PYTHON"
+	ICON_IDSPypi                      ICON_IDS = "PYPI"
 	ICON_IDSQubes                     ICON_IDS = "QUBES"
 	ICON_IDSRaspbian                  ICON_IDS = "RASPBIAN"
 	ICON_IDSRedfish                   ICON_IDS = "REDFISH"
+	ICON_IDSRuby                      ICON_IDS = "RUBY"
+	ICON_IDSRust                      ICON_IDS = "RUST"
 	ICON_IDSRedhat                    ICON_IDS = "REDHAT"
 	ICON_IDSRisk                      ICON_IDS = "RISK"
 	ICON_IDSRockyLinux                ICON_IDS = "ROCKY_LINUX"
@@ -1272,6 +1284,7 @@ const (
 	ICON_IDSSteamOs                   ICON_IDS = "STEAM_OS"
 	ICON_IDSSupermicro                ICON_IDS = "SUPERMICRO"
 	ICON_IDSSuse                      ICON_IDS = "SUSE"
+	ICON_IDSSwift                     ICON_IDS = "SWIFT"
 	ICON_IDSTails                     ICON_IDS = "TAILS"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
 	ICON_IDSTalos                     ICON_IDS = "TALOS"
@@ -1388,6 +1401,7 @@ const (
 	IntegrationTypeTenable                   IntegrationType = "TENABLE"
 	IntegrationTypeSnyk                      IntegrationType = "SNYK"
 	IntegrationTypeSonarqube                 IntegrationType = "SONARQUBE"
+	IntegrationTypeOpenvas                   IntegrationType = "OPENVAS"
 	IntegrationTypeQualys                    IntegrationType = "QUALYS"
 	IntegrationTypeTenableSc                 IntegrationType = "TENABLE_SC"
 	IntegrationTypeMsIntune                  IntegrationType = "MS_INTUNE"
@@ -1547,10 +1561,20 @@ const (
 	MqueryTypeScoring MqueryType = "SCORING"
 )
 
-// MvdEcosystem represents mVD ecosystem.
+// MvdCweOrderField represents orderable CWE fields.
+type MvdCweOrderField string
+
+// Orderable CWE fields.
+const (
+	MvdCweOrderFieldId                 MvdCweOrderField = "ID"                  // CWE identifier.
+	MvdCweOrderFieldName               MvdCweOrderField = "NAME"                // Weakness name.
+	MvdCweOrderFieldVulnerabilityCount MvdCweOrderField = "VULNERABILITY_COUNT" // Number of mapped vulnerabilities.
+)
+
+// MvdEcosystem represents mVD ecosystem. UNREACHABLE — no field or argument in the schema references this enum, so no client query can select it. Its only Go consumers, `toGqlEcosystems` and `toProtoEcosystems` in `nexus/resolver/captain_organization.go`, have no callers either; they compile only because Go permits unused unexported functions. Safe to delete along with those two functions: an unreachable type cannot appear in any client document, so removal breaks nobody. Tracked for the `no-unreachable-types` sweep in mondoohq/server#15824 Phase 1. Do not extend this enum for new ecosystems. Ecosystems are data-derived and grow with upstream OSV ingests, so the catalog API models them as strings — see ADR-067 §6i and `MvdEcosystemEntry` in vuln_intel.graphqls.
 type MvdEcosystem string
 
-// MVD ecosystem.
+// MVD ecosystem. UNREACHABLE — no field or argument in the schema references this enum, so no client query can select it. Its only Go consumers, `toGqlEcosystems` and `toProtoEcosystems` in `nexus/resolver/captain_organization.go`, have no callers either; they compile only because Go permits unused unexported functions. Safe to delete along with those two functions: an unreachable type cannot appear in any client document, so removal breaks nobody. Tracked for the `no-unreachable-types` sweep in mondoohq/server#15824 Phase 1. Do not extend this enum for new ecosystems. Ecosystems are data-derived and grow with upstream OSV ingests, so the catalog API models them as strings — see ADR-067 §6i and `MvdEcosystemEntry` in vuln_intel.graphqls.
 const (
 	MvdEcosystemAlmalinux   MvdEcosystem = "ALMALINUX"
 	MvdEcosystemAlpine      MvdEcosystem = "ALPINE"
@@ -1566,6 +1590,79 @@ const (
 	MvdEcosystemUbuntu      MvdEcosystem = "UBUNTU"
 	MvdEcosystemWindows     MvdEcosystem = "WINDOWS"
 	MvdEcosystemWindowsappx MvdEcosystem = "WINDOWSAPPX"
+)
+
+// MvdRangeType represents versioning scheme for an affected range.
+type MvdRangeType string
+
+// Versioning scheme for an affected range.
+const (
+	MvdRangeTypeSemver    MvdRangeType = "SEMVER"    // Semantic versioning.
+	MvdRangeTypeEcosystem MvdRangeType = "ECOSYSTEM" // Ecosystem-specific ordering.
+	MvdRangeTypeGit       MvdRangeType = "GIT"       // Git commit ranges.
+)
+
+// MvdReferenceType represents oSV reference types.
+type MvdReferenceType string
+
+// OSV reference types.
+const (
+	MvdReferenceTypeAdvisory   MvdReferenceType = "ADVISORY"   // Vendor or distribution advisory.
+	MvdReferenceTypeArticle    MvdReferenceType = "ARTICLE"    // Article or blog post.
+	MvdReferenceTypeDetection  MvdReferenceType = "DETECTION"  // Detection tooling.
+	MvdReferenceTypeDiscussion MvdReferenceType = "DISCUSSION" // Public discussion.
+	MvdReferenceTypeReport     MvdReferenceType = "REPORT"     // Vulnerability report.
+	MvdReferenceTypeFix        MvdReferenceType = "FIX"        // The fix itself.
+	MvdReferenceTypeIntroduced MvdReferenceType = "INTRODUCED" // Where the flaw was introduced.
+	MvdReferenceTypePackage    MvdReferenceType = "PACKAGE"    // The affected package.
+	MvdReferenceTypeEvidence   MvdReferenceType = "EVIDENCE"   // Supporting evidence.
+	MvdReferenceTypeWeb        MvdReferenceType = "WEB"        // Other web resource.
+)
+
+// MvdRelationshipType represents how one vulnerability record relates to another.
+type MvdRelationshipType string
+
+// How one vulnerability record relates to another.
+const (
+	MvdRelationshipTypeAlias    MvdRelationshipType = "ALIAS"    // Same vulnerability under a different identifier.
+	MvdRelationshipTypeRelated  MvdRelationshipType = "RELATED"  // Related but distinct.
+	MvdRelationshipTypeUpstream MvdRelationshipType = "UPSTREAM" // The upstream record this one derives from.
+)
+
+// MvdSeverityLevel represents banded severity level.
+type MvdSeverityLevel string
+
+// Banded severity level.
+const (
+	MvdSeverityLevelNone     MvdSeverityLevel = "NONE"     // No severity assigned.
+	MvdSeverityLevelLow      MvdSeverityLevel = "LOW"      // Low severity.
+	MvdSeverityLevelMedium   MvdSeverityLevel = "MEDIUM"   // Medium severity.
+	MvdSeverityLevelHigh     MvdSeverityLevel = "HIGH"     // High severity.
+	MvdSeverityLevelCritical MvdSeverityLevel = "CRITICAL" // Critical severity. Malware records are always CRITICAL.
+	MvdSeverityLevelUnknown  MvdSeverityLevel = "UNKNOWN"  // Severity could not be determined.
+)
+
+// MvdSeverityType represents supported CVSS scoring systems.
+type MvdSeverityType string
+
+// Supported CVSS scoring systems.
+const (
+	MvdSeverityTypeCvssV2 MvdSeverityType = "CVSS_V2" // CVSS version 2.
+	MvdSeverityTypeCvssV3 MvdSeverityType = "CVSS_V3" // CVSS version 3.
+	MvdSeverityTypeCvssV4 MvdSeverityType = "CVSS_V4" // CVSS version 4.
+)
+
+// MvdVulnerabilityOrderField represents orderable fields. Every order is made total by appending the record id.
+type MvdVulnerabilityOrderField string
+
+// Orderable fields. Every order is made total by appending the record id.
+const (
+	MvdVulnerabilityOrderFieldPublished MvdVulnerabilityOrderField = "PUBLISHED"  // Publication date.
+	MvdVulnerabilityOrderFieldModified  MvdVulnerabilityOrderField = "MODIFIED"   // Last-modified date.
+	MvdVulnerabilityOrderFieldCvssScore MvdVulnerabilityOrderField = "CVSS_SCORE" // Highest CVSS base score.
+	MvdVulnerabilityOrderFieldSeverity  MvdVulnerabilityOrderField = "SEVERITY"   // Banded severity.
+	MvdVulnerabilityOrderFieldId        MvdVulnerabilityOrderField = "ID"         // Identifier.
+	MvdVulnerabilityOrderFieldRelevance MvdVulnerabilityOrderField = "RELEVANCE"  // Text relevance. Valid only when `filter.query` is set.
 )
 
 // NotificationType represents slack notification type enum.
