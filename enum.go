@@ -1067,6 +1067,15 @@ const (
 	GitPipelineKindUnknown     GitPipelineKind = "UNKNOWN"
 )
 
+// GithubAuthMethod represents how a GitHub scanning integration authenticates with GitHub.
+type GithubAuthMethod string
+
+// How a GitHub scanning integration authenticates with GitHub.
+const (
+	GithubAuthMethodToken GithubAuthMethod = "TOKEN" // Personal access token supplied by the user.
+	GithubAuthMethodApp   GithubAuthMethod = "APP"   // The read-only Mondoo Scanner GitHub App.
+)
+
 // GithubIntegrationType represents github integration type.
 type GithubIntegrationType string
 
@@ -1074,6 +1083,7 @@ type GithubIntegrationType string
 const (
 	GithubIntegrationTypeRepo GithubIntegrationType = "REPO"
 	GithubIntegrationTypeOrg  GithubIntegrationType = "ORG"
+	GithubIntegrationTypeUser GithubIntegrationType = "USER" // A personal GitHub account. Set by the GitHub App install flow when the app was installed on a user account rather than an organization; not selectable in setup forms.
 )
 
 // GitlabIntegrationType represents gitlab integration type.

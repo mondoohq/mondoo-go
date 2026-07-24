@@ -2620,6 +2620,8 @@ type GithubConfigurationOptionsInput struct {
 	EnableVulnScan *Boolean `json:"enableVulnScan,omitempty" tfgen:"required=0"`
 	// Github Enterprise Server URL. (Optional.)
 	EnterpriseUrl *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
+	// How the integration authenticates with GitHub. APP selects the read-only Mondoo Scanner GitHub App install flow: the integration is created without a token or scope, and completing the installation on GitHub couples it and determines the scan scope. Defaults to TOKEN. Only available for organization-level integrations. (Optional.)
+	AuthMethod *GithubAuthMethod `json:"authMethod,omitempty" tfgen:"required=0"`
 }
 
 // GithubTicketConfigInput represents github ticket configuration input.
