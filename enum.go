@@ -402,6 +402,28 @@ const (
 	AuthorTypeServiceAccount AuthorType = "SERVICE_ACCOUNT" // A valid service account.
 )
 
+// AwsSecurityHubFindingType represents kind of AWS Security Hub finding to import.
+type AwsSecurityHubFindingType string
+
+// Kind of AWS Security Hub finding to import.
+const (
+	AwsSecurityHubFindingTypeVulnerability    AwsSecurityHubFindingType = "VULNERABILITY"    // CVE-bearing findings (e.g. AWS Inspector) — imported as vulnerabilities (VEX).
+	AwsSecurityHubFindingTypeMisconfiguration AwsSecurityHubFindingType = "MISCONFIGURATION" // Security-standard controls / config compliance — imported as findings (FEX) in the SECURITY category.
+	AwsSecurityHubFindingTypeThreat           AwsSecurityHubFindingType = "THREAT"           // GuardDuty-style detections — imported as findings (FEX) in the THREAT category.
+)
+
+// AwsSecurityHubSeverity represents aWS Security Hub finding severity (SeverityLabel).
+type AwsSecurityHubSeverity string
+
+// AWS Security Hub finding severity (SeverityLabel).
+const (
+	AwsSecurityHubSeverityCritical      AwsSecurityHubSeverity = "CRITICAL"
+	AwsSecurityHubSeverityHigh          AwsSecurityHubSeverity = "HIGH"
+	AwsSecurityHubSeverityMedium        AwsSecurityHubSeverity = "MEDIUM"
+	AwsSecurityHubSeverityLow           AwsSecurityHubSeverity = "LOW"
+	AwsSecurityHubSeverityInformational AwsSecurityHubSeverity = "INFORMATIONAL"
+)
+
 // AzureDevopsTicketContextType represents the type of the ticket context.
 type AzureDevopsTicketContextType string
 
@@ -563,6 +585,8 @@ const (
 	ClientIntegrationTypeMondooBi                  ClientIntegrationType = "MONDOO_BI"
 	ClientIntegrationTypeGoogleSccExport           ClientIntegrationType = "GOOGLE_SCC_EXPORT"
 	ClientIntegrationTypeGoogleSccImport           ClientIntegrationType = "GOOGLE_SCC_IMPORT"
+	ClientIntegrationTypeAwsSecurityHubImport      ClientIntegrationType = "AWS_SECURITY_HUB_IMPORT"
+	ClientIntegrationTypeAwsSecurityHubExport      ClientIntegrationType = "AWS_SECURITY_HUB_EXPORT"
 	ClientIntegrationTypeSplunk                    ClientIntegrationType = "SPLUNK"
 	ClientIntegrationTypeElastic                   ClientIntegrationType = "ELASTIC"
 	ClientIntegrationTypeAuditLogExport            ClientIntegrationType = "AUDIT_LOG_EXPORT"
@@ -1187,6 +1211,7 @@ const (
 	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
 	ICON_IDSGoogleProjectZero         ICON_IDS = "GOOGLE_PROJECT_ZERO"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
+	ICON_IDSHcp                       ICON_IDS = "HCP"
 	ICON_IDSHex                       ICON_IDS = "HEX"
 	ICON_IDSHetzner                   ICON_IDS = "HETZNER"
 	ICON_IDSHpeIlo                    ICON_IDS = "HPE_ILO"
@@ -1196,6 +1221,7 @@ const (
 	ICON_IDSIntellijIdea              ICON_IDS = "INTELLIJ_IDEA"
 	ICON_IDSInthewild                 ICON_IDS = "INTHEWILD"
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
+	ICON_IDSIru                       ICON_IDS = "IRU"
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
 	ICON_IDSJava                      ICON_IDS = "JAVA"
 	ICON_IDSJunos                     ICON_IDS = "JUNOS"
@@ -1418,6 +1444,8 @@ const (
 	IntegrationTypeMondooBi                  IntegrationType = "MONDOO_BI"
 	IntegrationTypeGoogleSccExport           IntegrationType = "GOOGLE_SCC_EXPORT"
 	IntegrationTypeGoogleSccImport           IntegrationType = "GOOGLE_SCC_IMPORT"
+	IntegrationTypeAwsSecurityHubImport      IntegrationType = "AWS_SECURITY_HUB_IMPORT"
+	IntegrationTypeAwsSecurityHubExport      IntegrationType = "AWS_SECURITY_HUB_EXPORT"
 	IntegrationTypeSplunk                    IntegrationType = "SPLUNK"
 	IntegrationTypeElastic                   IntegrationType = "ELASTIC"
 	IntegrationTypeAuditLogExport            IntegrationType = "AUDIT_LOG_EXPORT"
