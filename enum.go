@@ -602,6 +602,9 @@ const (
 	ClientIntegrationTypeNetworkDiscoveryCollector ClientIntegrationType = "NETWORK_DISCOVERY_COLLECTOR"
 	ClientIntegrationTypeNetworkScan               ClientIntegrationType = "NETWORK_SCAN"
 	ClientIntegrationTypeAttackSurface             ClientIntegrationType = "ATTACK_SURFACE"
+	ClientIntegrationTypeMongodbAtlas              ClientIntegrationType = "MONGODB_ATLAS"
+	ClientIntegrationTypeVercel                    ClientIntegrationType = "VERCEL"
+	ClientIntegrationTypeDatabricks                ClientIntegrationType = "DATABRICKS"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1071,6 +1074,69 @@ const (
 	FindingsOrderFieldCvssScore   FindingsOrderField = "CVSS_SCORE"
 )
 
+// FleetScanAuthStrategy represents how cnspec authenticated to the Mondoo platform for this scan. WIF - cnspec exchanged a provider-issued host identity for a Mondoo credential server-side. No Mondoo service account was created. SECRET_CHANNEL - server minted a scan-scoped service account and delivered it via the provider's out-of-band secret channel.
+type FleetScanAuthStrategy string
+
+// How cnspec authenticated to the Mondoo platform for this scan. WIF - cnspec exchanged a provider-issued host identity for a Mondoo credential server-side. No Mondoo service account was created. SECRET_CHANNEL - server minted a scan-scoped service account and delivered it via the provider's out-of-band secret channel.
+const (
+	FleetScanAuthStrategyWif           FleetScanAuthStrategy = "WIF"
+	FleetScanAuthStrategySecretChannel FleetScanAuthStrategy = "SECRET_CHANNEL"
+)
+
+// FleetScanBinarySource represents where the host obtained the cnspec binary. RELEASE_MIRROR_FALLBACK is the dropper pattern we want to keep near zero - alert if it spikes.
+type FleetScanBinarySource string
+
+// Where the host obtained the cnspec binary. RELEASE_MIRROR_FALLBACK is the dropper pattern we want to keep near zero - alert if it spikes.
+const (
+	FleetScanBinarySourceProvider              FleetScanBinarySource = "PROVIDER"
+	FleetScanBinarySourceReleaseMirrorFallback FleetScanBinarySource = "RELEASE_MIRROR_FALLBACK"
+)
+
+// FleetScanCadence represents a schedule's cadence.
+type FleetScanCadence string
+
+// A schedule's cadence.
+const (
+	FleetScanCadenceDaily   FleetScanCadence = "DAILY"
+	FleetScanCadenceWeekly  FleetScanCadence = "WEEKLY"
+	FleetScanCadenceMonthly FleetScanCadence = "MONTHLY"
+)
+
+// FleetScanHostStatus represents bootstrap status on a single endpoint. PENDING — device received the policy but hasn't finished running it. SUCCESS — bootstrap script exited cleanly. TIMEOUT — bootstrap exceeded its budget without finishing. ERROR — bootstrap returned a non-zero exit code. SKIPPED — host wasn't targeted (unsupported platform, offline beyond window).
+type FleetScanHostStatus string
+
+// Bootstrap status on a single endpoint. PENDING — device received the policy but hasn't finished running it. SUCCESS — bootstrap script exited cleanly. TIMEOUT — bootstrap exceeded its budget without finishing. ERROR — bootstrap returned a non-zero exit code. SKIPPED — host wasn't targeted (unsupported platform, offline beyond window).
+const (
+	FleetScanHostStatusPending FleetScanHostStatus = "PENDING"
+	FleetScanHostStatusSuccess FleetScanHostStatus = "SUCCESS"
+	FleetScanHostStatusTimeout FleetScanHostStatus = "TIMEOUT"
+	FleetScanHostStatusError   FleetScanHostStatus = "ERROR"
+	FleetScanHostStatusSkipped FleetScanHostStatus = "SKIPPED"
+)
+
+// FleetScanStatus represents overall outcome of a fleet-scan run from the orchestration layer. PENDING - workflow kicked off, artifacts not staged yet. RUNNING - artifacts uploading, or hosts are running the script. SUCCESS - all targeted hosts finished successfully. PARTIAL - at least one host succeeded and at least one failed. FAILED - every targeted host either failed or timed out. TIMEOUT - workflow exceeded its overall timeout before all hosts reported. CANCELLED - operator cancelled the scan before it reached a natural terminal state.
+type FleetScanStatus string
+
+// Overall outcome of a fleet-scan run from the orchestration layer. PENDING - workflow kicked off, artifacts not staged yet. RUNNING - artifacts uploading, or hosts are running the script. SUCCESS - all targeted hosts finished successfully. PARTIAL - at least one host succeeded and at least one failed. FAILED - every targeted host either failed or timed out. TIMEOUT - workflow exceeded its overall timeout before all hosts reported. CANCELLED - operator cancelled the scan before it reached a natural terminal state.
+const (
+	FleetScanStatusPending   FleetScanStatus = "PENDING"
+	FleetScanStatusRunning   FleetScanStatus = "RUNNING"
+	FleetScanStatusSuccess   FleetScanStatus = "SUCCESS"
+	FleetScanStatusPartial   FleetScanStatus = "PARTIAL"
+	FleetScanStatusFailed    FleetScanStatus = "FAILED"
+	FleetScanStatusTimeout   FleetScanStatus = "TIMEOUT"
+	FleetScanStatusCancelled FleetScanStatus = "CANCELLED"
+)
+
+// FleetScanTriggerKind represents how the scan was triggered.
+type FleetScanTriggerKind string
+
+// How the scan was triggered.
+const (
+	FleetScanTriggerKindManual   FleetScanTriggerKind = "MANUAL"
+	FleetScanTriggerKindSchedule FleetScanTriggerKind = "SCHEDULE"
+)
+
 // FormatType represents output format.
 type FormatType string
 
@@ -1119,6 +1185,27 @@ const (
 	GitlabIntegrationTypeNone  GitlabIntegrationType = "NONE"  // nothing is limited, discover all groups.
 )
 
+// GoogleSccFindingType represents kind of Google Security Command Center finding to import.
+type GoogleSccFindingType string
+
+// Kind of Google Security Command Center finding to import.
+const (
+	GoogleSccFindingTypeVulnerability    GoogleSccFindingType = "VULNERABILITY"    // CVE-bearing findings — imported as vulnerabilities (VEX).
+	GoogleSccFindingTypeMisconfiguration GoogleSccFindingType = "MISCONFIGURATION" // SCC MISCONFIGURATION findings — imported as findings (FEX) in the SECURITY category.
+	GoogleSccFindingTypeThreat           GoogleSccFindingType = "THREAT"           // SCC THREAT findings — imported as findings (FEX) in the THREAT category.
+)
+
+// GoogleSccSeverity represents google Security Command Center finding severity.
+type GoogleSccSeverity string
+
+// Google Security Command Center finding severity.
+const (
+	GoogleSccSeverityCritical GoogleSccSeverity = "CRITICAL" // Critical severity.
+	GoogleSccSeverityHigh     GoogleSccSeverity = "HIGH"     // High severity.
+	GoogleSccSeverityMedium   GoogleSccSeverity = "MEDIUM"   // Medium severity.
+	GoogleSccSeverityLow      GoogleSccSeverity = "LOW"      // Low severity.
+)
+
 // Grade represents deprecated, use Score.grade instead.
 type Grade string
 
@@ -1140,6 +1227,7 @@ const (
 	ICON_IDSAdobe                     ICON_IDS = "ADOBE"
 	ICON_IDSAdobeIllustrator          ICON_IDS = "ADOBE_ILLUSTRATOR"
 	ICON_IDSAdobeIndesign             ICON_IDS = "ADOBE_INDESIGN"
+	ICON_IDSAdobeLightroom            ICON_IDS = "ADOBE_LIGHTROOM"
 	ICON_IDSAdobePhotoshop            ICON_IDS = "ADOBE_PHOTOSHOP"
 	ICON_IDSAdobePremierePro          ICON_IDS = "ADOBE_PREMIERE_PRO"
 	ICON_IDSAdobeReader               ICON_IDS = "ADOBE_READER"
@@ -1158,6 +1246,7 @@ const (
 	ICON_IDSAws                       ICON_IDS = "AWS"
 	ICON_IDSAzure                     ICON_IDS = "AZURE"
 	ICON_IDSBitwarden                 ICON_IDS = "BITWARDEN"
+	ICON_IDSBruno                     ICON_IDS = "BRUNO"
 	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
 	ICON_IDSCachyOs                   ICON_IDS = "CACHY_OS"
 	ICON_IDSCentos                    ICON_IDS = "CENTOS"
@@ -1198,12 +1287,15 @@ const (
 	ICON_IDSFlatcar                   ICON_IDS = "FLATCAR"
 	ICON_IDSFortios                   ICON_IDS = "FORTIOS"
 	ICON_IDSFortiClient               ICON_IDS = "FORTI_CLIENT"
+	ICON_IDSFoxit                     ICON_IDS = "FOXIT"
 	ICON_IDSFreebsd                   ICON_IDS = "FREEBSD"
 	ICON_IDSGarageband                ICON_IDS = "GARAGEBAND"
 	ICON_IDSGcp                       ICON_IDS = "GCP"
 	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
+	ICON_IDSGhostscript               ICON_IDS = "GHOSTSCRIPT"
 	ICON_IDSGo                        ICON_IDS = "GO"
 	ICON_IDSGimp                      ICON_IDS = "GIMP"
+	ICON_IDSGit                       ICON_IDS = "GIT"
 	ICON_IDSGithub                    ICON_IDS = "GITHUB"
 	ICON_IDSGithubDesktop             ICON_IDS = "GITHUB_DESKTOP"
 	ICON_IDSGitlab                    ICON_IDS = "GITLAB"
@@ -1211,6 +1303,7 @@ const (
 	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
 	ICON_IDSGoogleProjectZero         ICON_IDS = "GOOGLE_PROJECT_ZERO"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
+	ICON_IDSGotomeeting               ICON_IDS = "GOTOMEETING"
 	ICON_IDSHcp                       ICON_IDS = "HCP"
 	ICON_IDSHex                       ICON_IDS = "HEX"
 	ICON_IDSHetzner                   ICON_IDS = "HETZNER"
@@ -1218,8 +1311,10 @@ const (
 	ICON_IDSHuawei                    ICON_IDS = "HUAWEI"
 	ICON_IDSHuggingFace               ICON_IDS = "HUGGING_FACE"
 	ICON_IDSIac                       ICON_IDS = "IAC"
+	ICON_IDSInkscape                  ICON_IDS = "INKSCAPE"
 	ICON_IDSIntellijIdea              ICON_IDS = "INTELLIJ_IDEA"
 	ICON_IDSInthewild                 ICON_IDS = "INTHEWILD"
+	ICON_IDSIterm2                    ICON_IDS = "ITERM2"
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
 	ICON_IDSIru                       ICON_IDS = "IRU"
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
@@ -1233,6 +1328,8 @@ const (
 	ICON_IDSLibreOffice               ICON_IDS = "LIBRE_OFFICE"
 	ICON_IDSLinux                     ICON_IDS = "LINUX"
 	ICON_IDSLinuxMint                 ICON_IDS = "LINUX_MINT"
+	ICON_IDSLocalsend                 ICON_IDS = "LOCALSEND"
+	ICON_IDSLogitech                  ICON_IDS = "LOGITECH"
 	ICON_IDSMacos                     ICON_IDS = "MACOS"
 	ICON_IDSMageia                    ICON_IDS = "MAGEIA"
 	ICON_IDSManjaro                   ICON_IDS = "MANJARO"
@@ -1242,10 +1339,12 @@ const (
 	ICON_IDSMicrosoftDotnet           ICON_IDS = "MICROSOFT_DOTNET"
 	ICON_IDSMicrosoftEdge             ICON_IDS = "MICROSOFT_EDGE"
 	ICON_IDSMicrosoftExcel            ICON_IDS = "MICROSOFT_EXCEL"
+	ICON_IDSMicrosoftOffice           ICON_IDS = "MICROSOFT_OFFICE"
 	ICON_IDSMicrosoftPowerpoint       ICON_IDS = "MICROSOFT_POWERPOINT"
 	ICON_IDSMicrosoftSqlServer        ICON_IDS = "MICROSOFT_SQL_SERVER"
 	ICON_IDSMicrosoftOnenote          ICON_IDS = "MICROSOFT_ONENOTE"
 	ICON_IDSMicrosoftTeams            ICON_IDS = "MICROSOFT_TEAMS"
+	ICON_IDSMicrosoftVisualStudio     ICON_IDS = "MICROSOFT_VISUAL_STUDIO"
 	ICON_IDSMicrosoftVisualStudioCode ICON_IDS = "MICROSOFT_VISUAL_STUDIO_CODE"
 	ICON_IDSMicrosoftWord             ICON_IDS = "MICROSOFT_WORD"
 	ICON_IDSMikrotik                  ICON_IDS = "MIKROTIK"
@@ -1257,6 +1356,7 @@ const (
 	ICON_IDSMozillaThunderbird        ICON_IDS = "MOZILLA_THUNDERBIRD"
 	ICON_IDSMs365                     ICON_IDS = "MS365"
 	ICON_IDSMxLinux                   ICON_IDS = "MX_LINUX"
+	ICON_IDSMysql                     ICON_IDS = "MYSQL"
 	ICON_IDSNeon                      ICON_IDS = "NEON"
 	ICON_IDSNetbsd                    ICON_IDS = "NETBSD"
 	ICON_IDSNetscoutHardenedOs        ICON_IDS = "NETSCOUT_HARDENED_OS"
@@ -1295,7 +1395,11 @@ const (
 	ICON_IDSPolicy                    ICON_IDS = "POLICY"
 	ICON_IDSPop                       ICON_IDS = "POP"
 	ICON_IDSPortainer                 ICON_IDS = "PORTAINER"
+	ICON_IDSPostgresql                ICON_IDS = "POSTGRESQL"
+	ICON_IDSPowershell                ICON_IDS = "POWERSHELL"
 	ICON_IDSProxmox                   ICON_IDS = "PROXMOX"
+	ICON_IDSPutty                     ICON_IDS = "PUTTY"
+	ICON_IDSPycharm                   ICON_IDS = "PYCHARM"
 	ICON_IDSPython                    ICON_IDS = "PYTHON"
 	ICON_IDSPypi                      ICON_IDS = "PYPI"
 	ICON_IDSQubes                     ICON_IDS = "QUBES"
@@ -1328,6 +1432,7 @@ const (
 	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
 	ICON_IDSTogether                  ICON_IDS = "TOGETHER"
 	ICON_IDSUbuntu                    ICON_IDS = "UBUNTU"
+	ICON_IDSUltravnc                  ICON_IDS = "ULTRAVNC"
 	ICON_IDSUnifi                     ICON_IDS = "UNIFI"
 	ICON_IDSVcd                       ICON_IDS = "VCD"
 	ICON_IDSVercel                    ICON_IDS = "VERCEL"
@@ -1338,15 +1443,19 @@ const (
 	ICON_IDSVmwarePhoton              ICON_IDS = "VMWARE_PHOTON"
 	ICON_IDSVmwareTools               ICON_IDS = "VMWARE_TOOLS"
 	ICON_IDSVulncheckKev              ICON_IDS = "VULNCHECK_KEV"
+	ICON_IDSWatchguard                ICON_IDS = "WATCHGUARD"
 	ICON_IDSWebex                     ICON_IDS = "WEBEX"
 	ICON_IDSWindows                   ICON_IDS = "WINDOWS"
 	ICON_IDSWindows10                 ICON_IDS = "WINDOWS_10"
 	ICON_IDSWindows11                 ICON_IDS = "WINDOWS_11"
 	ICON_IDSWindsurf                  ICON_IDS = "WINDSURF"
+	ICON_IDSWinscp                    ICON_IDS = "WINSCP"
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
 	ICON_IDSWolfi                     ICON_IDS = "WOLFI"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
 	ICON_IDSXcode                     ICON_IDS = "XCODE"
+	ICON_IDSZed                       ICON_IDS = "ZED"
+	ICON_IDSZoom                      ICON_IDS = "ZOOM"
 	ICON_IDSZorin                     ICON_IDS = "ZORIN"
 )
 
@@ -1461,6 +1570,9 @@ const (
 	IntegrationTypeNetworkDiscoveryCollector IntegrationType = "NETWORK_DISCOVERY_COLLECTOR"
 	IntegrationTypeNetworkScan               IntegrationType = "NETWORK_SCAN"
 	IntegrationTypeAttackSurface             IntegrationType = "ATTACK_SURFACE"
+	IntegrationTypeMongodbAtlas              IntegrationType = "MONGODB_ATLAS"
+	IntegrationTypeVercel                    IntegrationType = "VERCEL"
+	IntegrationTypeDatabricks                IntegrationType = "DATABRICKS"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
