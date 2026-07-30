@@ -155,6 +155,16 @@ const (
 	AggregateScoreOrderFieldNumExceptions   AggregateScoreOrderField = "NUM_EXCEPTIONS"    // Number of exceptions (frameworks).
 )
 
+// AggregateScoreRefreshStatus represents where a scope's aggregate-score refresh is in its lifecycle.
+type AggregateScoreRefreshStatus string
+
+// Where a scope's aggregate-score refresh is in its lifecycle.
+const (
+	AggregateScoreRefreshStatusIdle    AggregateScoreRefreshStatus = "IDLE"    // No refresh is currently in progress for the scope.
+	AggregateScoreRefreshStatusQueued  AggregateScoreRefreshStatus = "QUEUED"  // A refresh has been requested but its compute hasn't started yet (waiting for a worker slot).
+	AggregateScoreRefreshStatusRunning AggregateScoreRefreshStatus = "RUNNING" // A refresh is actively computing.
+)
+
 // AggregateScoreState represents aggregate score state.
 type AggregateScoreState string
 
@@ -607,6 +617,7 @@ const (
 	ClientIntegrationTypeDatabricks                ClientIntegrationType = "DATABRICKS"
 	ClientIntegrationTypeJamfPro                   ClientIntegrationType = "JAMF_PRO"
 	ClientIntegrationTypeKandji                    ClientIntegrationType = "KANDJI"
+	ClientIntegrationTypeOpsi                      ClientIntegrationType = "OPSI"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1178,6 +1189,16 @@ const (
 	GithubIntegrationTypeUser GithubIntegrationType = "USER" // A personal GitHub account. Set by the GitHub App install flow when the app was installed on a user account rather than an organization; not selectable in setup forms.
 )
 
+// GithubRepoScanTypeSetting represents how a per-repo scan-type override is changed by setGithubRepoScanConfig. A stored override is tri-state (inherit / on / off), so omitting the field — which means "leave it alone" — cannot also be the way to clear it; INHERIT is.
+type GithubRepoScanTypeSetting string
+
+// How a per-repo scan-type override is changed by setGithubRepoScanConfig. A stored override is tri-state (inherit / on / off), so omitting the field — which means "leave it alone" — cannot also be the way to clear it; INHERIT is.
+const (
+	GithubRepoScanTypeSettingInherit GithubRepoScanTypeSetting = "INHERIT" // Clear the override, so this repo follows the integration default again.
+	GithubRepoScanTypeSettingOn      GithubRepoScanTypeSetting = "ON"      // Scan this type on this repo, whatever the integration default is.
+	GithubRepoScanTypeSettingOff     GithubRepoScanTypeSetting = "OFF"     // Do not scan this type on this repo, whatever the integration default is.
+)
+
 // GitlabIntegrationType represents gitlab integration type.
 type GitlabIntegrationType string
 
@@ -1251,6 +1272,7 @@ const (
 	ICON_IDSAws                       ICON_IDS = "AWS"
 	ICON_IDSAzure                     ICON_IDS = "AZURE"
 	ICON_IDSBaramundi                 ICON_IDS = "BARAMUNDI"
+	ICON_IDSBentley                   ICON_IDS = "BENTLEY"
 	ICON_IDSBeyondtrust               ICON_IDS = "BEYONDTRUST"
 	ICON_IDSBeyondCompare             ICON_IDS = "BEYOND_COMPARE"
 	ICON_IDSBitwarden                 ICON_IDS = "BITWARDEN"
@@ -1368,6 +1390,7 @@ const (
 	ICON_IDSMicrosoftExcel            ICON_IDS = "MICROSOFT_EXCEL"
 	ICON_IDSMicrosoftOffice           ICON_IDS = "MICROSOFT_OFFICE"
 	ICON_IDSMicrosoftPowerpoint       ICON_IDS = "MICROSOFT_POWERPOINT"
+	ICON_IDSMicrosoftPowertoys        ICON_IDS = "MICROSOFT_POWERTOYS"
 	ICON_IDSMicrosoftSqlServer        ICON_IDS = "MICROSOFT_SQL_SERVER"
 	ICON_IDSMicrosoftOnenote          ICON_IDS = "MICROSOFT_ONENOTE"
 	ICON_IDSMicrosoftTeams            ICON_IDS = "MICROSOFT_TEAMS"
@@ -1420,6 +1443,7 @@ const (
 	ICON_IDSPaintNet                  ICON_IDS = "PAINT_NET"
 	ICON_IDSPanos                     ICON_IDS = "PANOS"
 	ICON_IDSParrot                    ICON_IDS = "PARROT"
+	ICON_IDSPdf24                     ICON_IDS = "PDF24"
 	ICON_IDSPgadmin                   ICON_IDS = "PGADMIN"
 	ICON_IDSPhpstorm                  ICON_IDS = "PHPSTORM"
 	ICON_IDSPlcnext                   ICON_IDS = "PLCNEXT"
@@ -1429,6 +1453,7 @@ const (
 	ICON_IDSPortainer                 ICON_IDS = "PORTAINER"
 	ICON_IDSPostgresql                ICON_IDS = "POSTGRESQL"
 	ICON_IDSPowershell                ICON_IDS = "POWERSHELL"
+	ICON_IDSProgressSoftware          ICON_IDS = "PROGRESS_SOFTWARE"
 	ICON_IDSProxmox                   ICON_IDS = "PROXMOX"
 	ICON_IDSPutty                     ICON_IDS = "PUTTY"
 	ICON_IDSPycharm                   ICON_IDS = "PYCHARM"
@@ -1623,6 +1648,7 @@ const (
 	IntegrationTypeDatabricks                IntegrationType = "DATABRICKS"
 	IntegrationTypeJamfPro                   IntegrationType = "JAMF_PRO"
 	IntegrationTypeKandji                    IntegrationType = "KANDJI"
+	IntegrationTypeOpsi                      IntegrationType = "OPSI"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
