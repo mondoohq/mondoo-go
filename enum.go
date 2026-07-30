@@ -618,6 +618,7 @@ const (
 	ClientIntegrationTypeJamfPro                   ClientIntegrationType = "JAMF_PRO"
 	ClientIntegrationTypeKandji                    ClientIntegrationType = "KANDJI"
 	ClientIntegrationTypeOpsi                      ClientIntegrationType = "OPSI"
+	ClientIntegrationTypeIru                       ClientIntegrationType = "IRU"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1248,6 +1249,7 @@ type ICON_IDS string
 // ENUM for icon ids.
 const (
 	ICON_IDSAdobe                     ICON_IDS = "ADOBE"
+	ICON_IDSAdobeCreativeCloud        ICON_IDS = "ADOBE_CREATIVE_CLOUD"
 	ICON_IDSAdobeIllustrator          ICON_IDS = "ADOBE_ILLUSTRATOR"
 	ICON_IDSAdobeIndesign             ICON_IDS = "ADOBE_INDESIGN"
 	ICON_IDSAdobeLightroom            ICON_IDS = "ADOBE_LIGHTROOM"
@@ -1285,11 +1287,13 @@ const (
 	ICON_IDSCcleaner                  ICON_IDS = "CCLEANER"
 	ICON_IDSCentos                    ICON_IDS = "CENTOS"
 	ICON_IDSCheck                     ICON_IDS = "CHECK"
+	ICON_IDSCheckmk                   ICON_IDS = "CHECKMK"
 	ICON_IDSCheckPoint                ICON_IDS = "CHECK_POINT"
 	ICON_IDSChef                      ICON_IDS = "CHEF"
 	ICON_IDSCirros                    ICON_IDS = "CIRROS"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
+	ICON_IDSCitrix                    ICON_IDS = "CITRIX"
 	ICON_IDSClaude                    ICON_IDS = "CLAUDE"
 	ICON_IDSCloudflare                ICON_IDS = "CLOUDFLARE"
 	ICON_IDSCloudformation            ICON_IDS = "CLOUDFORMATION"
@@ -1373,6 +1377,7 @@ const (
 	ICON_IDSKeynote                   ICON_IDS = "KEYNOTE"
 	ICON_IDSKiro                      ICON_IDS = "KIRO"
 	ICON_IDSLede                      ICON_IDS = "LEDE"
+	ICON_IDSLenovo                    ICON_IDS = "LENOVO"
 	ICON_IDSLibreOffice               ICON_IDS = "LIBRE_OFFICE"
 	ICON_IDSLinux                     ICON_IDS = "LINUX"
 	ICON_IDSLinuxMint                 ICON_IDS = "LINUX_MINT"
@@ -1388,6 +1393,7 @@ const (
 	ICON_IDSMicrosoftDotnet           ICON_IDS = "MICROSOFT_DOTNET"
 	ICON_IDSMicrosoftEdge             ICON_IDS = "MICROSOFT_EDGE"
 	ICON_IDSMicrosoftExcel            ICON_IDS = "MICROSOFT_EXCEL"
+	ICON_IDSMicrosoftExchange         ICON_IDS = "MICROSOFT_EXCHANGE"
 	ICON_IDSMicrosoftOffice           ICON_IDS = "MICROSOFT_OFFICE"
 	ICON_IDSMicrosoftPowerpoint       ICON_IDS = "MICROSOFT_POWERPOINT"
 	ICON_IDSMicrosoftPowertoys        ICON_IDS = "MICROSOFT_POWERTOYS"
@@ -1449,6 +1455,7 @@ const (
 	ICON_IDSPlcnext                   ICON_IDS = "PLCNEXT"
 	ICON_IDSPlex                      ICON_IDS = "PLEX"
 	ICON_IDSPolicy                    ICON_IDS = "POLICY"
+	ICON_IDSPoly                      ICON_IDS = "POLY"
 	ICON_IDSPop                       ICON_IDS = "POP"
 	ICON_IDSPortainer                 ICON_IDS = "PORTAINER"
 	ICON_IDSPostgresql                ICON_IDS = "POSTGRESQL"
@@ -1649,6 +1656,7 @@ const (
 	IntegrationTypeJamfPro                   IntegrationType = "JAMF_PRO"
 	IntegrationTypeKandji                    IntegrationType = "KANDJI"
 	IntegrationTypeOpsi                      IntegrationType = "OPSI"
+	IntegrationTypeIru                       IntegrationType = "IRU"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
