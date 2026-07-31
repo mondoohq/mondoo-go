@@ -1461,6 +1461,7 @@ const (
 	ICON_IDSPortainer                 ICON_IDS = "PORTAINER"
 	ICON_IDSPostgresql                ICON_IDS = "POSTGRESQL"
 	ICON_IDSPowershell                ICON_IDS = "POWERSHELL"
+	ICON_IDSPrinter                   ICON_IDS = "PRINTER"
 	ICON_IDSProgressSoftware          ICON_IDS = "PROGRESS_SOFTWARE"
 	ICON_IDSProxmox                   ICON_IDS = "PROXMOX"
 	ICON_IDSPutty                     ICON_IDS = "PUTTY"
