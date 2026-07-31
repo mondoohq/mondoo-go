@@ -54,6 +54,7 @@ const (
 	ActionTypeClearScanQueue ActionType = "CLEAR_SCAN_QUEUE"
 	ActionTypeRun            ActionType = "RUN"           // Generic run — triggers the integration's primary operation (scan, import, or export) without the caller needing to know the integration category.
 	ActionTypeReissueToken   ActionType = "REISSUE_TOKEN" // Revoke the integration's current enrollment token(s) and mint a fresh one (Network Discovery Collector: "issue new 30-day token").
+	ActionTypeSyncRepos      ActionType = "SYNC_REPOS"    // Re-run repository discovery for a GitHub organization/user integration: enumerate the repositories it can see and store them. Discovery only — no scan is queued. Returns as soon as the discovery job is started.
 )
 
 // ActivePolicyOrderField represents active policy order field.
