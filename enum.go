@@ -140,6 +140,7 @@ type AggregateScoreOrderField string
 const (
 	AggregateScoreOrderFieldRiskScore       AggregateScoreOrderField = "RISK_SCORE"        // Risk score field.
 	AggregateScoreOrderFieldRiskValue       AggregateScoreOrderField = "RISK_VALUE"        // Risk value.
+	AggregateScoreOrderFieldRiskCategory    AggregateScoreOrderField = "RISK_CATEGORY"     // Risk category bucket (critical > high > medium > low > none), derived from the risk score. Unlike RISK_SCORE, this sorts by the discretized rating bucket, so a secondary order (e.g. ASSET_COUNT via thenBy) breaks ties within a category.
 	AggregateScoreOrderFieldRank            AggregateScoreOrderField = "RANK"              // Risk rank.
 	AggregateScoreOrderFieldBlastRadius     AggregateScoreOrderField = "BLAST_RADIUS"      // Risk score blast radius.
 	AggregateScoreOrderFieldTitle           AggregateScoreOrderField = "TITLE"             // Title.
@@ -1115,6 +1116,7 @@ const (
 	FleetScanCadenceDaily   FleetScanCadence = "DAILY"
 	FleetScanCadenceWeekly  FleetScanCadence = "WEEKLY"
 	FleetScanCadenceMonthly FleetScanCadence = "MONTHLY"
+	FleetScanCadenceHourly  FleetScanCadence = "HOURLY" // HOURLY is offered only by providers that schedule natively (e.g. Intune device health scripts). Server-scheduled (Temporal) providers use DAILY/WEEKLY/MONTHLY.
 )
 
 // FleetScanHostStatus represents bootstrap status on a single endpoint. PENDING — device received the policy but hasn't finished running it. SUCCESS — bootstrap script exited cleanly. TIMEOUT — bootstrap exceeded its budget without finishing. ERROR — bootstrap returned a non-zero exit code. SKIPPED — host wasn't targeted (unsupported platform, offline beyond window).
