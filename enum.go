@@ -1204,10 +1204,10 @@ const (
 	GithubIntegrationTypeUser GithubIntegrationType = "USER" // A personal GitHub account. Set by the GitHub App install flow when the app was installed on a user account rather than an organization; not selectable in setup forms.
 )
 
-// GithubRepoScanTypeSetting represents how a per-repo scan-type override is changed by setGithubRepoScanConfig. A stored override is tri-state (inherit / on / off), so omitting the field — which means "leave it alone" — cannot also be the way to clear it; INHERIT is.
+// GithubRepoScanTypeSetting represents how a per-repo scan-type override is changed by setGithubRepoScanConfigs. A stored override is tri-state (inherit / on / off), so omitting the field — which means "leave it alone" — cannot also be the way to clear it; INHERIT is.
 type GithubRepoScanTypeSetting string
 
-// How a per-repo scan-type override is changed by setGithubRepoScanConfig. A stored override is tri-state (inherit / on / off), so omitting the field — which means "leave it alone" — cannot also be the way to clear it; INHERIT is.
+// How a per-repo scan-type override is changed by setGithubRepoScanConfigs. A stored override is tri-state (inherit / on / off), so omitting the field — which means "leave it alone" — cannot also be the way to clear it; INHERIT is.
 const (
 	GithubRepoScanTypeSettingInherit GithubRepoScanTypeSetting = "INHERIT" // Clear the override, so this repo follows the integration default again.
 	GithubRepoScanTypeSettingOn      GithubRepoScanTypeSetting = "ON"      // Scan this type on this repo, whatever the integration default is.
@@ -1242,6 +1242,17 @@ const (
 	GoogleSccSeverityHigh     GoogleSccSeverity = "HIGH"     // High severity.
 	GoogleSccSeverityMedium   GoogleSccSeverity = "MEDIUM"   // Medium severity.
 	GoogleSccSeverityLow      GoogleSccSeverity = "LOW"      // Low severity.
+)
+
+// GovernanceState represents governance (RFC-231): a per-MRN overlay that records whether an inventory entity is sanctioned. discovered = no decision applies (the default; never stored). managed is a refinement of allowed (allowed and actively stewarded).
+type GovernanceState string
+
+// Governance (RFC-231): a per-MRN overlay that records whether an inventory entity is sanctioned. discovered = no decision applies (the default; never stored). managed is a refinement of allowed (allowed and actively stewarded).
+const (
+	GovernanceStateDiscovered GovernanceState = "DISCOVERED"
+	GovernanceStateAllowed    GovernanceState = "ALLOWED"
+	GovernanceStateManaged    GovernanceState = "MANAGED"
+	GovernanceStateDenied     GovernanceState = "DENIED"
 )
 
 // Grade represents deprecated, use Score.grade instead.
