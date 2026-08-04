@@ -1131,6 +1131,17 @@ const (
 	FleetScanHostStatusSkipped FleetScanHostStatus = "SKIPPED"
 )
 
+// FleetScanScriptKind represents classifies one script in a scan's typed script set (fleetScanScripts).
+type FleetScanScriptKind string
+
+// Classifies one script in a scan's typed script set (fleetScanScripts).
+const (
+	FleetScanScriptKindBootstrap   FleetScanScriptKind = "BOOTSTRAP"   // The cnspec bootstrap/runner.
+	FleetScanScriptKindDetection   FleetScanScriptKind = "DETECTION"   // Provider detection gate (e.g. an Intune Proactive Remediation detection).
+	FleetScanScriptKindRemediation FleetScanScriptKind = "REMEDIATION" // The composed runner the provider dispatches (credential redacted).
+	FleetScanScriptKindDiagnostic  FleetScanScriptKind = "DIAGNOSTIC"  // An operator copy-paste triage snippet.
+)
+
 // FleetScanStatus represents overall outcome of a fleet-scan run from the orchestration layer. PENDING - workflow kicked off, artifacts not staged yet. RUNNING - artifacts uploading, or hosts are running the script. SUCCESS - all targeted hosts finished successfully. PARTIAL - at least one host succeeded and at least one failed. FAILED - every targeted host either failed or timed out. TIMEOUT - workflow exceeded its overall timeout before all hosts reported. CANCELLED - operator cancelled the scan before it reached a natural terminal state.
 type FleetScanStatus string
 
@@ -1768,6 +1779,16 @@ type MembershipOrderField string
 // Field to order memberships by.
 const (
 	MembershipOrderFieldName MembershipOrderField = "NAME"
+)
+
+// MembershipScopeKind represents what a membership was granted on.
+type MembershipScopeKind string
+
+// What a membership was granted on.
+const (
+	MembershipScopeKindOrganization MembershipScopeKind = "ORGANIZATION"
+	MembershipScopeKindSpace        MembershipScopeKind = "SPACE"
+	MembershipScopeKindTeam         MembershipScopeKind = "TEAM"
 )
 
 // MqueryAssetDataFormat represents mquery asset data format.
