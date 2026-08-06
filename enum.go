@@ -722,6 +722,34 @@ const (
 	CredentialTemplateTierExperimental CredentialTemplateTier = "EXPERIMENTAL"
 )
 
+// CredentialV2HealthStatus represents the verdict of the most recent health check.
+type CredentialV2HealthStatus string
+
+// The verdict of the most recent health check.
+const (
+	CredentialV2HealthStatusUnknown CredentialV2HealthStatus = "UNKNOWN" // Never checked, or the kind has no health probe.
+	CredentialV2HealthStatusHealthy CredentialV2HealthStatus = "HEALTHY" // The provider accepted the credential.
+	CredentialV2HealthStatusInvalid CredentialV2HealthStatus = "INVALID" // The provider definitively rejected it, or a required field is missing. It cannot recover on its own and needs a new secret.
+	CredentialV2HealthStatusError   CredentialV2HealthStatus = "ERROR"   // The check reached no verdict — the provider was unreachable, rate-limited or erroring. The credential may well be fine and is re-checked later.
+	CredentialV2HealthStatusExpired CredentialV2HealthStatus = "EXPIRED" // The credential is past its expiry.
+)
+
+// CredentialV2Kind represents the kind of secret a typed credential holds. The kind is a property of the payload itself, so it can never disagree with what is stored, and it cannot be changed after creation.
+type CredentialV2Kind string
+
+// The kind of secret a typed credential holds. The kind is a property of the payload itself, so it can never disagree with what is stored, and it cannot be changed after creation.
+const (
+	CredentialV2KindUnknown            CredentialV2Kind = "UNKNOWN"              // A kind this build has no case for. Expect never to see it: the stored column is validated against the same set of kinds this schema declares, so a build cannot write one it does not itself know. It exists because `kind` is non-nullable and the mapping has to return *something* when it meets a string it does not recognise, and an undeclared value is the one answer that is always wrong — it would be rejected by the client's decoder rather than the server's, taking every other credential in the response down with it. This is the safe answer instead: the row still lists, with everything that does not depend on its kind intact. Never stored, and never accepted as input — a credential's kind is read from its payload.
+	CredentialV2KindGithubPat          CredentialV2Kind = "GITHUB_PAT"           // GitHub personal access token, or an installation token.
+	CredentialV2KindGithubApp          CredentialV2Kind = "GITHUB_APP"           // Customer-supplied GitHub App: numeric app id plus its RSA private key.
+	CredentialV2KindSlack              CredentialV2Kind = "SLACK"                // Slack bot token.
+	CredentialV2KindAws                CredentialV2Kind = "AWS"                  // Long-term AWS access key pair.
+	CredentialV2KindCrowdstrike        CredentialV2Kind = "CROWDSTRIKE"          // CrowdStrike Falcon OAuth2 API client.
+	CredentialV2KindAnthropic          CredentialV2Kind = "ANTHROPIC"            // Anthropic API key.
+	CredentialV2KindSpritesToken       CredentialV2Kind = "SPRITES_TOKEN"        // Sprites access token, used directly.
+	CredentialV2KindSpritesFlyMacaroon CredentialV2Kind = "SPRITES_FLY_MACAROON" // Fly.io macaroon, exchanged for a sprite access token at use time.
+)
+
 // CveMentionSourceType represents source type of a CVE mention.
 type CveMentionSourceType string
 
