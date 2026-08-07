@@ -750,6 +750,21 @@ const (
 	CredentialV2KindSpritesFlyMacaroon CredentialV2Kind = "SPRITES_FLY_MACAROON" // Fly.io macaroon, exchanged for a sprite access token at use time.
 )
 
+// CredentialV2SecretField represents the arm of `CredentialV2SecretInput` a kind's collected values are nested under. Deliberately a closed enum rather than a String. It is the set of kinds that can be *written*, where `CredentialV2Kind` is the set that can be *read* and therefore has to carry UNKNOWN. Keeping them separate lets a client's kind-to-input-field map be total by construction — no impossible UNKNOWN branch, and no cast to build the input object.
+type CredentialV2SecretField string
+
+// The arm of `CredentialV2SecretInput` a kind's collected values are nested under. Deliberately a closed enum rather than a String. It is the set of kinds that can be *written*, where `CredentialV2Kind` is the set that can be *read* and therefore has to carry UNKNOWN. Keeping them separate lets a client's kind-to-input-field map be total by construction — no impossible UNKNOWN branch, and no cast to build the input object.
+const (
+	CredentialV2SecretFieldGithubPat          CredentialV2SecretField = "GITHUB_PAT"
+	CredentialV2SecretFieldGithubApp          CredentialV2SecretField = "GITHUB_APP"
+	CredentialV2SecretFieldSlack              CredentialV2SecretField = "SLACK"
+	CredentialV2SecretFieldAws                CredentialV2SecretField = "AWS"
+	CredentialV2SecretFieldCrowdstrike        CredentialV2SecretField = "CROWDSTRIKE"
+	CredentialV2SecretFieldAnthropic          CredentialV2SecretField = "ANTHROPIC"
+	CredentialV2SecretFieldSpritesToken       CredentialV2SecretField = "SPRITES_TOKEN"
+	CredentialV2SecretFieldSpritesFlyMacaroon CredentialV2SecretField = "SPRITES_FLY_MACAROON"
+)
+
 // CveMentionSourceType represents source type of a CVE mention.
 type CveMentionSourceType string
 

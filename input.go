@@ -3464,6 +3464,8 @@ type ListExceptionGroupsInput struct {
 	IncludeChildScopes *Boolean `json:"includeChildScopes,omitempty" tfgen:"required=0"`
 	// Restrict results to exception groups owned by these space MRNs. Used to scope an org-wide query to a subset of spaces. Composes with scopeMrn + includeChildScopes (further restricts the result set). (Optional.)
 	SpaceMrns *[]String `json:"spaceMrns,omitempty" tfgen:"required=0"`
+	// Flag indicating whether to include exceptions inherited from parent scopes. Only valid when scopeMrn is an asset: space-scoped exception groups that apply to this asset (reference at least one finding present on it) are included alongside the asset's own exception groups. Mutually exclusive with includeChildScopes and with an asset MRN in the mrn filter — setting either combination returns an error. (Optional.)
+	IncludeParentScopes *Boolean `json:"includeParentScopes,omitempty" tfgen:"required=0"`
 }
 
 // ListExceptionGroupsOrder represents exception groups order.
