@@ -750,6 +750,18 @@ const (
 	CredentialV2KindSpritesFlyMacaroon CredentialV2Kind = "SPRITES_FLY_MACAROON" // Fly.io macaroon, exchanged for a sprite access token at use time.
 )
 
+// CredentialV2OrderField represents field to order typed credentials by.
+type CredentialV2OrderField string
+
+// Field to order typed credentials by.
+const (
+	CredentialV2OrderFieldName         CredentialV2OrderField = "NAME"          // Order by display name.
+	CredentialV2OrderFieldKind         CredentialV2OrderField = "KIND"          // Order by kind.
+	CredentialV2OrderFieldHealthStatus CredentialV2OrderField = "HEALTH_STATUS" // Order by health SEVERITY, not by the enum's spelling. Ascending is worst first — INVALID, EXPIRED, ERROR, UNKNOWN, HEALTHY — so the credentials needing attention lead the list. Sorting the names alphabetically would file HEALTHY between two failure states, which is not an order anyone means.
+	CredentialV2OrderFieldExpiresAt    CredentialV2OrderField = "EXPIRES_AT"    // Order by expiry. A credential that does not expire sorts as though its expiry were infinitely far away: last ascending, first descending. Ascending is therefore soonest-expiring first, which is the urgent end.
+	CredentialV2OrderFieldCreatedAt    CredentialV2OrderField = "CREATED_AT"    // Order by creation time.
+)
+
 // CredentialV2SecretField represents the arm of `CredentialV2SecretInput` a kind's collected values are nested under. Deliberately a closed enum rather than a String. It is the set of kinds that can be *written*, where `CredentialV2Kind` is the set that can be *read* and therefore has to carry UNKNOWN. Keeping them separate lets a client's kind-to-input-field map be total by construction — no impossible UNKNOWN branch, and no cast to build the input object.
 type CredentialV2SecretField string
 
@@ -1367,6 +1379,7 @@ const (
 	ICON_IDSCloudformation            ICON_IDS = "CLOUDFORMATION"
 	ICON_IDSCloudLinux                ICON_IDS = "CLOUD_LINUX"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
+	ICON_IDSCorel                     ICON_IDS = "COREL"
 	ICON_IDSCoreos                    ICON_IDS = "COREOS"
 	ICON_IDSCrates                    ICON_IDS = "CRATES"
 	ICON_IDSCrowdstrike               ICON_IDS = "CROWDSTRIKE"
@@ -1380,6 +1393,7 @@ const (
 	ICON_IDSDatadog                   ICON_IDS = "DATADOG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
 	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
+	ICON_IDSDell                      ICON_IDS = "DELL"
 	ICON_IDSDellIdrac                 ICON_IDS = "DELL_IDRAC"
 	ICON_IDSDevolutions               ICON_IDS = "DEVOLUTIONS"
 	ICON_IDSDigitalOcean              ICON_IDS = "DIGITAL_OCEAN"
@@ -1475,6 +1489,7 @@ const (
 	ICON_IDSMikrotik                  ICON_IDS = "MIKROTIK"
 	ICON_IDSMistral                   ICON_IDS = "MISTRAL"
 	ICON_IDSMondoo                    ICON_IDS = "MONDOO"
+	ICON_IDSMongodb                   ICON_IDS = "MONGODB"
 	ICON_IDSMongodbAtlas              ICON_IDS = "MONGODB_ATLAS"
 	ICON_IDSMozilla                   ICON_IDS = "MOZILLA"
 	ICON_IDSMozillaFirefox            ICON_IDS = "MOZILLA_FIREFOX"
