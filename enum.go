@@ -212,6 +212,18 @@ const (
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
 )
 
+// ArdBrowseSort represents sort keys for `ardBrowse`. Pair with `sortDir` (default ascending).
+type ArdBrowseSort string
+
+// Sort keys for `ardBrowse`. Pair with `sortDir` (default ascending).
+const (
+	ArdBrowseSortName         ArdBrowseSort = "NAME"          // Product name (the default; the stable tiebreaker for every other key).
+	ArdBrowseSortAssetCount   ArdBrowseSort = "ASSET_COUNT"   // Distinct in-scope assets carrying the name.
+	ArdBrowseSortScore        ArdBrowseSort = "SCORE"         // Worst score across the name's versions (riskValue, higher = worse).
+	ArdBrowseSortFreshness    ArdBrowseSort = "FRESHNESS"     // Freshness marker (reserved; populated in a follow-up).
+	ArdBrowseSortVersionCount ArdBrowseSort = "VERSION_COUNT" // Distinct in-scope versions of the name.
+)
+
 // ArdEntityOrderField represents fields an ARD entity listing can be ordered by.
 type ArdEntityOrderField string
 
@@ -621,6 +633,8 @@ const (
 	ClientIntegrationTypeKandji                    ClientIntegrationType = "KANDJI"
 	ClientIntegrationTypeOpsi                      ClientIntegrationType = "OPSI"
 	ClientIntegrationTypeIru                       ClientIntegrationType = "IRU"
+	ClientIntegrationTypeSccm                      ClientIntegrationType = "SCCM"
+	ClientIntegrationTypeJfrogXray                 ClientIntegrationType = "JFROG_XRAY"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1747,6 +1761,8 @@ const (
 	IntegrationTypeKandji                    IntegrationType = "KANDJI"
 	IntegrationTypeOpsi                      IntegrationType = "OPSI"
 	IntegrationTypeIru                       IntegrationType = "IRU"
+	IntegrationTypeSccm                      IntegrationType = "SCCM"
+	IntegrationTypeJfrogXray                 IntegrationType = "JFROG_XRAY"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
