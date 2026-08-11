@@ -780,6 +780,20 @@ const (
 	CredentialV2KindDatabricksOauth          CredentialV2Kind = "DATABRICKS_OAUTH"            // Databricks service principal OAuth (machine-to-machine) client.
 	CredentialV2KindOciApiKey                CredentialV2Kind = "OCI_API_KEY"                 // Oracle Cloud Infrastructure API signing key.
 	CredentialV2KindSnowflakeKeypair         CredentialV2Kind = "SNOWFLAKE_KEYPAIR"           // Snowflake key-pair (JWT) authentication credential.
+	CredentialV2KindJira                     CredentialV2Kind = "JIRA"                        // Jira (Atlassian) account email and API token.
+	CredentialV2KindZendesk                  CredentialV2Kind = "ZENDESK"                     // Zendesk agent email and API token.
+	CredentialV2KindJamfOauth                CredentialV2Kind = "JAMF_OAUTH"                  // Jamf Pro API client, exchanged for a bearer token at use time.
+	CredentialV2KindTenableIo                CredentialV2Kind = "TENABLE_IO"                  // Tenable Vulnerability Management API key pair.
+	CredentialV2KindSnykApiToken             CredentialV2Kind = "SNYK_API_TOKEN"              // Snyk API token.
+	CredentialV2KindSonarqubeToken           CredentialV2Kind = "SONARQUBE_TOKEN"             // SonarQube or SonarCloud token.
+	CredentialV2KindElasticApiKey            CredentialV2Kind = "ELASTIC_API_KEY"             // Elasticsearch API key.
+	CredentialV2KindS3AccessKey              CredentialV2Kind = "S3_ACCESS_KEY"               // S3 access key pair for a non-AWS, S3-compatible endpoint.
+	CredentialV2KindTenableSc                CredentialV2Kind = "TENABLE_SC"                  // Tenable Security Center API key pair.
+	CredentialV2KindQualys                   CredentialV2Kind = "QUALYS"                      // Qualys account username and password.
+	CredentialV2KindSecurityScorecard        CredentialV2Kind = "SECURITY_SCORECARD"          // SecurityScorecard API token.
+	CredentialV2KindJfrogAccessToken         CredentialV2Kind = "JFROG_ACCESS_TOKEN"          // JFrog access token.
+	CredentialV2KindAzureBlobSas             CredentialV2Kind = "AZURE_BLOB_SAS"              // Azure Blob Storage container SAS URL.
+	CredentialV2KindSnowflakePassword        CredentialV2Kind = "SNOWFLAKE_PASSWORD"          // Snowflake user and password.
 )
 
 // CredentialV2OrderField represents field to order typed credentials by.
@@ -825,6 +839,20 @@ const (
 	CredentialV2SecretFieldDatabricksOauth          CredentialV2SecretField = "DATABRICKS_OAUTH"
 	CredentialV2SecretFieldOciApiKey                CredentialV2SecretField = "OCI_API_KEY"
 	CredentialV2SecretFieldSnowflakeKeypair         CredentialV2SecretField = "SNOWFLAKE_KEYPAIR"
+	CredentialV2SecretFieldJira                     CredentialV2SecretField = "JIRA"
+	CredentialV2SecretFieldZendesk                  CredentialV2SecretField = "ZENDESK"
+	CredentialV2SecretFieldJamfOauth                CredentialV2SecretField = "JAMF_OAUTH"
+	CredentialV2SecretFieldTenableIo                CredentialV2SecretField = "TENABLE_IO"
+	CredentialV2SecretFieldSnykApiToken             CredentialV2SecretField = "SNYK_API_TOKEN"
+	CredentialV2SecretFieldSonarqubeToken           CredentialV2SecretField = "SONARQUBE_TOKEN"
+	CredentialV2SecretFieldElasticApiKey            CredentialV2SecretField = "ELASTIC_API_KEY"
+	CredentialV2SecretFieldS3AccessKey              CredentialV2SecretField = "S3_ACCESS_KEY"
+	CredentialV2SecretFieldTenableSc                CredentialV2SecretField = "TENABLE_SC"
+	CredentialV2SecretFieldQualys                   CredentialV2SecretField = "QUALYS"
+	CredentialV2SecretFieldSecurityScorecard        CredentialV2SecretField = "SECURITY_SCORECARD"
+	CredentialV2SecretFieldJfrogAccessToken         CredentialV2SecretField = "JFROG_ACCESS_TOKEN"
+	CredentialV2SecretFieldAzureBlobSas             CredentialV2SecretField = "AZURE_BLOB_SAS"
+	CredentialV2SecretFieldSnowflakePassword        CredentialV2SecretField = "SNOWFLAKE_PASSWORD"
 )
 
 // CveMentionSourceType represents source type of a CVE mention.
@@ -1393,6 +1421,7 @@ const (
 	ICON_IDSAlpine                    ICON_IDS = "ALPINE"
 	ICON_IDSAmazon                    ICON_IDS = "AMAZON"
 	ICON_IDSAnsible                   ICON_IDS = "ANSIBLE"
+	ICON_IDSAntigravity               ICON_IDS = "ANTIGRAVITY"
 	ICON_IDSAnydesk                   ICON_IDS = "ANYDESK"
 	ICON_IDSApacheCouchdb             ICON_IDS = "APACHE_COUCHDB"
 	ICON_IDSApacheTomcat              ICON_IDS = "APACHE_TOMCAT"
@@ -1401,6 +1430,7 @@ const (
 	ICON_IDSArista                    ICON_IDS = "ARISTA"
 	ICON_IDSAsset                     ICON_IDS = "ASSET"
 	ICON_IDSAtlassian                 ICON_IDS = "ATLASSIAN"
+	ICON_IDSAugmentCode               ICON_IDS = "AUGMENT_CODE"
 	ICON_IDSAws                       ICON_IDS = "AWS"
 	ICON_IDSAzure                     ICON_IDS = "AZURE"
 	ICON_IDSBaramundi                 ICON_IDS = "BARAMUNDI"
@@ -1425,10 +1455,13 @@ const (
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
 	ICON_IDSCitrix                    ICON_IDS = "CITRIX"
 	ICON_IDSClaude                    ICON_IDS = "CLAUDE"
+	ICON_IDSCline                     ICON_IDS = "CLINE"
 	ICON_IDSCloudflare                ICON_IDS = "CLOUDFLARE"
 	ICON_IDSCloudformation            ICON_IDS = "CLOUDFORMATION"
 	ICON_IDSCloudLinux                ICON_IDS = "CLOUD_LINUX"
+	ICON_IDSCohere                    ICON_IDS = "COHERE"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
+	ICON_IDSContinue                  ICON_IDS = "CONTINUE"
 	ICON_IDSCorel                     ICON_IDS = "COREL"
 	ICON_IDSCoreos                    ICON_IDS = "COREOS"
 	ICON_IDSCrates                    ICON_IDS = "CRATES"
@@ -1442,6 +1475,7 @@ const (
 	ICON_IDSDatabricks                ICON_IDS = "DATABRICKS"
 	ICON_IDSDatadog                   ICON_IDS = "DATADOG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
+	ICON_IDSDeepseek                  ICON_IDS = "DEEPSEEK"
 	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
 	ICON_IDSDell                      ICON_IDS = "DELL"
 	ICON_IDSDellIdrac                 ICON_IDS = "DELL_IDRAC"
@@ -1468,6 +1502,7 @@ const (
 	ICON_IDSFreebsd                   ICON_IDS = "FREEBSD"
 	ICON_IDSGarageband                ICON_IDS = "GARAGEBAND"
 	ICON_IDSGcp                       ICON_IDS = "GCP"
+	ICON_IDSGemini                    ICON_IDS = "GEMINI"
 	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
 	ICON_IDSGhostscript               ICON_IDS = "GHOSTSCRIPT"
 	ICON_IDSGhostty                   ICON_IDS = "GHOSTTY"
@@ -1475,13 +1510,16 @@ const (
 	ICON_IDSGimp                      ICON_IDS = "GIMP"
 	ICON_IDSGit                       ICON_IDS = "GIT"
 	ICON_IDSGithub                    ICON_IDS = "GITHUB"
+	ICON_IDSGithubCopilot             ICON_IDS = "GITHUB_COPILOT"
 	ICON_IDSGithubDesktop             ICON_IDS = "GITHUB_DESKTOP"
 	ICON_IDSGitlab                    ICON_IDS = "GITLAB"
 	ICON_IDSGardenLinux               ICON_IDS = "GARDEN_LINUX"
 	ICON_IDSGoland                    ICON_IDS = "GOLAND"
+	ICON_IDSGoogle                    ICON_IDS = "GOOGLE"
 	ICON_IDSGoogleChrome              ICON_IDS = "GOOGLE_CHROME"
 	ICON_IDSGoogleProjectZero         ICON_IDS = "GOOGLE_PROJECT_ZERO"
 	ICON_IDSGoogleWorkspace           ICON_IDS = "GOOGLE_WORKSPACE"
+	ICON_IDSGoose                     ICON_IDS = "GOOSE"
 	ICON_IDSGotomeeting               ICON_IDS = "GOTOMEETING"
 	ICON_IDSGrafana                   ICON_IDS = "GRAFANA"
 	ICON_IDSGreenshot                 ICON_IDS = "GREENSHOT"
@@ -1492,6 +1530,7 @@ const (
 	ICON_IDSHuawei                    ICON_IDS = "HUAWEI"
 	ICON_IDSHuggingFace               ICON_IDS = "HUGGING_FACE"
 	ICON_IDSIac                       ICON_IDS = "IAC"
+	ICON_IDSIbm                       ICON_IDS = "IBM"
 	ICON_IDSImagemagick               ICON_IDS = "IMAGEMAGICK"
 	ICON_IDSInkscape                  ICON_IDS = "INKSCAPE"
 	ICON_IDSInsomnia                  ICON_IDS = "INSOMNIA"
@@ -1503,11 +1542,14 @@ const (
 	ICON_IDSIru                       ICON_IDS = "IRU"
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
 	ICON_IDSJava                      ICON_IDS = "JAVA"
+	ICON_IDSJetbrains                 ICON_IDS = "JETBRAINS"
+	ICON_IDSJunie                     ICON_IDS = "JUNIE"
 	ICON_IDSJunos                     ICON_IDS = "JUNOS"
 	ICON_IDSK8s                       ICON_IDS = "K8S"
 	ICON_IDSKali                      ICON_IDS = "KALI"
 	ICON_IDSKeepass                   ICON_IDS = "KEEPASS"
 	ICON_IDSKeynote                   ICON_IDS = "KEYNOTE"
+	ICON_IDSKiloCode                  ICON_IDS = "KILO_CODE"
 	ICON_IDSKiro                      ICON_IDS = "KIRO"
 	ICON_IDSLede                      ICON_IDS = "LEDE"
 	ICON_IDSLenovo                    ICON_IDS = "LENOVO"
@@ -1521,6 +1563,7 @@ const (
 	ICON_IDSMageia                    ICON_IDS = "MAGEIA"
 	ICON_IDSManjaro                   ICON_IDS = "MANJARO"
 	ICON_IDSMcp                       ICON_IDS = "MCP"
+	ICON_IDSMeta                      ICON_IDS = "META"
 	ICON_IDSMetasploit                ICON_IDS = "METASPLOIT"
 	ICON_IDSMicrosoft                 ICON_IDS = "MICROSOFT"
 	ICON_IDSMicrosoftDotnet           ICON_IDS = "MICROSOFT_DOTNET"
@@ -1570,7 +1613,10 @@ const (
 	ICON_IDSOpcua                     ICON_IDS = "OPCUA"
 	ICON_IDSOpenai                    ICON_IDS = "OPENAI"
 	ICON_IDSOpenbsd                   ICON_IDS = "OPENBSD"
+	ICON_IDSOpenclaw                  ICON_IDS = "OPENCLAW"
+	ICON_IDSOpencode                  ICON_IDS = "OPENCODE"
 	ICON_IDSOpeneuler                 ICON_IDS = "OPENEULER"
+	ICON_IDSOpenhands                 ICON_IDS = "OPENHANDS"
 	ICON_IDSOpenstack                 ICON_IDS = "OPENSTACK"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
@@ -1586,6 +1632,7 @@ const (
 	ICON_IDSPdf24                     ICON_IDS = "PDF24"
 	ICON_IDSPgadmin                   ICON_IDS = "PGADMIN"
 	ICON_IDSPhpstorm                  ICON_IDS = "PHPSTORM"
+	ICON_IDSPi                        ICON_IDS = "PI"
 	ICON_IDSPlcnext                   ICON_IDS = "PLCNEXT"
 	ICON_IDSPlex                      ICON_IDS = "PLEX"
 	ICON_IDSPolicy                    ICON_IDS = "POLICY"
@@ -1603,6 +1650,7 @@ const (
 	ICON_IDSPython                    ICON_IDS = "PYTHON"
 	ICON_IDSPypi                      ICON_IDS = "PYPI"
 	ICON_IDSQubes                     ICON_IDS = "QUBES"
+	ICON_IDSQwen                      ICON_IDS = "QWEN"
 	ICON_IDSRabbitmq                  ICON_IDS = "RABBITMQ"
 	ICON_IDSRaspbian                  ICON_IDS = "RASPBIAN"
 	ICON_IDSRedfish                   ICON_IDS = "REDFISH"
@@ -1646,6 +1694,7 @@ const (
 	ICON_IDSThalesSafenet             ICON_IDS = "THALES_SAFENET"
 	ICON_IDSTogether                  ICON_IDS = "TOGETHER"
 	ICON_IDSTotalCommander            ICON_IDS = "TOTAL_COMMANDER"
+	ICON_IDSTrae                      ICON_IDS = "TRAE"
 	ICON_IDSUbuntu                    ICON_IDS = "UBUNTU"
 	ICON_IDSUltravnc                  ICON_IDS = "ULTRAVNC"
 	ICON_IDSUnifi                     ICON_IDS = "UNIFI"
@@ -1660,6 +1709,7 @@ const (
 	ICON_IDSVmwarePhoton              ICON_IDS = "VMWARE_PHOTON"
 	ICON_IDSVmwareTools               ICON_IDS = "VMWARE_TOOLS"
 	ICON_IDSVulncheckKev              ICON_IDS = "VULNCHECK_KEV"
+	ICON_IDSWarp                      ICON_IDS = "WARP"
 	ICON_IDSWatchguard                ICON_IDS = "WATCHGUARD"
 	ICON_IDSWebex                     ICON_IDS = "WEBEX"
 	ICON_IDSWhatsapp                  ICON_IDS = "WHATSAPP"
@@ -1671,6 +1721,7 @@ const (
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
 	ICON_IDSWolfi                     ICON_IDS = "WOLFI"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
+	ICON_IDSXai                       ICON_IDS = "XAI"
 	ICON_IDSXampp                     ICON_IDS = "XAMPP"
 	ICON_IDSXcode                     ICON_IDS = "XCODE"
 	ICON_IDSZed                       ICON_IDS = "ZED"
