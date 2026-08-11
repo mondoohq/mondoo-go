@@ -7,7 +7,7 @@ package mondoogql
 
 // Input represents one of the Input structs:
 //
-// AISummaryInput, APITokenOrder, AWSConfigurationOptionsInput, AWSCrossAccountScanOptionsInput, AWSEventPatternInput, AWSRoleCredential, AWSSecretKeyCredential, AWSWifCredential, AcceptLegalPolicy, ActivePoliciesInput, ActivePolicyOrder, AddSSHKeyRequest, AddTeamExternalGroupMappingInput, AddTeamMemberInput, AddWorkflowEdgeInput, AddWorkflowNodeInput, AdvisoryDocumentOptionsInput, AgentOrder, AgentVersionFilter, AggregateScoreCasesFilter, AggregateScoreFilter, AggregateScoreOrder, AnalyseAssetVulnerabilitiesInput, AnalyseIncognitoAssetInput, AnnotationInput, AnthropicCredentialV2Input, ApplyExceptionForScopesInput, ApplyIntuneRemediationInput, ApproveWorkflowStepInput, ArdBrowseFilter, ArdEntityFilter, ArdEntityOrder, AssetDeviceTypeFilter, AssetDocumentOptionsInput, AssetEolFilter, AssetEolStatusFilter, AssetExploitableFilter, AssetFieldFiltersMutation, AssetGroupOrder, AssetLastPackageUpdateTimeInput, AssetLinkInfoInput, AssetListPoliciesFilter, AssetOSRebootFilter, AssetOrder, AssetOverviewPageInfo, AssetPackagesStatsInput, AssetReportListPoliciesFilter, AssetReportPolicyOrder, AssetReportQueryOrder, AssetResourceInput, AssetRoutingConditionInput, AssetRoutingRuleInput, AssetSearchFilter, AssetSearchInput, AssetSearchSuggestionsInput, AssetSummaryOrder, AssetUpdateFilter, AssetUrlSegmentInput, AssetUrlStatsInput, AssetVulnerabilityReportInput, AttackSurfaceConfigurationInput, AttackSurfaceConfigurationOptionsInput, AttackSurfaceImpactInput, AuditLogExportConfigurationOptionsInput, AuditLogOrder, AuditLogsFilter, AwsCredentialV2Input, AwsS3ConfigurationOptionsInput, AwsScanOptions, AwsSecurityHubExportConfigurationOptionsInput, AwsSecurityHubImportConfigurationOptionsInput, AzureBlobConfigurationOptionsInput, AzureConfigurationOptionsInput, AzureDevopsConfigurationOptionsInput, AzureDevopsTicketConfigInput, AzureDevopsTicketContextInput, AzureDevopsTicketContextProjectsInput, BIPinVersionInput, BiCreateScheduledExportInput, BiDeleteScheduledExportInput, BiUpdateScheduledExportInput, BigqueryConfigurationOptionsInput, BillingSessionInput, BlastRadiusConfigurationInput, BlastRadiusImpactInput, BusinessPriorityConfigurationInput, BusinessPriorityGroupInput, BusinessPriorityTagInput, CancelWorkflowExecutionInput, CaseContentInput, CaseInitiativeRefInput, CaseRefInput, CaseTicketConfigInput, CasesConfigurationInput, CasesInput, CasesOrder, CategoriesListInput, ChangeSubscriptionPlanInput, CheckScoreFilter, CheckScoreOrder, ChecksOrder, ChecksSearchInput, CiCdJobPageInfo, CiCdProjectPageInfo, CicdProjectJobsInput, CicdProjectOrder, CicdProjectsInput, ClientIntegrationConfigurationInput, ClientIntegrationInput, CloseCaseInput, CloudflareApiTokenCredentialV2Input, CloudflareConfigurationOptionsInput, ComplianceAssetOrder, ComplianceAssetsSearchInput, ComplianceControlInput, ComplianceFrameworkInput, ComplianceFrameworkMutationInput, ComplianceFrameworksByOrgInput, ComplianceFrameworksInput, ContentSearchInput, ContentSearchResultItemOrder, ControlDocumentOptionsInput, ControlScoreFilter, ControlScoreOrder, ControlsOrder, ControlsSearchInput, CreateAssetRoutingRuleInput, CreateBIDashboardInput, CreateCaseInput, CreateClientIntegrationInput, CreateCredentialInput, CreateCredentialV2Input, CreateInvitationInput, CreateOrganizationInput, CreateSecurityPipelinePullRequestInput, CreateSecurityPipelineScheduledWorkflowInput, CreateSecurityPipelineWorkflowInput, CreateServiceAccountInput, CreateSpaceInput, CreateTeamInput, CreateWIFAuthBindingInput, CreateWorkflowFromTemplateInput, CreateWorkflowInput, CreateWorkflowResourceInput, CreateWorkflowScheduleInput, CreateWorkspaceInput, CredentialV2Order, CredentialV2SecretInput, CrowdstrikeCredentialV2Input, CrowdstrikeFalconConfigurationOptionsInput, CveTrendsOrder, DataQueryFilter, DataQueryOrder, DatabricksConfigurationOptionsInput, DatabricksOauthCredentialV2Input, DeleteAPITokenInput, DeleteAgentsInput, DeleteAssetsInput, DeleteBIDashboardInput, DeleteCasesInput, DeleteClientIntegrationInput, DeleteCredentialInput, DeleteCredentialV2Input, DeleteCustomPolicyInput, DeleteCustomQueryPackInput, DeleteFrameworkInput, DeleteProjectsInput, DeleteSSHKeyRequest, DeleteSSOProviderInput, DeleteServiceAccountsInput, DeleteWorkflowEdgeInput, DeleteWorkflowInput, DeleteWorkflowNodeInput, DeleteWorkflowResourceInput, DeleteWorkflowScheduleInput, DeleteWorkspacesInput, DenyWorkflowStepInput, DigitaloceanApiTokenCredentialV2Input, DigitaloceanConfigurationOptionsInput, DownloadBundleInput, DownloadFrameworkInput, EbsScanOptionsInput, Ec2ScanOptionsInput, ElasticConfigurationOptionsInput, EmailConfigurationOptionsInput, EmailPreferenceInput, EmailRecipientInput, EmailTicketConfigInput, EnableSSOProviderInput, EntraCertificateCredentialV2Input, EntraClientSecretCredentialV2Input, EolAssetsConfigurationInput, EpssConfigurationInput, EvidenceInput, EvidenceInputFilter, ExceptionGroupsInput, ExceptionMutationInput, ExceptionReviewInput, ExceptionsConfigurationInput, ExceptionsDeleteInput, ExploitabilityConfigurationInput, ExportReportFilterChecks, ExportReportFilterInventoryInput, ExportReportFilterPackages, ExportReportFilterVulnerabilitiesInput, ExportReportOptionsInput, ExportWorkflowYamlInput, ExtendExceptionInput, ExtendExceptionReviewInput, FindingCasesFilter, FindingDocumentOptionsInput, FindingStateFilter, FindingsFilter, FindingsOrder, FindingsPackagesFilter, FindingsWebhookPostRequest, FleetScanRunInput, FleetScanScheduleInput, ForkFrameworkInput, FrameworkDocumentOptionsInput, GarbageCollectAssetsConfigurationInput, GcpConfigurationOptionsInput, GcpServerlessConfigurationOptionsInput, GcpServerlessScanConfigurationInput, GcpServiceAccountCredentialV2Input, GcsBucketConfigurationOptionsInput, GenerateAPITokenInput, GenerateDocumentInput, GeneratePolicyInput, GetClientIntegrationDeleteCommandInput, GetClientIntegrationTokenInput, GithubAppCredentialV2Input, GithubConfigurationOptionsInput, GithubPatCredentialV2Input, GithubRepoScanConfigUpdate, GithubTicketConfigInput, GithubTicketingConfigurationOptionsInput, GitlabConfigurationOptionsInput, GitlabTicketConfigInput, GitlabTicketingConfigurationOptionsInput, GitlabTokenCredentialV2Input, GoogleSccExportConfigurationOptionsInput, GoogleSccImportConfigurationOptionsInput, GoogleWorkspaceConfigurationOptionsInput, GroupFilter, HetznerApiTokenCredentialV2Input, HetznerConfigurationOptionsInput, HostConfigurationOptionsInput, HostedAwsConfigurationOptionsInput, IDSuggestionInput, IdentityFilter, ImportWorkflowYamlInput, IngestProxyConfigurationInput, InitiativeOrder, InitiativeRefInput, InitiativesInput, IntegrationInput, IntegrationOptionsInput, IntegrationsSummaryInput, IntuneDeviceGroupsInput, InvitationOrder, IruConfigurationOptionsInput, JamfConfigurationOptionsInput, JfrogXrayConfigurationOptionsInput, JiraConfigurationOptionsInput, JiraTicketConfigInput, JiraTicketContextInput, JiraTicketContextProjectsInput, JiraTicketContextUsersInput, K8sAksWifInput, K8sConfigurationOptionsInput, K8sContainersWifInput, K8sEksWifInput, K8sEnvVarInput, K8sExternalClusterInput, K8sGkeWifInput, K8sJobOverridesInput, K8sResourceRequirementsInput, K8sResourceWatcherInput, K8sSpiffeAuthInput, K8sTolerationInput, K8sVaultAuthInput, KandjiConfigurationOptionsInput, KevConfigurationInput, KeyValueInput, LandscapeConfigurationInput, LeaveScopeInput, ListClientIntegrationsFilterInput, ListClientIntegrationsInput, ListDiscoveryResultsInput, ListDocumentsFilter, ListExceptionGroupsFilter, ListExceptionGroupsInput, ListExceptionGroupsOrder, ListFrameworksInput, ManagedClientsFilters, MembershipOrder, MicrosoftDefenderConfigurationOptionsInput, ModifyRiskFactorInput, MongodbAtlasConfigurationOptionsInput, MongodbAtlasCredentialV2Input, MqueryAssetDataInput, MqueryAssetScoresInput, MqueryInput, MqueryScoreInput, Ms365ConfigurationOptionsInput, MsIntuneConfigurationOptionsInput, MvdCweFilter, MvdCweOrder, MvdExperimentalSourcesConfigurationInput, MvdPageInput, MvdSourceInput, MvdVulnerabilityFilter, MvdVulnerabilityOrder, NetworkScanConfigurationOptionsInput, NewsArticlesConfigurationInput, NewsConfigurationInput, NextdnsApiKeyCredentialV2Input, NextdnsConfigurationOptionsInput, NodePositionInput, OciApiKeyCredentialV2Input, OciConfigurationOptionsInput, OktaApiTokenCredentialV2Input, OktaConfigurationOptionsInput, OpenvasConfigurationOptionsInput, OpsiConfigurationOptionsInput, OrgViewPageInfo, OrganizationSettingsInput, PackageFilter, PackageInput, PackageReferenceInput, PackageScoresFilter, PackageScoresInput, PackageScoresOrder, PackagesOrder, PauseWorkflowScheduleInput, PerformDiscoveryInput, PingIntegrationInput, PlatformInput, PlatformMqlVexConfigurationInput, PlatformVulnerabilityConfigurationInput, PlatformsListInput, PolicyAddInput, PolicyAggregateScoresExportOptionsInput, PolicyAnalyticsInput, PolicyAnalyticsOrder, PolicyAssignmentInput, PolicyDeleteInput, PolicyInput, PolicyReportMquerySummaryOrder, PolicyReportSummaryOrder, PostgresConfigurationOptionsInput, ProcessCaseEventsInput, PropertyQueryMutationInput, PropertyQueryMutationTarget, PropertyQueryOverride, QualysConfigurationOptionsInput, QueryPackAddInput, RatedPoliciesInput, RcPackagesConfigurationInput, RegisterUserActionInput, RegistrationTokenInput, RegistrationTokenOrder, RemediationCandidateInput, RemediationFilter, RemediationInput, RemediationPackageFields, RemediationsForScopeInput, RemediationsOrder, RemediationsPageInput, RemoveOrganizationMembershipInput, RemoveSpaceMembershipInput, RemoveTeamMemberInput, RenameCredentialV2Input, RenderedAssetQueryDataInput, ReportViewedInfo, ReportViewedInput, ResetWorkflowToTemplateInput, ResourceContactInput, RestoreBIDashboardVersionInput, ResumeWorkflowScheduleInput, RevokeRegistrationTokenInput, RiskCategoriesConfigurationInput, RiskCategoryFilterInput, RiskFactorFilter, RiskFactorFilterQuery, RiskFactorMagnitudeModification, RoleInput, RotateCredentialInput, RotateCredentialV2Input, S3ConfigurationOptionsInput, SSOProviderInput, SaveBIDashboardVersionInput, ScanConfigurationInput, SccmConfigurationOptionsInput, ScimGroupMapping, ScopeDocumentOptionsInput, ScoreRange, SearchFilters, SecurityDashboardPageInfo, SecurityPipelineGithubConfigurationOptionsInput, SecurityPipelineGithubConfigurationOptionsRepoInput, SecurityPipelineScheduledWorkflowConfigurationInput, SecurityPipelineScheduledWorkflowSelectionInput, SecurityPipelineScheduledWorkflowsInput, SecurityPipelineWorkflowOrder, SecurityPipelineWorkflowsInput, SecurityScorecardConfigurationOptionsInput, SentinelOneConfigurationOptionsInput, ServiceAccountOrder, ServiceNowConfigurationOptionsInput, ServiceNowTicketConfigInput, SetAssetAnnotationsInput, SetAssetRoutingTableInput, SetCustomPolicyInput, SetCustomQueryPackInput, SetGithubRepoScanConfigsInput, SetGovernanceStateForScopesInput, SetGovernanceStateInput, SetOrganizationMembershipInput, SetResourceContactsInput, SetRoleInput, SetRolesInput, SetSSOProviderInput, SetScimGroupMappingInput, SetSpaceMembershipInput, ShodanApiKeyCredentialV2Input, ShodanConfigurationOptionsInput, SlackConfigurationOptionsInput, SlackCredentialV2Input, SnowflakeConfigurationOptionsInput, SnowflakeKeypairCredentialV2Input, SnowflakeScanConfigurationOptionsInput, SnykConfigurationOptionsInput, SocialMediaConfigurationInput, SoftwareFilter, SoftwareOrder, SonarqubeConfigurationOptionsInput, SpacePolicySummaryInput, SpaceSettingsInput, SplunkConfigurationOptionsInput, SpritesFlyMacaroonCredentialV2Input, SpritesTokenCredentialV2Input, StackitConfigurationOptionsInput, StackitServiceAccountKeyCredentialV2Input, SubscriptionItem, SuppressIntegrationMessageInput, TagInput, TailscaleApiKeyCredentialV2Input, TailscaleConfigurationOptionsInput, TailscaleOauthClientCredentialV2Input, TenableConfigurationOptionsInput, TenableSCConfigurationOptionsInput, TerminatedAssetsConfigurationInput, TestCredentialInput, TestCredentialV2Input, TicketContextInput, TicketingIntegrationsInput, TimeRange, TimestampFilter, TrendingCvesConfigurationInput, TriggerActionInput, TriggerActionOptionsInput, TriggerAuditLogExportInput, TriggerInterconnectionGraphRegenerationInput, TriggerWorkflowInput, UnusedServiceAccountsConfigurationInput, UpdateAPITokenInput, UpdateAgentInput, UpdateAssetRoutingRuleInput, UpdateBIDashboardInput, UpdateBITagConfigInput, UpdateClientIntegrationConfigurationInput, UpdateFindingsSLAInput, UpdateOrganizationInput, UpdateSLAsInput, UpdateSecurityModelInput, UpdateSecurityPipelineScheduledWorkflowInput, UpdateServiceAccountInput, UpdateSpaceInput, UpdateTeamInput, UpdateUserInput, UpdateWorkflowInput, UpdateWorkflowNodeInput, UpdateWorkflowPositionsInput, UpdateWorkflowResourceInput, UpdateWorkflowScheduleInput, UpdateWorkspaceInput, UploadFrameworkInput, VPCConfigurationInput, VPCTagInput, ValidateWorkflowInput, VercelApiTokenCredentialV2Input, VercelConfigurationOptionsInput, VulnerabilityDashboardPageInfo, VulnerabilityDocumentOptionsInput, VulnerabilityExploitOrder, WIFAuthBindingOrder, WebhookConfigurationOptionsInput, WildcardRoutingConfigInput, WorkflowExecutionsInput, WorkflowsInput, WorkspaceConditionPossibleValuesInput, WorkspaceSelectionConditionInput, WorkspaceSelectionInput, WorkspaceSelectionIntConditionInput, WorkspaceSelectionKeyValueConditionInput, WorkspaceSelectionRatingConditionInput, WorkspaceSelectionStringConditionInput, WorkspaceSelectionsInput, WorkspacesInput, ZendeskConfigurationOptionsInput, ZendeskCustomFieldInput, ZendeskTicketConfigInput, ZendeskTicketContextInput.
+// AISummaryInput, APITokenOrder, AWSConfigurationOptionsInput, AWSCrossAccountScanOptionsInput, AWSEventPatternInput, AWSRoleCredential, AWSSecretKeyCredential, AWSWifCredential, AcceptLegalPolicy, ActivePoliciesInput, ActivePolicyOrder, AddSSHKeyRequest, AddTeamExternalGroupMappingInput, AddTeamMemberInput, AddWorkflowEdgeInput, AddWorkflowNodeInput, AdvisoryDocumentOptionsInput, AgentOrder, AgentVersionFilter, AggregateScoreCasesFilter, AggregateScoreFilter, AggregateScoreOrder, AnalyseAssetVulnerabilitiesInput, AnalyseIncognitoAssetInput, AnnotationInput, AnthropicCredentialV2Input, ApplyExceptionForScopesInput, ApplyIntuneRemediationInput, ApproveWorkflowStepInput, ArdBrowseFilter, ArdEntityFilter, ArdEntityOrder, AssetDeviceTypeFilter, AssetDocumentOptionsInput, AssetEolFilter, AssetEolStatusFilter, AssetExploitableFilter, AssetFieldFiltersMutation, AssetGroupOrder, AssetLastPackageUpdateTimeInput, AssetLinkInfoInput, AssetListPoliciesFilter, AssetOSRebootFilter, AssetOrder, AssetOverviewPageInfo, AssetPackagesStatsInput, AssetReportListPoliciesFilter, AssetReportPolicyOrder, AssetReportQueryOrder, AssetResourceInput, AssetRoutingConditionInput, AssetRoutingRuleInput, AssetSearchFilter, AssetSearchInput, AssetSearchSuggestionsInput, AssetSummaryOrder, AssetUpdateFilter, AssetUrlSegmentInput, AssetUrlStatsInput, AssetVulnerabilityReportInput, AttackSurfaceConfigurationInput, AttackSurfaceConfigurationOptionsInput, AttackSurfaceImpactInput, AuditLogExportConfigurationOptionsInput, AuditLogOrder, AuditLogsFilter, AwsCredentialV2Input, AwsS3ConfigurationOptionsInput, AwsScanOptions, AwsSecurityHubExportConfigurationOptionsInput, AwsSecurityHubImportConfigurationOptionsInput, AzureBlobConfigurationOptionsInput, AzureBlobSasCredentialV2Input, AzureConfigurationOptionsInput, AzureDevopsConfigurationOptionsInput, AzureDevopsTicketConfigInput, AzureDevopsTicketContextInput, AzureDevopsTicketContextProjectsInput, BIPinVersionInput, BiCreateScheduledExportInput, BiDeleteScheduledExportInput, BiUpdateScheduledExportInput, BigqueryConfigurationOptionsInput, BillingSessionInput, BlastRadiusConfigurationInput, BlastRadiusImpactInput, BusinessPriorityConfigurationInput, BusinessPriorityGroupInput, BusinessPriorityTagInput, CancelWorkflowExecutionInput, CaseContentInput, CaseInitiativeRefInput, CaseRefInput, CaseTicketConfigInput, CasesConfigurationInput, CasesInput, CasesOrder, CategoriesListInput, ChangeSubscriptionPlanInput, CheckScoreFilter, CheckScoreOrder, ChecksOrder, ChecksSearchInput, CiCdJobPageInfo, CiCdProjectPageInfo, CicdProjectJobsInput, CicdProjectOrder, CicdProjectsInput, ClientIntegrationConfigurationInput, ClientIntegrationInput, CloseCaseInput, CloudflareApiTokenCredentialV2Input, CloudflareConfigurationOptionsInput, ComplianceAssetOrder, ComplianceAssetsSearchInput, ComplianceControlInput, ComplianceFrameworkInput, ComplianceFrameworkMutationInput, ComplianceFrameworksByOrgInput, ComplianceFrameworksInput, ContentSearchInput, ContentSearchResultItemOrder, ControlDocumentOptionsInput, ControlScoreFilter, ControlScoreOrder, ControlsOrder, ControlsSearchInput, CreateAssetRoutingRuleInput, CreateBIDashboardInput, CreateCaseInput, CreateClientIntegrationInput, CreateCredentialInput, CreateCredentialV2Input, CreateInvitationInput, CreateOrganizationInput, CreateSecurityPipelinePullRequestInput, CreateSecurityPipelineScheduledWorkflowInput, CreateSecurityPipelineWorkflowInput, CreateServiceAccountInput, CreateSpaceInput, CreateTeamInput, CreateWIFAuthBindingInput, CreateWorkflowFromTemplateInput, CreateWorkflowInput, CreateWorkflowResourceInput, CreateWorkflowScheduleInput, CreateWorkspaceInput, CredentialV2Order, CredentialV2SecretInput, CrowdstrikeCredentialV2Input, CrowdstrikeFalconConfigurationOptionsInput, CveTrendsOrder, DataQueryFilter, DataQueryOrder, DatabricksConfigurationOptionsInput, DatabricksOauthCredentialV2Input, DeleteAPITokenInput, DeleteAgentsInput, DeleteAssetsInput, DeleteBIDashboardInput, DeleteCasesInput, DeleteClientIntegrationInput, DeleteCredentialInput, DeleteCredentialV2Input, DeleteCustomPolicyInput, DeleteCustomQueryPackInput, DeleteFrameworkInput, DeleteProjectsInput, DeleteSSHKeyRequest, DeleteSSOProviderInput, DeleteServiceAccountsInput, DeleteWorkflowEdgeInput, DeleteWorkflowInput, DeleteWorkflowNodeInput, DeleteWorkflowResourceInput, DeleteWorkflowScheduleInput, DeleteWorkspacesInput, DenyWorkflowStepInput, DigitaloceanApiTokenCredentialV2Input, DigitaloceanConfigurationOptionsInput, DownloadBundleInput, DownloadFrameworkInput, EbsScanOptionsInput, Ec2ScanOptionsInput, ElasticApiKeyCredentialV2Input, ElasticConfigurationOptionsInput, EmailConfigurationOptionsInput, EmailPreferenceInput, EmailRecipientInput, EmailTicketConfigInput, EnableSSOProviderInput, EntraCertificateCredentialV2Input, EntraClientSecretCredentialV2Input, EolAssetsConfigurationInput, EpssConfigurationInput, EvidenceInput, EvidenceInputFilter, ExceptionGroupsInput, ExceptionMutationInput, ExceptionReviewInput, ExceptionsConfigurationInput, ExceptionsDeleteInput, ExploitabilityConfigurationInput, ExportReportFilterChecks, ExportReportFilterInventoryInput, ExportReportFilterPackages, ExportReportFilterVulnerabilitiesInput, ExportReportOptionsInput, ExportWorkflowYamlInput, ExtendExceptionInput, ExtendExceptionReviewInput, FindingCasesFilter, FindingDocumentOptionsInput, FindingStateFilter, FindingsFilter, FindingsOrder, FindingsPackagesFilter, FindingsWebhookPostRequest, FleetScanRunInput, FleetScanScheduleInput, ForkFrameworkInput, FrameworkDocumentOptionsInput, GarbageCollectAssetsConfigurationInput, GcpConfigurationOptionsInput, GcpServerlessConfigurationOptionsInput, GcpServerlessScanConfigurationInput, GcpServiceAccountCredentialV2Input, GcsBucketConfigurationOptionsInput, GenerateAPITokenInput, GenerateDocumentInput, GeneratePolicyInput, GetClientIntegrationDeleteCommandInput, GetClientIntegrationTokenInput, GithubAppCredentialV2Input, GithubConfigurationOptionsInput, GithubPatCredentialV2Input, GithubRepoScanConfigUpdate, GithubTicketConfigInput, GithubTicketingConfigurationOptionsInput, GitlabConfigurationOptionsInput, GitlabTicketConfigInput, GitlabTicketingConfigurationOptionsInput, GitlabTokenCredentialV2Input, GoogleSccExportConfigurationOptionsInput, GoogleSccImportConfigurationOptionsInput, GoogleWorkspaceConfigurationOptionsInput, GroupFilter, HetznerApiTokenCredentialV2Input, HetznerConfigurationOptionsInput, HostConfigurationOptionsInput, HostedAwsConfigurationOptionsInput, IDSuggestionInput, IdentityFilter, ImportWorkflowYamlInput, IngestProxyConfigurationInput, InitiativeOrder, InitiativeRefInput, InitiativesInput, IntegrationInput, IntegrationOptionsInput, IntegrationsSummaryInput, IntuneDeviceGroupsInput, InvitationOrder, IruConfigurationOptionsInput, JamfConfigurationOptionsInput, JamfOauthCredentialV2Input, JfrogAccessTokenCredentialV2Input, JfrogXrayConfigurationOptionsInput, JiraConfigurationOptionsInput, JiraCredentialV2Input, JiraTicketConfigInput, JiraTicketContextInput, JiraTicketContextProjectsInput, JiraTicketContextUsersInput, K8sAksWifInput, K8sConfigurationOptionsInput, K8sContainersWifInput, K8sEksWifInput, K8sEnvVarInput, K8sExternalClusterInput, K8sGkeWifInput, K8sJobOverridesInput, K8sResourceRequirementsInput, K8sResourceWatcherInput, K8sSpiffeAuthInput, K8sTolerationInput, K8sVaultAuthInput, KandjiConfigurationOptionsInput, KevConfigurationInput, KeyValueInput, LandscapeConfigurationInput, LeaveScopeInput, ListClientIntegrationsFilterInput, ListClientIntegrationsInput, ListDiscoveryResultsInput, ListDocumentsFilter, ListExceptionGroupsFilter, ListExceptionGroupsInput, ListExceptionGroupsOrder, ListFrameworksInput, ManagedClientsFilters, MembershipOrder, MicrosoftDefenderConfigurationOptionsInput, ModifyRiskFactorInput, MongodbAtlasConfigurationOptionsInput, MongodbAtlasCredentialV2Input, MqueryAssetDataInput, MqueryAssetScoresInput, MqueryInput, MqueryScoreInput, Ms365ConfigurationOptionsInput, MsIntuneConfigurationOptionsInput, MvdCweFilter, MvdCweOrder, MvdExperimentalSourcesConfigurationInput, MvdPageInput, MvdSourceInput, MvdVulnerabilityFilter, MvdVulnerabilityOrder, NetworkScanConfigurationOptionsInput, NewsArticlesConfigurationInput, NewsConfigurationInput, NextdnsApiKeyCredentialV2Input, NextdnsConfigurationOptionsInput, NodePositionInput, OciApiKeyCredentialV2Input, OciConfigurationOptionsInput, OktaApiTokenCredentialV2Input, OktaConfigurationOptionsInput, OpenvasConfigurationOptionsInput, OpsiConfigurationOptionsInput, OrgViewPageInfo, OrganizationSettingsInput, PackageFilter, PackageInput, PackageReferenceInput, PackageScoresFilter, PackageScoresInput, PackageScoresOrder, PackagesOrder, PauseWorkflowScheduleInput, PerformDiscoveryInput, PingIntegrationInput, PlatformInput, PlatformMqlVexConfigurationInput, PlatformVulnerabilityConfigurationInput, PlatformsListInput, PolicyAddInput, PolicyAggregateScoresExportOptionsInput, PolicyAnalyticsInput, PolicyAnalyticsOrder, PolicyAssignmentInput, PolicyDeleteInput, PolicyInput, PolicyReportMquerySummaryOrder, PolicyReportSummaryOrder, PostgresConfigurationOptionsInput, ProcessCaseEventsInput, PropertyQueryMutationInput, PropertyQueryMutationTarget, PropertyQueryOverride, QualysConfigurationOptionsInput, QualysCredentialV2Input, QueryPackAddInput, RatedPoliciesInput, RcPackagesConfigurationInput, RegisterUserActionInput, RegistrationTokenInput, RegistrationTokenOrder, RemediationCandidateInput, RemediationFilter, RemediationInput, RemediationPackageFields, RemediationsForScopeInput, RemediationsOrder, RemediationsPageInput, RemoveOrganizationMembershipInput, RemoveSpaceMembershipInput, RemoveTeamMemberInput, RenameCredentialV2Input, RenderedAssetQueryDataInput, ReportViewedInfo, ReportViewedInput, ResetWorkflowToTemplateInput, ResourceContactInput, RestoreBIDashboardVersionInput, ResumeWorkflowScheduleInput, RevokeRegistrationTokenInput, RiskCategoriesConfigurationInput, RiskCategoryFilterInput, RiskFactorFilter, RiskFactorFilterQuery, RiskFactorMagnitudeModification, RoleInput, RotateCredentialInput, RotateCredentialV2Input, S3AccessKeyCredentialV2Input, S3ConfigurationOptionsInput, SSOProviderInput, SaveBIDashboardVersionInput, ScanConfigurationInput, SccmConfigurationOptionsInput, ScimGroupMapping, ScopeDocumentOptionsInput, ScoreRange, SearchFilters, SecurityDashboardPageInfo, SecurityPipelineGithubConfigurationOptionsInput, SecurityPipelineGithubConfigurationOptionsRepoInput, SecurityPipelineScheduledWorkflowConfigurationInput, SecurityPipelineScheduledWorkflowSelectionInput, SecurityPipelineScheduledWorkflowsInput, SecurityPipelineWorkflowOrder, SecurityPipelineWorkflowsInput, SecurityScorecardConfigurationOptionsInput, SecurityScorecardCredentialV2Input, SentinelOneConfigurationOptionsInput, ServiceAccountOrder, ServiceNowConfigurationOptionsInput, ServiceNowTicketConfigInput, SetAssetAnnotationsInput, SetAssetRoutingTableInput, SetCustomPolicyInput, SetCustomQueryPackInput, SetGithubRepoScanConfigsInput, SetGovernanceStateForScopesInput, SetGovernanceStateInput, SetOrganizationMembershipInput, SetResourceContactsInput, SetRoleInput, SetRolesInput, SetSSOProviderInput, SetScimGroupMappingInput, SetSpaceMembershipInput, ShodanApiKeyCredentialV2Input, ShodanConfigurationOptionsInput, SlackConfigurationOptionsInput, SlackCredentialV2Input, SnowflakeConfigurationOptionsInput, SnowflakeKeypairCredentialV2Input, SnowflakePasswordCredentialV2Input, SnowflakeScanConfigurationOptionsInput, SnykApiTokenCredentialV2Input, SnykConfigurationOptionsInput, SocialMediaConfigurationInput, SoftwareFilter, SoftwareOrder, SonarqubeConfigurationOptionsInput, SonarqubeTokenCredentialV2Input, SpacePolicySummaryInput, SpaceSettingsInput, SplunkConfigurationOptionsInput, SpritesFlyMacaroonCredentialV2Input, SpritesTokenCredentialV2Input, StackitConfigurationOptionsInput, StackitServiceAccountKeyCredentialV2Input, SubscriptionItem, SuppressIntegrationMessageInput, TagInput, TailscaleApiKeyCredentialV2Input, TailscaleConfigurationOptionsInput, TailscaleOauthClientCredentialV2Input, TenableConfigurationOptionsInput, TenableIoCredentialV2Input, TenableSCConfigurationOptionsInput, TenableScCredentialV2Input, TerminatedAssetsConfigurationInput, TestCredentialInput, TestCredentialV2Input, TicketContextInput, TicketingIntegrationsInput, TimeRange, TimestampFilter, TrendingCvesConfigurationInput, TriggerActionInput, TriggerActionOptionsInput, TriggerAuditLogExportInput, TriggerInterconnectionGraphRegenerationInput, TriggerWorkflowInput, UnusedServiceAccountsConfigurationInput, UpdateAPITokenInput, UpdateAgentInput, UpdateAssetRoutingRuleInput, UpdateBIDashboardInput, UpdateBITagConfigInput, UpdateClientIntegrationConfigurationInput, UpdateFindingsSLAInput, UpdateOrganizationInput, UpdateSLAsInput, UpdateSecurityModelInput, UpdateSecurityPipelineScheduledWorkflowInput, UpdateServiceAccountInput, UpdateSpaceInput, UpdateTeamInput, UpdateUserInput, UpdateWorkflowInput, UpdateWorkflowNodeInput, UpdateWorkflowPositionsInput, UpdateWorkflowResourceInput, UpdateWorkflowScheduleInput, UpdateWorkspaceInput, UploadFrameworkInput, VPCConfigurationInput, VPCTagInput, ValidateWorkflowInput, VercelApiTokenCredentialV2Input, VercelConfigurationOptionsInput, VulnerabilityDashboardPageInfo, VulnerabilityDocumentOptionsInput, VulnerabilityExploitOrder, WIFAuthBindingOrder, WebhookConfigurationOptionsInput, WildcardRoutingConfigInput, WorkflowExecutionsInput, WorkflowsInput, WorkspaceConditionPossibleValuesInput, WorkspaceSelectionConditionInput, WorkspaceSelectionInput, WorkspaceSelectionIntConditionInput, WorkspaceSelectionKeyValueConditionInput, WorkspaceSelectionRatingConditionInput, WorkspaceSelectionStringConditionInput, WorkspaceSelectionsInput, WorkspacesInput, ZendeskConfigurationOptionsInput, ZendeskCredentialV2Input, ZendeskCustomFieldInput, ZendeskTicketConfigInput, ZendeskTicketContextInput.
 type Input interface{}
 
 // AISummaryInput represents input for requesting an AI-generated summary for an asset or its findings.
@@ -861,6 +861,12 @@ type AzureBlobConfigurationOptionsInput struct {
 	ClientId *String `json:"clientId,omitempty" tfgen:"required=0"`
 	// SAS-less container URL to export into (required with useWif), e.g. https://<account>.blob.core.windows.net/<container>. (Optional.)
 	BlobURL *String `json:"blobURL,omitempty" tfgen:"required=0"`
+}
+
+// AzureBlobSasCredentialV2Input represents an Azure Blob Storage container SAS URL — the endpoint, the container and the shared access signature in one string. The whole URL is the secret, because the signature is a query parameter of it. This is the SAS mode of the Azure Blob export only: the WIF (keyless) mode stores no secret and needs no credential, and its SAS-less container URL is not a valid value here.
+type AzureBlobSasCredentialV2Input struct {
+	// The container SAS URL, e.g. https://acme.blob.core.windows.net/findings?sv=…&sp=rwl&se=…&sig=… It must name a container rather than the account root, and must carry the `sv` and `sig` parameters every SAS has. Grant it the List permission as well as write: the export lists the container before it writes to it. The health check reports the credential's expiry from the SAS's own `se` end time. (Required.)
+	SasUrl String `json:"sasUrl" tfgen:"required=1"`
 }
 
 // AzureConfigurationOptionsInput represents azure integration input.
@@ -1968,6 +1974,34 @@ type CredentialV2SecretInput struct {
 	OciApiKey *OciApiKeyCredentialV2Input `json:"ociApiKey,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	SnowflakeKeypair *SnowflakeKeypairCredentialV2Input `json:"snowflakeKeypair,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	Jira *JiraCredentialV2Input `json:"jira,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	Zendesk *ZendeskCredentialV2Input `json:"zendesk,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	JamfOauth *JamfOauthCredentialV2Input `json:"jamfOauth,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	TenableIo *TenableIoCredentialV2Input `json:"tenableIo,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	SnykApiToken *SnykApiTokenCredentialV2Input `json:"snykApiToken,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	SonarqubeToken *SonarqubeTokenCredentialV2Input `json:"sonarqubeToken,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	ElasticApiKey *ElasticApiKeyCredentialV2Input `json:"elasticApiKey,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	S3AccessKey *S3AccessKeyCredentialV2Input `json:"s3AccessKey,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	TenableSc *TenableScCredentialV2Input `json:"tenableSc,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	Qualys *QualysCredentialV2Input `json:"qualys,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	SecurityScorecard *SecurityScorecardCredentialV2Input `json:"securityScorecard,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	JfrogAccessToken *JfrogAccessTokenCredentialV2Input `json:"jfrogAccessToken,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	AzureBlobSas *AzureBlobSasCredentialV2Input `json:"azureBlobSas,omitempty" tfgen:"required=0"`
+	// (Optional.)
+	SnowflakePassword *SnowflakePasswordCredentialV2Input `json:"snowflakePassword,omitempty" tfgen:"required=0"`
 }
 
 // CrowdstrikeCredentialV2Input represents a CrowdStrike Falcon OAuth2 API client.
@@ -2268,6 +2302,17 @@ type Ec2ScanOptionsInput struct {
 	ExcludedRegionsFilter *[]String `json:"excludedRegionsFilter,omitempty" tfgen:"required=0"`
 	// The tags to exclude. (Optional.)
 	ExcludedTagsFilter *Map `json:"excludedTagsFilter,omitempty" tfgen:"required=0"`
+}
+
+// ElasticApiKeyCredentialV2Input represents an Elasticsearch API key. The address is part of the credential because a key exists inside one cluster. Give it in exactly one of the two spellings below — they are two ways to write the same address, and setting both is refused rather than resolved.
+type ElasticApiKeyCredentialV2Input struct {
+	// The ENCODED API key — the single base64 string Elasticsearch returns as `encoded` and Kibana offers to copy, not the id and key halves. (Required.)
+	ApiKey String `json:"apiKey" tfgen:"required=1"`
+
+	// The Elasticsearch URL, e.g. https://acme.es.us-east-1.aws.found.io:443. Required unless `cloudId` is set. (Optional.)
+	Endpoint *String `json:"endpoint,omitempty" tfgen:"required=0"`
+	// The Elastic Cloud deployment id. Required unless `endpoint` is set, and refused alongside it. (Optional.)
+	CloudId *String `json:"cloudId,omitempty" tfgen:"required=0"`
 }
 
 // ElasticConfigurationOptionsInput represents elastic integration input.
@@ -3238,6 +3283,24 @@ type JamfConfigurationOptionsInput struct {
 	MondooEnrichment *Boolean `json:"mondooEnrichment,omitempty" tfgen:"required=0"`
 }
 
+// JamfOauthCredentialV2Input represents a Jamf Pro API client (Settings › API Roles and Clients), exchanged for a short-lived bearer token at use time. Jamf's older Classic-API basic auth with a real user account is a different credential and is not this one.
+type JamfOauthCredentialV2Input struct {
+	// The Jamf Pro instance, e.g. https://acme.jamfcloud.com. Required — every Jamf tenant is its own server. (Required.)
+	BaseUrl String `json:"baseUrl" tfgen:"required=1"`
+	// The API client id. (Required.)
+	ClientId String `json:"clientId" tfgen:"required=1"`
+	// The API client secret, shown only once when the client is created. (Required.)
+	ClientSecret String `json:"clientSecret" tfgen:"required=1"`
+}
+
+// JfrogAccessTokenCredentialV2Input represents a JFrog access token — a reference token or an identity token.
+type JfrogAccessTokenCredentialV2Input struct {
+	// The Xray service URL, INCLUDING the product path segment, e.g. https://acme.jfrog.io/xray. The segment is part of the value for the same reason as Tenable SC's: it is what the import is built with. (Required.)
+	BaseUrl String `json:"baseUrl" tfgen:"required=1"`
+	// The access token. (Required.)
+	AccessToken String `json:"accessToken" tfgen:"required=1"`
+}
+
 // JfrogXrayConfigurationOptionsInput represents jFrog Xray (SCA) import integration input — pulls vulnerability findings from a JFrog Xray instance via its vulnerabilities-report workflow.
 type JfrogXrayConfigurationOptionsInput struct {
 
@@ -3269,6 +3332,19 @@ type JiraConfigurationOptionsInput struct {
 	// Whether to auto-create cases. (Optional.)
 	AutoCreateCases *Boolean `json:"autoCreateCases,omitempty" tfgen:"required=0"`
 	// The Jira Cloud ID for scoped API token support. When provided, the integration will use the api.atlassian.com gateway URL instead of the direct instance URL, enabling scoped API tokens. Can be obtained from https://{domain}.atlassian.net/_edge/tenant_info. (Optional.)
+	CloudId *String `json:"cloudId,omitempty" tfgen:"required=0"`
+}
+
+// JiraCredentialV2Input represents a Jira (Atlassian) account email and API token, sent as HTTP basic auth.
+type JiraCredentialV2Input struct {
+	// The Jira site, e.g. https://acme.atlassian.net. (Required.)
+	Host String `json:"host" tfgen:"required=1"`
+	// The Atlassian account the token was created under. It is the basic auth username, so the token only authenticates beside it. (Required.)
+	Email String `json:"email" tfgen:"required=1"`
+	// The Atlassian API token. (Required.)
+	ApiToken String `json:"apiToken" tfgen:"required=1"`
+
+	// The site's Jira cloud id, from https://{site}/_edge/tenant_info. Required only for a SCOPED API token: Atlassian refuses one at the site URL and accepts it only at the api.atlassian.com gateway, which this selects. The health probe follows it. (Optional.)
 	CloudId *String `json:"cloudId,omitempty" tfgen:"required=0"`
 }
 
@@ -4435,6 +4511,16 @@ type QualysConfigurationOptionsInput struct {
 	MondooEnrichment *Boolean `json:"mondooEnrichment,omitempty" tfgen:"required=0"`
 }
 
+// QualysCredentialV2Input represents a Qualys account's username and password, which the API takes as HTTP basic auth. Qualys has no API tokens, so this is a real user's password — use a dedicated API-only account. The account must have API access enabled.
+type QualysCredentialV2Input struct {
+	// The Qualys platform ("POD") API host the subscription is served from, e.g. https://qualysapi.qg2.apps.qualys.com. Required, with no default: a request to the wrong POD comes back as an authentication failure rather than a redirect. (Required.)
+	BaseUrl String `json:"baseUrl" tfgen:"required=1"`
+	// The Qualys account username. It is half of the credential. (Required.)
+	Username String `json:"username" tfgen:"required=1"`
+	// The account's password. (Required.)
+	Password String `json:"password" tfgen:"required=1"`
+}
+
 // QueryPackAddInput represents query pack add input.
 type QueryPackAddInput struct {
 	// The mrn of the space. (Required.)
@@ -4761,6 +4847,19 @@ type RotateCredentialV2Input struct {
 	Secret CredentialV2SecretInput `json:"secret" tfgen:"required=1"`
 }
 
+// S3AccessKeyCredentialV2Input represents an S3 access key pair for a NON-AWS, S3-compatible endpoint — MinIO, Ceph, Wasabi, Backblaze, DigitalOcean Spaces. An AWS S3 export uses the `AWS` kind instead, which is why the endpoint here is required. The bucket stays on the integration: it says where the export writes, not who it writes as.
+type S3AccessKeyCredentialV2Input struct {
+	// The S3 API URL, without a bucket path, e.g. https://minio.acme.com. (Required.)
+	Endpoint String `json:"endpoint" tfgen:"required=1"`
+	// The access key ID — the public half of the pair. (Required.)
+	AccessKeyId String `json:"accessKeyId" tfgen:"required=1"`
+	// The secret access key. (Required.)
+	SecretAccessKey String `json:"secretAccessKey" tfgen:"required=1"`
+
+	// The signing region, e.g. `us-west-004`. Omit for implementations that have no regions — an empty value signs as us-east-1, which they ignore. It belongs with the key because it is part of what makes the signature verify. (Optional.)
+	Region *String `json:"region,omitempty" tfgen:"required=0"`
+}
+
 // S3ConfigurationOptionsInput represents s3 integration input.
 type S3ConfigurationOptionsInput struct {
 	// The output format for the S3 bucket. (Required.)
@@ -4962,6 +5061,12 @@ type SecurityScorecardConfigurationOptionsInput struct {
 	ApiToken *String `json:"apiToken,omitempty" tfgen:"required=0"`
 	// createAssets is a flag to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
+}
+
+// SecurityScorecardCredentialV2Input represents a SecurityScorecard API token — a personal token or a bot user's.
+type SecurityScorecardCredentialV2Input struct {
+	// The API token, from My Settings › API. (Required.)
+	ApiToken String `json:"apiToken" tfgen:"required=1"`
 }
 
 // SentinelOneConfigurationOptionsInput represents sentinelOne integration input.
@@ -5232,6 +5337,16 @@ type SnowflakeKeypairCredentialV2Input struct {
 	PrivateKey String `json:"privateKey" tfgen:"required=1"`
 }
 
+// SnowflakePasswordCredentialV2Input represents a Snowflake user and password for the Snowflake export. Snowflake blocks single-factor password sign-ins as of November 2025, for service accounts as well as people, so a password credential now fails on most accounts. Key-pair authentication is the supported path.
+type SnowflakePasswordCredentialV2Input struct {
+	// The account identifier, e.g. `acme-prod` or an organization-account pair. (Required.)
+	Account String `json:"account" tfgen:"required=1"`
+	// The Snowflake user. (Required.)
+	User String `json:"user" tfgen:"required=1"`
+	// The user's password. (Required.)
+	Password String `json:"password" tfgen:"required=1"`
+}
+
 // SnowflakeScanConfigurationOptionsInput represents snowflake (hosted scan) integration input.
 type SnowflakeScanConfigurationOptionsInput struct {
 	// Snowflake account identifier (locator) to scan. (Required.)
@@ -5245,6 +5360,15 @@ type SnowflakeScanConfigurationOptionsInput struct {
 	Role *String `json:"role,omitempty" tfgen:"required=0"`
 	// PEM-encoded private key (identity file) used for key-pair authentication. (Optional.)
 	IdentityFile *String `json:"identityFile,omitempty" tfgen:"required=0"`
+}
+
+// SnykApiTokenCredentialV2Input represents a Snyk API token — a service account token or a personal one.
+type SnykApiTokenCredentialV2Input struct {
+	// The Snyk API token. (Required.)
+	ApiToken String `json:"apiToken" tfgen:"required=1"`
+
+	// The Snyk REST API root, INCLUDING the `/rest` path segment, e.g. https://api.eu.snyk.io/rest. Omit for the default https://api.snyk.io/rest. The suffix is part of the value rather than something the server appends, so that the health probe and the import read the same endpoint. (Optional.)
+	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 }
 
 // SnykConfigurationOptionsInput represents snyk configuration options input.
@@ -5304,6 +5428,15 @@ type SonarqubeConfigurationOptionsInput struct {
 	ApiToken *String `json:"apiToken,omitempty" tfgen:"required=0"`
 	// Whether to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
+}
+
+// SonarqubeTokenCredentialV2Input represents a SonarQube or SonarCloud token — user, project analysis or global analysis. All of them authenticate the same way, so any of them can be stored here.
+type SonarqubeTokenCredentialV2Input struct {
+	// The SonarQube token. (Required.)
+	Token String `json:"token" tfgen:"required=1"`
+
+	// The SonarQube instance, e.g. https://sonar.acme.com. Omit for SonarCloud. A self-managed token is only valid against its own instance, so the health probe follows this URL. (Optional.)
+	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 }
 
 // SpacePolicySummaryInput represents spacePolicySummaryInput contains the input parameters for the spacePolicySummary query.
@@ -5464,6 +5597,17 @@ type TenableConfigurationOptionsInput struct {
 	MondooEnrichment *Boolean `json:"mondooEnrichment,omitempty" tfgen:"required=0"`
 }
 
+// TenableIoCredentialV2Input represents a Tenable Vulnerability Management API key pair. Both halves travel in the same header and rotating the pair replaces both, so they are one credential.
+type TenableIoCredentialV2Input struct {
+	// The access key — the public half, shown as "Access Key" in the console. (Required.)
+	AccessKey String `json:"accessKey" tfgen:"required=1"`
+	// The secret key, shown only once when the pair is generated. (Required.)
+	SecretKey String `json:"secretKey" tfgen:"required=1"`
+
+	// The Tenable API endpoint. Omit for the default https://cloud.tenable.com; set it for a FedRAMP or otherwise regional deployment. (Optional.)
+	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
+}
+
 // TenableSCConfigurationOptionsInput represents tenable SC configuration options input.
 type TenableSCConfigurationOptionsInput struct {
 
@@ -5479,6 +5623,16 @@ type TenableSCConfigurationOptionsInput struct {
 	RepositoryIDs *String `json:"repositoryIds,omitempty" tfgen:"required=0"`
 	// Allow connections to servers with self-signed or untrusted TLS certificates. (Optional.)
 	AllowInsecureTls *Boolean `json:"allowInsecureTls,omitempty" tfgen:"required=0"`
+}
+
+// TenableScCredentialV2Input represents a Tenable Security Center API key pair. Tenable Vulnerability Management is a separate kind (`TENABLE_IO`): the keys look alike but are not valid against the other product. Security Center's older username-and-password login is a different credential and is not this one.
+type TenableScCredentialV2Input struct {
+	// The Security Center REST root, INCLUDING the `/rest` path segment, e.g. https://tenablesc.acme.com/rest. The suffix is part of the value rather than something the server appends, so that the health probe and the import read the same endpoint. (Required.)
+	ServerUrl String `json:"serverUrl" tfgen:"required=1"`
+	// The access key — the public half of the pair. (Required.)
+	AccessKey String `json:"accessKey" tfgen:"required=1"`
+	// The secret key, shown only once when the pair is generated. (Required.)
+	SecretKey String `json:"secretKey" tfgen:"required=1"`
 }
 
 // TerminatedAssetsConfigurationInput represents terminated assets configuration input.
@@ -6119,6 +6273,16 @@ type ZendeskConfigurationOptionsInput struct {
 
 	// A list of custom fields for Zendesk. (Optional.)
 	CustomFields *[]ZendeskCustomFieldInput `json:"customFields,omitempty" tfgen:"required=0"`
+}
+
+// ZendeskCredentialV2Input represents a Zendesk agent email and API token. Zendesk takes the pair as basic auth with the username "{email}/token"; an agent's login password is a different credential and is not this one.
+type ZendeskCredentialV2Input struct {
+	// The Zendesk instance name, e.g. `acme` for acme.zendesk.com — the subdomain alone, not a URL. (Required.)
+	Subdomain String `json:"subdomain" tfgen:"required=1"`
+	// The agent account the token belongs to. (Required.)
+	Email String `json:"email" tfgen:"required=1"`
+	// The Zendesk API token. (Required.)
+	ApiToken String `json:"apiToken" tfgen:"required=1"`
 }
 
 // ZendeskCustomFieldInput represents zendesk custom field input.
