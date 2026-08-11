@@ -753,15 +753,33 @@ type CredentialV2Kind string
 
 // The kind of secret a typed credential holds. The kind is a property of the payload itself, so it can never disagree with what is stored, and it cannot be changed after creation.
 const (
-	CredentialV2KindUnknown            CredentialV2Kind = "UNKNOWN"              // A kind this build has no case for. Expect never to see it: the stored column is validated against the same set of kinds this schema declares, so a build cannot write one it does not itself know. It exists because `kind` is non-nullable and the mapping has to return *something* when it meets a string it does not recognise, and an undeclared value is the one answer that is always wrong — it would be rejected by the client's decoder rather than the server's, taking every other credential in the response down with it. This is the safe answer instead: the row still lists, with everything that does not depend on its kind intact. Never stored, and never accepted as input — a credential's kind is read from its payload.
-	CredentialV2KindGithubPat          CredentialV2Kind = "GITHUB_PAT"           // GitHub personal access token, or an installation token.
-	CredentialV2KindGithubApp          CredentialV2Kind = "GITHUB_APP"           // Customer-supplied GitHub App: numeric app id plus its RSA private key.
-	CredentialV2KindSlack              CredentialV2Kind = "SLACK"                // Slack bot token.
-	CredentialV2KindAws                CredentialV2Kind = "AWS"                  // Long-term AWS access key pair.
-	CredentialV2KindCrowdstrike        CredentialV2Kind = "CROWDSTRIKE"          // CrowdStrike Falcon OAuth2 API client.
-	CredentialV2KindAnthropic          CredentialV2Kind = "ANTHROPIC"            // Anthropic API key.
-	CredentialV2KindSpritesToken       CredentialV2Kind = "SPRITES_TOKEN"        // Sprites access token, used directly.
-	CredentialV2KindSpritesFlyMacaroon CredentialV2Kind = "SPRITES_FLY_MACAROON" // Fly.io macaroon, exchanged for a sprite access token at use time.
+	CredentialV2KindUnknown                  CredentialV2Kind = "UNKNOWN"                     // A kind this build has no case for. Expect never to see it: the stored column is validated against the same set of kinds this schema declares, so a build cannot write one it does not itself know. It exists because `kind` is non-nullable and the mapping has to return *something* when it meets a string it does not recognise, and an undeclared value is the one answer that is always wrong — it would be rejected by the client's decoder rather than the server's, taking every other credential in the response down with it. This is the safe answer instead: the row still lists, with everything that does not depend on its kind intact. Never stored, and never accepted as input — a credential's kind is read from its payload.
+	CredentialV2KindGithubPat                CredentialV2Kind = "GITHUB_PAT"                  // GitHub personal access token, or an installation token.
+	CredentialV2KindGithubApp                CredentialV2Kind = "GITHUB_APP"                  // Customer-supplied GitHub App: numeric app id plus its RSA private key.
+	CredentialV2KindSlack                    CredentialV2Kind = "SLACK"                       // Slack bot token.
+	CredentialV2KindAws                      CredentialV2Kind = "AWS"                         // Long-term AWS access key pair.
+	CredentialV2KindCrowdstrike              CredentialV2Kind = "CROWDSTRIKE"                 // CrowdStrike Falcon OAuth2 API client.
+	CredentialV2KindAnthropic                CredentialV2Kind = "ANTHROPIC"                   // Anthropic API key.
+	CredentialV2KindSpritesToken             CredentialV2Kind = "SPRITES_TOKEN"               // Sprites access token, used directly.
+	CredentialV2KindSpritesFlyMacaroon       CredentialV2Kind = "SPRITES_FLY_MACAROON"        // Fly.io macaroon, exchanged for a sprite access token at use time.
+	CredentialV2KindShodanApiKey             CredentialV2Kind = "SHODAN_API_KEY"              // Shodan API key.
+	CredentialV2KindCloudflareApiToken       CredentialV2Kind = "CLOUDFLARE_API_TOKEN"        // Cloudflare API token. Not the legacy global API key, which is a different shape.
+	CredentialV2KindHetznerApiToken          CredentialV2Kind = "HETZNER_API_TOKEN"           // Hetzner Cloud API token, scoped to the project that issued it.
+	CredentialV2KindDigitaloceanApiToken     CredentialV2Kind = "DIGITALOCEAN_API_TOKEN"      // DigitalOcean personal access token.
+	CredentialV2KindVercelApiToken           CredentialV2Kind = "VERCEL_API_TOKEN"            // Vercel API token.
+	CredentialV2KindOktaApiToken             CredentialV2Kind = "OKTA_API_TOKEN"              // Okta API token (SSWS), together with the org domain it belongs to.
+	CredentialV2KindGitlabToken              CredentialV2Kind = "GITLAB_TOKEN"                // GitLab access token — personal, group or project.
+	CredentialV2KindEntraClientSecret        CredentialV2Kind = "ENTRA_CLIENT_SECRET"         // Microsoft Entra ID app registration authenticating with a client secret.
+	CredentialV2KindEntraCertificate         CredentialV2Kind = "ENTRA_CERTIFICATE"           // Microsoft Entra ID app registration authenticating with a certificate.
+	CredentialV2KindGcpServiceAccount        CredentialV2Kind = "GCP_SERVICE_ACCOUNT"         // Google Cloud service account key.
+	CredentialV2KindNextdnsApiKey            CredentialV2Kind = "NEXTDNS_API_KEY"             // NextDNS API key.
+	CredentialV2KindTailscaleApiKey          CredentialV2Kind = "TAILSCALE_API_KEY"           // Tailscale API access token, used directly.
+	CredentialV2KindTailscaleOauthClient     CredentialV2Kind = "TAILSCALE_OAUTH_CLIENT"      // Tailscale OAuth client, exchanged for an access token at use time.
+	CredentialV2KindStackitServiceAccountKey CredentialV2Kind = "STACKIT_SERVICE_ACCOUNT_KEY" // STACKIT service account key.
+	CredentialV2KindMongodbAtlas             CredentialV2Kind = "MONGODB_ATLAS"               // MongoDB Atlas programmatic API key pair.
+	CredentialV2KindDatabricksOauth          CredentialV2Kind = "DATABRICKS_OAUTH"            // Databricks service principal OAuth (machine-to-machine) client.
+	CredentialV2KindOciApiKey                CredentialV2Kind = "OCI_API_KEY"                 // Oracle Cloud Infrastructure API signing key.
+	CredentialV2KindSnowflakeKeypair         CredentialV2Kind = "SNOWFLAKE_KEYPAIR"           // Snowflake key-pair (JWT) authentication credential.
 )
 
 // CredentialV2OrderField represents field to order typed credentials by.
@@ -781,14 +799,32 @@ type CredentialV2SecretField string
 
 // The arm of `CredentialV2SecretInput` a kind's collected values are nested under. Deliberately a closed enum rather than a String. It is the set of kinds that can be *written*, where `CredentialV2Kind` is the set that can be *read* and therefore has to carry UNKNOWN. Keeping them separate lets a client's kind-to-input-field map be total by construction — no impossible UNKNOWN branch, and no cast to build the input object.
 const (
-	CredentialV2SecretFieldGithubPat          CredentialV2SecretField = "GITHUB_PAT"
-	CredentialV2SecretFieldGithubApp          CredentialV2SecretField = "GITHUB_APP"
-	CredentialV2SecretFieldSlack              CredentialV2SecretField = "SLACK"
-	CredentialV2SecretFieldAws                CredentialV2SecretField = "AWS"
-	CredentialV2SecretFieldCrowdstrike        CredentialV2SecretField = "CROWDSTRIKE"
-	CredentialV2SecretFieldAnthropic          CredentialV2SecretField = "ANTHROPIC"
-	CredentialV2SecretFieldSpritesToken       CredentialV2SecretField = "SPRITES_TOKEN"
-	CredentialV2SecretFieldSpritesFlyMacaroon CredentialV2SecretField = "SPRITES_FLY_MACAROON"
+	CredentialV2SecretFieldGithubPat                CredentialV2SecretField = "GITHUB_PAT"
+	CredentialV2SecretFieldGithubApp                CredentialV2SecretField = "GITHUB_APP"
+	CredentialV2SecretFieldSlack                    CredentialV2SecretField = "SLACK"
+	CredentialV2SecretFieldAws                      CredentialV2SecretField = "AWS"
+	CredentialV2SecretFieldCrowdstrike              CredentialV2SecretField = "CROWDSTRIKE"
+	CredentialV2SecretFieldAnthropic                CredentialV2SecretField = "ANTHROPIC"
+	CredentialV2SecretFieldSpritesToken             CredentialV2SecretField = "SPRITES_TOKEN"
+	CredentialV2SecretFieldSpritesFlyMacaroon       CredentialV2SecretField = "SPRITES_FLY_MACAROON"
+	CredentialV2SecretFieldShodanApiKey             CredentialV2SecretField = "SHODAN_API_KEY"
+	CredentialV2SecretFieldCloudflareApiToken       CredentialV2SecretField = "CLOUDFLARE_API_TOKEN"
+	CredentialV2SecretFieldHetznerApiToken          CredentialV2SecretField = "HETZNER_API_TOKEN"
+	CredentialV2SecretFieldDigitaloceanApiToken     CredentialV2SecretField = "DIGITALOCEAN_API_TOKEN"
+	CredentialV2SecretFieldVercelApiToken           CredentialV2SecretField = "VERCEL_API_TOKEN"
+	CredentialV2SecretFieldOktaApiToken             CredentialV2SecretField = "OKTA_API_TOKEN"
+	CredentialV2SecretFieldGitlabToken              CredentialV2SecretField = "GITLAB_TOKEN"
+	CredentialV2SecretFieldEntraClientSecret        CredentialV2SecretField = "ENTRA_CLIENT_SECRET"
+	CredentialV2SecretFieldEntraCertificate         CredentialV2SecretField = "ENTRA_CERTIFICATE"
+	CredentialV2SecretFieldGcpServiceAccount        CredentialV2SecretField = "GCP_SERVICE_ACCOUNT"
+	CredentialV2SecretFieldNextdnsApiKey            CredentialV2SecretField = "NEXTDNS_API_KEY"
+	CredentialV2SecretFieldTailscaleApiKey          CredentialV2SecretField = "TAILSCALE_API_KEY"
+	CredentialV2SecretFieldTailscaleOauthClient     CredentialV2SecretField = "TAILSCALE_OAUTH_CLIENT"
+	CredentialV2SecretFieldStackitServiceAccountKey CredentialV2SecretField = "STACKIT_SERVICE_ACCOUNT_KEY"
+	CredentialV2SecretFieldMongodbAtlas             CredentialV2SecretField = "MONGODB_ATLAS"
+	CredentialV2SecretFieldDatabricksOauth          CredentialV2SecretField = "DATABRICKS_OAUTH"
+	CredentialV2SecretFieldOciApiKey                CredentialV2SecretField = "OCI_API_KEY"
+	CredentialV2SecretFieldSnowflakeKeypair         CredentialV2SecretField = "SNOWFLAKE_KEYPAIR"
 )
 
 // CveMentionSourceType represents source type of a CVE mention.
