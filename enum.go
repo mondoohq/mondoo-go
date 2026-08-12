@@ -229,9 +229,10 @@ type ArdEntityOrderField string
 
 // Fields an ARD entity listing can be ordered by.
 const (
-	ArdEntityOrderFieldName       ArdEntityOrderField = "NAME"
-	ArdEntityOrderFieldScore      ArdEntityOrderField = "SCORE"
-	ArdEntityOrderFieldAssetCount ArdEntityOrderField = "ASSET_COUNT"
+	ArdEntityOrderFieldName         ArdEntityOrderField = "NAME"
+	ArdEntityOrderFieldScore        ArdEntityOrderField = "SCORE" // Raw risk score. DESC = most at risk first; unscored entities sort last either way.
+	ArdEntityOrderFieldAssetCount   ArdEntityOrderField = "ASSET_COUNT"
+	ArdEntityOrderFieldRiskCategory ArdEntityOrderField = "RISK_CATEGORY" // Discretized risk rating (critical / high / medium / low / none) instead of the raw score, so a `thenBy` key can meaningfully break ties within a rating. DESC = most critical rating first; unscored entities sort last either way.
 )
 
 // AssessmentStatus represents lifecycle status of an Assessment.
