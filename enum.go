@@ -219,9 +219,20 @@ type ArdBrowseSort string
 const (
 	ArdBrowseSortName         ArdBrowseSort = "NAME"          // Product name (the default; the stable tiebreaker for every other key).
 	ArdBrowseSortAssetCount   ArdBrowseSort = "ASSET_COUNT"   // Distinct in-scope assets carrying the name.
-	ArdBrowseSortScore        ArdBrowseSort = "SCORE"         // Worst score across the name's versions (riskValue, higher = worse).
+	ArdBrowseSortScore        ArdBrowseSort = "SCORE"         // Worst score across the name's versions (riskValue, higher = worse). DESC = most at risk first; names with no score sort last either way.
 	ArdBrowseSortFreshness    ArdBrowseSort = "FRESHNESS"     // Freshness marker (reserved; populated in a follow-up).
 	ArdBrowseSortVersionCount ArdBrowseSort = "VERSION_COUNT" // Distinct in-scope versions of the name.
+	ArdBrowseSortRiskCategory ArdBrowseSort = "RISK_CATEGORY" // Discretized risk rating (critical / high / medium / low / none) instead of the raw worst score, so a `thenBy` key can meaningfully break ties within a rating. DESC = most critical rating first; names with no score sort last either way. The `ArdEntityOrderField` twin is RISK_CATEGORY, and the two rank identically.
+)
+
+// ArdEntityKind represents the shape of an ARD entity — which of the three row kinds it is. `kind`, NOT `grouping`, is what tells a terminal resource from a navigational node: LEAF and SPINE both report `grouping: null` because both are grouping-independent.
+type ArdEntityKind string
+
+// The shape of an ARD entity — which of the three row kinds it is. `kind`, NOT `grouping`, is what tells a terminal resource from a navigational node: LEAF and SPINE both report `grouping: null` because both are grouping-independent.
+const (
+	ArdEntityKindLeaf   ArdEntityKind = "LEAF"   // A resource identified by its full dimensions, shared across every grouping. The terminal "real thing" — it has no children to drill into. Filter on `kind == LEAF` to get the actual resources out of a mixed listing.
+	ArdEntityKindSpine  ArdEntityKind = "SPINE"  // A grouping-INDEPENDENT shared inventory node (name / version), shared by every lens in the same family. Navigational and addressable: pass its `mrn` to `ardEntity` or as `parentMrn` to drill down.
+	ArdEntityKindBucket ArdEntityKind = "BUCKET" // A lens-specific navigational prefix within one grouping (e.g. a vendor or category bucket under `by-vendor`). Addressable like a spine node, but only within its own grouping.
 )
 
 // ArdEntityOrderField represents fields an ARD entity listing can be ordered by.
@@ -1408,7 +1419,10 @@ type ICON_IDS string
 // ENUM for icon ids.
 const (
 	ICON_IDSAdobe                     ICON_IDS = "ADOBE"
+	ICON_IDSAdobeAfterEffects         ICON_IDS = "ADOBE_AFTER_EFFECTS"
+	ICON_IDSAdobeAnimate              ICON_IDS = "ADOBE_ANIMATE"
 	ICON_IDSAdobeCreativeCloud        ICON_IDS = "ADOBE_CREATIVE_CLOUD"
+	ICON_IDSAdobeDimension            ICON_IDS = "ADOBE_DIMENSION"
 	ICON_IDSAdobeIllustrator          ICON_IDS = "ADOBE_ILLUSTRATOR"
 	ICON_IDSAdobeIndesign             ICON_IDS = "ADOBE_INDESIGN"
 	ICON_IDSAdobeLightroom            ICON_IDS = "ADOBE_LIGHTROOM"
@@ -1445,6 +1459,7 @@ const (
 	ICON_IDSBruno                     ICON_IDS = "BRUNO"
 	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
 	ICON_IDSCachyOs                   ICON_IDS = "CACHY_OS"
+	ICON_IDSCassandra                 ICON_IDS = "CASSANDRA"
 	ICON_IDSCcleaner                  ICON_IDS = "CCLEANER"
 	ICON_IDSCentos                    ICON_IDS = "CENTOS"
 	ICON_IDSCheck                     ICON_IDS = "CHECK"
@@ -1456,6 +1471,8 @@ const (
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
 	ICON_IDSCitrix                    ICON_IDS = "CITRIX"
 	ICON_IDSClaude                    ICON_IDS = "CLAUDE"
+	ICON_IDSClickhouse                ICON_IDS = "CLICKHOUSE"
+	ICON_IDSClickhouseCloud           ICON_IDS = "CLICKHOUSE_CLOUD"
 	ICON_IDSCline                     ICON_IDS = "CLINE"
 	ICON_IDSCloudflare                ICON_IDS = "CLOUDFLARE"
 	ICON_IDSCloudformation            ICON_IDS = "CLOUDFORMATION"
@@ -1473,6 +1490,7 @@ const (
 	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
 	ICON_IDSCyberduck                 ICON_IDS = "CYBERDUCK"
 	ICON_IDSDart                      ICON_IDS = "DART"
+	ICON_IDSDatabases                 ICON_IDS = "DATABASES"
 	ICON_IDSDatabricks                ICON_IDS = "DATABRICKS"
 	ICON_IDSDatadog                   ICON_IDS = "DATADOG"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
@@ -1496,6 +1514,8 @@ const (
 	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
 	ICON_IDSF5BigIp                   ICON_IDS = "F5_BIG_IP"
 	ICON_IDSFedora                    ICON_IDS = "FEDORA"
+	ICON_IDSFilezilla                 ICON_IDS = "FILEZILLA"
+	ICON_IDSFirebird                  ICON_IDS = "FIREBIRD"
 	ICON_IDSFlatcar                   ICON_IDS = "FLATCAR"
 	ICON_IDSFortios                   ICON_IDS = "FORTIOS"
 	ICON_IDSFortiClient               ICON_IDS = "FORTI_CLIENT"
@@ -1527,6 +1547,7 @@ const (
 	ICON_IDSHcp                       ICON_IDS = "HCP"
 	ICON_IDSHex                       ICON_IDS = "HEX"
 	ICON_IDSHetzner                   ICON_IDS = "HETZNER"
+	ICON_IDSHp                        ICON_IDS = "HP"
 	ICON_IDSHpeIlo                    ICON_IDS = "HPE_ILO"
 	ICON_IDSHuawei                    ICON_IDS = "HUAWEI"
 	ICON_IDSHuggingFace               ICON_IDS = "HUGGING_FACE"
@@ -1618,6 +1639,7 @@ const (
 	ICON_IDSOpencode                  ICON_IDS = "OPENCODE"
 	ICON_IDSOpeneuler                 ICON_IDS = "OPENEULER"
 	ICON_IDSOpenhands                 ICON_IDS = "OPENHANDS"
+	ICON_IDSOpensearch                ICON_IDS = "OPENSEARCH"
 	ICON_IDSOpenstack                 ICON_IDS = "OPENSTACK"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
@@ -1655,6 +1677,7 @@ const (
 	ICON_IDSRabbitmq                  ICON_IDS = "RABBITMQ"
 	ICON_IDSRaspbian                  ICON_IDS = "RASPBIAN"
 	ICON_IDSRedfish                   ICON_IDS = "REDFISH"
+	ICON_IDSRedis                     ICON_IDS = "REDIS"
 	ICON_IDSResharper                 ICON_IDS = "RESHARPER"
 	ICON_IDSRooCode                   ICON_IDS = "ROO_CODE"
 	ICON_IDSRuby                      ICON_IDS = "RUBY"
@@ -1712,6 +1735,7 @@ const (
 	ICON_IDSVulncheckKev              ICON_IDS = "VULNCHECK_KEV"
 	ICON_IDSWarp                      ICON_IDS = "WARP"
 	ICON_IDSWatchguard                ICON_IDS = "WATCHGUARD"
+	ICON_IDSWeaviate                  ICON_IDS = "WEAVIATE"
 	ICON_IDSWebex                     ICON_IDS = "WEBEX"
 	ICON_IDSWhatsapp                  ICON_IDS = "WHATSAPP"
 	ICON_IDSWindows                   ICON_IDS = "WINDOWS"
@@ -1719,6 +1743,7 @@ const (
 	ICON_IDSWindows11                 ICON_IDS = "WINDOWS_11"
 	ICON_IDSWindsurf                  ICON_IDS = "WINDSURF"
 	ICON_IDSWinscp                    ICON_IDS = "WINSCP"
+	ICON_IDSWireguard                 ICON_IDS = "WIREGUARD"
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
 	ICON_IDSWolfi                     ICON_IDS = "WOLFI"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
@@ -2689,6 +2714,7 @@ const (
 	UIActionRemediationShown         UIAction = "REMEDIATION_SHOWN"          // Remediation is shown (available) for a finding — the positive counterpart to REMEDIATION_MISSING.
 	UIActionThirdPartyFindingView    UIAction = "THIRD_PARTY_FINDING_VIEW"   // A viewed finding is sourced from a third-party scanner (vs Mondoo-native / cnspec).
 	UIActionComplianceReportDownload UIAction = "COMPLIANCE_REPORT_DOWNLOAD" // Download/export of a compliance report (framework or control scope).
+	UIActionAttackSurfaceScanStart   UIAction = "ATTACK_SURFACE_SCAN_START"  // A user submitted a domain to scan from the attack surface view.
 )
 
 // UIPage represents the page in the UI where the action was taken.
@@ -2715,6 +2741,10 @@ const (
 	UIPageExecutiveReport               UIPage = "EXECUTIVE_REPORT"                // Executive report generation wizard.
 	UIPageSoftware                      UIPage = "SOFTWARE"                        // Vulnerable software finding detail page.
 	UIPageSoftwareOnAsset               UIPage = "SOFTWARE_ON_ASSET"               // Software finding detail page viewed in the context of an asset.
+	UIPageAiSecurity                    UIPage = "AI_SECURITY"                     // AI Security view (agents, skills, MCP servers, models, findings). One value for the whole view: the specific sub-route travels in the action's details.
+	UIPageAttackSurface                 UIPage = "ATTACK_SURFACE"                  // External attack surface dashboard (organization- or space-scoped).
+	UIPageAttackSurfaceAsset            UIPage = "ATTACK_SURFACE_ASSET"            // Attack surface discovered-asset (domain) detail page.
+	UIPageAttackSurfaceAssetCategory    UIPage = "ATTACK_SURFACE_ASSET_CATEGORY"   // Attack surface asset category detail page (exposed hosts + checks).
 )
 
 // UserState represents state of a user.
