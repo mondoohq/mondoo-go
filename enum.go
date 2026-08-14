@@ -1595,6 +1595,7 @@ const (
 	ICON_IDSMicrosoftExcel            ICON_IDS = "MICROSOFT_EXCEL"
 	ICON_IDSMicrosoftExchange         ICON_IDS = "MICROSOFT_EXCHANGE"
 	ICON_IDSMicrosoftOffice           ICON_IDS = "MICROSOFT_OFFICE"
+	ICON_IDSMicrosoftOutlook          ICON_IDS = "MICROSOFT_OUTLOOK"
 	ICON_IDSMicrosoftPowerpoint       ICON_IDS = "MICROSOFT_POWERPOINT"
 	ICON_IDSMicrosoftPowertoys        ICON_IDS = "MICROSOFT_POWERTOYS"
 	ICON_IDSMicrosoftSqlServer        ICON_IDS = "MICROSOFT_SQL_SERVER"
