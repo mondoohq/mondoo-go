@@ -806,6 +806,10 @@ const (
 	CredentialV2KindJfrogAccessToken         CredentialV2Kind = "JFROG_ACCESS_TOKEN"          // JFrog access token.
 	CredentialV2KindAzureBlobSas             CredentialV2Kind = "AZURE_BLOB_SAS"              // Azure Blob Storage container SAS URL.
 	CredentialV2KindSnowflakePassword        CredentialV2Kind = "SNOWFLAKE_PASSWORD"          // Snowflake user and password.
+	CredentialV2KindSplunkHecToken           CredentialV2Kind = "SPLUNK_HEC_TOKEN"            // Splunk HTTP Event Collector token.
+	CredentialV2KindKandjiApiToken           CredentialV2Kind = "KANDJI_API_TOKEN"            // Kandji (Iru) API token.
+	CredentialV2KindOpenvasCloud             CredentialV2Kind = "OPENVAS_CLOUD"               // Greenbone Cloud API token.
+	CredentialV2KindSentinelone              CredentialV2Kind = "SENTINELONE"                 // SentinelOne API token.
 )
 
 // CredentialV2OrderField represents field to order typed credentials by.
@@ -865,6 +869,10 @@ const (
 	CredentialV2SecretFieldJfrogAccessToken         CredentialV2SecretField = "JFROG_ACCESS_TOKEN"
 	CredentialV2SecretFieldAzureBlobSas             CredentialV2SecretField = "AZURE_BLOB_SAS"
 	CredentialV2SecretFieldSnowflakePassword        CredentialV2SecretField = "SNOWFLAKE_PASSWORD"
+	CredentialV2SecretFieldSplunkHecToken           CredentialV2SecretField = "SPLUNK_HEC_TOKEN"
+	CredentialV2SecretFieldKandjiApiToken           CredentialV2SecretField = "KANDJI_API_TOKEN"
+	CredentialV2SecretFieldOpenvasCloud             CredentialV2SecretField = "OPENVAS_CLOUD"
+	CredentialV2SecretFieldSentinelone              CredentialV2SecretField = "SENTINELONE"
 )
 
 // CveMentionSourceType represents source type of a CVE mention.
