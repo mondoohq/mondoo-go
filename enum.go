@@ -1452,9 +1452,11 @@ const (
 	ICON_IDSApple                     ICON_IDS = "APPLE"
 	ICON_IDSArch                      ICON_IDS = "ARCH"
 	ICON_IDSArista                    ICON_IDS = "ARISTA"
+	ICON_IDSArtifactory               ICON_IDS = "ARTIFACTORY"
 	ICON_IDSAsset                     ICON_IDS = "ASSET"
 	ICON_IDSAtlassian                 ICON_IDS = "ATLASSIAN"
 	ICON_IDSAugmentCode               ICON_IDS = "AUGMENT_CODE"
+	ICON_IDSAuth0                     ICON_IDS = "AUTH0"
 	ICON_IDSAws                       ICON_IDS = "AWS"
 	ICON_IDSAzure                     ICON_IDS = "AZURE"
 	ICON_IDSBaramundi                 ICON_IDS = "BARAMUNDI"
@@ -1518,6 +1520,7 @@ const (
 	ICON_IDSEclipse                   ICON_IDS = "ECLIPSE"
 	ICON_IDSElastic                   ICON_IDS = "ELASTIC"
 	ICON_IDSElementary                ICON_IDS = "ELEMENTARY"
+	ICON_IDSElxr                      ICON_IDS = "ELXR"
 	ICON_IDSEndeavourOs               ICON_IDS = "ENDEAVOUR_OS"
 	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
 	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
@@ -1575,11 +1578,13 @@ const (
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
 	ICON_IDSJava                      ICON_IDS = "JAVA"
 	ICON_IDSJetbrains                 ICON_IDS = "JETBRAINS"
+	ICON_IDSJumpcloud                 ICON_IDS = "JUMPCLOUD"
 	ICON_IDSJunie                     ICON_IDS = "JUNIE"
 	ICON_IDSJunos                     ICON_IDS = "JUNOS"
 	ICON_IDSK8s                       ICON_IDS = "K8S"
 	ICON_IDSKali                      ICON_IDS = "KALI"
 	ICON_IDSKeepass                   ICON_IDS = "KEEPASS"
+	ICON_IDSKeycloak                  ICON_IDS = "KEYCLOAK"
 	ICON_IDSKeynote                   ICON_IDS = "KEYNOTE"
 	ICON_IDSKiloCode                  ICON_IDS = "KILO_CODE"
 	ICON_IDSKiro                      ICON_IDS = "KIRO"
@@ -1763,6 +1768,7 @@ const (
 	ICON_IDSWinscp                    ICON_IDS = "WINSCP"
 	ICON_IDSWireguard                 ICON_IDS = "WIREGUARD"
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
+	ICON_IDSWizos                     ICON_IDS = "WIZOS"
 	ICON_IDSWolfi                     ICON_IDS = "WOLFI"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
 	ICON_IDSXai                       ICON_IDS = "XAI"
@@ -1951,8 +1957,9 @@ type JiraTicketContextType string
 
 // The type of the ticket context.
 const (
-	JiraTicketContextTypeProjects JiraTicketContextType = "PROJECTS" // The ticket context for Jira projects.
-	JiraTicketContextTypeUsers    JiraTicketContextType = "USERS"    // The ticket context for Jira users.
+	JiraTicketContextTypeProjects   JiraTicketContextType = "PROJECTS"    // The ticket context for Jira projects.
+	JiraTicketContextTypeUsers      JiraTicketContextType = "USERS"       // The ticket context for Jira users.
+	JiraTicketContextTypeIssueTypes JiraTicketContextType = "ISSUE_TYPES" // The ticket context for the Jira issue types a project supports.
 )
 
 // K8sScanNodesStyle represents k8s node scanning style.
