@@ -904,6 +904,8 @@ type AzureConfigurationOptionsInput struct {
 	DiscoveryTargets *[]String `json:"discoveryTargets,omitempty" tfgen:"required=0"`
 	// Opt into Workload Identity Federation (keyless). When true, provide tenantId and clientId only — no clientSecret/certificate. (Optional.)
 	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
+	// Management group whose subtree scans are narrowed to. Omit or send an empty string to select the tenant root management group, which applies no narrowing. Composes with the subscription allow/denylists, which filter within the selected subtree. (Optional.)
+	ManagementGroupId *String `json:"managementGroupId,omitempty" tfgen:"required=0"`
 }
 
 // AzureDevopsConfigurationOptionsInput represents azure Devops integration input.
