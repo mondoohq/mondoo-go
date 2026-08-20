@@ -209,6 +209,7 @@ const (
 	AggregateScoreTypeProduct           AggregateScoreType = "PRODUCT"            // Aggregate score for a product (e.g., Firefox, Chrome) that rolls up all underlying SOFTWARE entries — across operating systems, package formats, and architectures — into a single entry per upstream product as defined in the Mondoo product catalog.
 	AggregateScoreTypeInstalledSoftware AggregateScoreType = "INSTALLED_SOFTWARE" // Aggregate score for an installed software package across all versions, covering ALL installed software (not just versions affected by a vulnerability). Powers the full software inventory view.
 	AggregateScoreTypeInstalledProduct  AggregateScoreType = "INSTALLED_PRODUCT"  // Aggregate score for an installed product that rolls up all underlying INSTALLED_SOFTWARE entries into a single entry per upstream product (Mondoo product catalog), covering ALL installed software. Powers the per-product software inventory view.
+	AggregateScoreTypeFex               AggregateScoreType = "FEX"                // Aggregate score for a finding-exchange (FEX) finding: xgrep code review, secrets, malware, mhunt/ASM network findings, and third-party alerts ingested through the findings-exchange path. Distinct from CHECK and VULNERABILITY — a FEX finding is neither a cnspec check nor a CVE.
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
 )
 
@@ -257,6 +258,15 @@ const (
 	AssessmentStatusNoResults  AssessmentStatus = "NO_RESULTS"
 	AssessmentStatusCompleted  AssessmentStatus = "COMPLETED"
 	AssessmentStatusErrored    AssessmentStatus = "ERRORED"
+)
+
+// AssetDisposition represents asset disposition — whether the asset is active or has been dismissed.
+type AssetDisposition string
+
+// Asset disposition — whether the asset is active or has been dismissed.
+const (
+	AssetDispositionActive  AssetDisposition = "ACTIVE"
+	AssetDispositionIgnored AssetDisposition = "IGNORED"
 )
 
 // AssetFilterType represents supported filter types for asset inventory suggestions.
@@ -766,7 +776,7 @@ type CredentialV2Kind string
 // The kind of secret a typed credential holds. The kind is a property of the payload itself, so it can never disagree with what is stored, and it cannot be changed after creation.
 const (
 	CredentialV2KindUnknown                  CredentialV2Kind = "UNKNOWN"                     // A kind this build has no case for. Expect never to see it: the stored column is validated against the same set of kinds this schema declares, so a build cannot write one it does not itself know. It exists because `kind` is non-nullable and the mapping has to return *something* when it meets a string it does not recognise, and an undeclared value is the one answer that is always wrong — it would be rejected by the client's decoder rather than the server's, taking every other credential in the response down with it. This is the safe answer instead: the row still lists, with everything that does not depend on its kind intact. Never stored, and never accepted as input — a credential's kind is read from its payload.
-	CredentialV2KindGithubPat                CredentialV2Kind = "GITHUB_PAT"                  // GitHub personal access token, or an installation token.
+	CredentialV2KindGithubPat                CredentialV2Kind = "GITHUB_PAT"                  // GitHub personal access token, classic or fine-grained.
 	CredentialV2KindGithubApp                CredentialV2Kind = "GITHUB_APP"                  // Customer-supplied GitHub App: numeric app id plus its RSA private key.
 	CredentialV2KindSlack                    CredentialV2Kind = "SLACK"                       // Slack bot token.
 	CredentialV2KindAws                      CredentialV2Kind = "AWS"                         // Long-term AWS access key pair.
@@ -1272,6 +1282,22 @@ const (
 	FleetScanCadenceHourly  FleetScanCadence = "HOURLY" // HOURLY is offered only by providers that schedule natively (e.g. Intune device health scripts). Server-scheduled (Temporal) providers use DAILY/WEEKLY/MONTHLY.
 )
 
+// FleetScanDeviceState represents canonical, provider-agnostic device scan lifecycle stage. Every integration maps its native signals onto this vocabulary so the UI can show one stepper. Happy path (monotonic forward): DISPATCHED → DELIVERED → EXECUTED → REPORTED. A provider emits only the stages it can observe; unobservable ones are skipped (e.g. Defender/CrowdStrike/SentinelOne have no DELIVERED signal, Jamf/Kandji go straight from DISPATCHED to REPORTED via the Mondoo asset-report). REPORTED is the authoritative success — the device's cnspec result reached Mondoo — and may arrive before the provider reports EXECUTED (telemetry lag). FAILED / TIMED_OUT / SKIPPED are terminal exceptions; SKIPPED means the device could not run at all (ineligible / unreachable / unsupported).
+type FleetScanDeviceState string
+
+// Canonical, provider-agnostic device scan lifecycle stage. Every integration maps its native signals onto this vocabulary so the UI can show one stepper. Happy path (monotonic forward): DISPATCHED → DELIVERED → EXECUTED → REPORTED. A provider emits only the stages it can observe; unobservable ones are skipped (e.g. Defender/CrowdStrike/SentinelOne have no DELIVERED signal, Jamf/Kandji go straight from DISPATCHED to REPORTED via the Mondoo asset-report). REPORTED is the authoritative success — the device's cnspec result reached Mondoo — and may arrive before the provider reports EXECUTED (telemetry lag). FAILED / TIMED_OUT / SKIPPED are terminal exceptions; SKIPPED means the device could not run at all (ineligible / unreachable / unsupported).
+const (
+	FleetScanDeviceStateUnknown    FleetScanDeviceState = "UNKNOWN"
+	FleetScanDeviceStatePending    FleetScanDeviceState = "PENDING"
+	FleetScanDeviceStateDispatched FleetScanDeviceState = "DISPATCHED"
+	FleetScanDeviceStateDelivered  FleetScanDeviceState = "DELIVERED"
+	FleetScanDeviceStateExecuted   FleetScanDeviceState = "EXECUTED"
+	FleetScanDeviceStateReported   FleetScanDeviceState = "REPORTED"
+	FleetScanDeviceStateFailed     FleetScanDeviceState = "FAILED"
+	FleetScanDeviceStateTimedOut   FleetScanDeviceState = "TIMED_OUT"
+	FleetScanDeviceStateSkipped    FleetScanDeviceState = "SKIPPED"
+)
+
 // FleetScanHostStatus represents bootstrap status on a single endpoint. PENDING — device received the policy but hasn't finished running it. SUCCESS — bootstrap script exited cleanly. TIMEOUT — bootstrap exceeded its budget without finishing. ERROR — bootstrap returned a non-zero exit code. SKIPPED — host wasn't targeted (unsupported platform, offline beyond window).
 type FleetScanHostStatus string
 
@@ -1654,6 +1680,7 @@ const (
 	ICON_IDSOci                       ICON_IDS = "OCI"
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
 	ICON_IDSOllama                    ICON_IDS = "OLLAMA"
+	ICON_IDSOnedrive                  ICON_IDS = "ONEDRIVE"
 	ICON_IDSOpcua                     ICON_IDS = "OPCUA"
 	ICON_IDSOpenai                    ICON_IDS = "OPENAI"
 	ICON_IDSOpenbsd                   ICON_IDS = "OPENBSD"
