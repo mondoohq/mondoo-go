@@ -1395,6 +1395,17 @@ const (
 	GithubRepoScanTypeSettingOff     GithubRepoScanTypeSetting = "OFF"     // Do not scan this type on this repo, whatever the integration default is.
 )
 
+// GithubRepoSyncState represents the state of a GitHub integration's repository-discovery run.
+type GithubRepoSyncState string
+
+// The state of a GitHub integration's repository-discovery run.
+const (
+	GithubRepoSyncStateNone      GithubRepoSyncState = "NONE"      // No repository-discovery run has ever started for this integration.
+	GithubRepoSyncStateRunning   GithubRepoSyncState = "RUNNING"   // A repository-discovery run is currently in progress.
+	GithubRepoSyncStateSucceeded GithubRepoSyncState = "SUCCEEDED" // The most recent repository-discovery run finished successfully.
+	GithubRepoSyncStateFailed    GithubRepoSyncState = "FAILED"    // The most recent repository-discovery run failed, was cancelled, or timed out.
+)
+
 // GitlabIntegrationType represents gitlab integration type.
 type GitlabIntegrationType string
 
@@ -1468,6 +1479,7 @@ const (
 	ICON_IDSAdobeReader               ICON_IDS = "ADOBE_READER"
 	ICON_IDSAi                        ICON_IDS = "AI"
 	ICON_IDSAix                       ICON_IDS = "AIX"
+	ICON_IDSAlfred                    ICON_IDS = "ALFRED"
 	ICON_IDSAlibabaCloud              ICON_IDS = "ALIBABA_CLOUD"
 	ICON_IDSAlmaLinux                 ICON_IDS = "ALMA_LINUX"
 	ICON_IDSAlpine                    ICON_IDS = "ALPINE"
@@ -1481,6 +1493,7 @@ const (
 	ICON_IDSArch                      ICON_IDS = "ARCH"
 	ICON_IDSArista                    ICON_IDS = "ARISTA"
 	ICON_IDSArtifactory               ICON_IDS = "ARTIFACTORY"
+	ICON_IDSAsana                     ICON_IDS = "ASANA"
 	ICON_IDSAsset                     ICON_IDS = "ASSET"
 	ICON_IDSAtlassian                 ICON_IDS = "ATLASSIAN"
 	ICON_IDSAugmentCode               ICON_IDS = "AUGMENT_CODE"
@@ -1559,7 +1572,9 @@ const (
 	ICON_IDSEndeavourOs               ICON_IDS = "ENDEAVOUR_OS"
 	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
 	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
+	ICON_IDSExpressVpn                ICON_IDS = "EXPRESS_VPN"
 	ICON_IDSF5BigIp                   ICON_IDS = "F5_BIG_IP"
+	ICON_IDSFathom                    ICON_IDS = "FATHOM"
 	ICON_IDSFedora                    ICON_IDS = "FEDORA"
 	ICON_IDSFfmpeg                    ICON_IDS = "FFMPEG"
 	ICON_IDSFilezilla                 ICON_IDS = "FILEZILLA"
@@ -1591,6 +1606,7 @@ const (
 	ICON_IDSGoose                     ICON_IDS = "GOOSE"
 	ICON_IDSGotomeeting               ICON_IDS = "GOTOMEETING"
 	ICON_IDSGrafana                   ICON_IDS = "GRAFANA"
+	ICON_IDSGraphicConverter          ICON_IDS = "GRAPHIC_CONVERTER"
 	ICON_IDSGreenshot                 ICON_IDS = "GREENSHOT"
 	ICON_IDSHcp                       ICON_IDS = "HCP"
 	ICON_IDSHex                       ICON_IDS = "HEX"
@@ -1699,6 +1715,7 @@ const (
 	ICON_IDSOpenhands                 ICON_IDS = "OPENHANDS"
 	ICON_IDSOpensearch                ICON_IDS = "OPENSEARCH"
 	ICON_IDSOpenstack                 ICON_IDS = "OPENSTACK"
+	ICON_IDSOpenvpn                   ICON_IDS = "OPENVPN"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
 	ICON_IDSOracle                    ICON_IDS = "ORACLE"
@@ -2176,6 +2193,19 @@ const (
 	MvdSeverityTypeCvssV2 MvdSeverityType = "CVSS_V2" // CVSS version 2.
 	MvdSeverityTypeCvssV3 MvdSeverityType = "CVSS_V3" // CVSS version 3.
 	MvdSeverityTypeCvssV4 MvdSeverityType = "CVSS_V4" // CVSS version 4.
+)
+
+// MvdSkillAdvisoryOrderField represents orderable fields. Every order is made total by appending the advisory id.
+type MvdSkillAdvisoryOrderField string
+
+// Orderable fields. Every order is made total by appending the advisory id.
+const (
+	MvdSkillAdvisoryOrderFieldRisk       MvdSkillAdvisoryOrderField = "RISK"       // Risk score.
+	MvdSkillAdvisoryOrderFieldPublished  MvdSkillAdvisoryOrderField = "PUBLISHED"  // First-scan publication date.
+	MvdSkillAdvisoryOrderFieldName       MvdSkillAdvisoryOrderField = "NAME"       // Skill name.
+	MvdSkillAdvisoryOrderFieldPopularity MvdSkillAdvisoryOrderField = "POPULARITY" // Source repo stars.
+	MvdSkillAdvisoryOrderFieldFindings   MvdSkillAdvisoryOrderField = "FINDINGS"   // Number of findings.
+	MvdSkillAdvisoryOrderFieldInstalls   MvdSkillAdvisoryOrderField = "INSTALLS"   // Marketplace install count.
 )
 
 // MvdVulnerabilityOrderField represents orderable fields. Every order is made total by appending the record id.
