@@ -245,6 +245,8 @@ const (
 	ArdEntityOrderFieldScore        ArdEntityOrderField = "SCORE" // Raw risk score. DESC = most at risk first; unscored entities sort last either way.
 	ArdEntityOrderFieldAssetCount   ArdEntityOrderField = "ASSET_COUNT"
 	ArdEntityOrderFieldRiskCategory ArdEntityOrderField = "RISK_CATEGORY" // Discretized risk rating (critical / high / medium / low / none) instead of the raw score, so a `thenBy` key can meaningfully break ties within a rating. DESC = most critical rating first; unscored entities sort last either way.
+	ArdEntityOrderFieldCost         ArdEntityOrderField = "COST"          // Rolled-up llm-model spend (ArdAggregation.modelUsageStats.costMicroUsd). DESC = most expensive first. An entity with no reported usage ranks as 0 — it stays in the page, at the bottom. Meaningful only for `type: "llm-model"`.
+	ArdEntityOrderFieldTotalTokens  ArdEntityOrderField = "TOTAL_TOKENS"  // Rolled-up llm-model token volume: input + output + cache-read + cache-creation (web search requests are not tokens and are excluded). DESC = heaviest first; no reported usage ranks as 0. Meaningful only for `type: "llm-model"`.
 )
 
 // AssessmentStatus represents lifecycle status of an Assessment.
@@ -1483,19 +1485,25 @@ const (
 	ICON_IDSAtlassian                 ICON_IDS = "ATLASSIAN"
 	ICON_IDSAugmentCode               ICON_IDS = "AUGMENT_CODE"
 	ICON_IDSAuth0                     ICON_IDS = "AUTH0"
+	ICON_IDSAvg                       ICON_IDS = "AVG"
 	ICON_IDSAws                       ICON_IDS = "AWS"
 	ICON_IDSAzure                     ICON_IDS = "AZURE"
 	ICON_IDSBaramundi                 ICON_IDS = "BARAMUNDI"
+	ICON_IDSBattleNet                 ICON_IDS = "BATTLE_NET"
 	ICON_IDSBentley                   ICON_IDS = "BENTLEY"
 	ICON_IDSBeyondtrust               ICON_IDS = "BEYONDTRUST"
 	ICON_IDSBeyondCompare             ICON_IDS = "BEYOND_COMPARE"
 	ICON_IDSBitwarden                 ICON_IDS = "BITWARDEN"
 	ICON_IDSBleachbit                 ICON_IDS = "BLEACHBIT"
 	ICON_IDSBlender                   ICON_IDS = "BLENDER"
+	ICON_IDSBmw                       ICON_IDS = "BMW"
 	ICON_IDSBrave                     ICON_IDS = "BRAVE"
+	ICON_IDSBrother                   ICON_IDS = "BROTHER"
 	ICON_IDSBruno                     ICON_IDS = "BRUNO"
 	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
 	ICON_IDSCachyOs                   ICON_IDS = "CACHY_OS"
+	ICON_IDSCanon                     ICON_IDS = "CANON"
+	ICON_IDSCanva                     ICON_IDS = "CANVA"
 	ICON_IDSCassandra                 ICON_IDS = "CASSANDRA"
 	ICON_IDSCcleaner                  ICON_IDS = "CCLEANER"
 	ICON_IDSCentos                    ICON_IDS = "CENTOS"
@@ -1681,6 +1689,7 @@ const (
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
 	ICON_IDSOllama                    ICON_IDS = "OLLAMA"
 	ICON_IDSOnedrive                  ICON_IDS = "ONEDRIVE"
+	ICON_IDSOnePassword               ICON_IDS = "ONE_PASSWORD"
 	ICON_IDSOpcua                     ICON_IDS = "OPCUA"
 	ICON_IDSOpenai                    ICON_IDS = "OPENAI"
 	ICON_IDSOpenbsd                   ICON_IDS = "OPENBSD"
