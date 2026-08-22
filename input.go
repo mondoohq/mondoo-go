@@ -3998,6 +3998,8 @@ type MsIntuneConfigurationOptionsInput struct {
 	Password *String `json:"password,omitempty" tfgen:"required=0"`
 	// Fleet-scan: deliver cnspec as a Win32 LOB app (Azure Storage + IME) for egress-restricted Windows endpoints instead of the default release-mirror download. Off by default. (Optional.)
 	Win32BinaryStaging *Boolean `json:"win32BinaryStaging,omitempty" tfgen:"required=0"`
+	// debug puts this integration into fleet-scan debug mode: provider artifacts (the delivered Intune script, cnspec output) are kept after a scan for troubleshooting instead of being cleaned up. Off by default. (Optional.)
+	Debug *Boolean `json:"debug,omitempty" tfgen:"required=0"`
 }
 
 // MvdCweFilter represents filters for the CWE catalog.
@@ -4271,6 +4273,8 @@ type OpsiConfigurationOptionsInput struct {
 	MondooEnrichment *Boolean `json:"mondooEnrichment,omitempty" tfgen:"required=0"`
 	// skipTlsVerify disables TLS certificate verification for the opsi config server (opsi commonly uses self-signed / private-CA certificates on-prem). (Optional.)
 	SkipTlsVerify *Boolean `json:"skipTlsVerify,omitempty" tfgen:"required=0"`
+	// debug puts this integration into fleet-scan debug mode: provider artifacts (the delivered script, cnspec output) are kept after a scan for troubleshooting instead of being cleaned up. Off by default. (Optional.)
+	Debug *Boolean `json:"debug,omitempty" tfgen:"required=0"`
 }
 
 // OrgViewPageInfo represents org view page info.

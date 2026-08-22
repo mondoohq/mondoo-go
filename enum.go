@@ -1255,6 +1255,16 @@ const (
 	FindingsOrderFieldCvssScore   FindingsOrderField = "CVSS_SCORE"
 )
 
+// FleetDeviceHealth represents health of a host-group device based on how recently it checked in with its management provider (distinct from FleetScanDeviceState, which is a per-scan lifecycle stage).
+type FleetDeviceHealth string
+
+// Health of a host-group device based on how recently it checked in with its management provider (distinct from FleetScanDeviceState, which is a per-scan lifecycle stage).
+const (
+	FleetDeviceHealthUnknown FleetDeviceHealth = "UNKNOWN" // No check-in data and no live signal — health can't be judged.
+	FleetDeviceHealthHealthy FleetDeviceHealth = "HEALTHY" // Contactable now, or checked in within the provider's normal cadence.
+	FleetDeviceHealthStale   FleetDeviceHealth = "STALE"   // Last check-in is older than the provider's normal cadence and there's no live signal.
+)
+
 // FleetScanAuthStrategy represents how cnspec authenticated to the Mondoo platform for this scan. WIF - cnspec exchanged a provider-issued host identity for a Mondoo credential server-side. No Mondoo service account was created. SECRET_CHANNEL - server minted a scan-scoped service account and delivered it via the provider's out-of-band secret channel.
 type FleetScanAuthStrategy string
 
@@ -1524,6 +1534,7 @@ const (
 	ICON_IDSCheckmk                   ICON_IDS = "CHECKMK"
 	ICON_IDSCheckPoint                ICON_IDS = "CHECK_POINT"
 	ICON_IDSChef                      ICON_IDS = "CHEF"
+	ICON_IDSChocolatey                ICON_IDS = "CHOCOLATEY"
 	ICON_IDSCirros                    ICON_IDS = "CIRROS"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
 	ICON_IDSCisco                     ICON_IDS = "CISCO"
@@ -1551,6 +1562,7 @@ const (
 	ICON_IDSDatabases                 ICON_IDS = "DATABASES"
 	ICON_IDSDatabricks                ICON_IDS = "DATABRICKS"
 	ICON_IDSDatadog                   ICON_IDS = "DATADOG"
+	ICON_IDSDbeaver                   ICON_IDS = "DBEAVER"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
 	ICON_IDSDeepseek                  ICON_IDS = "DEEPSEEK"
 	ICON_IDSDefault                   ICON_IDS = "DEFAULT"
@@ -1577,6 +1589,7 @@ const (
 	ICON_IDSFathom                    ICON_IDS = "FATHOM"
 	ICON_IDSFedora                    ICON_IDS = "FEDORA"
 	ICON_IDSFfmpeg                    ICON_IDS = "FFMPEG"
+	ICON_IDSFigma                     ICON_IDS = "FIGMA"
 	ICON_IDSFilezilla                 ICON_IDS = "FILEZILLA"
 	ICON_IDSFirebird                  ICON_IDS = "FIREBIRD"
 	ICON_IDSFlatcar                   ICON_IDS = "FLATCAR"
@@ -1606,8 +1619,10 @@ const (
 	ICON_IDSGoose                     ICON_IDS = "GOOSE"
 	ICON_IDSGotomeeting               ICON_IDS = "GOTOMEETING"
 	ICON_IDSGrafana                   ICON_IDS = "GRAFANA"
+	ICON_IDSGrammarly                 ICON_IDS = "GRAMMARLY"
 	ICON_IDSGraphicConverter          ICON_IDS = "GRAPHIC_CONVERTER"
 	ICON_IDSGreenshot                 ICON_IDS = "GREENSHOT"
+	ICON_IDSHandbrake                 ICON_IDS = "HANDBRAKE"
 	ICON_IDSHcp                       ICON_IDS = "HCP"
 	ICON_IDSHex                       ICON_IDS = "HEX"
 	ICON_IDSHetzner                   ICON_IDS = "HETZNER"
@@ -1701,6 +1716,7 @@ const (
 	ICON_IDSNmap                      ICON_IDS = "NMAP"
 	ICON_IDSNotepadPlusPlus           ICON_IDS = "NOTEPAD_PLUS_PLUS"
 	ICON_IDSNutanix                   ICON_IDS = "NUTANIX"
+	ICON_IDSObsStudio                 ICON_IDS = "OBS_STUDIO"
 	ICON_IDSOci                       ICON_IDS = "OCI"
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
 	ICON_IDSOllama                    ICON_IDS = "OLLAMA"
@@ -1740,10 +1756,12 @@ const (
 	ICON_IDSPop                       ICON_IDS = "POP"
 	ICON_IDSPortainer                 ICON_IDS = "PORTAINER"
 	ICON_IDSPostgresql                ICON_IDS = "POSTGRESQL"
+	ICON_IDSPostman                   ICON_IDS = "POSTMAN"
 	ICON_IDSPowerAutomate             ICON_IDS = "POWER_AUTOMATE"
 	ICON_IDSPowershell                ICON_IDS = "POWERSHELL"
 	ICON_IDSPrinter                   ICON_IDS = "PRINTER"
 	ICON_IDSProgressSoftware          ICON_IDS = "PROGRESS_SOFTWARE"
+	ICON_IDSProtonVpn                 ICON_IDS = "PROTON_VPN"
 	ICON_IDSProxmox                   ICON_IDS = "PROXMOX"
 	ICON_IDSPutty                     ICON_IDS = "PUTTY"
 	ICON_IDSPycharm                   ICON_IDS = "PYCHARM"
@@ -1780,8 +1798,10 @@ const (
 	ICON_IDSSoapui                    ICON_IDS = "SOAPUI"
 	ICON_IDSSolaris                   ICON_IDS = "SOLARIS"
 	ICON_IDSSophos                    ICON_IDS = "SOPHOS"
+	ICON_IDSSplunk                    ICON_IDS = "SPLUNK"
 	ICON_IDSSpotify                   ICON_IDS = "SPOTIFY"
 	ICON_IDSStackit                   ICON_IDS = "STACKIT"
+	ICON_IDSSteam                     ICON_IDS = "STEAM"
 	ICON_IDSSteamOs                   ICON_IDS = "STEAM_OS"
 	ICON_IDSSupermicro                ICON_IDS = "SUPERMICRO"
 	ICON_IDSSuse                      ICON_IDS = "SUSE"
@@ -1792,9 +1812,11 @@ const (
 	ICON_IDSTanium                    ICON_IDS = "TANIUM"
 	ICON_IDSTeamviewer                ICON_IDS = "TEAMVIEWER"
 	ICON_IDSTelegram                  ICON_IDS = "TELEGRAM"
+	ICON_IDSTenable                   ICON_IDS = "TENABLE"
 	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
 	ICON_IDSThalesSafenet             ICON_IDS = "THALES_SAFENET"
 	ICON_IDSTogether                  ICON_IDS = "TOGETHER"
+	ICON_IDSTortoisegit               ICON_IDS = "TORTOISEGIT"
 	ICON_IDSTotalCommander            ICON_IDS = "TOTAL_COMMANDER"
 	ICON_IDSTrae                      ICON_IDS = "TRAE"
 	ICON_IDSUbuntu                    ICON_IDS = "UBUNTU"
@@ -1820,6 +1842,7 @@ const (
 	ICON_IDSWindows10                 ICON_IDS = "WINDOWS_10"
 	ICON_IDSWindows11                 ICON_IDS = "WINDOWS_11"
 	ICON_IDSWindsurf                  ICON_IDS = "WINDSURF"
+	ICON_IDSWinmerge                  ICON_IDS = "WINMERGE"
 	ICON_IDSWinscp                    ICON_IDS = "WINSCP"
 	ICON_IDSWireguard                 ICON_IDS = "WIREGUARD"
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
@@ -1829,6 +1852,7 @@ const (
 	ICON_IDSXai                       ICON_IDS = "XAI"
 	ICON_IDSXampp                     ICON_IDS = "XAMPP"
 	ICON_IDSXcode                     ICON_IDS = "XCODE"
+	ICON_IDSYubico                    ICON_IDS = "YUBICO"
 	ICON_IDSZed                       ICON_IDS = "ZED"
 	ICON_IDSZoom                      ICON_IDS = "ZOOM"
 	ICON_IDSZorin                     ICON_IDS = "ZORIN"
