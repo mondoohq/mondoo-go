@@ -1405,6 +1405,15 @@ const (
 	GithubRepoScanTypeSettingOff     GithubRepoScanTypeSetting = "OFF"     // Do not scan this type on this repo, whatever the integration default is.
 )
 
+// GithubRepoSyncFailureReason represents the actionable cause of a failed repository-discovery run.
+type GithubRepoSyncFailureReason string
+
+// The actionable cause of a failed repository-discovery run.
+const (
+	GithubRepoSyncFailureReasonCredentialsRejected GithubRepoSyncFailureReason = "CREDENTIALS_REJECTED" // GitHub rejected the integration's credentials (invalid, revoked, or lacking access). Fix: update the token and re-run the sync.
+	GithubRepoSyncFailureReasonRateLimited         GithubRepoSyncFailureReason = "RATE_LIMITED"         // The credential's owner has exhausted GitHub's API budget (rate limits are per user, shared across all of that user's tokens). Fix: wait for the reset, then re-sync.
+)
+
 // GithubRepoSyncState represents the state of a GitHub integration's repository-discovery run.
 type GithubRepoSyncState string
 
@@ -1493,6 +1502,8 @@ const (
 	ICON_IDSAlibabaCloud              ICON_IDS = "ALIBABA_CLOUD"
 	ICON_IDSAlmaLinux                 ICON_IDS = "ALMA_LINUX"
 	ICON_IDSAlpine                    ICON_IDS = "ALPINE"
+	ICON_IDSAltair                    ICON_IDS = "ALTAIR"
+	ICON_IDSAltTab                    ICON_IDS = "ALT_TAB"
 	ICON_IDSAmazon                    ICON_IDS = "AMAZON"
 	ICON_IDSAnsible                   ICON_IDS = "ANSIBLE"
 	ICON_IDSAntigravity               ICON_IDS = "ANTIGRAVITY"
@@ -1502,6 +1513,7 @@ const (
 	ICON_IDSApple                     ICON_IDS = "APPLE"
 	ICON_IDSArch                      ICON_IDS = "ARCH"
 	ICON_IDSArista                    ICON_IDS = "ARISTA"
+	ICON_IDSArticulate                ICON_IDS = "ARTICULATE"
 	ICON_IDSArtifactory               ICON_IDS = "ARTIFACTORY"
 	ICON_IDSAsana                     ICON_IDS = "ASANA"
 	ICON_IDSAsset                     ICON_IDS = "ASSET"
@@ -1511,11 +1523,14 @@ const (
 	ICON_IDSAvg                       ICON_IDS = "AVG"
 	ICON_IDSAws                       ICON_IDS = "AWS"
 	ICON_IDSAzure                     ICON_IDS = "AZURE"
+	ICON_IDSBambuStudio               ICON_IDS = "BAMBU_STUDIO"
+	ICON_IDSBangAndOlufsen            ICON_IDS = "BANG_AND_OLUFSEN"
 	ICON_IDSBaramundi                 ICON_IDS = "BARAMUNDI"
 	ICON_IDSBattleNet                 ICON_IDS = "BATTLE_NET"
 	ICON_IDSBentley                   ICON_IDS = "BENTLEY"
 	ICON_IDSBeyondtrust               ICON_IDS = "BEYONDTRUST"
 	ICON_IDSBeyondCompare             ICON_IDS = "BEYOND_COMPARE"
+	ICON_IDSBitbox                    ICON_IDS = "BITBOX"
 	ICON_IDSBitwarden                 ICON_IDS = "BITWARDEN"
 	ICON_IDSBleachbit                 ICON_IDS = "BLEACHBIT"
 	ICON_IDSBlender                   ICON_IDS = "BLENDER"
@@ -1525,6 +1540,7 @@ const (
 	ICON_IDSBruno                     ICON_IDS = "BRUNO"
 	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
 	ICON_IDSCachyOs                   ICON_IDS = "CACHY_OS"
+	ICON_IDSCamtasia                  ICON_IDS = "CAMTASIA"
 	ICON_IDSCanon                     ICON_IDS = "CANON"
 	ICON_IDSCanva                     ICON_IDS = "CANVA"
 	ICON_IDSCassandra                 ICON_IDS = "CASSANDRA"
@@ -1562,6 +1578,7 @@ const (
 	ICON_IDSDatabases                 ICON_IDS = "DATABASES"
 	ICON_IDSDatabricks                ICON_IDS = "DATABRICKS"
 	ICON_IDSDatadog                   ICON_IDS = "DATADOG"
+	ICON_IDSDatto                     ICON_IDS = "DATTO"
 	ICON_IDSDbeaver                   ICON_IDS = "DBEAVER"
 	ICON_IDSDebian                    ICON_IDS = "DEBIAN"
 	ICON_IDSDeepseek                  ICON_IDS = "DEEPSEEK"
@@ -1632,6 +1649,7 @@ const (
 	ICON_IDSHuggingFace               ICON_IDS = "HUGGING_FACE"
 	ICON_IDSIac                       ICON_IDS = "IAC"
 	ICON_IDSIbm                       ICON_IDS = "IBM"
+	ICON_IDSIcloud                    ICON_IDS = "ICLOUD"
 	ICON_IDSImagemagick               ICON_IDS = "IMAGEMAGICK"
 	ICON_IDSInkscape                  ICON_IDS = "INKSCAPE"
 	ICON_IDSInsomnia                  ICON_IDS = "INSOMNIA"
@@ -1660,6 +1678,7 @@ const (
 	ICON_IDSLibreOffice               ICON_IDS = "LIBRE_OFFICE"
 	ICON_IDSLinux                     ICON_IDS = "LINUX"
 	ICON_IDSLinuxMint                 ICON_IDS = "LINUX_MINT"
+	ICON_IDSLmStudio                  ICON_IDS = "LM_STUDIO"
 	ICON_IDSLocalsend                 ICON_IDS = "LOCALSEND"
 	ICON_IDSLogitech                  ICON_IDS = "LOGITECH"
 	ICON_IDSLoom                      ICON_IDS = "LOOM"
@@ -1887,6 +1906,16 @@ type InitiativeType string
 const (
 	InitiativeTypeAsset     InitiativeType = "ASSET"
 	InitiativeTypeAggregate InitiativeType = "AGGREGATE"
+)
+
+// IntegrationDiagnosticsCheckStatus represents verdict of an IntegrationDiagnosticsCheck. Advisory — FAIL explains why scans disappoint but never blocks one.
+type IntegrationDiagnosticsCheckStatus string
+
+// Verdict of an IntegrationDiagnosticsCheck. Advisory — FAIL explains why scans disappoint but never blocks one.
+const (
+	IntegrationDiagnosticsCheckStatusPass IntegrationDiagnosticsCheckStatus = "PASS"
+	IntegrationDiagnosticsCheckStatusWarn IntegrationDiagnosticsCheckStatus = "WARN"
+	IntegrationDiagnosticsCheckStatusFail IntegrationDiagnosticsCheckStatus = "FAIL"
 )
 
 // IntegrationMessageStatus represents integrationMessageStatus denotes the status of the message reported by the integration.
