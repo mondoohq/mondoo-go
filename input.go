@@ -345,6 +345,8 @@ type ApplyExceptionForScopesInput struct {
 	FexMrns *[]String `json:"fexMrns,omitempty" tfgen:"required=0"`
 	// Apply the exception to the CVEs that are part of the advisories. Applies only for advisory exceptions. (Optional.)
 	ApplyToCves *Boolean `json:"applyToCves,omitempty" tfgen:"required=0"`
+	// Optional user-provided name for the exception (max 128 characters). Blank is treated as unnamed and clients fall back to the computed title. (Optional.)
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 }
 
 // ApplyIntuneRemediationInput represents input for applying Intune remediation.
@@ -2499,6 +2501,8 @@ type ExceptionMutationInput struct {
 	ValidUntil *String `json:"validUntil,omitempty" tfgen:"required=0"`
 	// The justification for the exception. (Optional.)
 	Justification *String `json:"justification,omitempty" tfgen:"required=0"`
+	// Optional user-provided name for the exception (max 128 characters). Blank is treated as unnamed and clients fall back to the computed title. (Optional.)
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 	// List of control mrns that are excepted. Applies only for compliance exceptions. (Optional.)
 	ControlMrns *[]String `json:"controlMrns,omitempty" tfgen:"required=0"`
 	// List of query mrns that are excepted. Applies only for security exceptions. (Optional.)
