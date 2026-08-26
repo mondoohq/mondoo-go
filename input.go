@@ -4494,7 +4494,7 @@ type PolicyAggregateScoresExportOptionsInput struct {
 // PolicyAnalyticsInput represents policy analytics input.
 type PolicyAnalyticsInput struct {
 
-	// Scope MRN to filter by. If not provided, defaults to platform scope. Accepts organization MRNs to scope results to a specific org. (Optional.)
+	// Scope MRN to filter by. If not provided, defaults to platform scope. Accepts space and organization MRNs to scope results to a single space or org. Workspace MRNs are not supported. (Optional.)
 	ScopeMrn *String `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// Filters the policies with the given query. Partial matches by name are supported. (Optional.)
 	Query *String `json:"query,omitempty" tfgen:"required=0"`
