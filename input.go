@@ -3846,6 +3846,8 @@ type ListExceptionGroupsFilter struct {
 	CreatedBy *[]String `json:"createdBy,omitempty" tfgen:"required=0"`
 	// Filter by users who approved the exceptions. (Optional.)
 	ApprovedBy *[]String `json:"approvedBy,omitempty" tfgen:"required=0"`
+	// queryTerms narrows results to exception groups where ANY term matches: the user-provided name (case-insensitive substring), or the group id when the term is an exact id reference like "exception-14". Empty terms are ignored. Groups created without a name are findable only by id — the fallback title shown for them is computed at read time and is not searchable. (Optional.)
+	QueryTerms *[]String `json:"queryTerms,omitempty" tfgen:"required=0"`
 }
 
 // ListExceptionGroupsInput represents the input to get a list of exception groups.
