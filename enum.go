@@ -69,6 +69,85 @@ const (
 	ActivePolicyOrderFieldAction         ActivePolicyOrderField = "ACTION"
 )
 
+// ActuatorCapabilityKind represents a capability is one thing an actuator can DELIVER — not one thing it can change. "Can this system patch an asset" is not a property of the system: anything that can execute code as root can run a package manager, so a change-verb vocabulary is either false or vacuous. What can be FIXED is a property of the fix and the asset; what an actuator offers is the vocabulary it accepts.
+type ActuatorCapabilityKind string
+
+// A capability is one thing an actuator can DELIVER — not one thing it can change. "Can this system patch an asset" is not a property of the system: anything that can execute code as root can run a package manager, so a change-verb vocabulary is either false or vacuous. What can be FIXED is a property of the fix and the asset; what an actuator offers is the vocabulary it accepts.
+const (
+	ActuatorCapabilityKindExecShell         ActuatorCapabilityKind = "EXEC_SHELL"         // Accepts a POSIX shell script (sh/bash/zsh).
+	ActuatorCapabilityKindExecPowershell    ActuatorCapabilityKind = "EXEC_POWERSHELL"    // Accepts a PowerShell script.
+	ActuatorCapabilityKindIacAnsible        ActuatorCapabilityKind = "IAC_ANSIBLE"        // Accepts Ansible content.
+	ActuatorCapabilityKindIacTerraform      ActuatorCapabilityKind = "IAC_TERRAFORM"      // Accepts Terraform content.
+	ActuatorCapabilityKindIacCloudformation ActuatorCapabilityKind = "IAC_CLOUDFORMATION" // Accepts CloudFormation content.
+	ActuatorCapabilityKindPackage           ActuatorCapabilityKind = "PACKAGE"            // Addresses the actuator's own package vocabulary — Intune's winget ids, opsi's depot products, a Jamf app catalog — so the actuator does its own detection and reporting rather than executing a script we wrote. Whether a given product is covered is a catalog question, not a capability one.
+)
+
+// ActuatorDurability represents whether a change delivered this way stays.
+type ActuatorDurability string
+
+// Whether a change delivered this way stays.
+const (
+	ActuatorDurabilityDurabilityUnspecified ActuatorDurability = "DURABILITY_UNSPECIFIED" // Not established. For a declared actuator this means the operator did not state it; treat it as unknown, never as ONE_SHOT.
+	ActuatorDurabilityOneShot               ActuatorDurability = "ONE_SHOT"               // Applied once. Nothing re-asserts it, and whatever converges the asset may undo it.
+	ActuatorDurabilityContinuous            ActuatorDurability = "CONTINUOUS"             // The system converges the asset on an ongoing basis, so the change persists — and changes made around it are at risk of being reverted.
+)
+
+// ActuatorGranularity represents the smallest set of assets a change delivered this way can land on — the blast radius of every change routed through this capability.
+type ActuatorGranularity string
+
+// The smallest set of assets a change delivered this way can land on — the blast radius of every change routed through this capability.
+const (
+	ActuatorGranularityGranularityUnspecified ActuatorGranularity = "GRANULARITY_UNSPECIFIED" // Not established. For a declared actuator this means the operator did not state it; treat it as unknown, never as ASSET.
+	ActuatorGranularityAsset                  ActuatorGranularity = "ASSET"                   // The change lands on exactly the asset asked for.
+	ActuatorGranularityGroup                  ActuatorGranularity = "GROUP"                   // The change lands on a provider-side group the asset belongs to — an Intune device group, an SCCM collection, a Jamf policy scope. Selecting one asset does not select what changes: every other member of its group changes too.
+)
+
+// ActuatorHealth represents whether an actuator can be expected to work right now.
+type ActuatorHealth string
+
+// Whether an actuator can be expected to work right now.
+const (
+	ActuatorHealthHealthUnspecified ActuatorHealth = "HEALTH_UNSPECIFIED" // Not established. Always the value for a declared actuator: Mondoo does not connect to it and cannot know. Absence of knowledge, not bad news.
+	ActuatorHealthHealthy           ActuatorHealth = "HEALTHY"            // The integration is active and running.
+	ActuatorHealthDegraded          ActuatorHealth = "DEGRADED"           // The integration works, but something about it needs attention.
+	ActuatorHealthUnavailable       ActuatorHealth = "UNAVAILABLE"        // The integration cannot currently be used — error, missing, paused, deleted, or setup never finished. The reasons differ; the consequence for a caller is the same.
+)
+
+// ActuatorKind represents the kind of system behind an actuator. INTEGRATION means the actuator is backed by a Mondoo integration; every other value is a declared actuator, which Mondoo does not connect to and holds no credentials for.
+type ActuatorKind string
+
+// The kind of system behind an actuator. INTEGRATION means the actuator is backed by a Mondoo integration; every other value is a declared actuator, which Mondoo does not connect to and holds no credentials for.
+const (
+	ActuatorKindIntegration ActuatorKind = "INTEGRATION"
+	ActuatorKindAnsible     ActuatorKind = "ANSIBLE"
+	ActuatorKindTerraform   ActuatorKind = "TERRAFORM"
+	ActuatorKindPuppet      ActuatorKind = "PUPPET"
+	ActuatorKindChef        ActuatorKind = "CHEF"
+	ActuatorKindSalt        ActuatorKind = "SALT"
+	ActuatorKindOther       ActuatorKind = "OTHER"
+)
+
+// ActuatorSource represents how an asset's association with an actuator came to exist.
+type ActuatorSource string
+
+// How an asset's association with an actuator came to exist.
+const (
+	ActuatorSourceDiscovered ActuatorSource = "DISCOVERED" // Derived by the platform from what discovered or scanned the asset.
+	ActuatorSourceManual     ActuatorSource = "MANUAL"     // Assigned by a user. The discovery reconciler never overwrites these.
+)
+
+// ActuatorUnresolvedReason represents the ways "nothing can deliver this" happens.
+type ActuatorUnresolvedReason string
+
+// The ways "nothing can deliver this" happens.
+const (
+	ActuatorUnresolvedReasonUnresolvedReasonUnspecified ActuatorUnresolvedReason = "UNRESOLVED_REASON_UNSPECIFIED" // An actuator was selected; there is nothing to explain.
+	ActuatorUnresolvedReasonNoActuators                 ActuatorUnresolvedReason = "NO_ACTUATORS"                  // The asset has no actuators at all. Nothing manages it — associate one.
+	ActuatorUnresolvedReasonNoMatchingCapability        ActuatorUnresolvedReason = "NO_MATCHING_CAPABILITY"        // The asset has actuators, but none accepts this vocabulary. The gap is a delivery path, not an association.
+	ActuatorUnresolvedReasonAllDisabled                 ActuatorUnresolvedReason = "ALL_DISABLED"                  // An actuator could have delivered it, but every candidate is switched off. The gap is a toggle, and it is the case an operator is most likely to have caused themselves.
+	ActuatorUnresolvedReasonMechanismNotActuatable      ActuatorUnresolvedReason = "MECHANISM_NOT_ACTUATABLE"      // Every requested mechanism is manual — prose a human applies. No actuator will ever match, on this asset or any other, so there is no gap to close. Distinct from NO_MATCHING_CAPABILITY on purpose: that one asks an operator to add an actuator, which for a manual mechanism is advice that can never be taken.
+)
+
 // AdvisoryPlatformFilter represents possible Advisory filters.
 type AdvisoryPlatformFilter string
 
@@ -211,6 +290,17 @@ const (
 	AggregateScoreTypeInstalledProduct  AggregateScoreType = "INSTALLED_PRODUCT"  // Aggregate score for an installed product that rolls up all underlying INSTALLED_SOFTWARE entries into a single entry per upstream product (Mondoo product catalog), covering ALL installed software. Powers the per-product software inventory view.
 	AggregateScoreTypeFex               AggregateScoreType = "FEX"                // Aggregate score for a finding-exchange (FEX) finding: xgrep code review, secrets, malware, mhunt/ASM network findings, and third-party alerts ingested through the findings-exchange path. Distinct from CHECK and VULNERABILITY — a FEX finding is neither a cnspec check nor a CVE.
 	AggregateScoreTypeOther             AggregateScoreType = "OTHER"
+)
+
+// ApplyRemediationStatus represents what happened when a fix was routed to an actuator.
+type ApplyRemediationStatus string
+
+// What happened when a fix was routed to an actuator.
+const (
+	ApplyRemediationStatusStarted                ApplyRemediationStatus = "STARTED"                  // A delivery run was started. `workflowMrn` and `executionMrn` track it.
+	ApplyRemediationStatusUnresolved             ApplyRemediationStatus = "UNRESOLVED"               // Nothing associated with the asset can deliver this fix. `reason` says which of the several very different situations this is.
+	ApplyRemediationStatusActuatorNotExecutable  ApplyRemediationStatus = "ACTUATOR_NOT_EXECUTABLE"  // An actuator was selected, and Mondoo cannot run it. This is the normal, expected answer for a DECLARED actuator — Ansible, Terraform, Puppet — which Mondoo holds no credentials for and never connects to. It is not a failure: the answer to "who should apply this" is the actuator named here, and a human or a pipeline carries it.
+	ApplyRemediationStatusDeliveryNotImplemented ApplyRemediationStatus = "DELIVERY_NOT_IMPLEMENTED" // An integration-backed actuator was selected and Mondoo has no delivery path wired for its type yet. Distinct from ACTUATOR_NOT_EXECUTABLE: this one is a gap on our side and will close, rather than a property of the system.
 )
 
 // ArdBrowseSort represents sort keys for `ardBrowse`. Pair with `sortDir` (default ascending).
@@ -410,6 +500,15 @@ const (
 	AssetUrlStatsScopeAll             AssetUrlStatsScope = "ALL"             // Score based on vulnerabilities and security.
 	AssetUrlStatsScopeVulnerabilities AssetUrlStatsScope = "VULNERABILITIES" // Score based on vulnerabilities.
 	AssetUrlStatsScopeSecurity        AssetUrlStatsScope = "SECURITY"        // Score based on security.
+)
+
+// AssignAssetActuatorFailureReason represents why one asset in a bulk assign was skipped.
+type AssignAssetActuatorFailureReason string
+
+// Why one asset in a bulk assign was skipped.
+const (
+	AssignAssetActuatorFailureReasonAssignFailureReasonUnspecified AssignAssetActuatorFailureReason = "ASSIGN_FAILURE_REASON_UNSPECIFIED"
+	AssignAssetActuatorFailureReasonAssetNotFound                  AssignAssetActuatorFailureReason = "ASSET_NOT_FOUND" // The asset does not exist, or no longer does. There is nothing to associate with.
 )
 
 // AuditLogFilterType represents supported filter types for audit log suggestions.
@@ -1486,6 +1585,8 @@ type ICON_IDS string
 const (
 	ICON_IDSAagon                     ICON_IDS = "AAGON"
 	ICON_IDSAbbyy                     ICON_IDS = "ABBYY"
+	ICON_IDSAcronis                   ICON_IDS = "ACRONIS"
+	ICON_IDSAddOnProducts             ICON_IDS = "ADD_ON_PRODUCTS"
 	ICON_IDSAdminByRequest            ICON_IDS = "ADMIN_BY_REQUEST"
 	ICON_IDSAdobe                     ICON_IDS = "ADOBE"
 	ICON_IDSAdobeAfterEffects         ICON_IDS = "ADOBE_AFTER_EFFECTS"
@@ -1510,6 +1611,7 @@ const (
 	ICON_IDSAltair                    ICON_IDS = "ALTAIR"
 	ICON_IDSAltLinux                  ICON_IDS = "ALT_LINUX"
 	ICON_IDSAltTab                    ICON_IDS = "ALT_TAB"
+	ICON_IDSAlternatiff               ICON_IDS = "ALTERNATIFF"
 	ICON_IDSAmadeus                   ICON_IDS = "AMADEUS"
 	ICON_IDSAmazon                    ICON_IDS = "AMAZON"
 	ICON_IDSAmphetamine               ICON_IDS = "AMPHETAMINE"
@@ -1520,6 +1622,7 @@ const (
 	ICON_IDSAntigravity               ICON_IDS = "ANTIGRAVITY"
 	ICON_IDSAnydesk                   ICON_IDS = "ANYDESK"
 	ICON_IDSAomei                     ICON_IDS = "AOMEI"
+	ICON_IDSApache                    ICON_IDS = "APACHE"
 	ICON_IDSApacheCouchdb             ICON_IDS = "APACHE_COUCHDB"
 	ICON_IDSApacheHttpServer          ICON_IDS = "APACHE_HTTP_SERVER"
 	ICON_IDSApacheTomcat              ICON_IDS = "APACHE_TOMCAT"
@@ -1538,6 +1641,7 @@ const (
 	ICON_IDSAugmentCode               ICON_IDS = "AUGMENT_CODE"
 	ICON_IDSAusweisapp                ICON_IDS = "AUSWEISAPP"
 	ICON_IDSAuth0                     ICON_IDS = "AUTH0"
+	ICON_IDSAutodesk                  ICON_IDS = "AUTODESK"
 	ICON_IDSAvg                       ICON_IDS = "AVG"
 	ICON_IDSAvm                       ICON_IDS = "AVM"
 	ICON_IDSAwayke                    ICON_IDS = "AWAYKE"
@@ -1564,6 +1668,7 @@ const (
 	ICON_IDSBitbox                    ICON_IDS = "BITBOX"
 	ICON_IDSBitdefender               ICON_IDS = "BITDEFENDER"
 	ICON_IDSBitwarden                 ICON_IDS = "BITWARDEN"
+	ICON_IDSBizerba                   ICON_IDS = "BIZERBA"
 	ICON_IDSBlackmagicDesign          ICON_IDS = "BLACKMAGIC_DESIGN"
 	ICON_IDSBleachbit                 ICON_IDS = "BLEACHBIT"
 	ICON_IDSBlender                   ICON_IDS = "BLENDER"
@@ -1573,6 +1678,7 @@ const (
 	ICON_IDSBrother                   ICON_IDS = "BROTHER"
 	ICON_IDSBruno                     ICON_IDS = "BRUNO"
 	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
+	ICON_IDSBuypass                   ICON_IDS = "BUYPASS"
 	ICON_IDSC4b                       ICON_IDS = "C4B"
 	ICON_IDSCachyOs                   ICON_IDS = "CACHY_OS"
 	ICON_IDSCamtasia                  ICON_IDS = "CAMTASIA"
@@ -1639,6 +1745,7 @@ const (
 	ICON_IDSDellIdrac                 ICON_IDS = "DELL_IDRAC"
 	ICON_IDSDentsplySirona            ICON_IDS = "DENTSPLY_SIRONA"
 	ICON_IDSDepsdev                   ICON_IDS = "DEPSDEV"
+	ICON_IDSDeutscheFiskal            ICON_IDS = "DEUTSCHE_FISKAL"
 	ICON_IDSDevicetrust               ICON_IDS = "DEVICETRUST"
 	ICON_IDSDevolutions               ICON_IDS = "DEVOLUTIONS"
 	ICON_IDSDiffusionbee              ICON_IDS = "DIFFUSIONBEE"
@@ -1656,7 +1763,9 @@ const (
 	ICON_IDSDragonflyBsd              ICON_IDS = "DRAGONFLY_BSD"
 	ICON_IDSDrawio                    ICON_IDS = "DRAWIO"
 	ICON_IDSDraytek                   ICON_IDS = "DRAYTEK"
+	ICON_IDSDrivelock                 ICON_IDS = "DRIVELOCK"
 	ICON_IDSDropbox                   ICON_IDS = "DROPBOX"
+	ICON_IDSDuerrDental               ICON_IDS = "DUERR_DENTAL"
 	ICON_IDSDuetDisplay               ICON_IDS = "DUET_DISPLAY"
 	ICON_IDSDymo                      ICON_IDS = "DYMO"
 	ICON_IDSEclipse                   ICON_IDS = "ECLIPSE"
@@ -1683,6 +1792,7 @@ const (
 	ICON_IDSFivenine                  ICON_IDS = "FIVENINE"
 	ICON_IDSFlameshot                 ICON_IDS = "FLAMESHOT"
 	ICON_IDSFlatcar                   ICON_IDS = "FLATCAR"
+	ICON_IDSFlexera                   ICON_IDS = "FLEXERA"
 	ICON_IDSFlipper                   ICON_IDS = "FLIPPER"
 	ICON_IDSFocusrite                 ICON_IDS = "FOCUSRITE"
 	ICON_IDSFortinet                  ICON_IDS = "FORTINET"
@@ -1727,6 +1837,7 @@ const (
 	ICON_IDSGreenshot                 ICON_IDS = "GREENSHOT"
 	ICON_IDSHandbrake                 ICON_IDS = "HANDBRAKE"
 	ICON_IDSHaproxy                   ICON_IDS = "HAPROXY"
+	ICON_IDSHclNotes                  ICON_IDS = "HCL_NOTES"
 	ICON_IDSHcp                       ICON_IDS = "HCP"
 	ICON_IDSHeadlamp                  ICON_IDS = "HEADLAMP"
 	ICON_IDSHex                       ICON_IDS = "HEX"
@@ -1750,6 +1861,7 @@ const (
 	ICON_IDSImagemagick               ICON_IDS = "IMAGEMAGICK"
 	ICON_IDSImageoptim                ICON_IDS = "IMAGEOPTIM"
 	ICON_IDSImazing                   ICON_IDS = "IMAZING"
+	ICON_IDSInera                     ICON_IDS = "INERA"
 	ICON_IDSInfoniqa                  ICON_IDS = "INFONIQA"
 	ICON_IDSInkscape                  ICON_IDS = "INKSCAPE"
 	ICON_IDSInnovaphone               ICON_IDS = "INNOVAPHONE"
@@ -1762,6 +1874,7 @@ const (
 	ICON_IDSIpinfo                    ICON_IDS = "IPINFO"
 	ICON_IDSIpmi                      ICON_IDS = "IPMI"
 	ICON_IDSIru                       ICON_IDS = "IRU"
+	ICON_IDSIvanti                    ICON_IDS = "IVANTI"
 	ICON_IDSIxon                      ICON_IDS = "IXON"
 	ICON_IDSJabra                     ICON_IDS = "JABRA"
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
@@ -1854,6 +1967,7 @@ const (
 	ICON_IDSMxLinux                   ICON_IDS = "MX_LINUX"
 	ICON_IDSMysql                     ICON_IDS = "MYSQL"
 	ICON_IDSMythicsoft                ICON_IDS = "MYTHICSOFT"
+	ICON_IDSNAble                     ICON_IDS = "N_ABLE"
 	ICON_IDSNeon                      ICON_IDS = "NEON"
 	ICON_IDSNeonDb                    ICON_IDS = "NEON_DB"
 	ICON_IDSNetbsd                    ICON_IDS = "NETBSD"
@@ -1867,6 +1981,7 @@ const (
 	ICON_IDSNetwrix                   ICON_IDS = "NETWRIX"
 	ICON_IDSNextdns                   ICON_IDS = "NEXTDNS"
 	ICON_IDSNexthink                  ICON_IDS = "NEXTHINK"
+	ICON_IDSNfon                      ICON_IDS = "NFON"
 	ICON_IDSNginx                     ICON_IDS = "NGINX"
 	ICON_IDSNicelabel                 ICON_IDS = "NICELABEL"
 	ICON_IDSNinjaone                  ICON_IDS = "NINJAONE"
@@ -1891,6 +2006,7 @@ const (
 	ICON_IDSOki                       ICON_IDS = "OKI"
 	ICON_IDSOkta                      ICON_IDS = "OKTA"
 	ICON_IDSOllama                    ICON_IDS = "OLLAMA"
+	ICON_IDSOmnissa                   ICON_IDS = "OMNISSA"
 	ICON_IDSOnedrive                  ICON_IDS = "ONEDRIVE"
 	ICON_IDSOnePassword               ICON_IDS = "ONE_PASSWORD"
 	ICON_IDSOnyx                      ICON_IDS = "ONYX"
@@ -1923,6 +2039,7 @@ const (
 	ICON_IDSPaintNet                  ICON_IDS = "PAINT_NET"
 	ICON_IDSPaloAlto                  ICON_IDS = "PALO_ALTO"
 	ICON_IDSPanos                     ICON_IDS = "PANOS"
+	ICON_IDSPapercut                  ICON_IDS = "PAPERCUT"
 	ICON_IDSPaprika                   ICON_IDS = "PAPRIKA"
 	ICON_IDSParallels                 ICON_IDS = "PARALLELS"
 	ICON_IDSParrot                    ICON_IDS = "PARROT"
@@ -1930,6 +2047,7 @@ const (
 	ICON_IDSPdfcreator                ICON_IDS = "PDFCREATOR"
 	ICON_IDSPdfTools                  ICON_IDS = "PDF_TOOLS"
 	ICON_IDSPdfXchange                ICON_IDS = "PDF_XCHANGE"
+	ICON_IDSPeoplefluent              ICON_IDS = "PEOPLEFLUENT"
 	ICON_IDSPgadmin                   ICON_IDS = "PGADMIN"
 	ICON_IDSPhpstorm                  ICON_IDS = "PHPSTORM"
 	ICON_IDSPi                        ICON_IDS = "PI"
@@ -1971,6 +2089,7 @@ const (
 	ICON_IDSRaspberryPi               ICON_IDS = "RASPBERRY_PI"
 	ICON_IDSRaspbian                  ICON_IDS = "RASPBIAN"
 	ICON_IDSRaycast                   ICON_IDS = "RAYCAST"
+	ICON_IDSRaynet                    ICON_IDS = "RAYNET"
 	ICON_IDSRealvnc                   ICON_IDS = "REALVNC"
 	ICON_IDSRectangle                 ICON_IDS = "RECTANGLE"
 	ICON_IDSRedfish                   ICON_IDS = "REDFISH"
@@ -2002,6 +2121,7 @@ const (
 	ICON_IDSScreenpresso              ICON_IDS = "SCREENPRESSO"
 	ICON_IDSScreenStudio              ICON_IDS = "SCREEN_STUDIO"
 	ICON_IDSScriptrunner              ICON_IDS = "SCRIPTRUNNER"
+	ICON_IDSSecmaker                  ICON_IDS = "SECMAKER"
 	ICON_IDSSecretive                 ICON_IDS = "SECRETIVE"
 	ICON_IDSSentinelone               ICON_IDS = "SENTINELONE"
 	ICON_IDSSevenZip                  ICON_IDS = "SEVEN_ZIP"
@@ -2043,7 +2163,9 @@ const (
 	ICON_IDSSupermicro                ICON_IDS = "SUPERMICRO"
 	ICON_IDSSuse                      ICON_IDS = "SUSE"
 	ICON_IDSSwift                     ICON_IDS = "SWIFT"
+	ICON_IDSSymantec                  ICON_IDS = "SYMANTEC"
 	ICON_IDSSynology                  ICON_IDS = "SYNOLOGY"
+	ICON_IDSSystematik                ICON_IDS = "SYSTEMATIK"
 	ICON_IDSSystemtools               ICON_IDS = "SYSTEMTOOLS"
 	ICON_IDSTails                     ICON_IDS = "TAILS"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
@@ -2106,6 +2228,7 @@ const (
 	ICON_IDSWindows10                 ICON_IDS = "WINDOWS_10"
 	ICON_IDSWindows11                 ICON_IDS = "WINDOWS_11"
 	ICON_IDSWindsurf                  ICON_IDS = "WINDSURF"
+	ICON_IDSWingetAutoupdate          ICON_IDS = "WINGET_AUTOUPDATE"
 	ICON_IDSWinmerge                  ICON_IDS = "WINMERGE"
 	ICON_IDSWinpcap                   ICON_IDS = "WINPCAP"
 	ICON_IDSWinscp                    ICON_IDS = "WINSCP"
@@ -2753,6 +2876,17 @@ const (
 	RegistrationTokenOrderFieldCreated     RegistrationTokenOrderField = "CREATED"     // Order by creation time.
 	RegistrationTokenOrderFieldDescription RegistrationTokenOrderField = "DESCRIPTION" // Order by description.
 	RegistrationTokenOrderFieldMrn         RegistrationTokenOrderField = "MRN"         // Order by MRN.
+)
+
+// RemediationMechanismKind represents the kind of a remediation mechanism — the closed first segment of its id. It decides whether anything but a human can apply the change.
+type RemediationMechanismKind string
+
+// The kind of a remediation mechanism — the closed first segment of its id. It decides whether anything but a human can apply the change.
+const (
+	RemediationMechanismKindManual  RemediationMechanismKind = "MANUAL"  // Prose instructions, possibly wrapping a snippet. A human applies it; no actuator ever accepts one.
+	RemediationMechanismKindExec    RemediationMechanismKind = "EXEC"    // An imperative script, for an actuator that accepts that language.
+	RemediationMechanismKindIac     RemediationMechanismKind = "IAC"     // A declarative artifact, for an actuator that accepts that format.
+	RemediationMechanismKindPackage RemediationMechanismKind = "PACKAGE" // A package coordinate rather than content — "firefox to 128.0" — which an actuator applies its own way.
 )
 
 // RemediationScriptType represents remediation script type.
