@@ -92,14 +92,14 @@ const (
 	ActuatorDurabilityContinuous            ActuatorDurability = "CONTINUOUS"             // The system converges the asset on an ongoing basis, so the change persists — and changes made around it are at risk of being reverted.
 )
 
-// ActuatorGranularity represents the smallest set of assets a change delivered this way can land on — the blast radius of every change routed through this capability.
+// ActuatorGranularity represents the smallest set of assets a change delivered this way can land on — the blast radius of every change routed through this capability. **This describes what a capability CAN do, not the only thing it will do.** An actuator may offer more than one granularity, and Intune does: it can target a device directly (`initiateOnDemandProactiveRemediation`, no group assignment, lands in ~10s) *or* assign to a group (lands at the device's next check-in, on every member). Which one a change uses is therefore a **choice made per apply**, not a fixed property read off the actuator — see ADR-099. The two trade against each other and a caller should present both: one execution plus collateral, or one execution per asset with none.
 type ActuatorGranularity string
 
-// The smallest set of assets a change delivered this way can land on — the blast radius of every change routed through this capability.
+// The smallest set of assets a change delivered this way can land on — the blast radius of every change routed through this capability. **This describes what a capability CAN do, not the only thing it will do.** An actuator may offer more than one granularity, and Intune does: it can target a device directly (`initiateOnDemandProactiveRemediation`, no group assignment, lands in ~10s) *or* assign to a group (lands at the device's next check-in, on every member). Which one a change uses is therefore a **choice made per apply**, not a fixed property read off the actuator — see ADR-099. The two trade against each other and a caller should present both: one execution plus collateral, or one execution per asset with none.
 const (
 	ActuatorGranularityGranularityUnspecified ActuatorGranularity = "GRANULARITY_UNSPECIFIED" // Not established. For a declared actuator this means the operator did not state it; treat it as unknown, never as ASSET.
 	ActuatorGranularityAsset                  ActuatorGranularity = "ASSET"                   // The change lands on exactly the asset asked for.
-	ActuatorGranularityGroup                  ActuatorGranularity = "GROUP"                   // The change lands on a provider-side group the asset belongs to — an Intune device group, an SCCM collection, a Jamf policy scope. Selecting one asset does not select what changes: every other member of its group changes too.
+	ActuatorGranularityGroup                  ActuatorGranularity = "GROUP"                   // The change lands on a group the actuating system owns — an Intune device group, an SCCM collection, a Jamf policy scope. Selecting one asset does not select what changes: every other member of its group changes too.
 )
 
 // ActuatorHealth represents whether an actuator can be expected to work right now.
@@ -301,6 +301,7 @@ const (
 	ApplyRemediationStatusUnresolved             ApplyRemediationStatus = "UNRESOLVED"               // Nothing associated with the asset can deliver this fix. `reason` says which of the several very different situations this is.
 	ApplyRemediationStatusActuatorNotExecutable  ApplyRemediationStatus = "ACTUATOR_NOT_EXECUTABLE"  // An actuator was selected, and Mondoo cannot run it. This is the normal, expected answer for a DECLARED actuator — Ansible, Terraform, Puppet — which Mondoo holds no credentials for and never connects to. It is not a failure: the answer to "who should apply this" is the actuator named here, and a human or a pipeline carries it.
 	ApplyRemediationStatusDeliveryNotImplemented ApplyRemediationStatus = "DELIVERY_NOT_IMPLEMENTED" // An integration-backed actuator was selected and Mondoo has no delivery path wired for its type yet. Distinct from ACTUATOR_NOT_EXECUTABLE: this one is a gap on our side and will close, rather than a property of the system.
+	ApplyRemediationStatusDeliveryTargetRequired ApplyRemediationStatus = "DELIVERY_TARGET_REQUIRED" // The selected capability is GROUP-granular and no `targetGroupId` was given. Nothing ran, and that is deliberate. A GROUP-granular change lands on a group the actuating system owns, and Mondoo cannot yet enumerate what such a group contains — so choosing one for you would apply the fix to an unknown number of machines without ever saying so. Until delivery targets can be listed and expanded, naming the target is the caller's job, exactly as today's Intune dialog requires. Read `capability.granularity` to know this is coming before you call. **Naming the target is the deliberate act, and it is the only gate.** The server does not require that a preview was fetched and does not remember that it was — this mutation is stateless by design (ADR-099 §4). Showing the operator what a group contains is therefore the caller's obligation, not something the server will enforce on its behalf. When `expandActuatorTargets` lands, that disclosure is **three buckets, never one number** (ADR-099 §3): 1. **selected** — members that are assets the caller chose. 2. **known, not selected** — members that are assets Mondoo has and the caller did not choose. Nameable, with their hostname, OS and last check-in. 3. **unidentified** — members we could not map to an asset at all. Bucket 3 is its own bucket and is never folded into bucket 2's "not yours". The two ask an operator for completely different things — grant a permission so we can identify them, versus accept a blast radius — and merging them turns a missing Entra `Device.Read.All` grant into what looks like collateral. The split is computed by INTERSECTING a group's membership with our assets, never by subtracting an asset count from a group size: an association says an asset is managed by an *integration*, and an integration owns many groups. Where membership cannot be read at all, `FleetHostGroup.deviceCount` supports only "total minus selected" — and that is all a caller should claim.
 )
 
 // ArdBrowseSort represents sort keys for `ardBrowse`. Pair with `sortDir` (default ascending).
@@ -350,6 +351,16 @@ const (
 	AssessmentStatusNoResults  AssessmentStatus = "NO_RESULTS"
 	AssessmentStatusCompleted  AssessmentStatus = "COMPLETED"
 	AssessmentStatusErrored    AssessmentStatus = "ERRORED"
+)
+
+// AssetActuatorRankingSkipReason represents why one asset was left alone by a ranking.
+type AssetActuatorRankingSkipReason string
+
+// Why one asset was left alone by a ranking.
+const (
+	AssetActuatorRankingSkipReasonRankingSkipReasonUnspecified AssetActuatorRankingSkipReason = "RANKING_SKIP_REASON_UNSPECIFIED"
+	AssetActuatorRankingSkipReasonRankingAssetNotFound         AssetActuatorRankingSkipReason = "RANKING_ASSET_NOT_FOUND"     // The asset does not exist, or no longer does.
+	AssetActuatorRankingSkipReasonRankingNoRankedActuators     AssetActuatorRankingSkipReason = "RANKING_NO_RANKED_ACTUATORS" // The asset exists and carries none of the ranked actuators, so there was nothing to order. Not an error: a ranking is allowed to describe only part of a fleet.
 )
 
 // AssetDisposition represents asset disposition — whether the asset is active or has been dismissed.
@@ -1354,20 +1365,20 @@ const (
 	FindingsOrderFieldCvssScore   FindingsOrderField = "CVSS_SCORE"
 )
 
-// FleetDeviceHealth represents health of a host-group device based on how recently it checked in with its management provider (distinct from FleetScanDeviceState, which is a per-scan lifecycle stage).
+// FleetDeviceHealth represents health of a host-group device based on how recently it checked in with its management system (distinct from FleetScanDeviceState, which is a per-scan lifecycle stage).
 type FleetDeviceHealth string
 
-// Health of a host-group device based on how recently it checked in with its management provider (distinct from FleetScanDeviceState, which is a per-scan lifecycle stage).
+// Health of a host-group device based on how recently it checked in with its management system (distinct from FleetScanDeviceState, which is a per-scan lifecycle stage).
 const (
 	FleetDeviceHealthUnknown FleetDeviceHealth = "UNKNOWN" // No check-in data and no live signal — health can't be judged.
-	FleetDeviceHealthHealthy FleetDeviceHealth = "HEALTHY" // Contactable now, or checked in within the provider's normal cadence.
-	FleetDeviceHealthStale   FleetDeviceHealth = "STALE"   // Last check-in is older than the provider's normal cadence and there's no live signal.
+	FleetDeviceHealthHealthy FleetDeviceHealth = "HEALTHY" // Contactable now, or checked in within the management system's normal cadence.
+	FleetDeviceHealthStale   FleetDeviceHealth = "STALE"   // Last check-in is older than the management system's normal cadence and there's no live signal.
 )
 
-// FleetScanAuthStrategy represents how cnspec authenticated to the Mondoo platform for this scan. WIF - cnspec exchanged a provider-issued host identity for a Mondoo credential server-side. No Mondoo service account was created. SECRET_CHANNEL - server minted a scan-scoped service account and delivered it via the provider's out-of-band secret channel.
+// FleetScanAuthStrategy represents how cnspec authenticated to the Mondoo platform for this scan. WIF - cnspec exchanged a system-issued host identity for a Mondoo credential server-side. No Mondoo service account was created. SECRET_CHANNEL - server minted a scan-scoped service account and delivered it via the management system's out-of-band secret channel.
 type FleetScanAuthStrategy string
 
-// How cnspec authenticated to the Mondoo platform for this scan. WIF - cnspec exchanged a provider-issued host identity for a Mondoo credential server-side. No Mondoo service account was created. SECRET_CHANNEL - server minted a scan-scoped service account and delivered it via the provider's out-of-band secret channel.
+// How cnspec authenticated to the Mondoo platform for this scan. WIF - cnspec exchanged a system-issued host identity for a Mondoo credential server-side. No Mondoo service account was created. SECRET_CHANNEL - server minted a scan-scoped service account and delivered it via the management system's out-of-band secret channel.
 const (
 	FleetScanAuthStrategyWif           FleetScanAuthStrategy = "WIF"
 	FleetScanAuthStrategySecretChannel FleetScanAuthStrategy = "SECRET_CHANNEL"
@@ -1390,13 +1401,13 @@ const (
 	FleetScanCadenceDaily   FleetScanCadence = "DAILY"
 	FleetScanCadenceWeekly  FleetScanCadence = "WEEKLY"
 	FleetScanCadenceMonthly FleetScanCadence = "MONTHLY"
-	FleetScanCadenceHourly  FleetScanCadence = "HOURLY" // HOURLY is offered only by providers that schedule natively (e.g. Intune device health scripts). Server-scheduled (Temporal) providers use DAILY/WEEKLY/MONTHLY.
+	FleetScanCadenceHourly  FleetScanCadence = "HOURLY" // HOURLY is offered only by management systems that schedule natively (e.g. Intune device health scripts). Server-scheduled (Temporal) management systems use DAILY/WEEKLY/MONTHLY.
 )
 
-// FleetScanDeviceState represents canonical, provider-agnostic device scan lifecycle stage. Every integration maps its native signals onto this vocabulary so the UI can show one stepper. Happy path (monotonic forward): DISPATCHED → DELIVERED → EXECUTED → REPORTED. A provider emits only the stages it can observe; unobservable ones are skipped (e.g. Defender/CrowdStrike/SentinelOne have no DELIVERED signal, Jamf/Kandji go straight from DISPATCHED to REPORTED via the Mondoo asset-report). REPORTED is the authoritative success — the device's cnspec result reached Mondoo — and may arrive before the provider reports EXECUTED (telemetry lag). FAILED / TIMED_OUT / SKIPPED are terminal exceptions; SKIPPED means the device could not run at all (ineligible / unreachable / unsupported).
+// FleetScanDeviceState represents canonical, system-agnostic device scan lifecycle stage. Every integration maps its native signals onto this vocabulary so the UI can show one stepper. Happy path (monotonic forward): DISPATCHED → DELIVERED → EXECUTED → REPORTED. A management system emits only the stages it can observe; unobservable ones are skipped (e.g. Defender/CrowdStrike/SentinelOne have no DELIVERED signal, Jamf/Kandji go straight from DISPATCHED to REPORTED via the Mondoo asset-report). REPORTED is the authoritative success — the device's cnspec result reached Mondoo — and may arrive before the management system reports EXECUTED (telemetry lag). FAILED / TIMED_OUT / SKIPPED are terminal exceptions; SKIPPED means the device could not run at all (ineligible / unreachable / unsupported).
 type FleetScanDeviceState string
 
-// Canonical, provider-agnostic device scan lifecycle stage. Every integration maps its native signals onto this vocabulary so the UI can show one stepper. Happy path (monotonic forward): DISPATCHED → DELIVERED → EXECUTED → REPORTED. A provider emits only the stages it can observe; unobservable ones are skipped (e.g. Defender/CrowdStrike/SentinelOne have no DELIVERED signal, Jamf/Kandji go straight from DISPATCHED to REPORTED via the Mondoo asset-report). REPORTED is the authoritative success — the device's cnspec result reached Mondoo — and may arrive before the provider reports EXECUTED (telemetry lag). FAILED / TIMED_OUT / SKIPPED are terminal exceptions; SKIPPED means the device could not run at all (ineligible / unreachable / unsupported).
+// Canonical, system-agnostic device scan lifecycle stage. Every integration maps its native signals onto this vocabulary so the UI can show one stepper. Happy path (monotonic forward): DISPATCHED → DELIVERED → EXECUTED → REPORTED. A management system emits only the stages it can observe; unobservable ones are skipped (e.g. Defender/CrowdStrike/SentinelOne have no DELIVERED signal, Jamf/Kandji go straight from DISPATCHED to REPORTED via the Mondoo asset-report). REPORTED is the authoritative success — the device's cnspec result reached Mondoo — and may arrive before the management system reports EXECUTED (telemetry lag). FAILED / TIMED_OUT / SKIPPED are terminal exceptions; SKIPPED means the device could not run at all (ineligible / unreachable / unsupported).
 const (
 	FleetScanDeviceStateUnknown    FleetScanDeviceState = "UNKNOWN"
 	FleetScanDeviceStatePending    FleetScanDeviceState = "PENDING"
@@ -1427,8 +1438,8 @@ type FleetScanScriptKind string
 // Classifies one script in a scan's typed script set (fleetScanScripts).
 const (
 	FleetScanScriptKindBootstrap   FleetScanScriptKind = "BOOTSTRAP"   // The cnspec bootstrap/runner.
-	FleetScanScriptKindDetection   FleetScanScriptKind = "DETECTION"   // Provider detection gate (e.g. an Intune Proactive Remediation detection).
-	FleetScanScriptKindRemediation FleetScanScriptKind = "REMEDIATION" // The composed runner the provider dispatches (credential redacted).
+	FleetScanScriptKindDetection   FleetScanScriptKind = "DETECTION"   // Management system detection gate (e.g. an Intune Proactive Remediation detection).
+	FleetScanScriptKindRemediation FleetScanScriptKind = "REMEDIATION" // The composed runner the management system dispatches (credential redacted).
 	FleetScanScriptKindDiagnostic  FleetScanScriptKind = "DIAGNOSTIC"  // An operator copy-paste triage snippet.
 )
 
@@ -1554,6 +1565,15 @@ const (
 	GoogleSccSeverityLow      GoogleSccSeverity = "LOW"      // Low severity.
 )
 
+// GovernanceActionKind represents what a governance action does to the component, in [RFC-232]'s ChangeSet vocabulary. Both values are declared from the start and only one is produced. That is deliberate: declaring a value and producing it are different things (the mechanism registry carries `iac/bicep` on the same terms), and a client written against this enum today must never meet a value it has not seen — which is exactly what adding one later would cause.
+type GovernanceActionKind string
+
+// What a governance action does to the component, in [RFC-232]'s ChangeSet vocabulary. Both values are declared from the start and only one is produced. That is deliberate: declaring a value and producing it are different things (the mechanism registry carries `iac/bicep` on the same terms), and a client written against this enum today must never meet a value it has not seen — which is exactly what adding one later would cause.
+const (
+	GovernanceActionKindRemoval    GovernanceActionKind = "REMOVAL"    // The component is gone afterwards, so its finding ceases to exist. Every artifact this API produces today is a removal.
+	GovernanceActionKindMitigation GovernanceActionKind = "MITIGATION" // The component stays and its risk goes down — a plugin disabled in place, a service stopped. DECLARED, NOT YET PRODUCED: nothing generates one, and an artifact of this kind will not appear until a generator does. See ADR-098's quarantine follow-up.
+)
+
 // GovernanceState represents governance (RFC-231): a per-MRN overlay that records whether an inventory entity is sanctioned. discovered = no decision applies (the default; never stored). managed is a refinement of allowed (allowed and actively stewarded).
 type GovernanceState string
 
@@ -1600,6 +1620,7 @@ const (
 	ICON_IDSAdobePhotoshop            ICON_IDS = "ADOBE_PHOTOSHOP"
 	ICON_IDSAdobePremierePro          ICON_IDS = "ADOBE_PREMIERE_PRO"
 	ICON_IDSAdobeReader               ICON_IDS = "ADOBE_READER"
+	ICON_IDSAdvancedIpScanner         ICON_IDS = "ADVANCED_IP_SCANNER"
 	ICON_IDSAffinity                  ICON_IDS = "AFFINITY"
 	ICON_IDSAi                        ICON_IDS = "AI"
 	ICON_IDSAix                       ICON_IDS = "AIX"
@@ -1642,6 +1663,7 @@ const (
 	ICON_IDSAusweisapp                ICON_IDS = "AUSWEISAPP"
 	ICON_IDSAuth0                     ICON_IDS = "AUTH0"
 	ICON_IDSAutodesk                  ICON_IDS = "AUTODESK"
+	ICON_IDSAveryDennison             ICON_IDS = "AVERY_DENNISON"
 	ICON_IDSAvg                       ICON_IDS = "AVG"
 	ICON_IDSAvm                       ICON_IDS = "AVM"
 	ICON_IDSAwayke                    ICON_IDS = "AWAYKE"
@@ -1674,7 +1696,9 @@ const (
 	ICON_IDSBlender                   ICON_IDS = "BLENDER"
 	ICON_IDSBmw                       ICON_IDS = "BMW"
 	ICON_IDSBox                       ICON_IDS = "BOX"
+	ICON_IDSBrak                      ICON_IDS = "BRAK"
 	ICON_IDSBrave                     ICON_IDS = "BRAVE"
+	ICON_IDSBroadcom                  ICON_IDS = "BROADCOM"
 	ICON_IDSBrother                   ICON_IDS = "BROTHER"
 	ICON_IDSBruno                     ICON_IDS = "BRUNO"
 	ICON_IDSBusybox                   ICON_IDS = "BUSYBOX"
@@ -1693,6 +1717,7 @@ const (
 	ICON_IDSCheckPoint                ICON_IDS = "CHECK_POINT"
 	ICON_IDSChef                      ICON_IDS = "CHEF"
 	ICON_IDSChocolatey                ICON_IDS = "CHOCOLATEY"
+	ICON_IDSChromium                  ICON_IDS = "CHROMIUM"
 	ICON_IDSCib                       ICON_IDS = "CIB"
 	ICON_IDSCirros                    ICON_IDS = "CIRROS"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
@@ -1711,6 +1736,7 @@ const (
 	ICON_IDSCohere                    ICON_IDS = "COHERE"
 	ICON_IDSComet                     ICON_IDS = "COMET"
 	ICON_IDSCommvault                 ICON_IDS = "COMMVAULT"
+	ICON_IDSConnectwise               ICON_IDS = "CONNECTWISE"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSContinue                  ICON_IDS = "CONTINUE"
 	ICON_IDSCorel                     ICON_IDS = "COREL"
@@ -1723,6 +1749,7 @@ const (
 	ICON_IDSCve                       ICON_IDS = "CVE"
 	ICON_IDSCveOrg                    ICON_IDS = "CVE_ORG"
 	ICON_IDSCyberduck                 ICON_IDS = "CYBERDUCK"
+	ICON_IDSDahua                     ICON_IDS = "DAHUA"
 	ICON_IDSDarktrace                 ICON_IDS = "DARKTRACE"
 	ICON_IDSDart                      ICON_IDS = "DART"
 	ICON_IDSDatabases                 ICON_IDS = "DATABASES"
@@ -1803,6 +1830,7 @@ const (
 	ICON_IDSFreepdf                   ICON_IDS = "FREEPDF"
 	ICON_IDSFreshworks                ICON_IDS = "FRESHWORKS"
 	ICON_IDSFujifilm                  ICON_IDS = "FUJIFILM"
+	ICON_IDSFujitsu                   ICON_IDS = "FUJITSU"
 	ICON_IDSGarageband                ICON_IDS = "GARAGEBAND"
 	ICON_IDSGarmin                    ICON_IDS = "GARMIN"
 	ICON_IDSGcp                       ICON_IDS = "GCP"
@@ -1853,6 +1881,7 @@ const (
 	ICON_IDSIac                       ICON_IDS = "IAC"
 	ICON_IDSIaWriter                  ICON_IDS = "IA_WRITER"
 	ICON_IDSIbm                       ICON_IDS = "IBM"
+	ICON_IDSIcedteaWeb                ICON_IDS = "ICEDTEA_WEB"
 	ICON_IDSIcinga                    ICON_IDS = "ICINGA"
 	ICON_IDSIcloud                    ICON_IDS = "ICLOUD"
 	ICON_IDSIgel                      ICON_IDS = "IGEL"
@@ -1878,6 +1907,7 @@ const (
 	ICON_IDSIxon                      ICON_IDS = "IXON"
 	ICON_IDSJabra                     ICON_IDS = "JABRA"
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
+	ICON_IDSJamSoftware               ICON_IDS = "JAM_SOFTWARE"
 	ICON_IDSJan                       ICON_IDS = "JAN"
 	ICON_IDSJava                      ICON_IDS = "JAVA"
 	ICON_IDSJetbrains                 ICON_IDS = "JETBRAINS"
@@ -1899,10 +1929,12 @@ const (
 	ICON_IDSKeystoreExplorer          ICON_IDS = "KEYSTORE_EXPLORER"
 	ICON_IDSKiloCode                  ICON_IDS = "KILO_CODE"
 	ICON_IDSKiro                      ICON_IDS = "KIRO"
+	ICON_IDSKitty                     ICON_IDS = "KITTY"
 	ICON_IDSKnime                     ICON_IDS = "KNIME"
 	ICON_IDSKonicaMinolta             ICON_IDS = "KONICA_MINOLTA"
 	ICON_IDSKyocera                   ICON_IDS = "KYOCERA"
 	ICON_IDSLansweeper                ICON_IDS = "LANSWEEPER"
+	ICON_IDSLastpass                  ICON_IDS = "LASTPASS"
 	ICON_IDSLede                      ICON_IDS = "LEDE"
 	ICON_IDSLedgerLive                ICON_IDS = "LEDGER_LIVE"
 	ICON_IDSLenovo                    ICON_IDS = "LENOVO"
@@ -1947,6 +1979,7 @@ const (
 	ICON_IDSMicrosoftVisualStudioCode ICON_IDS = "MICROSOFT_VISUAL_STUDIO_CODE"
 	ICON_IDSMicrosoftWord             ICON_IDS = "MICROSOFT_WORD"
 	ICON_IDSMikrotik                  ICON_IDS = "MIKROTIK"
+	ICON_IDSMindmanager               ICON_IDS = "MINDMANAGER"
 	ICON_IDSMiro                      ICON_IDS = "MIRO"
 	ICON_IDSMirthConnect              ICON_IDS = "MIRTH_CONNECT"
 	ICON_IDSMistral                   ICON_IDS = "MISTRAL"
@@ -1979,6 +2012,7 @@ const (
 	ICON_IDSNetskope                  ICON_IDS = "NETSKOPE"
 	ICON_IDSNetworkDevices            ICON_IDS = "NETWORK_DEVICES"
 	ICON_IDSNetwrix                   ICON_IDS = "NETWRIX"
+	ICON_IDSNextcloud                 ICON_IDS = "NEXTCLOUD"
 	ICON_IDSNextdns                   ICON_IDS = "NEXTDNS"
 	ICON_IDSNexthink                  ICON_IDS = "NEXTHINK"
 	ICON_IDSNfon                      ICON_IDS = "NFON"
@@ -1993,12 +2027,14 @@ const (
 	ICON_IDSNotion                    ICON_IDS = "NOTION"
 	ICON_IDSNova                      ICON_IDS = "NOVA"
 	ICON_IDSNpm                       ICON_IDS = "NPM"
+	ICON_IDSNsclient                  ICON_IDS = "NSCLIENT"
 	ICON_IDSNuget                     ICON_IDS = "NUGET"
 	ICON_IDSNvidia                    ICON_IDS = "NVIDIA"
 	ICON_IDSNmap                      ICON_IDS = "NMAP"
 	ICON_IDSNotepadPlusPlus           ICON_IDS = "NOTEPAD_PLUS_PLUS"
 	ICON_IDSNutanix                   ICON_IDS = "NUTANIX"
 	ICON_IDSNvm                       ICON_IDS = "NVM"
+	ICON_IDSNxlog                     ICON_IDS = "NXLOG"
 	ICON_IDSObserviq                  ICON_IDS = "OBSERVIQ"
 	ICON_IDSObsidian                  ICON_IDS = "OBSIDIAN"
 	ICON_IDSObsStudio                 ICON_IDS = "OBS_STUDIO"
@@ -2031,6 +2067,7 @@ const (
 	ICON_IDSOracle                    ICON_IDS = "ORACLE"
 	ICON_IDSOracleJava                ICON_IDS = "ORACLE_JAVA"
 	ICON_IDSOracleVirtualbox          ICON_IDS = "ORACLE_VIRTUALBOX"
+	ICON_IDSOsquery                   ICON_IDS = "OSQUERY"
 	ICON_IDSOwaspZap                  ICON_IDS = "OWASP_ZAP"
 	ICON_IDSPaessler                  ICON_IDS = "PAESSLER"
 	ICON_IDSPages                     ICON_IDS = "PAGES"
@@ -2043,6 +2080,7 @@ const (
 	ICON_IDSPaprika                   ICON_IDS = "PAPRIKA"
 	ICON_IDSParallels                 ICON_IDS = "PARALLELS"
 	ICON_IDSParrot                    ICON_IDS = "PARROT"
+	ICON_IDSPasswordDepot             ICON_IDS = "PASSWORD_DEPOT"
 	ICON_IDSPdf24                     ICON_IDS = "PDF24"
 	ICON_IDSPdfcreator                ICON_IDS = "PDFCREATOR"
 	ICON_IDSPdfTools                  ICON_IDS = "PDF_TOOLS"
@@ -2079,6 +2117,7 @@ const (
 	ICON_IDSPypi                      ICON_IDS = "PYPI"
 	ICON_IDSQbittorrent               ICON_IDS = "QBITTORRENT"
 	ICON_IDSQnap                      ICON_IDS = "QNAP"
+	ICON_IDSQualys                    ICON_IDS = "QUALYS"
 	ICON_IDSQubes                     ICON_IDS = "QUBES"
 	ICON_IDSQuest                     ICON_IDS = "QUEST"
 	ICON_IDSQwen                      ICON_IDS = "QWEN"
@@ -2090,6 +2129,7 @@ const (
 	ICON_IDSRaspbian                  ICON_IDS = "RASPBIAN"
 	ICON_IDSRaycast                   ICON_IDS = "RAYCAST"
 	ICON_IDSRaynet                    ICON_IDS = "RAYNET"
+	ICON_IDSRealtek                   ICON_IDS = "REALTEK"
 	ICON_IDSRealvnc                   ICON_IDS = "REALVNC"
 	ICON_IDSRectangle                 ICON_IDS = "RECTANGLE"
 	ICON_IDSRedfish                   ICON_IDS = "REDFISH"
@@ -2099,6 +2139,7 @@ const (
 	ICON_IDSRocketChat                ICON_IDS = "ROCKET_CHAT"
 	ICON_IDSRooCode                   ICON_IDS = "ROO_CODE"
 	ICON_IDSRoyalTsx                  ICON_IDS = "ROYAL_TSX"
+	ICON_IDSRubrik                    ICON_IDS = "RUBRIK"
 	ICON_IDSRuby                      ICON_IDS = "RUBY"
 	ICON_IDSRubymine                  ICON_IDS = "RUBYMINE"
 	ICON_IDSRust                      ICON_IDS = "RUST"
@@ -2115,6 +2156,8 @@ const (
 	ICON_IDSSalt                      ICON_IDS = "SALT"
 	ICON_IDSSamsung                   ICON_IDS = "SAMSUNG"
 	ICON_IDSSap                       ICON_IDS = "SAP"
+	ICON_IDSSargentAndGreenleaf       ICON_IDS = "SARGENT_AND_GREENLEAF"
+	ICON_IDSSato                      ICON_IDS = "SATO"
 	ICON_IDSSbom                      ICON_IDS = "SBOM"
 	ICON_IDSScientificLinux           ICON_IDS = "SCIENTIFIC_LINUX"
 	ICON_IDSScratch                   ICON_IDS = "SCRATCH"
@@ -2123,6 +2166,7 @@ const (
 	ICON_IDSScriptrunner              ICON_IDS = "SCRIPTRUNNER"
 	ICON_IDSSecmaker                  ICON_IDS = "SECMAKER"
 	ICON_IDSSecretive                 ICON_IDS = "SECRETIVE"
+	ICON_IDSSenstar                   ICON_IDS = "SENSTAR"
 	ICON_IDSSentinelone               ICON_IDS = "SENTINELONE"
 	ICON_IDSSevenZip                  ICON_IDS = "SEVEN_ZIP"
 	ICON_IDSSharp                     ICON_IDS = "SHARP"
@@ -2177,11 +2221,14 @@ const (
 	ICON_IDSTenable                   ICON_IDS = "TENABLE"
 	ICON_IDSTermius                   ICON_IDS = "TERMIUS"
 	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
+	ICON_IDSTesto                     ICON_IDS = "TESTO"
 	ICON_IDSThalesSafenet             ICON_IDS = "THALES_SAFENET"
 	ICON_IDSTheUnarchiver             ICON_IDS = "THE_UNARCHIVER"
 	ICON_IDSThings                    ICON_IDS = "THINGS"
 	ICON_IDSThinkCell                 ICON_IDS = "THINK_CELL"
 	ICON_IDSThonny                    ICON_IDS = "THONNY"
+	ICON_IDSTigervnc                  ICON_IDS = "TIGERVNC"
+	ICON_IDSTightvnc                  ICON_IDS = "TIGHTVNC"
 	ICON_IDSTodoist                   ICON_IDS = "TODOIST"
 	ICON_IDSTogether                  ICON_IDS = "TOGETHER"
 	ICON_IDSTortoisegit               ICON_IDS = "TORTOISEGIT"
@@ -2190,8 +2237,10 @@ const (
 	ICON_IDSTower                     ICON_IDS = "TOWER"
 	ICON_IDSTpLink                    ICON_IDS = "TP_LINK"
 	ICON_IDSTrae                      ICON_IDS = "TRAE"
+	ICON_IDSTrendMicro                ICON_IDS = "TREND_MICRO"
 	ICON_IDSTrezor                    ICON_IDS = "TREZOR"
 	ICON_IDSTricerat                  ICON_IDS = "TRICERAT"
+	ICON_IDSTungstenAutomation        ICON_IDS = "TUNGSTEN_AUTOMATION"
 	ICON_IDSTunnelbear                ICON_IDS = "TUNNELBEAR"
 	ICON_IDSTunnelblick               ICON_IDS = "TUNNELBLICK"
 	ICON_IDSUbiquiti                  ICON_IDS = "UBIQUITI"
@@ -2199,6 +2248,7 @@ const (
 	ICON_IDSUipath                    ICON_IDS = "UIPATH"
 	ICON_IDSUltravnc                  ICON_IDS = "ULTRAVNC"
 	ICON_IDSUnifi                     ICON_IDS = "UNIFI"
+	ICON_IDSUnify                     ICON_IDS = "UNIFY"
 	ICON_IDSUtm                       ICON_IDS = "UTM"
 	ICON_IDSVanta                     ICON_IDS = "VANTA"
 	ICON_IDSVasion                    ICON_IDS = "VASION"
@@ -2231,6 +2281,7 @@ const (
 	ICON_IDSWingetAutoupdate          ICON_IDS = "WINGET_AUTOUPDATE"
 	ICON_IDSWinmerge                  ICON_IDS = "WINMERGE"
 	ICON_IDSWinpcap                   ICON_IDS = "WINPCAP"
+	ICON_IDSWinrar                    ICON_IDS = "WINRAR"
 	ICON_IDSWinscp                    ICON_IDS = "WINSCP"
 	ICON_IDSWireguard                 ICON_IDS = "WIREGUARD"
 	ICON_IDSWireshark                 ICON_IDS = "WIRESHARK"
@@ -2248,6 +2299,7 @@ const (
 	ICON_IDSXquartz                   ICON_IDS = "XQUARTZ"
 	ICON_IDSYaak                      ICON_IDS = "YAAK"
 	ICON_IDSYubico                    ICON_IDS = "YUBICO"
+	ICON_IDSZabbix                    ICON_IDS = "ZABBIX"
 	ICON_IDSZebra                     ICON_IDS = "ZEBRA"
 	ICON_IDSZed                       ICON_IDS = "ZED"
 	ICON_IDSZoom                      ICON_IDS = "ZOOM"
