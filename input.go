@@ -422,8 +422,12 @@ type ApproveWorkflowStepInput struct {
 // ArdBrowseFilter represents filter applied when browsing ARD names.
 type ArdBrowseFilter struct {
 
-	// Case-insensitive substring matched against the product name. (Optional.)
+	// The general search term: a case-insensitive substring matched against every supported field that has no term of its own in `fields`, OR-ed across them. Alone it searches everything, which is what a single search box wants — it is how typing a vendor finds a product whose name never mentions it. (Optional.)
+	Search *String `json:"search,omitempty" tfgen:"required=0"`
+	// Deprecated alias for `search`, with identical behavior. If both are given, `search` wins. (Optional.)
 	Name *String `json:"name,omitempty" tfgen:"required=0"`
+	// Per-field search terms, e.g. `{"vendor": "zilla"}`. Each is a case-insensitive substring matched against that field alone. They AND with each other and with `search`. A field you name is searched with the term you gave it; `search` covers everything you did not name. So `{fields: {vendor: "zilla"}, search: "fire"}` reads as "Mozilla software whose name says fire" — naming vendor does not make `search` hunt through vendors again, because you already said what to look for there. An empty value is the same as omitting the key, so clearing an input does not require dropping it. Supported keys are bounded by what the browse facet stores — today `name` and `vendor`. An unsupported key is an error rather than a silently empty page, and so is a `search` left with no field to cover because every supported field already has its own term. (Optional.)
+	Fields *Map `json:"fields,omitempty" tfgen:"required=0"`
 	// Keep only names whose worst score is >= this (riskValue, 0-100, higher = worse). Read `totalCount` for the with-risk (1) or critical (90) counts without a separate call. (Optional.)
 	MinScore *Int `json:"minScore,omitempty" tfgen:"required=0"`
 }
@@ -5449,6 +5453,8 @@ type SetGovernanceStateForScopesInput struct {
 
 	// Optional. Omit to govern all versions (default); set to restrict to one version/content. (Optional.)
 	Version *String `json:"version,omitempty" tfgen:"required=0"`
+	// Mark a DENIED target as one to actually remove, in every named scope. Rejected with any other state — see the single-scope input. (Optional.)
+	FlaggedForRemoval *Boolean `json:"flaggedForRemoval,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	Justification *String `json:"justification,omitempty" tfgen:"required=0"`
 	// (Optional.)
@@ -5461,11 +5467,13 @@ type SetGovernanceStateInput struct {
 	TargetMrn ID `json:"targetMrn" tfgen:"required=1"`
 	// An org, space, workspace, or asset MRN. (Required.)
 	ScopeMrn ID `json:"scopeMrn" tfgen:"required=1"`
-	// Must be ALLOWED, MANAGED, or DENIED. Use clearGovernanceState to revert to DISCOVERED. (Required.)
+	// Must be ALLOWED, DENIED, or OUT_OF_SCOPE. Use clearGovernanceState to revert to DISCOVERED. (Required.)
 	State GovernanceState `json:"state" tfgen:"required=1"`
 
 	// Optional. Omit (the default) to govern the target across ALL its versions; set it to restrict the decision to a single version/content (e.g. an agent version, or a skill's content sha256). Ignored for version-less types (e.g. mcp-server). (Optional.)
 	Version *String `json:"version,omitempty" tfgen:"required=0"`
+	// Mark a DENIED target as one to actually remove. **Rejected with any other state** — "allow this, and also remove it" is a contradiction, and accepting it by dropping half would leave a caller believing a removal is pending that nothing will act on. Setting it false on an already-flagged decision clears the flag and its timestamp. (Optional.)
+	FlaggedForRemoval *Boolean `json:"flaggedForRemoval,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	Justification *String `json:"justification,omitempty" tfgen:"required=0"`
 	// RFC3339 timestamp after which the decision no longer applies. (Optional.)
