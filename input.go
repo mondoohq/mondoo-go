@@ -977,6 +977,8 @@ type AzureConfigurationOptionsInput struct {
 	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
 	// Management group whose subtree scans are narrowed to. Omit or send an empty string to select the tenant root management group, which applies no narrowing. Composes with the subscription allow/denylists, which filter within the selected subtree. (Optional.)
 	ManagementGroupId *String `json:"managementGroupId,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a secret inline. Mutually exclusive with clientSecret, certificate and useWif — a WIF integration authenticates keylessly and holds no credential of its own. The credential must be an Entra client secret or Entra certificate credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created, and a credential-backed integration cannot change its authentication mode. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // AzureDevopsConfigurationOptionsInput represents azure Devops integration input.
@@ -4076,6 +4078,8 @@ type Ms365ConfigurationOptionsInput struct {
 	Certificate *String `json:"certificate,omitempty" tfgen:"required=0"`
 	// Use keyless Workload Identity Federation instead of a certificate/secret. tenantId + clientId remain required; no certificate is provided in this mode. (Optional.)
 	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a certificate inline. Mutually exclusive with certificate, and with useWif — a WIF integration authenticates keylessly and holds no credential of its own. The credential must be an Entra certificate credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created, and a credential-backed integration cannot change its authentication mode. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // MsIntuneConfigurationOptionsInput represents mS Intune configuration options input.
@@ -5467,12 +5471,12 @@ type SetGovernanceStateInput struct {
 	TargetMrn ID `json:"targetMrn" tfgen:"required=1"`
 	// An org, space, workspace, or asset MRN. (Required.)
 	ScopeMrn ID `json:"scopeMrn" tfgen:"required=1"`
-	// Must be ALLOWED, DENIED, or OUT_OF_SCOPE. Use clearGovernanceState to revert to DISCOVERED. (Required.)
+	// Must be ALLOWED, DENIED, OUT_OF_SCOPE or AUTO_REMOVE. Use clearGovernanceState to revert to UNCLASSIFIED. (Required.)
 	State GovernanceState `json:"state" tfgen:"required=1"`
 
 	// Optional. Omit (the default) to govern the target across ALL its versions; set it to restrict the decision to a single version/content (e.g. an agent version, or a skill's content sha256). Ignored for version-less types (e.g. mcp-server). (Optional.)
 	Version *String `json:"version,omitempty" tfgen:"required=0"`
-	// Mark a DENIED target as one to actually remove. **Rejected with any other state** — "allow this, and also remove it" is a contradiction, and accepting it by dropping half would leave a caller believing a removal is pending that nothing will act on. Setting it false on an already-flagged decision clears the flag and its timestamp. (Optional.)
+	// Record that a one-off removal has been requested for this target. **Requires a refusing state** (DENIED or AUTO_REMOVE) — "allow this, and also remove it" is a contradiction, and accepting it by dropping half would leave a caller believing a removal is pending that nothing will act on. Setting it false clears the marker. (Optional.)
 	FlaggedForRemoval *Boolean `json:"flaggedForRemoval,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	Justification *String `json:"justification,omitempty" tfgen:"required=0"`
