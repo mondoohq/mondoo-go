@@ -1322,6 +1322,17 @@ const (
 	FindingSecurityPipelineStateInProgress FindingSecurityPipelineState = "IN_PROGRESS"
 )
 
+// FindingSlaState represents where a finding stands against its SLA. Mutually exclusive. This is a finding-state dimension, alongside score / age / action / securityPipeline / ticket / exception / enforcement.
+type FindingSlaState string
+
+// Where a finding stands against its SLA. Mutually exclusive. This is a finding-state dimension, alongside score / age / action / securityPipeline / ticket / exception / enforcement.
+const (
+	FindingSlaStateNone    FindingSlaState = "NONE"    // The finding carries no SLA position. Either no SLA is assigned to findings of its kind, its rating bucket has no configured SLA, its rating is NONE, or it is not an open confirmed finding - fixed, disabled, errored or skipped, or suppressed by an exception. NONE is not "inside its SLA" - it means the question does not apply. The API deliberately does not distinguish "has no SLA" from "SLA suppressed by an exception"; revoking the exception makes the real position reappear on the next read, with no rescan.
+	FindingSlaStateWithin  FindingSlaState = "WITHIN"  // Has an SLA and is not yet in the warning window.
+	FindingSlaStateNearing FindingSlaState = "NEARING" // Inside the warning window but not yet past the deadline.
+	FindingSlaStateOver    FindingSlaState = "OVER"    // Past its SLA deadline.
+)
+
 // FindingTicketState represents the ticket state for a finding - is the finding included in an open ticket.
 type FindingTicketState string
 
@@ -1364,6 +1375,7 @@ const (
 	FindingsOrderFieldFirstFound  FindingsOrderField = "FIRST_FOUND"
 	FindingsOrderFieldMrn         FindingsOrderField = "MRN"
 	FindingsOrderFieldCvssScore   FindingsOrderField = "CVSS_SCORE"
+	FindingsOrderFieldSlaDeadline FindingsOrderField = "SLA_DEADLINE" // SLA deadline. ASC puts the most overdue finding first and is the ordering the findings-page SLA column sorts by. Findings with no SLA always sort last, in both directions.
 )
 
 // FleetDeviceHealth represents health of a host-group device based on how recently it checked in with its management system (distinct from FleetScanDeviceState, which is a per-scan lifecycle stage).

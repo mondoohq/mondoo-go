@@ -2742,6 +2742,8 @@ type FindingStateFilter struct {
 	Enforcement *FindingEnforcementState `json:"enforcement,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	Overall *FindingOverallState `json:"overall,omitempty" tfgen:"required=0"`
+	// Filter by SLA position. Any value other than NONE selects only findings that carry SLA data; NONE selects those that do not, which includes findings whose SLA is currently suppressed by an exception. The filter asks whether a finding has an SLA, never what kind of finding it is. Today the server assigns SLAs only to vulnerability (CVE) findings, so in practice OVER/NEARING/WITHIN return CVEs and NONE additionally matches every check, package, advisory and security finding. That follows from the data, not from the filter, and will widen on its own if SLAs are extended. This backs the asset panel's click-through: OVER and NEARING select exactly the segments the panel counts. (Optional.)
+	Sla *FindingSlaState `json:"sla,omitempty" tfgen:"required=0"`
 }
 
 // FindingsFilter represents findings filters.
