@@ -404,7 +404,7 @@ type ApplyRemediationInput struct {
 	Mechanisms *[]String `json:"mechanisms,omitempty" tfgen:"required=0"`
 	// Override which actuator carries it. Omitted takes the first eligible one in the asset's order. It must still be an actuator on this asset that can deliver one of `mechanisms`, so an override cannot route a fix somewhere it will not work. (Optional.)
 	ActuatorMrn *String `json:"actuatorMrn,omitempty" tfgen:"required=0"`
-	// The actuating system's group to target. **Required when the resolved capability is GROUP-granular** — omitting it returns DELIVERY_TARGET_REQUIRED rather than picking one, because Mondoo cannot yet tell you what a group contains and must not apply a change to a set you have not seen. Ignored for ASSET-granular capabilities, which land on exactly the asset asked for. (Optional.)
+	// The actuating system's group to target. **Required when the resolved capability is GROUP-granular** — omitting it returns DELIVERY_TARGET_REQUIRED rather than picking one, because a change must not be applied to a set the caller has not seen. Use `actuatorGroupTargets` to get the groups that cover the asset, and what else each contains. It is **checked against the asset**: a group we hold membership for that does not contain this asset returns DELIVERY_TARGET_DOES_NOT_COVER_ASSET and runs nothing. Ignored for ASSET-granular capabilities, which land on exactly the asset asked for. (Optional.)
 	TargetGroupId *String `json:"targetGroupId,omitempty" tfgen:"required=0"`
 }
 
@@ -1511,8 +1511,11 @@ type CloudflareApiTokenCredentialV2Input struct {
 
 // CloudflareConfigurationOptionsInput represents cloudflare integration input.
 type CloudflareConfigurationOptionsInput struct {
-	// Cloudflare API token. (Required.)
-	Token String `json:"token" tfgen:"required=1"`
+
+	// Cloudflare API token. Optional: supply either this or credentialMrn. (Optional.)
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a token inline. Mutually exclusive with token. The credential must be a Cloudflare API token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // ComplianceAssetOrder represents compliance asset order.
@@ -2350,8 +2353,11 @@ type DigitaloceanApiTokenCredentialV2Input struct {
 
 // DigitaloceanConfigurationOptionsInput represents digitalOcean integration input.
 type DigitaloceanConfigurationOptionsInput struct {
-	// DigitalOcean API token. (Required.)
-	Token String `json:"token" tfgen:"required=1"`
+
+	// DigitalOcean API token. Optional: supply either this or credentialMrn. (Optional.)
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a token inline. Mutually exclusive with token. The credential must be a DigitalOcean API token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // DownloadBundleInput represents download bundle input.
@@ -3237,8 +3243,11 @@ type HetznerApiTokenCredentialV2Input struct {
 
 // HetznerConfigurationOptionsInput represents hetzner integration input.
 type HetznerConfigurationOptionsInput struct {
-	// Hetzner API token. (Required.)
-	Token String `json:"token" tfgen:"required=1"`
+
+	// Hetzner API token. Optional: supply either this or credentialMrn. (Optional.)
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a token inline. Mutually exclusive with token. The credential must be a Hetzner API token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // HostConfigurationOptionsInput represents host integration input.
@@ -4274,8 +4283,11 @@ type NextdnsApiKeyCredentialV2Input struct {
 
 // NextdnsConfigurationOptionsInput represents nextDNS integration input.
 type NextdnsConfigurationOptionsInput struct {
-	// NextDNS API key. (Required.)
-	ApiKey String `json:"apiKey" tfgen:"required=1"`
+
+	// NextDNS API key. Optional: supply either this or credentialMrn. (Optional.)
+	ApiKey *String `json:"apiKey,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a key inline. Mutually exclusive with apiKey. The credential must be a NextDNS API key credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // NodePositionInput represents position update for a single node.
@@ -5564,11 +5576,13 @@ type ShodanApiKeyCredentialV2Input struct {
 
 // ShodanConfigurationOptionsInput represents shodan integration input.
 type ShodanConfigurationOptionsInput struct {
-	// Shodan API token. (Required.)
-	Token String `json:"token" tfgen:"required=1"`
 
+	// Shodan API token. Optional: supply either this or credentialMrn. (Optional.)
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
 	// Shodan scan targets. Can be a domain, IP or CIDR. (Optional.)
 	Targets *[]String `json:"targets,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a token inline. Mutually exclusive with token. The credential must be a Shodan API key credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // SlackConfigurationOptionsInput represents slack integration input.
@@ -6384,11 +6398,13 @@ type VercelApiTokenCredentialV2Input struct {
 
 // VercelConfigurationOptionsInput represents vercel integration input. Authentication uses a Vercel API token; the token's teams and their projects are discovered as child assets.
 type VercelConfigurationOptionsInput struct {
-	// Vercel API token used to authenticate against the Vercel API. (Required.)
-	Token String `json:"token" tfgen:"required=1"`
 
+	// Vercel API token used to authenticate against the Vercel API. Optional: supply either this or credentialMrn. (Optional.)
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
 	// Vercel team (slug or id) to scope discovery to. Optional — when omitted every team the token can access is discovered. Immutable after creation. (Optional.)
 	Team *String `json:"team,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a token inline. Mutually exclusive with token. The credential must be a Vercel API token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // VulnerabilityDashboardPageInfo represents vuln Dashboard pagination info.
