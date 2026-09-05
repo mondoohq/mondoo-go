@@ -297,12 +297,13 @@ type ApplyRemediationStatus string
 
 // What happened when a fix was routed to an actuator.
 const (
-	ApplyRemediationStatusStarted                ApplyRemediationStatus = "STARTED"                  // A delivery run was started. `workflowMrn` and `executionMrn` track it.
-	ApplyRemediationStatusUnresolved             ApplyRemediationStatus = "UNRESOLVED"               // Nothing associated with the asset can deliver this fix. `reason` says which of the several very different situations this is.
-	ApplyRemediationStatusActuatorNotExecutable  ApplyRemediationStatus = "ACTUATOR_NOT_EXECUTABLE"  // An actuator was selected, and Mondoo cannot run it. This is the normal, expected answer for a DECLARED actuator — Ansible, Terraform, Puppet — which Mondoo holds no credentials for and never connects to. It is not a failure: the answer to "who should apply this" is the actuator named here, and a human or a pipeline carries it.
-	ApplyRemediationStatusDeliveryNotImplemented ApplyRemediationStatus = "DELIVERY_NOT_IMPLEMENTED" // An integration-backed actuator was selected and Mondoo has no delivery path wired for its type yet. Distinct from ACTUATOR_NOT_EXECUTABLE: this one is a gap on our side and will close, rather than a property of the system.
-	ApplyRemediationStatusActuatorUnavailable    ApplyRemediationStatus = "ACTUATOR_UNAVAILABLE"     // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Nothing ran, and that is the point. Resolution is unchanged: the actuator IS the right one for this fix, and it is still named in the payload, because "Intune owns this host and Intune is broken" is the answer an operator needs. Triggering anyway would fail deep inside an async run, minutes later, in a place that does not mention the integration. Health is deliberately NOT used to skip the actuator or reorder the asset's list. `ActuatorHealth` is derived from a snapshot of integration status, so skipping on a stale UNAVAILABLE would report "nothing can fix this" when something can, and reordering would silently override the operator's own ranking. Only DEGRADED still proceeds — it means the system works and something needs attention. Read `actuator.health` to know this is coming before you call, and use the `actuatorMrn` override to route elsewhere.
-	ApplyRemediationStatusDeliveryTargetRequired ApplyRemediationStatus = "DELIVERY_TARGET_REQUIRED" // The selected capability is GROUP-granular and no `targetGroupId` was given. Nothing ran, and that is deliberate. A GROUP-granular change lands on a group the actuating system owns, and Mondoo cannot yet enumerate what such a group contains — so choosing one for you would apply the fix to an unknown number of machines without ever saying so. Until delivery targets can be listed and expanded, naming the target is the caller's job, exactly as today's Intune dialog requires. Read `capability.granularity` to know this is coming before you call. **Naming the target is the deliberate act, and it is the only gate.** The server does not require that a preview was fetched and does not remember that it was — this mutation is stateless by design (ADR-099 §4). Showing the operator what a group contains is therefore the caller's obligation, not something the server will enforce on its behalf. When `expandActuatorTargets` lands, that disclosure is **three buckets, never one number** (ADR-099 §3): 1. **selected** — members that are assets the caller chose. 2. **known, not selected** — members that are assets Mondoo has and the caller did not choose. Nameable, with their hostname, OS and last check-in. 3. **unidentified** — members we could not map to an asset at all. Bucket 3 is its own bucket and is never folded into bucket 2's "not yours". The two ask an operator for completely different things — grant a permission so we can identify them, versus accept a blast radius — and merging them turns a missing Entra `Device.Read.All` grant into what looks like collateral. The split is computed by INTERSECTING a group's membership with our assets, never by subtracting an asset count from a group size: an association says an asset is managed by an *integration*, and an integration owns many groups. Where membership cannot be read at all, `FleetHostGroup.deviceCount` supports only "total minus selected" — and that is all a caller should claim.
+	ApplyRemediationStatusStarted                         ApplyRemediationStatus = "STARTED"                              // A delivery run was started. `workflowMrn` and `executionMrn` track it.
+	ApplyRemediationStatusUnresolved                      ApplyRemediationStatus = "UNRESOLVED"                           // Nothing associated with the asset can deliver this fix. `reason` says which of the several very different situations this is.
+	ApplyRemediationStatusActuatorNotExecutable           ApplyRemediationStatus = "ACTUATOR_NOT_EXECUTABLE"              // An actuator was selected, and Mondoo cannot run it. This is the normal, expected answer for a DECLARED actuator — Ansible, Terraform, Puppet — which Mondoo holds no credentials for and never connects to. It is not a failure: the answer to "who should apply this" is the actuator named here, and a human or a pipeline carries it.
+	ApplyRemediationStatusDeliveryNotImplemented          ApplyRemediationStatus = "DELIVERY_NOT_IMPLEMENTED"             // An integration-backed actuator was selected and Mondoo has no delivery path wired for its type yet. Distinct from ACTUATOR_NOT_EXECUTABLE: this one is a gap on our side and will close, rather than a property of the system.
+	ApplyRemediationStatusActuatorUnavailable             ApplyRemediationStatus = "ACTUATOR_UNAVAILABLE"                 // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Nothing ran, and that is the point. Resolution is unchanged: the actuator IS the right one for this fix, and it is still named in the payload, because "Intune owns this host and Intune is broken" is the answer an operator needs. Triggering anyway would fail deep inside an async run, minutes later, in a place that does not mention the integration. Health is deliberately NOT used to skip the actuator or reorder the asset's list. `ActuatorHealth` is derived from a snapshot of integration status, so skipping on a stale UNAVAILABLE would report "nothing can fix this" when something can, and reordering would silently override the operator's own ranking. Only DEGRADED still proceeds — it means the system works and something needs attention. Read `actuator.health` to know this is coming before you call, and use the `actuatorMrn` override to route elsewhere.
+	ApplyRemediationStatusDeliveryTargetRequired          ApplyRemediationStatus = "DELIVERY_TARGET_REQUIRED"             // The selected capability is GROUP-granular and no `targetGroupId` was given. Nothing ran, and that is deliberate. A GROUP-granular change lands on a group the actuating system owns, and Mondoo cannot yet enumerate what such a group contains — so choosing one for you would apply the fix to an unknown number of machines without ever saying so. Until delivery targets can be listed and expanded, naming the target is the caller's job, exactly as today's Intune dialog requires. Read `capability.granularity` to know this is coming before you call. **Naming the target is the deliberate act, and it is the only gate.** The server does not require that a preview was fetched and does not remember that it was — this mutation is stateless by design (ADR-099 §4). Showing the operator what a group contains is therefore the caller's obligation, not something the server will enforce on its behalf. When `expandActuatorTargets` lands, that disclosure is **three buckets, never one number** (ADR-099 §3): 1. **selected** — members that are assets the caller chose. 2. **known, not selected** — members that are assets Mondoo has and the caller did not choose. Nameable, with their hostname, OS and last check-in. 3. **unidentified** — members we could not map to an asset at all. Bucket 3 is its own bucket and is never folded into bucket 2's "not yours". The two ask an operator for completely different things — grant a permission so we can identify them, versus accept a blast radius — and merging them turns a missing Entra `Device.Read.All` grant into what looks like collateral. The split is computed by INTERSECTING a group's membership with our assets, never by subtracting an asset count from a group size: an association says an asset is managed by an *integration*, and an integration owns many groups. Where membership cannot be read at all, `FleetHostGroup.deviceCount` supports only "total minus selected" — and that is all a caller should claim.
+	ApplyRemediationStatusDeliveryTargetDoesNotCoverAsset ApplyRemediationStatus = "DELIVERY_TARGET_DOES_NOT_COVER_ASSET" // A group was named and it does not contain this asset, so nothing ran. Without this check the provider accepts the delivery, the script is assigned, the run reports success, and the asset the caller asked about never receives it. Use `actuatorGroupTargets` to find the groups that do cover it. Only returned when we hold the group's membership. Where we do not — never synced, or reported empty — the delivery proceeds instead: those two are indistinguishable, and refusing would turn a background job that has not run yet into a caller error.
 )
 
 // ArdBrowseSort represents sort keys for `ardBrowse`. Pair with `sortDir` (default ascending).
@@ -1765,6 +1766,7 @@ const (
 	ICON_IDSConnectwise               ICON_IDS = "CONNECTWISE"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSContinue                  ICON_IDS = "CONTINUE"
+	ICON_IDSCoolOffice                ICON_IDS = "COOL_OFFICE"
 	ICON_IDSCorel                     ICON_IDS = "COREL"
 	ICON_IDSCoreos                    ICON_IDS = "COREOS"
 	ICON_IDSCrates                    ICON_IDS = "CRATES"
@@ -1998,6 +2000,7 @@ const (
 	ICON_IDSLexmark                   ICON_IDS = "LEXMARK"
 	ICON_IDSLg                        ICON_IDS = "LG"
 	ICON_IDSLibreOffice               ICON_IDS = "LIBRE_OFFICE"
+	ICON_IDSLinkedin                  ICON_IDS = "LINKEDIN"
 	ICON_IDSLinux                     ICON_IDS = "LINUX"
 	ICON_IDSLinuxMint                 ICON_IDS = "LINUX_MINT"
 	ICON_IDSLmStudio                  ICON_IDS = "LM_STUDIO"
@@ -2133,6 +2136,7 @@ const (
 	ICON_IDSOpentext                  ICON_IDS = "OPENTEXT"
 	ICON_IDSOpenvpn                   ICON_IDS = "OPENVPN"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
+	ICON_IDSOpera                     ICON_IDS = "OPERA"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
 	ICON_IDSOpsi                      ICON_IDS = "OPSI"
 	ICON_IDSOracle                    ICON_IDS = "ORACLE"
@@ -2167,6 +2171,7 @@ const (
 	ICON_IDSPingIdentity              ICON_IDS = "PING_IDENTITY"
 	ICON_IDSPixelmator                ICON_IDS = "PIXELMATOR"
 	ICON_IDSPlanmeca                  ICON_IDS = "PLANMECA"
+	ICON_IDSPlanner5d                 ICON_IDS = "PLANNER_5D"
 	ICON_IDSPlcnext                   ICON_IDS = "PLCNEXT"
 	ICON_IDSPlex                      ICON_IDS = "PLEX"
 	ICON_IDSPlsDevelopmentTools       ICON_IDS = "PLS_DEVELOPMENT_TOOLS"
@@ -2298,7 +2303,9 @@ const (
 	ICON_IDSSublimeMerge              ICON_IDS = "SUBLIME_MERGE"
 	ICON_IDSSublimeText               ICON_IDS = "SUBLIME_TEXT"
 	ICON_IDSSupermicro                ICON_IDS = "SUPERMICRO"
+	ICON_IDSSurveillanceClient        ICON_IDS = "SURVEILLANCE_CLIENT"
 	ICON_IDSSuse                      ICON_IDS = "SUSE"
+	ICON_IDSSweetHome3d               ICON_IDS = "SWEET_HOME_3D"
 	ICON_IDSSwift                     ICON_IDS = "SWIFT"
 	ICON_IDSSylvac                    ICON_IDS = "SYLVAC"
 	ICON_IDSSymantec                  ICON_IDS = "SYMANTEC"
@@ -2307,6 +2314,7 @@ const (
 	ICON_IDSSysprogs                  ICON_IDS = "SYSPROGS"
 	ICON_IDSSystematik                ICON_IDS = "SYSTEMATIK"
 	ICON_IDSSystemtools               ICON_IDS = "SYSTEMTOOLS"
+	ICON_IDSTableau                   ICON_IDS = "TABLEAU"
 	ICON_IDSTails                     ICON_IDS = "TAILS"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
 	ICON_IDSTalos                     ICON_IDS = "TALOS"
@@ -2338,6 +2346,7 @@ const (
 	ICON_IDSTower                     ICON_IDS = "TOWER"
 	ICON_IDSTpLink                    ICON_IDS = "TP_LINK"
 	ICON_IDSTrae                      ICON_IDS = "TRAE"
+	ICON_IDSTranslucenttb             ICON_IDS = "TRANSLUCENTTB"
 	ICON_IDSTrendMicro                ICON_IDS = "TREND_MICRO"
 	ICON_IDSTrezor                    ICON_IDS = "TREZOR"
 	ICON_IDSTricerat                  ICON_IDS = "TRICERAT"
@@ -2400,6 +2409,7 @@ const (
 	ICON_IDSWixToolset                ICON_IDS = "WIX_TOOLSET"
 	ICON_IDSWizos                     ICON_IDS = "WIZOS"
 	ICON_IDSWolfi                     ICON_IDS = "WOLFI"
+	ICON_IDSWorkingHours              ICON_IDS = "WORKING_HOURS"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
 	ICON_IDSX2go                      ICON_IDS = "X2GO"
 	ICON_IDSXai                       ICON_IDS = "XAI"
