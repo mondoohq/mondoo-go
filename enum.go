@@ -92,10 +92,10 @@ const (
 	ActuatorDurabilityContinuous            ActuatorDurability = "CONTINUOUS"             // The system converges the asset on an ongoing basis, so the change persists — and changes made around it are at risk of being reverted.
 )
 
-// ActuatorGranularity represents the smallest set of assets a change delivered this way can land on — the blast radius of every change routed through this capability. **This describes what a capability CAN do, not the only thing it will do.** An actuator may offer more than one granularity, and Intune does: it can target a device directly (`initiateOnDemandProactiveRemediation`, no group assignment, lands in ~10s) *or* assign to a group (lands at the device's next check-in, on every member). Which one a change uses is therefore a **choice made per apply**, not a fixed property read off the actuator — see ADR-099. The two trade against each other and a caller should present both: one execution plus collateral, or one execution per asset with none.
+// ActuatorGranularity represents one level an actuator can be asked to change — the blast radius of a change. **This is a property of the ACTUATOR, not of a capability.** A capability is what an actuator *delivers* (a shell script, its own package vocabulary), and what it delivers says nothing about what it can be pointed at: the same PowerShell script is the same capability whether it lands on one device or forty. The levels a system supports are therefore a set on `Actuator.supportedGranularities`. **An actuator can support more than one, and Intune does:** it can target a device directly (`initiateOnDemandProactiveRemediation`, no group assignment, lands in ~10s) *or* assign to a group (lands at the device's next check-in, on every member). Which one a change uses is chosen **per apply, by what is addressed** — a machine, or a group asset — see ADR-099. The two trade against each other and a caller should present both: one execution plus collateral, or one execution per asset with none.
 type ActuatorGranularity string
 
-// The smallest set of assets a change delivered this way can land on — the blast radius of every change routed through this capability. **This describes what a capability CAN do, not the only thing it will do.** An actuator may offer more than one granularity, and Intune does: it can target a device directly (`initiateOnDemandProactiveRemediation`, no group assignment, lands in ~10s) *or* assign to a group (lands at the device's next check-in, on every member). Which one a change uses is therefore a **choice made per apply**, not a fixed property read off the actuator — see ADR-099. The two trade against each other and a caller should present both: one execution plus collateral, or one execution per asset with none.
+// One level an actuator can be asked to change — the blast radius of a change. **This is a property of the ACTUATOR, not of a capability.** A capability is what an actuator *delivers* (a shell script, its own package vocabulary), and what it delivers says nothing about what it can be pointed at: the same PowerShell script is the same capability whether it lands on one device or forty. The levels a system supports are therefore a set on `Actuator.supportedGranularities`. **An actuator can support more than one, and Intune does:** it can target a device directly (`initiateOnDemandProactiveRemediation`, no group assignment, lands in ~10s) *or* assign to a group (lands at the device's next check-in, on every member). Which one a change uses is chosen **per apply, by what is addressed** — a machine, or a group asset — see ADR-099. The two trade against each other and a caller should present both: one execution plus collateral, or one execution per asset with none.
 const (
 	ActuatorGranularityGranularityUnspecified ActuatorGranularity = "GRANULARITY_UNSPECIFIED" // Not established. For a declared actuator this means the operator did not state it; treat it as unknown, never as ASSET.
 	ActuatorGranularityAsset                  ActuatorGranularity = "ASSET"                   // The change lands on exactly the asset asked for.
@@ -297,13 +297,12 @@ type ApplyRemediationStatus string
 
 // What happened when a fix was routed to an actuator.
 const (
-	ApplyRemediationStatusStarted                         ApplyRemediationStatus = "STARTED"                              // A delivery run was started. `workflowMrn` and `executionMrn` track it.
-	ApplyRemediationStatusUnresolved                      ApplyRemediationStatus = "UNRESOLVED"                           // Nothing associated with the asset can deliver this fix. `reason` says which of the several very different situations this is.
-	ApplyRemediationStatusActuatorNotExecutable           ApplyRemediationStatus = "ACTUATOR_NOT_EXECUTABLE"              // An actuator was selected, and Mondoo cannot run it. This is the normal, expected answer for a DECLARED actuator — Ansible, Terraform, Puppet — which Mondoo holds no credentials for and never connects to. It is not a failure: the answer to "who should apply this" is the actuator named here, and a human or a pipeline carries it.
-	ApplyRemediationStatusDeliveryNotImplemented          ApplyRemediationStatus = "DELIVERY_NOT_IMPLEMENTED"             // An integration-backed actuator was selected and Mondoo has no delivery path wired for its type yet. Distinct from ACTUATOR_NOT_EXECUTABLE: this one is a gap on our side and will close, rather than a property of the system.
-	ApplyRemediationStatusActuatorUnavailable             ApplyRemediationStatus = "ACTUATOR_UNAVAILABLE"                 // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Nothing ran, and that is the point. Resolution is unchanged: the actuator IS the right one for this fix, and it is still named in the payload, because "Intune owns this host and Intune is broken" is the answer an operator needs. Triggering anyway would fail deep inside an async run, minutes later, in a place that does not mention the integration. Health is deliberately NOT used to skip the actuator or reorder the asset's list. `ActuatorHealth` is derived from a snapshot of integration status, so skipping on a stale UNAVAILABLE would report "nothing can fix this" when something can, and reordering would silently override the operator's own ranking. Only DEGRADED still proceeds — it means the system works and something needs attention. Read `actuator.health` to know this is coming before you call, and use the `actuatorMrn` override to route elsewhere.
-	ApplyRemediationStatusDeliveryTargetRequired          ApplyRemediationStatus = "DELIVERY_TARGET_REQUIRED"             // The selected capability is GROUP-granular and no `targetGroupId` was given. Nothing ran, and that is deliberate. A GROUP-granular change lands on a group the actuating system owns, and Mondoo cannot yet enumerate what such a group contains — so choosing one for you would apply the fix to an unknown number of machines without ever saying so. Until delivery targets can be listed and expanded, naming the target is the caller's job, exactly as today's Intune dialog requires. Read `capability.granularity` to know this is coming before you call. **Naming the target is the deliberate act, and it is the only gate.** The server does not require that a preview was fetched and does not remember that it was — this mutation is stateless by design (ADR-099 §4). Showing the operator what a group contains is therefore the caller's obligation, not something the server will enforce on its behalf. When `expandActuatorTargets` lands, that disclosure is **three buckets, never one number** (ADR-099 §3): 1. **selected** — members that are assets the caller chose. 2. **known, not selected** — members that are assets Mondoo has and the caller did not choose. Nameable, with their hostname, OS and last check-in. 3. **unidentified** — members we could not map to an asset at all. Bucket 3 is its own bucket and is never folded into bucket 2's "not yours". The two ask an operator for completely different things — grant a permission so we can identify them, versus accept a blast radius — and merging them turns a missing Entra `Device.Read.All` grant into what looks like collateral. The split is computed by INTERSECTING a group's membership with our assets, never by subtracting an asset count from a group size: an association says an asset is managed by an *integration*, and an integration owns many groups. Where membership cannot be read at all, `FleetHostGroup.deviceCount` supports only "total minus selected" — and that is all a caller should claim.
-	ApplyRemediationStatusDeliveryTargetDoesNotCoverAsset ApplyRemediationStatus = "DELIVERY_TARGET_DOES_NOT_COVER_ASSET" // A group was named and it does not contain this asset, so nothing ran. Without this check the provider accepts the delivery, the script is assigned, the run reports success, and the asset the caller asked about never receives it. Use `actuatorGroupTargets` to find the groups that do cover it. Only returned when we hold the group's membership. Where we do not — never synced, or reported empty — the delivery proceeds instead: those two are indistinguishable, and refusing would turn a background job that has not run yet into a caller error.
+	ApplyRemediationStatusStarted                ApplyRemediationStatus = "STARTED"                  // A delivery run was started. `workflowMrn` and `executionMrn` track it.
+	ApplyRemediationStatusUnresolved             ApplyRemediationStatus = "UNRESOLVED"               // Nothing associated with the asset can deliver this fix. `reason` says which of the several very different situations this is.
+	ApplyRemediationStatusActuatorNotExecutable  ApplyRemediationStatus = "ACTUATOR_NOT_EXECUTABLE"  // An actuator was selected, and Mondoo cannot run it. This is the normal, expected answer for a DECLARED actuator — Ansible, Terraform, Puppet — which Mondoo holds no credentials for and never connects to. It is not a failure: the answer to "who should apply this" is the actuator named here, and a human or a pipeline carries it.
+	ApplyRemediationStatusDeliveryNotImplemented ApplyRemediationStatus = "DELIVERY_NOT_IMPLEMENTED" // An integration-backed actuator was selected and Mondoo has no delivery path wired for its type yet. Distinct from ACTUATOR_NOT_EXECUTABLE: this one is a gap on our side and will close, rather than a property of the system.
+	ApplyRemediationStatusActuatorUnavailable    ApplyRemediationStatus = "ACTUATOR_UNAVAILABLE"     // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Nothing ran, and that is the point. Resolution is unchanged: the actuator IS the right one for this fix, and it is still named in the payload, because "Intune owns this host and Intune is broken" is the answer an operator needs. Triggering anyway would fail deep inside an async run, minutes later, in a place that does not mention the integration. Health is deliberately NOT used to skip the actuator or reorder the asset's list. `ActuatorHealth` is derived from a snapshot of integration status, so skipping on a stale UNAVAILABLE would report "nothing can fix this" when something can, and reordering would silently override the operator's own ranking. Only DEGRADED still proceeds — it means the system works and something needs attention. Read `actuator.health` to know this is coming before you call, and use the `actuatorMrn` override to route elsewhere.
+	ApplyRemediationStatusDeliveryTargetRequired ApplyRemediationStatus = "DELIVERY_TARGET_REQUIRED" // The selected actuator cannot be pointed at an asset — `ASSET` is not in its `supportedGranularities` — and no `targetGroupId` was given. Nothing ran, and that is deliberate. The change would land on a group the actuating system owns, and Mondoo cannot yet enumerate what such a group contains — so choosing one for you would apply the fix to an unknown number of machines without ever saying so. Until delivery targets can be listed and expanded, naming the target is the caller's job, exactly as today's Intune dialog requires. Read `actuator.actuator.supportedGranularities` to know this is coming before you call: an actuator without `ASSET` in that set cannot be aimed at one machine. **Naming the target is the deliberate act, and it is the only gate.** The server does not require that a preview was fetched and does not remember that it was — this mutation is stateless by design (ADR-099 §4). Showing the operator what a group contains is therefore the caller's obligation, not something the server will enforce on its behalf. When `expandActuatorTargets` lands, that disclosure is **three buckets, never one number** (ADR-099 §3): 1. **selected** — members that are assets the caller chose. 2. **known, not selected** — members that are assets Mondoo has and the caller did not choose. Nameable, with their hostname, OS and last check-in. 3. **unidentified** — members we could not map to an asset at all. Bucket 3 is its own bucket and is never folded into bucket 2's "not yours". The two ask an operator for completely different things — grant a permission so we can identify them, versus accept a blast radius — and merging them turns a missing Entra `Device.Read.All` grant into what looks like collateral. The split is computed by INTERSECTING a group's membership with our assets, never by subtracting an asset count from a group size: an association says an asset is managed by an *integration*, and an integration owns many groups. Where membership cannot be read at all, `FleetHostGroup.deviceCount` supports only "total minus selected" — and that is all a caller should claim.
 )
 
 // ArdBrowseSort represents sort keys for `ardBrowse`. Pair with `sortDir` (default ascending).
@@ -524,6 +523,22 @@ const (
 	AssignAssetActuatorFailureReasonAssetNotFound                  AssignAssetActuatorFailureReason = "ASSET_NOT_FOUND" // The asset does not exist, or no longer does. There is nothing to associate with.
 )
 
+// AttackSurfaceScanStatus represents lifecycle of one domain's attack-surface scan. Mirrors the external scanner's scanner.v1.ScanJobStatus one-for-one, so the platform never invents a second vocabulary that could drift from the scanner's. COMPLETED and NO_RESULTS are BOTH successes: NO_RESULTS means the scan finished and found nothing, which is not a failure. Do not render them differently on that axis. ERRORED, TIMED_OUT and ABORTED are kept separate on the wire even though a client may choose to render them with one failure screen — the grouping is a UI decision, and splitting TIMED_OUT out later must not need a schema change.
+type AttackSurfaceScanStatus string
+
+// Lifecycle of one domain's attack-surface scan. Mirrors the external scanner's scanner.v1.ScanJobStatus one-for-one, so the platform never invents a second vocabulary that could drift from the scanner's. COMPLETED and NO_RESULTS are BOTH successes: NO_RESULTS means the scan finished and found nothing, which is not a failure. Do not render them differently on that axis. ERRORED, TIMED_OUT and ABORTED are kept separate on the wire even though a client may choose to render them with one failure screen — the grouping is a UI decision, and splitting TIMED_OUT out later must not need a schema change.
+const (
+	AttackSurfaceScanStatusUnspecified   AttackSurfaceScanStatus = "UNSPECIFIED" // No status recorded yet: the domain is configured but has never been triggered.
+	AttackSurfaceScanStatusNew           AttackSurfaceScanStatus = "NEW"         // Accepted by the scanner and queued; not started.
+	AttackSurfaceScanStatusInProgress    AttackSurfaceScanStatus = "IN_PROGRESS"
+	AttackSurfaceScanStatusCompleted     AttackSurfaceScanStatus = "COMPLETED"  // Finished successfully.
+	AttackSurfaceScanStatusNoResults     AttackSurfaceScanStatus = "NO_RESULTS" // Finished successfully and found nothing. A success, distinct from a failure and distinct from "not yet run".
+	AttackSurfaceScanStatusErrored       AttackSurfaceScanStatus = "ERRORED"
+	AttackSurfaceScanStatusTimedOut      AttackSurfaceScanStatus = "TIMED_OUT"
+	AttackSurfaceScanStatusAborted       AttackSurfaceScanStatus = "ABORTED"        // The scanner gave up on the job (heartbeat lost / abandoned).
+	AttackSurfaceScanStatusNotApplicable AttackSurfaceScanStatus = "NOT_APPLICABLE" // The scanner had nothing to do for this domain.
+)
+
 // AuditLogFilterType represents supported filter types for audit log suggestions.
 type AuditLogFilterType string
 
@@ -654,6 +669,7 @@ const (
 	CheckScoreOrderFieldScore       CheckScoreOrderField = "SCORE"
 	CheckScoreOrderFieldRiskValue   CheckScoreOrderField = "RISK_VALUE"
 	CheckScoreOrderFieldLastUpdated CheckScoreOrderField = "LAST_UPDATED"
+	CheckScoreOrderFieldPlatform    CheckScoreOrderField = "PLATFORM"
 )
 
 // CheckState represents check state.
@@ -771,6 +787,7 @@ const (
 	ClientIntegrationTypeIru                       ClientIntegrationType = "IRU"
 	ClientIntegrationTypeSccm                      ClientIntegrationType = "SCCM"
 	ClientIntegrationTypeJfrogXray                 ClientIntegrationType = "JFROG_XRAY"
+	ClientIntegrationTypeMoonRabbit                ClientIntegrationType = "MOON_RABBIT"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -1621,6 +1638,7 @@ const (
 	ICON_IDSAagon                     ICON_IDS = "AAGON"
 	ICON_IDSAbbyy                     ICON_IDS = "ABBYY"
 	ICON_IDSAcronis                   ICON_IDS = "ACRONIS"
+	ICON_IDSActian                    ICON_IDS = "ACTIAN"
 	ICON_IDSAddOnProducts             ICON_IDS = "ADD_ON_PRODUCTS"
 	ICON_IDSAdminByRequest            ICON_IDS = "ADMIN_BY_REQUEST"
 	ICON_IDSAdobe                     ICON_IDS = "ADOBE"
@@ -1639,6 +1657,8 @@ const (
 	ICON_IDSAffinity                  ICON_IDS = "AFFINITY"
 	ICON_IDSAi                        ICON_IDS = "AI"
 	ICON_IDSAix                       ICON_IDS = "AIX"
+	ICON_IDSAlacritty                 ICON_IDS = "ALACRITTY"
+	ICON_IDSAlcatelLucentEnterprise   ICON_IDS = "ALCATEL_LUCENT_ENTERPRISE"
 	ICON_IDSAldente                   ICON_IDS = "ALDENTE"
 	ICON_IDSAlfred                    ICON_IDS = "ALFRED"
 	ICON_IDSAlibabaCloud              ICON_IDS = "ALIBABA_CLOUD"
@@ -1657,6 +1677,7 @@ const (
 	ICON_IDSAnolis                    ICON_IDS = "ANOLIS"
 	ICON_IDSAnsible                   ICON_IDS = "ANSIBLE"
 	ICON_IDSAntigravity               ICON_IDS = "ANTIGRAVITY"
+	ICON_IDSAngryIpScanner            ICON_IDS = "ANGRY_IP_SCANNER"
 	ICON_IDSAnydesk                   ICON_IDS = "ANYDESK"
 	ICON_IDSAomei                     ICON_IDS = "AOMEI"
 	ICON_IDSApache                    ICON_IDS = "APACHE"
@@ -1676,6 +1697,7 @@ const (
 	ICON_IDSAsus                      ICON_IDS = "ASUS"
 	ICON_IDSAtlassian                 ICON_IDS = "ATLASSIAN"
 	ICON_IDSAudacity                  ICON_IDS = "AUDACITY"
+	ICON_IDSAugiasData                ICON_IDS = "AUGIAS_DATA"
 	ICON_IDSAugmentCode               ICON_IDS = "AUGMENT_CODE"
 	ICON_IDSAusweisapp                ICON_IDS = "AUSWEISAPP"
 	ICON_IDSAutenticacaoGov           ICON_IDS = "AUTENTICACAO_GOV"
@@ -1707,6 +1729,7 @@ const (
 	ICON_IDSBeyondCompare             ICON_IDS = "BEYOND_COMPARE"
 	ICON_IDSBibdesk                   ICON_IDS = "BIBDESK"
 	ICON_IDSBigfix                    ICON_IDS = "BIGFIX"
+	ICON_IDSBissantz                  ICON_IDS = "BISSANTZ"
 	ICON_IDSBitbox                    ICON_IDS = "BITBOX"
 	ICON_IDSBitdefender               ICON_IDS = "BITDEFENDER"
 	ICON_IDSBitwarden                 ICON_IDS = "BITWARDEN"
@@ -1732,9 +1755,11 @@ const (
 	ICON_IDSCamtasia                  ICON_IDS = "CAMTASIA"
 	ICON_IDSCanon                     ICON_IDS = "CANON"
 	ICON_IDSCanva                     ICON_IDS = "CANVA"
+	ICON_IDSCarestreamDental          ICON_IDS = "CARESTREAM_DENTAL"
 	ICON_IDSCassandra                 ICON_IDS = "CASSANDRA"
 	ICON_IDSCcleaner                  ICON_IDS = "CCLEANER"
 	ICON_IDSCdburnerxp                ICON_IDS = "CDBURNERXP"
+	ICON_IDSCenshare                  ICON_IDS = "CENSHARE"
 	ICON_IDSCentos                    ICON_IDS = "CENTOS"
 	ICON_IDSCerberusFtpServer         ICON_IDS = "CERBERUS_FTP_SERVER"
 	ICON_IDSCheck                     ICON_IDS = "CHECK"
@@ -1745,6 +1770,7 @@ const (
 	ICON_IDSChromium                  ICON_IDS = "CHROMIUM"
 	ICON_IDSCib                       ICON_IDS = "CIB"
 	ICON_IDSCinc                      ICON_IDS = "CINC"
+	ICON_IDSCinema4d                  ICON_IDS = "CINEMA_4D"
 	ICON_IDSCirros                    ICON_IDS = "CIRROS"
 	ICON_IDSCirrusLogic               ICON_IDS = "CIRRUS_LOGIC"
 	ICON_IDSCisaKev                   ICON_IDS = "CISA_KEV"
@@ -1763,10 +1789,13 @@ const (
 	ICON_IDSCohere                    ICON_IDS = "COHERE"
 	ICON_IDSComet                     ICON_IDS = "COMET"
 	ICON_IDSCommvault                 ICON_IDS = "COMMVAULT"
+	ICON_IDSCompugroupMedical         ICON_IDS = "COMPUGROUP_MEDICAL"
 	ICON_IDSConnectwise               ICON_IDS = "CONNECTWISE"
 	ICON_IDSContainers                ICON_IDS = "CONTAINERS"
 	ICON_IDSContinue                  ICON_IDS = "CONTINUE"
 	ICON_IDSCoolOffice                ICON_IDS = "COOL_OFFICE"
+	ICON_IDSCopaData                  ICON_IDS = "COPA_DATA"
+	ICON_IDSCordaware                 ICON_IDS = "CORDAWARE"
 	ICON_IDSCorel                     ICON_IDS = "COREL"
 	ICON_IDSCoreos                    ICON_IDS = "COREOS"
 	ICON_IDSCrates                    ICON_IDS = "CRATES"
@@ -1830,23 +1859,28 @@ const (
 	ICON_IDSDuetDisplay               ICON_IDS = "DUET_DISPLAY"
 	ICON_IDSDunkermotoren             ICON_IDS = "DUNKERMOTOREN"
 	ICON_IDSDymo                      ICON_IDS = "DYMO"
+	ICON_IDSDVelop                    ICON_IDS = "D_VELOP"
 	ICON_IDSEclipse                   ICON_IDS = "ECLIPSE"
 	ICON_IDSEeti                      ICON_IDS = "EETI"
 	ICON_IDSElan                      ICON_IDS = "ELAN"
 	ICON_IDSElastic                   ICON_IDS = "ELASTIC"
 	ICON_IDSElementary                ICON_IDS = "ELEMENTARY"
 	ICON_IDSEloTouch                  ICON_IDS = "ELO_TOUCH"
+	ICON_IDSElster                    ICON_IDS = "ELSTER"
 	ICON_IDSElxr                      ICON_IDS = "ELXR"
 	ICON_IDSEndeavourOs               ICON_IDS = "ENDEAVOUR_OS"
 	ICON_IDSEndlessSky                ICON_IDS = "ENDLESS_SKY"
 	ICON_IDSEnreach                   ICON_IDS = "ENREACH"
 	ICON_IDSEplan                     ICON_IDS = "EPLAN"
 	ICON_IDSEpson                     ICON_IDS = "EPSON"
+	ICON_IDSEptura                    ICON_IDS = "EPTURA"
 	ICON_IDSEquinix                   ICON_IDS = "EQUINIX"
 	ICON_IDSEset                      ICON_IDS = "ESET"
 	ICON_IDSEspanso                   ICON_IDS = "ESPANSO"
 	ICON_IDSEstos                     ICON_IDS = "ESTOS"
+	ICON_IDSEucweb                    ICON_IDS = "EUCWEB"
 	ICON_IDSEuroLinux                 ICON_IDS = "EURO_LINUX"
+	ICON_IDSEvocom                    ICON_IDS = "EVOCOM"
 	ICON_IDSEwaySystem                ICON_IDS = "EWAY_SYSTEM"
 	ICON_IDSExcalidraw                ICON_IDS = "EXCALIDRAW"
 	ICON_IDSExpressVpn                ICON_IDS = "EXPRESS_VPN"
@@ -1855,7 +1889,9 @@ const (
 	ICON_IDSFathom                    ICON_IDS = "FATHOM"
 	ICON_IDSFedora                    ICON_IDS = "FEDORA"
 	ICON_IDSFfmpeg                    ICON_IDS = "FFMPEG"
+	ICON_IDSFibocom                   ICON_IDS = "FIBOCOM"
 	ICON_IDSFigma                     ICON_IDS = "FIGMA"
+	ICON_IDSFileopen                  ICON_IDS = "FILEOPEN"
 	ICON_IDSFilesCom                  ICON_IDS = "FILES_COM"
 	ICON_IDSFilezilla                 ICON_IDS = "FILEZILLA"
 	ICON_IDSFiplab                    ICON_IDS = "FIPLAB"
@@ -1872,6 +1908,7 @@ const (
 	ICON_IDSFoxit                     ICON_IDS = "FOXIT"
 	ICON_IDSFreebsd                   ICON_IDS = "FREEBSD"
 	ICON_IDSFreepdf                   ICON_IDS = "FREEPDF"
+	ICON_IDSFrenda                    ICON_IDS = "FRENDA"
 	ICON_IDSFreshworks                ICON_IDS = "FRESHWORKS"
 	ICON_IDSFujifilm                  ICON_IDS = "FUJIFILM"
 	ICON_IDSFujitsu                   ICON_IDS = "FUJITSU"
@@ -1883,6 +1920,7 @@ const (
 	ICON_IDSGentoo                    ICON_IDS = "GENTOO"
 	ICON_IDSGhostscript               ICON_IDS = "GHOSTSCRIPT"
 	ICON_IDSGhostty                   ICON_IDS = "GHOSTTY"
+	ICON_IDSGingco                    ICON_IDS = "GINGCO"
 	ICON_IDSGo                        ICON_IDS = "GO"
 	ICON_IDSGimp                      ICON_IDS = "GIMP"
 	ICON_IDSGit                       ICON_IDS = "GIT"
@@ -1948,6 +1986,7 @@ const (
 	ICON_IDSInnovaphone               ICON_IDS = "INNOVAPHONE"
 	ICON_IDSInsomnia                  ICON_IDS = "INSOMNIA"
 	ICON_IDSIntel                     ICON_IDS = "INTEL"
+	ICON_IDSIntelligo                 ICON_IDS = "INTELLIGO"
 	ICON_IDSIntellijIdea              ICON_IDS = "INTELLIJ_IDEA"
 	ICON_IDSInthewild                 ICON_IDS = "INTHEWILD"
 	ICON_IDSIrfanview                 ICON_IDS = "IRFANVIEW"
@@ -1962,21 +2001,26 @@ const (
 	ICON_IDSJamf                      ICON_IDS = "JAMF"
 	ICON_IDSJamSoftware               ICON_IDS = "JAM_SOFTWARE"
 	ICON_IDSJan                       ICON_IDS = "JAN"
+	ICON_IDSJanitza                   ICON_IDS = "JANITZA"
 	ICON_IDSJava                      ICON_IDS = "JAVA"
 	ICON_IDSJetbrains                 ICON_IDS = "JETBRAINS"
 	ICON_IDSJiggler                   ICON_IDS = "JIGGLER"
 	ICON_IDSJoplin                    ICON_IDS = "JOPLIN"
 	ICON_IDSJprofiler                 ICON_IDS = "JPROFILER"
 	ICON_IDSJumpcloud                 ICON_IDS = "JUMPCLOUD"
+	ICON_IDSJumpDesktop               ICON_IDS = "JUMP_DESKTOP"
 	ICON_IDSJunie                     ICON_IDS = "JUNIE"
 	ICON_IDSJunos                     ICON_IDS = "JUNOS"
 	ICON_IDSJupyter                   ICON_IDS = "JUPYTER"
 	ICON_IDSK8s                       ICON_IDS = "K8S"
 	ICON_IDSKali                      ICON_IDS = "KALI"
 	ICON_IDSKarabinerElements         ICON_IDS = "KARABINER_ELEMENTS"
+	ICON_IDSKarakun                   ICON_IDS = "KARAKUN"
+	ICON_IDSKaseya                    ICON_IDS = "KASEYA"
 	ICON_IDSKaspersky                 ICON_IDS = "KASPERSKY"
 	ICON_IDSKeepass                   ICON_IDS = "KEEPASS"
 	ICON_IDSKeeperSecurity            ICON_IDS = "KEEPER_SECURITY"
+	ICON_IDSKeepingYouAwake           ICON_IDS = "KEEPING_YOU_AWAKE"
 	ICON_IDSKeka                      ICON_IDS = "KEKA"
 	ICON_IDSKeycloak                  ICON_IDS = "KEYCLOAK"
 	ICON_IDSKeynote                   ICON_IDS = "KEYNOTE"
@@ -1984,6 +2028,8 @@ const (
 	ICON_IDSKiloCode                  ICON_IDS = "KILO_CODE"
 	ICON_IDSKiro                      ICON_IDS = "KIRO"
 	ICON_IDSKitty                     ICON_IDS = "KITTY"
+	ICON_IDSKittyTerminal             ICON_IDS = "KITTY_TERMINAL"
+	ICON_IDSKixtart                   ICON_IDS = "KIXTART"
 	ICON_IDSKnime                     ICON_IDS = "KNIME"
 	ICON_IDSKobil                     ICON_IDS = "KOBIL"
 	ICON_IDSKodakAlaris               ICON_IDS = "KODAK_ALARIS"
@@ -1992,6 +2038,7 @@ const (
 	ICON_IDSKLite                     ICON_IDS = "K_LITE"
 	ICON_IDSLansweeper                ICON_IDS = "LANSWEEPER"
 	ICON_IDSLastpass                  ICON_IDS = "LASTPASS"
+	ICON_IDSLaunchControl             ICON_IDS = "LAUNCH_CONTROL"
 	ICON_IDSLede                      ICON_IDS = "LEDE"
 	ICON_IDSLedgerLive                ICON_IDS = "LEDGER_LIVE"
 	ICON_IDSLenovo                    ICON_IDS = "LENOVO"
@@ -2000,6 +2047,7 @@ const (
 	ICON_IDSLexmark                   ICON_IDS = "LEXMARK"
 	ICON_IDSLg                        ICON_IDS = "LG"
 	ICON_IDSLibreOffice               ICON_IDS = "LIBRE_OFFICE"
+	ICON_IDSLinear                    ICON_IDS = "LINEAR"
 	ICON_IDSLinkedin                  ICON_IDS = "LINKEDIN"
 	ICON_IDSLinux                     ICON_IDS = "LINUX"
 	ICON_IDSLinuxMint                 ICON_IDS = "LINUX_MINT"
@@ -2008,6 +2056,7 @@ const (
 	ICON_IDSLocalsend                 ICON_IDS = "LOCALSEND"
 	ICON_IDSLogitech                  ICON_IDS = "LOGITECH"
 	ICON_IDSLoom                      ICON_IDS = "LOOM"
+	ICON_IDSLrs                       ICON_IDS = "LRS"
 	ICON_IDSMacai                     ICON_IDS = "MACAI"
 	ICON_IDSMaccy                     ICON_IDS = "MACCY"
 	ICON_IDSMacos                     ICON_IDS = "MACOS"
@@ -2017,6 +2066,7 @@ const (
 	ICON_IDSMailstore                 ICON_IDS = "MAILSTORE"
 	ICON_IDSManictime                 ICON_IDS = "MANICTIME"
 	ICON_IDSManjaro                   ICON_IDS = "MANJARO"
+	ICON_IDSMasterPdfEditor           ICON_IDS = "MASTER_PDF_EDITOR"
 	ICON_IDSMatrix42                  ICON_IDS = "MATRIX42"
 	ICON_IDSMatrox                    ICON_IDS = "MATROX"
 	ICON_IDSMcp                       ICON_IDS = "MCP"
@@ -2051,10 +2101,12 @@ const (
 	ICON_IDSMistral                   ICON_IDS = "MISTRAL"
 	ICON_IDSMitmproxy                 ICON_IDS = "MITMPROXY"
 	ICON_IDSMobaxterm                 ICON_IDS = "MOBAXTERM"
+	ICON_IDSModernCsv                 ICON_IDS = "MODERN_CSV"
 	ICON_IDSMondoo                    ICON_IDS = "MONDOO"
 	ICON_IDSMongodb                   ICON_IDS = "MONGODB"
 	ICON_IDSMongodbAtlas              ICON_IDS = "MONGODB_ATLAS"
 	ICON_IDSMonodraw                  ICON_IDS = "MONODRAW"
+	ICON_IDSMos                       ICON_IDS = "MOS"
 	ICON_IDSMoscaElektronik           ICON_IDS = "MOSCA_ELEKTRONIK"
 	ICON_IDSMozilla                   ICON_IDS = "MOZILLA"
 	ICON_IDSMozillaFirefox            ICON_IDS = "MOZILLA_FIREFOX"
@@ -2064,10 +2116,14 @@ const (
 	ICON_IDSMs365                     ICON_IDS = "MS365"
 	ICON_IDSMulticommander            ICON_IDS = "MULTICOMMANDER"
 	ICON_IDSMultipass                 ICON_IDS = "MULTIPASS"
+	ICON_IDSMusescore                 ICON_IDS = "MUSESCORE"
 	ICON_IDSMxLinux                   ICON_IDS = "MX_LINUX"
+	ICON_IDSMyray                     ICON_IDS = "MYRAY"
 	ICON_IDSMysql                     ICON_IDS = "MYSQL"
 	ICON_IDSMythicsoft                ICON_IDS = "MYTHICSOFT"
 	ICON_IDSNats                      ICON_IDS = "NATS"
+	ICON_IDSNielseniq                 ICON_IDS = "NIELSENIQ"
+	ICON_IDSNobelBiocare              ICON_IDS = "NOBEL_BIOCARE"
 	ICON_IDSNordlayer                 ICON_IDS = "NORDLAYER"
 	ICON_IDSNovapdf                   ICON_IDS = "NOVAPDF"
 	ICON_IDSNAble                     ICON_IDS = "N_ABLE"
@@ -2134,14 +2190,17 @@ const (
 	ICON_IDSOpensearch                ICON_IDS = "OPENSEARCH"
 	ICON_IDSOpenstack                 ICON_IDS = "OPENSTACK"
 	ICON_IDSOpentext                  ICON_IDS = "OPENTEXT"
+	ICON_IDSOpenssl                   ICON_IDS = "OPENSSL"
 	ICON_IDSOpenvpn                   ICON_IDS = "OPENVPN"
 	ICON_IDSOpenwrt                   ICON_IDS = "OPENWRT"
 	ICON_IDSOpera                     ICON_IDS = "OPERA"
 	ICON_IDSOperatingSystem           ICON_IDS = "OPERATING_SYSTEM"
 	ICON_IDSOpsi                      ICON_IDS = "OPSI"
+	ICON_IDSOpusSystemer              ICON_IDS = "OPUS_SYSTEMER"
 	ICON_IDSOracle                    ICON_IDS = "ORACLE"
 	ICON_IDSOracleJava                ICON_IDS = "ORACLE_JAVA"
 	ICON_IDSOracleVirtualbox          ICON_IDS = "ORACLE_VIRTUALBOX"
+	ICON_IDSOrangedental              ICON_IDS = "ORANGEDENTAL"
 	ICON_IDSOsquery                   ICON_IDS = "OSQUERY"
 	ICON_IDSOwaspZap                  ICON_IDS = "OWASP_ZAP"
 	ICON_IDSPaessler                  ICON_IDS = "PAESSLER"
@@ -2151,6 +2210,7 @@ const (
 	ICON_IDSPackagist                 ICON_IDS = "PACKAGIST"
 	ICON_IDSPaintNet                  ICON_IDS = "PAINT_NET"
 	ICON_IDSPaloAlto                  ICON_IDS = "PALO_ALTO"
+	ICON_IDSPanagenda                 ICON_IDS = "PANAGENDA"
 	ICON_IDSPanos                     ICON_IDS = "PANOS"
 	ICON_IDSPapercut                  ICON_IDS = "PAPERCUT"
 	ICON_IDSPaprika                   ICON_IDS = "PAPRIKA"
@@ -2158,7 +2218,9 @@ const (
 	ICON_IDSParrot                    ICON_IDS = "PARROT"
 	ICON_IDSPasswordDepot             ICON_IDS = "PASSWORD_DEPOT"
 	ICON_IDSPatchMyPc                 ICON_IDS = "PATCH_MY_PC"
+	ICON_IDSPaxconnect                ICON_IDS = "PAXCONNECT"
 	ICON_IDSPdf24                     ICON_IDS = "PDF24"
+	ICON_IDSPdfArchitect              ICON_IDS = "PDF_ARCHITECT"
 	ICON_IDSPdfcreator                ICON_IDS = "PDFCREATOR"
 	ICON_IDSPdfTools                  ICON_IDS = "PDF_TOOLS"
 	ICON_IDSPdfXchange                ICON_IDS = "PDF_XCHANGE"
@@ -2185,6 +2247,7 @@ const (
 	ICON_IDSPostman                   ICON_IDS = "POSTMAN"
 	ICON_IDSPowerAutomate             ICON_IDS = "POWER_AUTOMATE"
 	ICON_IDSPowershell                ICON_IDS = "POWERSHELL"
+	ICON_IDSPrecisely                 ICON_IDS = "PRECISELY"
 	ICON_IDSPrinter                   ICON_IDS = "PRINTER"
 	ICON_IDSProalpha                  ICON_IDS = "PROALPHA"
 	ICON_IDSProgressSoftware          ICON_IDS = "PROGRESS_SOFTWARE"
@@ -2199,8 +2262,10 @@ const (
 	ICON_IDSPython                    ICON_IDS = "PYTHON"
 	ICON_IDSPypi                      ICON_IDS = "PYPI"
 	ICON_IDSQbittorrent               ICON_IDS = "QBITTORRENT"
+	ICON_IDSQmkToolbox                ICON_IDS = "QMK_TOOLBOX"
 	ICON_IDSQnap                      ICON_IDS = "QNAP"
 	ICON_IDSQognify                   ICON_IDS = "QOGNIFY"
+	ICON_IDSQemu                      ICON_IDS = "QEMU"
 	ICON_IDSQualys                    ICON_IDS = "QUALYS"
 	ICON_IDSQubes                     ICON_IDS = "QUBES"
 	ICON_IDSQuest                     ICON_IDS = "QUEST"
@@ -2254,10 +2319,12 @@ const (
 	ICON_IDSScreenpresso              ICON_IDS = "SCREENPRESSO"
 	ICON_IDSScreenStudio              ICON_IDS = "SCREEN_STUDIO"
 	ICON_IDSScriptrunner              ICON_IDS = "SCRIPTRUNNER"
+	ICON_IDSScrollReverser            ICON_IDS = "SCROLL_REVERSER"
 	ICON_IDSSeagullSoftware           ICON_IDS = "SEAGULL_SOFTWARE"
 	ICON_IDSSecmaker                  ICON_IDS = "SECMAKER"
 	ICON_IDSSecretive                 ICON_IDS = "SECRETIVE"
 	ICON_IDSSehComputertechnik        ICON_IDS = "SEH_COMPUTERTECHNIK"
+	ICON_IDSSensibleSideButtons       ICON_IDS = "SENSIBLE_SIDE_BUTTONS"
 	ICON_IDSSenstar                   ICON_IDS = "SENSTAR"
 	ICON_IDSSentinelone               ICON_IDS = "SENTINELONE"
 	ICON_IDSSetuserfta                ICON_IDS = "SETUSERFTA"
@@ -2274,6 +2341,7 @@ const (
 	ICON_IDSSketch                    ICON_IDS = "SKETCH"
 	ICON_IDSSkype                     ICON_IDS = "SKYPE"
 	ICON_IDSSlack                     ICON_IDS = "SLACK"
+	ICON_IDSSmcFanControl             ICON_IDS = "SMC_FAN_CONTROL"
 	ICON_IDSSnowflake                 ICON_IDS = "SNOWFLAKE"
 	ICON_IDSSnowSoftware              ICON_IDS = "SNOW_SOFTWARE"
 	ICON_IDSSoapui                    ICON_IDS = "SOAPUI"
@@ -2284,6 +2352,7 @@ const (
 	ICON_IDSSolidworks                ICON_IDS = "SOLIDWORKS"
 	ICON_IDSSonicwall                 ICON_IDS = "SONICWALL"
 	ICON_IDSSophos                    ICON_IDS = "SOPHOS"
+	ICON_IDSSoti                      ICON_IDS = "SOTI"
 	ICON_IDSSourcetree                ICON_IDS = "SOURCETREE"
 	ICON_IDSSpacedesk                 ICON_IDS = "SPACEDESK"
 	ICON_IDSSpecops                   ICON_IDS = "SPECOPS"
@@ -2314,6 +2383,7 @@ const (
 	ICON_IDSSysprogs                  ICON_IDS = "SYSPROGS"
 	ICON_IDSSystematik                ICON_IDS = "SYSTEMATIK"
 	ICON_IDSSystemtools               ICON_IDS = "SYSTEMTOOLS"
+	ICON_IDSTabby                     ICON_IDS = "TABBY"
 	ICON_IDSTableau                   ICON_IDS = "TABLEAU"
 	ICON_IDSTails                     ICON_IDS = "TAILS"
 	ICON_IDSTailscale                 ICON_IDS = "TAILSCALE"
@@ -2326,14 +2396,17 @@ const (
 	ICON_IDSTelegram                  ICON_IDS = "TELEGRAM"
 	ICON_IDSTenable                   ICON_IDS = "TENABLE"
 	ICON_IDSTeraTerm                  ICON_IDS = "TERA_TERM"
+	ICON_IDSTerminalNotifier          ICON_IDS = "TERMINAL_NOTIFIER"
 	ICON_IDSTermius                   ICON_IDS = "TERMIUS"
 	ICON_IDSTerraform                 ICON_IDS = "TERRAFORM"
 	ICON_IDSTesto                     ICON_IDS = "TESTO"
 	ICON_IDSThalesSafenet             ICON_IDS = "THALES_SAFENET"
+	ICON_IDSTherefore                 ICON_IDS = "THEREFORE"
 	ICON_IDSTheUnarchiver             ICON_IDS = "THE_UNARCHIVER"
 	ICON_IDSThings                    ICON_IDS = "THINGS"
 	ICON_IDSThinkCell                 ICON_IDS = "THINK_CELL"
 	ICON_IDSThonny                    ICON_IDS = "THONNY"
+	ICON_IDSThreeCx                   ICON_IDS = "THREE_CX"
 	ICON_IDSTigervnc                  ICON_IDS = "TIGERVNC"
 	ICON_IDSTightvnc                  ICON_IDS = "TIGHTVNC"
 	ICON_IDSTodoist                   ICON_IDS = "TODOIST"
@@ -2347,6 +2420,7 @@ const (
 	ICON_IDSTpLink                    ICON_IDS = "TP_LINK"
 	ICON_IDSTrae                      ICON_IDS = "TRAE"
 	ICON_IDSTranslucenttb             ICON_IDS = "TRANSLUCENTTB"
+	ICON_IDSTravelport                ICON_IDS = "TRAVELPORT"
 	ICON_IDSTrendMicro                ICON_IDS = "TREND_MICRO"
 	ICON_IDSTrezor                    ICON_IDS = "TREZOR"
 	ICON_IDSTricerat                  ICON_IDS = "TRICERAT"
@@ -2374,6 +2448,7 @@ const (
 	ICON_IDSVeritas                   ICON_IDS = "VERITAS"
 	ICON_IDSViber                     ICON_IDS = "VIBER"
 	ICON_IDSVigil                     ICON_IDS = "VIGIL"
+	ICON_IDSVirtualbuddy              ICON_IDS = "VIRTUALBUDDY"
 	ICON_IDSVivaldi                   ICON_IDS = "VIVALDI"
 	ICON_IDSVlcMediaPlayer            ICON_IDS = "VLC_MEDIA_PLAYER"
 	ICON_IDSVllm                      ICON_IDS = "VLLM"
@@ -2393,6 +2468,7 @@ const (
 	ICON_IDSWebex                     ICON_IDS = "WEBEX"
 	ICON_IDSWebstorm                  ICON_IDS = "WEBSTORM"
 	ICON_IDSWhatsapp                  ICON_IDS = "WHATSAPP"
+	ICON_IDSWibuSystems               ICON_IDS = "WIBU_SYSTEMS"
 	ICON_IDSWinaudit                  ICON_IDS = "WINAUDIT"
 	ICON_IDSWindows                   ICON_IDS = "WINDOWS"
 	ICON_IDSWindows10                 ICON_IDS = "WINDOWS_10"
@@ -2411,6 +2487,7 @@ const (
 	ICON_IDSWolfi                     ICON_IDS = "WOLFI"
 	ICON_IDSWorkingHours              ICON_IDS = "WORKING_HOURS"
 	ICON_IDSWrLinux                   ICON_IDS = "WR_LINUX"
+	ICON_IDSWtw                       ICON_IDS = "WTW"
 	ICON_IDSX2go                      ICON_IDS = "X2GO"
 	ICON_IDSXai                       ICON_IDS = "XAI"
 	ICON_IDSXampp                     ICON_IDS = "XAMPP"
@@ -2563,6 +2640,7 @@ const (
 	IntegrationTypeIru                       IntegrationType = "IRU"
 	IntegrationTypeSccm                      IntegrationType = "SCCM"
 	IntegrationTypeJfrogXray                 IntegrationType = "JFROG_XRAY"
+	IntegrationTypeMoonRabbit                IntegrationType = "MOON_RABBIT"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
@@ -3118,6 +3196,15 @@ const (
 	ReportViewedPageFindingOnAsset  ReportViewedPage = "FINDING_ON_ASSET"
 	ReportViewedPageFinding         ReportViewedPage = "FINDING"
 	ReportViewedPageRemediationCopy ReportViewedPage = "REMEDIATION_COPY"
+)
+
+// ResolveActionSetStatus represents whether a change could be stated as steps at all. Only two values, because only two things can happen: either the generators can express the change and it is stored, or nothing can and there is nothing to apply. Everything else — no actuator reaches the asset, the delivery is unwired, the integration is down — is decided later, by `applyRemediation`.
+type ResolveActionSetStatus string
+
+// Whether a change could be stated as steps at all. Only two values, because only two things can happen: either the generators can express the change and it is stored, or nothing can and there is nothing to apply. Everything else — no actuator reaches the asset, the delivery is unwired, the integration is down — is decided later, by `applyRemediation`.
+const (
+	ResolveActionSetStatusResolved       ResolveActionSetStatus = "RESOLVED"        // The change was resolved and stored. `actionSet` carries the reference.
+	ResolveActionSetStatusNotExpressible ResolveActionSetStatus = "NOT_EXPRESSIBLE" // The change cannot be stated as steps: a check carrying prose remediation, a finding with no fixed version to move to, or a governed component we cannot express the removal of on this asset. Nothing is wrong — there is simply nothing to apply, and no retry will change that.
 )
 
 // ResourceContactType represents type of resource contact.
