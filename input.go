@@ -38,8 +38,6 @@ type AWSConfigurationOptionsInput struct {
 	AccountIDs *[]String `json:"accountIds,omitempty" tfgen:"required=0"`
 	// Whether this is an AWS Organization integration. (Optional.)
 	IsOrganization *Boolean `json:"isOrganization,omitempty" tfgen:"required=0"`
-	// Whether to use v2 template. Accepted but ignored: the v2 CloudFormation template is the only template AWS serverless deploys from, so there is nothing to select. Safe to omit; the field will be removed once no client sends it. (Optional.)
-	V2Template *Boolean `json:"v2Template,omitempty" tfgen:"required=0"`
 	// Whether to authenticate callbacks via Workload Identity Federation instead of a static Mondoo token. Required true for organization-scoped integrations. (Optional.)
 	UseWif *Boolean `json:"useWif,omitempty" tfgen:"required=0"`
 	// AWS account id where the serverless Lambda is deployed. Required when useWif is true; rejected when useWif is false. (Optional.)
