@@ -977,11 +977,12 @@ type CredentialV2OrderField string
 
 // Field to order typed credentials by.
 const (
-	CredentialV2OrderFieldName         CredentialV2OrderField = "NAME"          // Order by display name.
-	CredentialV2OrderFieldKind         CredentialV2OrderField = "KIND"          // Order by kind.
-	CredentialV2OrderFieldHealthStatus CredentialV2OrderField = "HEALTH_STATUS" // Order by health SEVERITY, not by the enum's spelling. Ascending is worst first — INVALID, EXPIRED, ERROR, UNKNOWN, HEALTHY — so the credentials needing attention lead the list. Sorting the names alphabetically would file HEALTHY between two failure states, which is not an order anyone means.
-	CredentialV2OrderFieldExpiresAt    CredentialV2OrderField = "EXPIRES_AT"    // Order by expiry. A credential that does not expire sorts as though its expiry were infinitely far away: last ascending, first descending. Ascending is therefore soonest-expiring first, which is the urgent end.
-	CredentialV2OrderFieldCreatedAt    CredentialV2OrderField = "CREATED_AT"    // Order by creation time.
+	CredentialV2OrderFieldName            CredentialV2OrderField = "NAME"              // Order by display name.
+	CredentialV2OrderFieldKind            CredentialV2OrderField = "KIND"              // Order by kind.
+	CredentialV2OrderFieldHealthStatus    CredentialV2OrderField = "HEALTH_STATUS"     // Order by health SEVERITY, not by the enum's spelling. Ascending is worst first — INVALID, EXPIRED, ERROR, UNKNOWN, HEALTHY — so the credentials needing attention lead the list. Sorting the names alphabetically would file HEALTHY between two failure states, which is not an order anyone means.
+	CredentialV2OrderFieldExpiresAt       CredentialV2OrderField = "EXPIRES_AT"        // Order by expiry. A credential that does not expire sorts as though its expiry were infinitely far away: last ascending, first descending. Ascending is therefore soonest-expiring first, which is the urgent end.
+	CredentialV2OrderFieldCreatedAt       CredentialV2OrderField = "CREATED_AT"        // Order by creation time.
+	CredentialV2OrderFieldHealthCheckedAt CredentialV2OrderField = "HEALTH_CHECKED_AT" // Order by when the credential was last health-checked. A credential that has never been checked sorts as though it were checked infinitely long ago: first ascending, last descending — the opposite polarity to EXPIRES_AT, because never-checked is maximally stale rather than infinitely far off. Ascending is therefore longest-since-checked first, which is the stale end.
 )
 
 // CredentialV2SecretField represents the arm of `CredentialV2SecretInput` a kind's collected values are nested under. Deliberately a closed enum rather than a String. It is the set of kinds that can be *written*, where `CredentialV2Kind` is the set that can be *read* and therefore has to carry UNKNOWN. Keeping them separate lets a client's kind-to-input-field map be total by construction — no impossible UNKNOWN branch, and no cast to build the input object.
@@ -4242,6 +4243,7 @@ const (
 	VulnerabilityScoreSourceVendorCrowdstrike VulnerabilityScoreSourceVendor = "CROWDSTRIKE"
 	VulnerabilityScoreSourceVendorSentinelOne VulnerabilityScoreSourceVendor = "SENTINEL_ONE"
 	VulnerabilityScoreSourceVendorTenable     VulnerabilityScoreSourceVendor = "TENABLE"
+	VulnerabilityScoreSourceVendorQualys      VulnerabilityScoreSourceVendor = "QUALYS"
 )
 
 // WorkflowRefMethod represents workflow reference method. This indicates how the reference was added to the workflow.

@@ -6620,6 +6620,8 @@ type WorkflowExecutionsInput struct {
 	ScopeMrn *ID `json:"scopeMrn,omitempty" tfgen:"required=0"`
 	// Filter by execution status. (Optional.)
 	Status *String `json:"status,omitempty" tfgen:"required=0"`
+	// Filter to the runs one integration dispatched, matched against `triggerData.integration_mrn`. workflowMrn is not a substitute: a space has a single remediation workflow per delivery route, so every integration served by that route shares it, and filtering by it attributes a second opsi integration's runs to the first. (Optional.)
+	IntegrationMrn *ID `json:"integrationMrn,omitempty" tfgen:"required=0"`
 }
 
 // WorkflowTriggerAggregationInput represents batching configuration for an aggregating event trigger.
