@@ -234,6 +234,7 @@ const (
 	AggregateScoreOrderFieldNumChecks       AggregateScoreOrderField = "NUM_CHECKS"        // Number of checks (policies).
 	AggregateScoreOrderFieldNumQueries      AggregateScoreOrderField = "NUM_QUERIES"       // Number of queries (policies).
 	AggregateScoreOrderFieldNumExceptions   AggregateScoreOrderField = "NUM_EXCEPTIONS"    // Number of exceptions (frameworks).
+	AggregateScoreOrderFieldOverallState    AggregateScoreOrderField = "OVERALL_STATE"     // Overall finding state, ranked by how much attention the finding needs rather than alphabetically: NEW, REGRESSED, DETECTED, FIX_AVAILABLE, TICKETED, IN_PROGRESS, EXCEPTIONS, WORKAROUND, FALSE_POSITIVE, RISK_ACCEPTED, DISABLED, FIXED. DESC surfaces the findings still needing action first, matching RISK_CATEGORY. Findings carrying no overall state sort last in DESC.
 )
 
 // AggregateScoreRefreshStatus represents where a scope's aggregate-score refresh is in its lifecycle.
@@ -3775,6 +3776,7 @@ type RegistrationTokenOrderField string
 
 // Field to order registration tokens by.
 const (
+	RegistrationTokenOrderFieldExpiresAt   RegistrationTokenOrderField = "EXPIRES_AT"  // Order by expiry. A token that never expires sorts as though its expiry were infinitely far away: last ascending, first descending. Ascending is therefore soonest-expiring first, which is the urgent end.
 	RegistrationTokenOrderFieldCreated     RegistrationTokenOrderField = "CREATED"     // Order by creation time.
 	RegistrationTokenOrderFieldDescription RegistrationTokenOrderField = "DESCRIPTION" // Order by description.
 	RegistrationTokenOrderFieldMrn         RegistrationTokenOrderField = "MRN"         // Order by MRN.
