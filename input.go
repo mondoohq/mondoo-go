@@ -466,6 +466,8 @@ type ArdBrowseFilter struct {
 	Fields *Map `json:"fields,omitempty" tfgen:"required=0"`
 	// Keep only names whose worst score is >= this (riskValue, 0-100, higher = worse). Read `totalCount` for the with-risk (1) or critical (90) counts without a separate call. (Optional.)
 	MinScore *Int `json:"minScore,omitempty" tfgen:"required=0"`
+	// Keep only the rows whose resolved `governance` is one of these, OR-ed; omitted or empty = no governance filter. UNCLASSIFIED is a real member of the set, not a "no filter" sentinel — it is the triage queue ("nobody has decided about this product yet"). Applied server-side alongside `search` / `minScore`, so it constrains the page window AND `totalCount` together: read `totalCount` with one state to get that state's **count**, the way `minScore` yields the with-risk and critical counts. Filtering the loaded page instead cannot produce either number. (Optional.)
+	Governance *[]GovernanceState `json:"governance,omitempty" tfgen:"required=0"`
 }
 
 // ArdBrowseOrder represents one `ardBrowse` ordering key. Used for `thenBy`, which needs to be omittable — the primary key is the flat (`sortBy`, `sortDir`) pair. Mirrors `ArdEntityOrder`'s shape.
@@ -483,12 +485,14 @@ type ArdEntityFilter struct {
 	Name *String `json:"name,omitempty" tfgen:"required=0"`
 	// Which dimensions the `name` term searches (substring, OR-ed). Empty matches only the listed nodes' own name. A named dimension matches anywhere in a node's SUBTREE, at any depth — not just one level down — and folds the match up onto the listed node. Listing os-by-vendor with searchDimensions ["vendor","name"] surfaces a vendor whose own name OR a product beneath it matches. Not every parent can fold: the match is found by dimension containment, so it works only where the parent's dimensions are stored in the same form on what lies beneath it. A bucket keyed on a genealogy level, a multi-valued facet (by-role), or a per-asset scalar (by-scope) matches on its own name only — for a genealogy level, on its display title. (Optional.)
 	SearchDimensions *[]String `json:"searchDimensions,omitempty" tfgen:"required=0"`
-	// (Optional.)
+	// Exact dimension pins on the listed row's OWN dimension map, ANDed together. This is the LOOKUP counterpart to `name`/`searchDimensions`: that pair is a substring search that folds matches up from a row's subtree, this one matches the row itself, whole value. `{vendor: "Brother"}` on an os-by-vendor bucket listing resolves that vendor's node — the intended way to turn a dimension value back into the entity that carries it. Applied literally: a pin on a dimension the listed rows do not carry matches nothing. os-by-vendor buckets store only `vendor`, so adding the chain's `ecosystem_kind` pre-filter here returns an empty page, not the vendor. Pin what the row stores, not the path you navigated to reach it. Constrains `pageInfo.total` and the page window together, like `kind` — so a caller can trust `first: 1` to mean "the one row that matches", which is the shape this exists for. (Optional.)
 	Dimensions *Map `json:"dimensions,omitempty" tfgen:"required=0"`
 	// Restrict the listing to one row shape. Omitted (null) means **any kind** — it does not mean leaves. This is what you want whenever the listing returns a MIX: `ardEntities` without a `grouping` returns leaves and spine nodes together, and a `children` drill returns child nodes alongside leaves whose node was collapsed. Pass `LEAF` to get only the real resources — which also keeps their leaf-only `metadata` (an aggregate node has none). Filter here rather than in the client: this predicate constrains the page window and `pageInfo.total` together. Dropping the unwanted kinds after the response fixes the visible rows but leaves the count inflated and spends the page window on rows you discard, so a bounded fetch silently shows a fraction of what it appears to hold. ANDed honestly against a listing whose shape is already fixed: `LEAF` on a bucket-level grouping listing returns zero rows and a zero total, because that level materializes no leaves. That is the true answer, not a silent drop. (Optional.)
 	Kind *ArdEntityKind `json:"kind,omitempty" tfgen:"required=0"`
 	// Score / risk filtering delegates to the existing AggregateScore filter. (Optional.)
 	Score *AggregateScoreFilter `json:"score,omitempty" tfgen:"required=0"`
+	// Keep only the entities whose resolved governance state is one of these, OR-ed; omitted or empty = no governance filter. UNCLASSIFIED is a real member of the set (nothing has been decided about the entity). The twin of `ArdBrowseFilter.governance`, and resolved identically — per entity MRN, through the scope's authority chain — so a listing and each row's own `governance(scopeMrn:)` always agree. Pushed into the query, so it constrains the page window and `totalCount` together. Requires `scopeMrn` (the state is a property of the scope's decisions); it is ignored without one, as the score filter is. Note the granularity: a product-wide decision governs the name node AND every version leaf under it, so a `DENIED` listing of leaves returns the versions, and of name nodes returns the products. (Optional.)
+	Governance *[]GovernanceState `json:"governance,omitempty" tfgen:"required=0"`
 }
 
 // ArdEntityOrder represents ordering applied when listing ARD entities.
@@ -1856,17 +1860,21 @@ type CreateOrganizationInput struct {
 	Contacts *[]ResourceContactInput `json:"contacts,omitempty" tfgen:"required=0"`
 }
 
-// CreatePlanInput represents what to plan: the subjects to act on, and the assets to act on them across. With `assetMrns`, the plan is the CROSS PRODUCT — every subject against every asset — and each pair is resolved on its own, because the same component is an apt package on one host and a winget id on another. Without `assetMrns`, the server derives the pairs: for each finding, every asset in the space where it is open and not excepted. Only CVE and advisory findings can be derived (that is what an aggregate score names); governed components still take an explicit list. Exactly one of `findingMrns` or `governedMrns`, mirroring `resolveActionSet`: fixing findings and removing denied components are two different changes, and a request carrying both has two readings that act on the assets differently.
+// CreatePlanInput represents what to plan: the subjects to act on, and the assets to act on them across. With `assetMrns`, the plan is the CROSS PRODUCT — every subject against every asset — and each pair is resolved on its own, because the same component is an apt package on one host and a winget id on another. Without `assetMrns`, the server derives the pairs. For findings: every asset in the space where the finding is open and not excepted — only CVE and advisory findings, since that is what an aggregate score names. For software: every asset in the space carrying it at a version something newer is known for. Governed components still take an explicit list. Exactly one of `findingMrns`, `governedMrns` or `upgradeMrns`, mirroring `resolveActionSet`: fixing findings, removing denied components and bringing software up to date are three different changes, and a request carrying two of them has two readings that act on the assets differently.
 type CreatePlanInput struct {
 	// The space to plan in. Every asset must belong to it. A space, not a workspace — the same position `findingActuatorCoverage` takes. A workspace-scoped caller still has the per-asset `resolveActionSet` path. (Required.)
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
-	// The assets to plan over, already chosen by the caller. Omit it with `findingMrns` to plan over every asset in the space where each finding is open and not excepted; the plan then carries a `selection` saying exactly what that matched. Required with `governedMrns`. (Optional.)
+	// The assets to plan over, already chosen by the caller. Omit it with `findingMrns` or `upgradeMrns` to plan over every asset in the space the subject applies to; the plan then carries a `selection` saying exactly what that matched. Required with `governedMrns`. (Optional.)
 	AssetMrns *[]String `json:"assetMrns,omitempty" tfgen:"required=0"`
-	// Fix these findings. Mutually exclusive with `governedMrns`. (Optional.)
+	// Fix these findings. Mutually exclusive with `governedMrns` and `upgradeMrns`. (Optional.)
 	FindingMrns *[]String `json:"findingMrns,omitempty" tfgen:"required=0"`
-	// Remove these governed components. Mutually exclusive with `findingMrns`. (Optional.)
+	// Remove these governed components. Mutually exclusive with `findingMrns` and `upgradeMrns`. (Optional.)
 	GovernedMrns *[]String `json:"governedMrns,omitempty" tfgen:"required=0"`
+	// Bring this software up to date — the "patch it" subject (RFC-233's software selection axis). Mutually exclusive with `findingMrns` and `governedMrns`. These are ARD software entity MRNs, exactly as `governedMrns` are: a version leaf is that one version, and a product grouping node is the product across every version in scope, which resolves per asset to the versions THAT asset runs. It is not the same request as fixing the software's CVEs, and that is why it exists. A package can be outdated with no open finding at all, and "fix every CVE on this product across the space" selects a different set of assets from "bring this product up to date". (Optional.)
+	UpgradeMrns *[]String `json:"upgradeMrns,omitempty" tfgen:"required=0"`
+	// Which newer version `upgradeMrns` moves to. Ignored by the other two subjects. Defaults to `LATEST_AVAILABLE`, because "patch it to the latest version" is the request this subject exists for. (Optional.)
+	UpgradeTarget *SoftwareUpgradeTarget `json:"upgradeTarget,omitempty" tfgen:"required=0"`
 }
 
 // CreateSecurityPipelinePullRequestInput represents create a new security pipeline pull request input.
@@ -4615,17 +4623,20 @@ type PingIntegrationInput struct {
 type PlanValidationInput struct {
 	// The space. Every asset must belong to it. (Required.)
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
-	// What the subjects are — the same either/or the plan was created with. (Required.)
+	// What the subjects are — the same choice the plan was created with. (Required.)
 	SubjectKind PlanSubjectKind `json:"subjectKind" tfgen:"required=1"`
 	// The pairs to check, from a plan's `ActionStep`s. At most 500 — these are reads, and they resolve one at a time. Refused, never truncated. (Required.)
 	Pairs []PlanValidationPairInput `json:"pairs" tfgen:"required=1"`
+
+	// Which version the upgrade was moving to, for `SOFTWARE` subjects. It must be the one the plan was created with: whether an upgrade landed depends on the version it was moving to, and validating a completed `LATEST_SECURITY` upgrade against `LATEST_AVAILABLE` reports it as still pending the moment the catalog knows a newer release. (Optional.)
+	UpgradeTarget *SoftwareUpgradeTarget `json:"upgradeTarget,omitempty" tfgen:"required=0"`
 }
 
 // PlanValidationPairInput represents one (asset, subject) pair to validate — the pair a plan's `ActionStep` names.
 type PlanValidationPairInput struct {
 	// The asset. `ActionStep.assetMrn`. (Required.)
 	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
-	// The finding or governed component. `ActionStep.subjectMrn`. (Required.)
+	// The finding, governed component or software. `ActionStep.subjectMrn`. (Required.)
 	SubjectMrn String `json:"subjectMrn" tfgen:"required=1"`
 }
 
@@ -5118,15 +5129,19 @@ type ResetWorkflowToTemplateInput struct {
 	Mrn ID `json:"mrn" tfgen:"required=1"`
 }
 
-// ResolveActionSetInput represents what to resolve into an ActionSet, and the asset whose characteristics make it specific. Exactly one of `findingMrn` or `governedMrn`: fixing a finding and removing a denied component are two different changes, and a request carrying both has two readings that act on the asset differently.
+// ResolveActionSetInput represents what to resolve into an ActionSet, and the asset whose characteristics make it specific. Exactly one of `findingMrn`, `governedMrn` or `upgradeMrn`: fixing a finding, removing a denied component and bringing software up to date are three different changes, and a request carrying two of them has two readings that act on the asset differently.
 type ResolveActionSetInput struct {
 	// The asset to resolve against. Its characteristics — which package manager, which packages, which paths — are what make the change specific. The asset's identity does NOT enter the resulting ActionSet, which is why other assets can share it. (Required.)
 	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
 
-	// Fix this finding. Mutually exclusive with `governedMrn`. (Optional.)
+	// Fix this finding. Mutually exclusive with `governedMrn` and `upgradeMrn`. (Optional.)
 	FindingMrn *String `json:"findingMrn,omitempty" tfgen:"required=0"`
-	// Remove this governed component. Mutually exclusive with `findingMrn`. (Optional.)
+	// Remove this governed component. Mutually exclusive with `findingMrn` and `upgradeMrn`. (Optional.)
 	GovernedMrn *String `json:"governedMrn,omitempty" tfgen:"required=0"`
+	// Bring this software up to date on this asset. Mutually exclusive with `findingMrn` and `governedMrn`. An ARD software entity MRN, exactly as `governedMrn` is: a version leaf is that one version, a product grouping node the product across versions. The per-asset counterpart of `createPlan`'s `upgradeMrns`, for patching one machine without building a plan. (Optional.)
+	UpgradeMrn *String `json:"upgradeMrn,omitempty" tfgen:"required=0"`
+	// Which newer version `upgradeMrn` moves to. Ignored by the other two subjects, and defaulting to `LATEST_AVAILABLE`. (Optional.)
+	UpgradeTarget *SoftwareUpgradeTarget `json:"upgradeTarget,omitempty" tfgen:"required=0"`
 }
 
 // ResourceContactInput represents input for a single contact. The contact type is inferred from the identity: user MRNs become USER contacts, team MRNs become TEAM contacts, and email addresses become EMAIL contacts.

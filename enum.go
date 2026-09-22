@@ -2666,6 +2666,7 @@ const (
 	ICON_IDSManageengine                          ICON_IDS = "MANAGEENGINE"
 	ICON_IDSManictime                             ICON_IDS = "MANICTIME"
 	ICON_IDSManjaro                               ICON_IDS = "MANJARO"
+	ICON_IDSMariadb                               ICON_IDS = "MARIADB"
 	ICON_IDSMarkusHofknecht                       ICON_IDS = "MARKUS_HOFKNECHT"
 	ICON_IDSMartinLambers                         ICON_IDS = "MARTIN_LAMBERS"
 	ICON_IDSMarvell                               ICON_IDS = "MARVELL"
@@ -2983,6 +2984,7 @@ const (
 	ICON_IDSPeoplefluent                          ICON_IDS = "PEOPLEFLUENT"
 	ICON_IDSPerbit                                ICON_IDS = "PERBIT"
 	ICON_IDSPerforce                              ICON_IDS = "PERFORCE"
+	ICON_IDSPerl                                  ICON_IDS = "PERL"
 	ICON_IDSPerplexity                            ICON_IDS = "PERPLEXITY"
 	ICON_IDSPfu                                   ICON_IDS = "PFU"
 	ICON_IDSPgadmin                               ICON_IDS = "PGADMIN"
@@ -4139,8 +4141,11 @@ type PlanOutOfScopeReason string
 
 // Why a candidate is not in the plan. "14 of 60 assets" collapses situations that ask an operator for completely different things: onboard an actuator, wait for a catalog entry, fix a paused integration, or nothing at all because the component is not even installed there. Each value below is a distinct next step, which is the whole reason this is an enum rather than a count. Every value is already a distinction the server draws internally. What is new is that a reader can see it: `resolveActionSet` collapses the first five into one status with the reason in prose, and the last four are only reachable today by calling `applyRemediation` and having it refuse.
 const (
-	PlanOutOfScopeReasonNotPresentOnAsset              PlanOutOfScopeReason = "NOT_PRESENT_ON_ASSET"              // The component is not on this asset. Nothing to remove, so nothing to plan — distinct from every "we cannot express it" answer below, which are about our generators rather than about the fleet.
+	PlanOutOfScopeReasonNotPresentOnAsset              PlanOutOfScopeReason = "NOT_PRESENT_ON_ASSET"              // The component is not on this asset. Nothing to remove or upgrade, so nothing to plan — distinct from every "we cannot express it" answer below, which are about our generators rather than about the fleet.
 	PlanOutOfScopeReasonRemovalNotSupported            PlanOutOfScopeReason = "REMOVAL_NOT_SUPPORTED"             // No generator covers this component's removal at all. Not a gap this asset can close.
+	PlanOutOfScopeReasonAlreadyCurrent                 PlanOutOfScopeReason = "ALREADY_CURRENT"                   // The software is on this asset and already at the target version or newer. Nothing to do, and the only value here that means the asset is *finished* rather than blocked. Strictly apart from `NO_UPGRADE_TARGET`. "We checked, and this host is current" and "we do not know of anything newer than what this host runs" read identically in a count and ask for opposite things — the first is done, the second is a catalog gap on our side. Collapsing them is how a fleet reads as patched because our catalog is thin.
+	PlanOutOfScopeReasonNoUpgradeTarget                PlanOutOfScopeReason = "NO_UPGRADE_TARGET"                 // The software is on this asset and no newer version is KNOWN: the product is not in the software catalog, or the catalog records no later release for the installed version's line. Ours to close, and a catalog entry closes it for every asset at once.
+	PlanOutOfScopeReasonUpgradeNotExpressible          PlanOutOfScopeReason = "UPGRADE_NOT_EXPRESSIBLE"           // The software is on this asset and not as something that can be upgraded — a macOS application bundle, which no package manager on the asset updates, or a package row with no resolvable ecosystem to route to one.
 	PlanOutOfScopeReasonFindingNotPackageExpressible   PlanOutOfScopeReason = "FINDING_NOT_PACKAGE_EXPRESSIBLE"   // The finding carries guidance rather than a package change, or names no fixed version to move to. A human applies it; no actuator ever will.
 	PlanOutOfScopeReasonNothingResolved                PlanOutOfScopeReason = "NOTHING_RESOLVED"                  // Resolution produced neither packages nor paths, so there is nothing for a change to act on.
 	PlanOutOfScopeReasonNoSafePathRemoval              PlanOutOfScopeReason = "NO_SAFE_PATH_REMOVAL"              // The change would have to delete the install locations we observed, and none of them can be deleted safely enough to script.
@@ -4172,13 +4177,14 @@ const (
 	PlanStepValidationUnknown   PlanStepValidation = "UNKNOWN"    // We could not determine it. Kept strictly apart from `CONVERGED`: a verdict standing in for "we did not look" is how a report claims work that never happened.
 )
 
-// PlanSubjectKind represents what kind of thing a plan's steps act on. The same either/or `createPlan` draws with its mutually exclusive `findingMrns` / `governedMrns`, and the same one an ActionSet stores: fixing a finding and removing a denied component are different changes, resolved by different code, and a subject MRN is not self-describing enough to be worth guessing from. A plan is single-kind by construction, so this is one field per request rather than one per pair.
+// PlanSubjectKind represents what kind of thing a plan's steps act on. The same three-way choice `createPlan` draws with its mutually exclusive `findingMrns` / `governedMrns` / `upgradeMrns`, and the same one an ActionSet stores: the three are different changes resolved by different code, and a subject MRN is not self-describing enough to guess from — a governed component and a piece of software are BOTH named by an ARD entity MRN, so the kind is the only thing that says which. A plan is single-kind by construction, so this is one field per request rather than one per pair.
 type PlanSubjectKind string
 
-// What kind of thing a plan's steps act on. The same either/or `createPlan` draws with its mutually exclusive `findingMrns` / `governedMrns`, and the same one an ActionSet stores: fixing a finding and removing a denied component are different changes, resolved by different code, and a subject MRN is not self-describing enough to be worth guessing from. A plan is single-kind by construction, so this is one field per request rather than one per pair.
+// What kind of thing a plan's steps act on. The same three-way choice `createPlan` draws with its mutually exclusive `findingMrns` / `governedMrns` / `upgradeMrns`, and the same one an ActionSet stores: the three are different changes resolved by different code, and a subject MRN is not self-describing enough to guess from — a governed component and a piece of software are BOTH named by an ARD entity MRN, so the kind is the only thing that says which. A plan is single-kind by construction, so this is one field per request rather than one per pair.
 const (
 	PlanSubjectKindFinding           PlanSubjectKind = "FINDING"            // The subjects are findings, and the change moves a package to a fixed version.
 	PlanSubjectKindGovernedComponent PlanSubjectKind = "GOVERNED_COMPONENT" // The subjects are governed components, and the change removes them.
+	PlanSubjectKindSoftware          PlanSubjectKind = "SOFTWARE"           // The subjects are software, and the change brings it up to date.
 )
 
 // PlatformKind represents platform kind.
@@ -4634,6 +4640,15 @@ const (
 	SoftwareOrderFieldFirstObserved SoftwareOrderField = "FIRST_OBSERVED" // Order by the timestamp the package was first observed on the asset.
 	SoftwareOrderFieldLastObserved  SoftwareOrderField = "LAST_OBSERVED"  // Order by the timestamp of the most recent scan that confirmed the package.
 	SoftwareOrderFieldRisk          SoftwareOrderField = "RISK"           // Order by the software's per-asset risk value (0–100, higher = worse). DESC lists the most-at-risk software first; healthy and unscored (no-risk) packages sort last.
+)
+
+// SoftwareUpgradeTarget represents which newer version an upgrade moves to. RFC-232 gives a package's fix ladder two candidates at the top, and they are routinely different versions: the highest version that closes the known vulnerabilities, and the latest release the catalog knows — which may sit above it, carrying no additional security fix but being what is actually installable. This is the caller saying which of the two it meant.
+type SoftwareUpgradeTarget string
+
+// Which newer version an upgrade moves to. RFC-232 gives a package's fix ladder two candidates at the top, and they are routinely different versions: the highest version that closes the known vulnerabilities, and the latest release the catalog knows — which may sit above it, carrying no additional security fix but being what is actually installable. This is the caller saying which of the two it meant.
+const (
+	SoftwareUpgradeTargetLatestAvailable SoftwareUpgradeTarget = "LATEST_AVAILABLE" // The software catalog's latest known version within the installed version's release line, never below the advisory fix. Line-scoped rather than globally-latest, so an intentionally-pinned LTS is not told to jump a major. Floored at the advisory fix because the catalog and the vulnerability feed move independently, and a catalog that has not caught up would otherwise make "upgrade to latest" resolve BELOW the version that closes the known CVEs.
+	SoftwareUpgradeTargetLatestSecurity  SoftwareUpgradeTarget = "LATEST_SECURITY"  // The advisory fixed version alone — the security update and nothing more. RFC-232's "override down" smaller step, for a fleet that takes security updates only.
 )
 
 // Technology represents coarse technology bucket for filtering and grouping remediations.
