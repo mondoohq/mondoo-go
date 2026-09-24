@@ -1873,8 +1873,10 @@ type CreatePlanInput struct {
 	GovernedMrns *[]String `json:"governedMrns,omitempty" tfgen:"required=0"`
 	// Bring this software up to date — the "patch it" subject (RFC-233's software selection axis). Mutually exclusive with `findingMrns` and `governedMrns`. These are ARD software entity MRNs, exactly as `governedMrns` are: a version leaf is that one version, and a product grouping node is the product across every version in scope, which resolves per asset to the versions THAT asset runs. It is not the same request as fixing the software's CVEs, and that is why it exists. A package can be outdated with no open finding at all, and "fix every CVE on this product across the space" selects a different set of assets from "bring this product up to date". (Optional.)
 	UpgradeMrns *[]String `json:"upgradeMrns,omitempty" tfgen:"required=0"`
-	// Which newer version `upgradeMrns` moves to. Ignored by the other two subjects. Defaults to `LATEST_AVAILABLE`, because "patch it to the latest version" is the request this subject exists for. (Optional.)
+	// Which newer version `upgradeMrns` moves to, where we know of one. Ignored by the other two subjects. Defaults to `LATEST_AVAILABLE`, because "patch it to the latest version" is the request this subject exists for. (Optional.)
 	UpgradeTarget *SoftwareUpgradeTarget `json:"upgradeTarget,omitempty" tfgen:"required=0"`
+	// Which installs `upgradeMrns` covers, by what we KNOW about their patch level. The scoping knob for the software subject; ignored by the other two. Defaults to `[PATCH_AVAILABLE, PATCH_STATE_UNKNOWN]` — everything except the installs we have positive evidence are already current. **Unknown is in by default and that matters more than it looks:** for most software we hold no newer-version reference at all, so a default that left it out would produce a plan covering a fraction of the estate and present it as the whole job. Narrow it to `[PATCH_AVAILABLE]` for "only what we know is behind". Widen it to include `UP_TO_DATE` to patch regardless — the gate makes that a no-op where we were right. (Optional.)
+	UpgradePatchStates *[]SoftwarePatchState `json:"upgradePatchStates,omitempty" tfgen:"required=0"`
 }
 
 // CreateSecurityPipelinePullRequestInput represents create a new security pipeline pull request input.
@@ -4209,6 +4211,8 @@ type MsIntuneConfigurationOptionsInput struct {
 	Win32BinaryStaging *Boolean `json:"win32BinaryStaging,omitempty" tfgen:"required=0"`
 	// debug puts this integration into fleet-scan debug mode: provider artifacts (the delivered Intune script, cnspec output) are kept after a scan for troubleshooting instead of being cleaned up. Off by default. (Optional.)
 	Debug *Boolean `json:"debug,omitempty" tfgen:"required=0"`
+	// AI discovery for this integration's fleet scans. When on, fleet scans also discover MCP servers configured on each endpoint (as their own assets), and turning it on activates the Mondoo AI Security policy in the integration's space. Discovering a stdio MCP server starts the command in its config file, and fleet scans run as SYSTEM (Windows) or root (macOS), so this is off by default. The AI inventory itself is collected by every fleet scan. (Optional.)
+	AiDiscovery *Boolean `json:"aiDiscovery,omitempty" tfgen:"required=0"`
 }
 
 // MvdCweFilter represents filters for the CWE catalog.
@@ -5140,7 +5144,7 @@ type ResolveActionSetInput struct {
 	GovernedMrn *String `json:"governedMrn,omitempty" tfgen:"required=0"`
 	// Bring this software up to date on this asset. Mutually exclusive with `findingMrn` and `governedMrn`. An ARD software entity MRN, exactly as `governedMrn` is: a version leaf is that one version, a product grouping node the product across versions. The per-asset counterpart of `createPlan`'s `upgradeMrns`, for patching one machine without building a plan. (Optional.)
 	UpgradeMrn *String `json:"upgradeMrn,omitempty" tfgen:"required=0"`
-	// Which newer version `upgradeMrn` moves to. Ignored by the other two subjects, and defaulting to `LATEST_AVAILABLE`. (Optional.)
+	// Which newer version `upgradeMrn` moves to, where we know of one. Ignored by the other two subjects, and defaulting to `LATEST_AVAILABLE`. There is no patch-state scope here, unlike `createPlan`: naming one asset and one piece of software IS the caller insisting, so every state resolves. An install we know nothing newer about upgrades versionless — the asset's package manager resolves "newest" itself. (Optional.)
 	UpgradeTarget *SoftwareUpgradeTarget `json:"upgradeTarget,omitempty" tfgen:"required=0"`
 }
 
