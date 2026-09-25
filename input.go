@@ -955,9 +955,9 @@ type AwsSecurityHubImportConfigurationOptionsInput struct {
 
 	// AWS region(s) to import from, comma-separated. Empty imports every enabled region (Security Hub is regional); set it to restrict the import to specific regions. (Optional.)
 	Region *String `json:"region,omitempty" tfgen:"required=0"`
-	// AWS access key id. Optional — omit (with secretAccessKey) to use the runner's ambient AWS credential chain / an assumed role. (Optional.)
+	// AWS access key id. Optional — omit (with secretAccessKey) to use the runner's ambient AWS credential chain / an assumed role. Omit it when supplying credentialMrn, since the credential owns the key pair. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when the secret is supplied alongside it; otherwise it is ignored. (Optional.)
 	AccessKey *String `json:"accessKey,omitempty" tfgen:"required=0"`
-	// AWS secret access key. Write-only; stored in the vault. Required only when accessKey is set. (Optional.)
+	// AWS secret access key. Write-only; stored in the vault. Required only when accessKey is set. Mutually exclusive with credentialMrn. (Optional.)
 	SecretAccessKey *String `json:"secretAccessKey,omitempty" tfgen:"required=0"`
 	// Create assets for the resources findings attach to when they are not already known. Findings are keyed on the resource ARN (which cnspec also stores), so a created asset converges with the natively scanned AWS resource. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
@@ -965,6 +965,8 @@ type AwsSecurityHubImportConfigurationOptionsInput struct {
 	FindingTypes *[]AwsSecurityHubFindingType `json:"findingTypes,omitempty" tfgen:"required=0"`
 	// Which severities to import. Empty means all. (Optional.)
 	Severities *[]AwsSecurityHubSeverity `json:"severities,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying static keys inline. Mutually exclusive with it. The credential must be an AWS access key credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Static keys only: the runner's ambient credential chain cannot be expressed as a credential. region above stays the list of regions to import from and is never taken from, or copied into, the credential. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // AzureBlobConfigurationOptionsInput represents azure Blob integration input.
@@ -1860,12 +1862,12 @@ type CreateOrganizationInput struct {
 	Contacts *[]ResourceContactInput `json:"contacts,omitempty" tfgen:"required=0"`
 }
 
-// CreatePlanInput represents what to plan: the subjects to act on, and the assets to act on them across. With `assetMrns`, the plan is the CROSS PRODUCT — every subject against every asset — and each pair is resolved on its own, because the same component is an apt package on one host and a winget id on another. Without `assetMrns`, the server derives the pairs. For findings: every asset in the space where the finding is open and not excepted — only CVE and advisory findings, since that is what an aggregate score names. For software: every asset in the space carrying it at a version something newer is known for. Governed components still take an explicit list. Exactly one of `findingMrns`, `governedMrns` or `upgradeMrns`, mirroring `resolveActionSet`: fixing findings, removing denied components and bringing software up to date are three different changes, and a request carrying two of them has two readings that act on the assets differently.
+// CreatePlanInput represents what to plan: the subjects to act on, and the assets to act on them across. With `assetMrns`, the plan is the CROSS PRODUCT — every subject against every asset — and each pair is resolved on its own, because the same component is an apt package on one host and a winget id on another. Without `assetMrns`, the server derives the pairs. For findings: every asset in the space where the finding is open and not excepted — only CVE and advisory findings, since that is what an aggregate score names. For `upgradeMrns`: every asset in the space carrying the software within `upgradePatchStates`. For `governedMrns`: every asset in the space carrying the component. The two software selections are never truncated — the whole fleet, up to 10000 (asset × software) pairs, above which the request is refused. Exactly one of `findingMrns`, `governedMrns` or `upgradeMrns`, mirroring `resolveActionSet`: fixing findings, removing denied components and bringing software up to date are three different changes, and a request carrying two of them has two readings that act on the assets differently.
 type CreatePlanInput struct {
 	// The space to plan in. Every asset must belong to it. A space, not a workspace — the same position `findingActuatorCoverage` takes. A workspace-scoped caller still has the per-asset `resolveActionSet` path. (Required.)
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
-	// The assets to plan over, already chosen by the caller. Omit it with `findingMrns` or `upgradeMrns` to plan over every asset in the space the subject applies to; the plan then carries a `selection` saying exactly what that matched. Required with `governedMrns`. (Optional.)
+	// The assets to plan over, already chosen by the caller. Omit it to plan over every asset in the space the subject applies to; the plan then carries a `selection` saying exactly what that matched. A caller-supplied list is held to 500 (asset × subject) pairs; a derived software selection to 10000. (Optional.)
 	AssetMrns *[]String `json:"assetMrns,omitempty" tfgen:"required=0"`
 	// Fix these findings. Mutually exclusive with `governedMrns` and `upgradeMrns`. (Optional.)
 	FindingMrns *[]String `json:"findingMrns,omitempty" tfgen:"required=0"`
@@ -2178,12 +2180,12 @@ type CrowdstrikeCredentialV2Input struct {
 
 // CrowdstrikeFalconConfigurationOptionsInput represents crowdstrikeFalcon integration input.
 type CrowdstrikeFalconConfigurationOptionsInput struct {
-	// Client ID used for authentication with CrowdStrike Falcon platform. (Required.)
+	// Client ID used for authentication with CrowdStrike Falcon platform. Ignored when credentialMrn is supplied — the credential owns the API client and this value is overwritten with its own. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when clientSecret is supplied alongside it; otherwise it is ignored. (Required.)
 	ClientId String `json:"clientId" tfgen:"required=1"`
-	// Client Secret used for authentication with CrowdStrike Falcon platform. (Required.)
-	ClientSecret String `json:"clientSecret" tfgen:"required=1"`
 
-	// The CrowdStrike Falcon cloud region. (Optional.)
+	// Client Secret used for authentication with CrowdStrike Falcon platform (write-only). Supply either this or credentialMrn. (Optional.)
+	ClientSecret *String `json:"clientSecret,omitempty" tfgen:"required=0"`
+	// The CrowdStrike Falcon cloud region: us-1, us-2, us-3, eu-1, us-gov-1, us-gov-2, or autodiscover. Omit it when supplying credentialMrn; the credential owns the cloud, stored as its API base URL, and this field reports the region that URL names. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when clientSecret is supplied alongside it (an unrecognised region is then refused); otherwise it is ignored. (Optional.)
 	Cloud *String `json:"cloud,omitempty" tfgen:"required=0"`
 	// CID selector for cases when the client id/secret has access to multiple CIDs. (Optional.)
 	MemberCID *String `json:"memberCID,omitempty" tfgen:"required=0"`
@@ -2191,6 +2193,8 @@ type CrowdstrikeFalconConfigurationOptionsInput struct {
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
 	// mondooEnrichment is a flag to enable mondoo scans based on the CrowdStrike data. (Optional.)
 	MondooEnrichment *Boolean `json:"mondooEnrichment,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a client secret inline. Mutually exclusive with it. The credential must be a CrowdStrike credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. The credential owns the client id and the cloud. Its base URL must be empty (autodiscover) or a CrowdStrike Falcon API URL such as https://api.eu-1.crowdstrike.com; any other URL is refused. memberCID stays on the integration. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // CveTrendsOrder represents ordering options for CVE trends.
@@ -3528,16 +3532,18 @@ type JfrogAccessTokenCredentialV2Input struct {
 // JfrogXrayConfigurationOptionsInput represents jFrog Xray (SCA) import integration input — pulls vulnerability findings from a JFrog Xray instance via its vulnerabilities-report workflow.
 type JfrogXrayConfigurationOptionsInput struct {
 
-	// Base URL of the JFrog Xray instance, e.g. https://acme.jfrog.io/xray. Required on create; nullable so a partial update (e.g. severity only) need not re-send it. (Optional.)
+	// Base URL of the JFrog Xray instance, e.g. https://acme.jfrog.io/xray. Required on create when supplying accessToken inline; nullable so a partial update (e.g. severity only) need not re-send it. Omit it when supplying credentialMrn: a token is only valid against the platform that issued it, so on that path the credential owns the URL. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when the secret is supplied alongside it; otherwise it is ignored. (Optional.)
 	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 	// Optional comma-separated list of Artifactory repository names to scope the report. Empty imports all repositories. (Optional.)
 	Repositories *String `json:"repositories,omitempty" tfgen:"required=0"`
 	// Minimum severity to import (e.g. "high"); empty imports all. (Optional.)
 	Severity *String `json:"severity,omitempty" tfgen:"required=0"`
-	// Xray access token (stored in the vault, never echoed back). Required on create; nullable so a config-only update need not re-supply it — an absent token keeps the existing vaulted value. (Optional.)
+	// Xray access token (stored in the vault, never echoed back). Required on create; nullable so a config-only update need not re-supply it — an absent token keeps the existing vaulted value. Supply either this or credentialMrn. (Optional.)
 	AccessToken *String `json:"accessToken,omitempty" tfgen:"required=0"`
 	// Whether to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying an access token inline. Mutually exclusive with it. The credential must be a JFrog access token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // JiraConfigurationOptionsInput represents jira integration input.
@@ -4475,16 +4481,18 @@ type OpenvasConfigurationOptionsInput struct {
 	SkipTlsVerify *Boolean `json:"skipTlsVerify,omitempty" tfgen:"required=0"`
 	// Optional PEM CA bundle used to verify the GVM TLS certificate (gmp transport). (Optional.)
 	CaCertificate *String `json:"caCertificate,omitempty" tfgen:"required=0"`
-	// Base URL of the Greenbone Cloud API (cloud transport). (Optional.)
+	// Base URL of the Greenbone Cloud API (cloud transport). Omit it when supplying credentialMrn, since the credential owns the URL. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when the secret is supplied alongside it; otherwise it is ignored. (Optional.)
 	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 	// Minimum severity to import (e.g. "high"); empty imports all. (Optional.)
 	Severity *String `json:"severity,omitempty" tfgen:"required=0"`
-	// The GMP password (gmp transport) or Greenbone Cloud API token (cloud transport). Write-only. (Optional.)
+	// The GMP password (gmp transport) or Greenbone Cloud API token (cloud transport). Write-only. Supply either this or credentialMrn. (Optional.)
 	Secret *String `json:"secret,omitempty" tfgen:"required=0"`
 	// Whether to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
 	// Connect to GMP over plaintext TCP instead of TLS (gmp transport; default TLS). For a socket-bridged Greenbone Community Edition; prefer TLS across untrusted networks. (Optional.)
 	GmpPlaintext *Boolean `json:"gmpPlaintext,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a Greenbone Cloud API token inline. Mutually exclusive with it. The credential must be a Greenbone Cloud credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Greenbone Cloud only: transport must be "cloud", and a credential-backed integration cannot be switched to "gmp". A self-hosted GMP appliance authenticates with a secret supplied inline. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // OpsiConfigurationOptionsInput represents opsi integration input (fleet-scan Windows + Linux + macOS delivery via opsi.org).
@@ -4830,11 +4838,11 @@ type PropertyQueryOverride struct {
 // QualysConfigurationOptionsInput represents qualys configuration options input.
 type QualysConfigurationOptionsInput struct {
 
-	// The Qualys username. (Optional.)
+	// The Qualys username. Required when supplying password inline; omit it when supplying credentialMrn, since the credential owns the account. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when the secret is supplied alongside it; otherwise it is ignored. (Optional.)
 	Username *String `json:"username,omitempty" tfgen:"required=0"`
-	// The Qualys password. (Optional.)
+	// The Qualys password (write-only). Supply either this or credentialMrn. (Optional.)
 	Password *String `json:"password,omitempty" tfgen:"required=0"`
-	// The Qualys platform ("POD") API host the subscription is served from, e.g. https://qualysapi.qg2.apps.qualys.com. Required — there is no default, because a request to the wrong POD reports an authentication failure rather than redirecting. (Optional.)
+	// The Qualys platform ("POD") API host the subscription is served from, e.g. https://qualysapi.qg2.apps.qualys.com. Required — there is no default, because a request to the wrong POD reports an authentication failure rather than redirecting. Required when supplying password inline; omit it when supplying credentialMrn, since a Qualys account exists on one POD only and the credential owns it. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when the secret is supplied alongside it; otherwise it is ignored. (Optional.)
 	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
 	// The Qualys severity filter applied server-side, a list or range over 1-5 (e.g. "2-5"). Leave empty for the default, which drops the informational severity-1 detections. (Optional.)
 	Severity *String `json:"severity,omitempty" tfgen:"required=0"`
@@ -4842,6 +4850,8 @@ type QualysConfigurationOptionsInput struct {
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
 	// mondooEnrichment is a flag to enable mondoo scans based on the Qualys data. (Optional.)
 	MondooEnrichment *Boolean `json:"mondooEnrichment,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a password inline. Mutually exclusive with it. The credential must be a Qualys credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // QualysCredentialV2Input represents a Qualys account's username and password, which the API takes as HTTP basic auth. Qualys has no API tokens, so this is a real user's password — use a dedicated API-only account. The account must have API access enabled.
@@ -5148,10 +5158,13 @@ type ResolveActionSetInput struct {
 	UpgradeTarget *SoftwareUpgradeTarget `json:"upgradeTarget,omitempty" tfgen:"required=0"`
 }
 
-// ResourceContactInput represents input for a single contact. The contact type is inferred from the identity: user MRNs become USER contacts, team MRNs become TEAM contacts, and email addresses become EMAIL contacts.
+// ResourceContactInput represents input for a single contact. The contact type is inferred from the identity: user MRNs become USER contacts, team MRNs become TEAM contacts, http(s) URLs become LINK contacts, and email addresses become EMAIL contacts.
 type ResourceContactInput struct {
-	// The identity: user MRN, team MRN, or email address. (Required.)
+	// The identity: user MRN, team MRN, email address, or link URL. (Required.)
 	Identity String `json:"identity" tfgen:"required=1"`
+
+	// Display name. Required for LINK contacts, ignored otherwise. (Optional.)
+	Name *String `json:"name,omitempty" tfgen:"required=0"`
 }
 
 // RestoreBIDashboardVersionInput represents input for restoring a previous dashboard version.
@@ -5478,10 +5491,12 @@ type SecurityScorecardConfigurationOptionsInput struct {
 
 	// The domain to monitor (e.g., example.com). (Optional.)
 	Domain *String `json:"domain,omitempty" tfgen:"required=0"`
-	// The SecurityScorecard API token. (Optional.)
+	// The SecurityScorecard API token. Optional: supply either this or credentialMrn. (Optional.)
 	ApiToken *String `json:"apiToken,omitempty" tfgen:"required=0"`
 	// createAssets is a flag to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying an API token inline. Mutually exclusive with apiToken. The credential must be a SecurityScorecard credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. domain stays on the integration either way: it says which portfolio to import, not who is importing, and one SecurityScorecard token reaches every domain its account can see. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // SecurityScorecardCredentialV2Input represents a SecurityScorecard API token — a personal token or a bot user's.
@@ -5862,16 +5877,18 @@ type SnykApiTokenCredentialV2Input struct {
 // SnykConfigurationOptionsInput represents snyk configuration options input.
 type SnykConfigurationOptionsInput struct {
 
-	// Base URL of the Snyk REST API (empty defaults to https://api.snyk.io/rest). (Optional.)
+	// Base URL of the Snyk REST API, INCLUDING the /rest path segment, e.g. https://api.eu.snyk.io/rest (empty defaults to https://api.snyk.io/rest). Supplied inline only when supplying an apiToken inline. Omit it when supplying credentialMrn instead: a Snyk token is issued inside one region's API root and is only valid against it, so on that path the credential owns the URL. On a credential-backed integration this is a mirror of the credential's base URL, kept in step by the server. Supplying it on update moves the integration — and the credential it references — to a different API root; omitting it leaves both alone. Moving one back to the default is a relink rather than an empty string, since that is a different endpoint and so a different credential. (Optional.)
 	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
-	// Snyk organization to scope the import to, by UUID or slug (empty imports all). (Optional.)
+	// Snyk organization to scope the import to, by UUID or slug (empty imports all). Import scope rather than identity, so it is supplied here on both paths. (Optional.)
 	Organization *String `json:"organization,omitempty" tfgen:"required=0"`
 	// Snyk REST API version to pin (empty uses the importer default). (Optional.)
 	Version *String `json:"version,omitempty" tfgen:"required=0"`
-	// The Snyk API token (write-only). (Optional.)
+	// The Snyk API token (write-only). Optional: supply either this or credentialMrn. (Optional.)
 	ApiToken *String `json:"apiToken,omitempty" tfgen:"required=0"`
 	// Whether to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying an API token inline. Mutually exclusive with apiToken. The credential must be a Snyk API token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // SocialMediaConfigurationInput represents social media configuration input.
@@ -5906,16 +5923,18 @@ type SoftwareOrder struct {
 // SonarqubeConfigurationOptionsInput represents sonarQube / SonarCloud configuration options input.
 type SonarqubeConfigurationOptionsInput struct {
 
-	// Base URL of the SonarQube / SonarCloud instance (empty defaults to SonarCloud). (Optional.)
+	// Base URL of the SonarQube / SonarCloud instance, e.g. https://sonar.acme.com (empty defaults to SonarCloud at https://sonarcloud.io). Supplied inline only when supplying an apiToken inline. Omit it when supplying credentialMrn instead: a self-managed token is only valid against its own instance, so on that path the credential owns the URL. On a credential-backed integration this is a mirror of the credential's base URL, kept in step by the server. Supplying it on update moves the integration — and the credential it references — to a different instance; omitting it leaves both alone. Moving one back to SonarCloud is a relink rather than an empty string, since that is a different instance and so a different credential. (Optional.)
 	BaseUrl *String `json:"baseUrl,omitempty" tfgen:"required=0"`
-	// SonarCloud organization key (optional). (Optional.)
+	// SonarCloud organization key (optional). Import scope rather than identity, so it is supplied here on both paths. (Optional.)
 	Organization *String `json:"organization,omitempty" tfgen:"required=0"`
 	// Comma-separated project keys to scope the import (empty imports all projects). (Optional.)
 	ProjectKeys *String `json:"projectKeys,omitempty" tfgen:"required=0"`
-	// The SonarQube API token (write-only). (Optional.)
+	// The SonarQube API token (write-only). Optional: supply either this or credentialMrn. (Optional.)
 	ApiToken *String `json:"apiToken,omitempty" tfgen:"required=0"`
 	// Whether to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying an API token inline. Mutually exclusive with apiToken. The credential must be a SonarQube token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // SonarqubeTokenCredentialV2Input represents a SonarQube or SonarCloud token — user, project analysis or global analysis. All of them authenticate the same way, so any of them can be stored here.
@@ -6083,14 +6102,16 @@ type TailscaleOauthClientCredentialV2Input struct {
 // TenableConfigurationOptionsInput represents tenable configuration options input.
 type TenableConfigurationOptionsInput struct {
 
-	// The Tenable client key. (Optional.)
+	// The Tenable client (access) key. Required when supplying secretKey inline; omit it when supplying credentialMrn, since the credential owns the key pair. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when the secret is supplied alongside it; otherwise it is ignored. (Optional.)
 	ClientKey *String `json:"clientKey,omitempty" tfgen:"required=0"`
-	// The Tenable secret key. (Optional.)
+	// The Tenable secret key (write-only). Supply either this or credentialMrn. (Optional.)
 	SecretKey *String `json:"secretKey,omitempty" tfgen:"required=0"`
 	// Whether to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
 	// mondooEnrichment is a flag to enable mondoo scans based on the Tenable data. (Optional.)
 	MondooEnrichment *Boolean `json:"mondooEnrichment,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a secret key inline. Mutually exclusive with it. The credential must be a Tenable Vulnerability Management credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. The credential also owns the API endpoint (cloud.tenable.com or a regional / FedRAMP host). Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // TenableIoCredentialV2Input represents a Tenable Vulnerability Management API key pair. Both halves travel in the same header and rotating the pair replaces both, so they are one credential.
@@ -6107,11 +6128,11 @@ type TenableIoCredentialV2Input struct {
 // TenableSCConfigurationOptionsInput represents tenable SC configuration options input.
 type TenableSCConfigurationOptionsInput struct {
 
-	// The base URL for the Tenable SC server (e.g., https://tenablesc.example.com/rest). (Optional.)
+	// The base URL for the Tenable SC server (e.g., https://tenablesc.example.com/rest). Required when supplying secretKey inline; omit it when supplying credentialMrn, since a key pair is issued by one appliance and the credential owns it. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when the secret is supplied alongside it; otherwise it is ignored. (Optional.)
 	ServerUrl *String `json:"serverUrl,omitempty" tfgen:"required=0"`
-	// The access key for the Tenable SC API. (Optional.)
+	// The access key for the Tenable SC API. Required when supplying secretKey inline; omit it when supplying credentialMrn. On a credential-backed integration this is a mirror of the credential's value, kept in step by the server. Supplying it on update changes the credential it references only when the secret is supplied alongside it; otherwise it is ignored. (Optional.)
 	AccessKey *String `json:"accessKey,omitempty" tfgen:"required=0"`
-	// The secret key for the Tenable SC API. (Optional.)
+	// The secret key for the Tenable SC API (write-only). Supply either this or credentialMrn. (Optional.)
 	SecretKey *String `json:"secretKey,omitempty" tfgen:"required=0"`
 	// Whether to create assets in the backend when they are not found. (Optional.)
 	CreateAssets *Boolean `json:"createAssets,omitempty" tfgen:"required=0"`
@@ -6119,6 +6140,8 @@ type TenableSCConfigurationOptionsInput struct {
 	RepositoryIDs *String `json:"repositoryIds,omitempty" tfgen:"required=0"`
 	// Allow connections to servers with self-signed or untrusted TLS certificates. (Optional.)
 	AllowInsecureTls *Boolean `json:"allowInsecureTls,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a secret key inline. Mutually exclusive with it. The credential must be a Tenable Security Center credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. The credential's health check cannot honour allowInsecureTls and often cannot reach an on-prem appliance, so it will usually read as inconclusive. That does not block the integration. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // TenableScCredentialV2Input represents a Tenable Security Center API key pair. Tenable Vulnerability Management is a separate kind (`TENABLE_IO`): the keys look alike but are not valid against the other product. Security Center's older username-and-password login is a different credential and is not this one.
