@@ -1003,6 +1003,7 @@ const (
 	CredentialV2KindGenericHttp              CredentialV2Kind = "GENERIC_HTTP"                // Generic HTTP API credential: a single token or username/password presented by one of four standard schemes (bearer, header, query, basic). The catch-all for providers without a dedicated kind, used by workflow plugins.
 	CredentialV2KindWebhookSigning           CredentialV2Kind = "WEBHOOK_SIGNING"             // Shared secret used to VERIFY an inbound webhook. The only kind that points inward: nothing authenticates outbound with it, it is never dispatched to a scan job, and its health is structural rather than a probe — the counterparty holding the other copy is a third party nothing here can ask.
 	CredentialV2KindPostgresPassword         CredentialV2Kind = "POSTGRES_PASSWORD"           // A PostgreSQL user and password, and the server they are valid on, for the PostgreSQL export.
+	CredentialV2KindOpsi                     CredentialV2Kind = "OPSI"                        // An opsi service account, and the config server it is valid on, for the opsi fleet-scan integration.
 )
 
 // CredentialV2OrderField represents field to order typed credentials by.
@@ -1070,6 +1071,7 @@ const (
 	CredentialV2SecretFieldGenericHttp              CredentialV2SecretField = "GENERIC_HTTP"
 	CredentialV2SecretFieldWebhookSigning           CredentialV2SecretField = "WEBHOOK_SIGNING"
 	CredentialV2SecretFieldPostgresPassword         CredentialV2SecretField = "POSTGRES_PASSWORD"
+	CredentialV2SecretFieldOpsi                     CredentialV2SecretField = "OPSI"
 )
 
 // CrowdstrikeFalconFindingType represents kinds of CrowdStrike Falcon findings an integration imports.
@@ -1819,6 +1821,7 @@ const (
 	ICON_IDSAlgoriddim                            ICON_IDS = "ALGORIDDIM"
 	ICON_IDSAlibabaCloud                          ICON_IDS = "ALIBABA_CLOUD"
 	ICON_IDSAlignTechnology                       ICON_IDS = "ALIGN_TECHNOLOGY"
+	ICON_IDSAlixSarl                              ICON_IDS = "ALIX_SARL"
 	ICON_IDSAllerMedia                            ICON_IDS = "ALLER_MEDIA"
 	ICON_IDSAllisone                              ICON_IDS = "ALLISONE"
 	ICON_IDSAllplan                               ICON_IDS = "ALLPLAN"
@@ -1844,6 +1847,7 @@ const (
 	ICON_IDSAnalogDevices                         ICON_IDS = "ANALOG_DEVICES"
 	ICON_IDSAnaplan                               ICON_IDS = "ANAPLAN"
 	ICON_IDSAnarlog                               ICON_IDS = "ANARLOG"
+	ICON_IDSAnchore                               ICON_IDS = "ANCHORE"
 	ICON_IDSAndrewAyer                            ICON_IDS = "ANDREW_AYER"
 	ICON_IDSAndrewGallant                         ICON_IDS = "ANDREW_GALLANT"
 	ICON_IDSAndreyGruber                          ICON_IDS = "ANDREY_GRUBER"
@@ -1853,6 +1857,8 @@ const (
 	ICON_IDSAnkiUniversal                         ICON_IDS = "ANKI_UNIVERSAL"
 	ICON_IDSAnnapurnaInteractive                  ICON_IDS = "ANNAPURNA_INTERACTIVE"
 	ICON_IDSAnolis                                ICON_IDS = "ANOLIS"
+	ICON_IDSAnomaly                               ICON_IDS = "ANOMALY"
+	ICON_IDSAnotherRedisDesktopManager            ICON_IDS = "ANOTHER_REDIS_DESKTOP_MANAGER"
 	ICON_IDSAnsible                               ICON_IDS = "ANSIBLE"
 	ICON_IDSAntaresSql                            ICON_IDS = "ANTARES_SQL"
 	ICON_IDSAntigravity                           ICON_IDS = "ANTIGRAVITY"
@@ -1880,9 +1886,11 @@ const (
 	ICON_IDSApplite                               ICON_IDS = "APPLITE"
 	ICON_IDSApptorium                             ICON_IDS = "APPTORIUM"
 	ICON_IDSAppwork                               ICON_IDS = "APPWORK"
+	ICON_IDSAppDynamic                            ICON_IDS = "APP_DYNAMIC"
 	ICON_IDSApryse                                ICON_IDS = "APRYSE"
 	ICON_IDSAptakube                              ICON_IDS = "APTAKUBE"
 	ICON_IDSAptean                                ICON_IDS = "APTEAN"
+	ICON_IDSAquasecurity                          ICON_IDS = "AQUASECURITY"
 	ICON_IDSAraeliumGroup                         ICON_IDS = "ARAELIUM_GROUP"
 	ICON_IDSArashiVision                          ICON_IDS = "ARASHI_VISION"
 	ICON_IDSAraxis                                ICON_IDS = "ARAXIS"
@@ -1907,6 +1915,7 @@ const (
 	ICON_IDSAsset                                 ICON_IDS = "ASSET"
 	ICON_IDSAssfinet                              ICON_IDS = "ASSFINET"
 	ICON_IDSAstersoft                             ICON_IDS = "ASTERSOFT"
+	ICON_IDSAstral                                ICON_IDS = "ASTRAL"
 	ICON_IDSAstrocomma                            ICON_IDS = "ASTROCOMMA"
 	ICON_IDSAstuteGraphics                        ICON_IDS = "ASTUTE_GRAPHICS"
 	ICON_IDSAstGrepProject                        ICON_IDS = "AST_GREP_PROJECT"
@@ -1999,6 +2008,7 @@ const (
 	ICON_IDSBitbox                                ICON_IDS = "BITBOX"
 	ICON_IDSBitdefender                           ICON_IDS = "BITDEFENDER"
 	ICON_IDSBitnami                               ICON_IDS = "BITNAMI"
+	ICON_IDSBittorrent                            ICON_IDS = "BITTORRENT"
 	ICON_IDSBitwarden                             ICON_IDS = "BITWARDEN"
 	ICON_IDSBizagi                                ICON_IDS = "BIZAGI"
 	ICON_IDSBizerba                               ICON_IDS = "BIZERBA"
@@ -2169,6 +2179,7 @@ const (
 	ICON_IDSCompart                               ICON_IDS = "COMPART"
 	ICON_IDSCompugroupMedical                     ICON_IDS = "COMPUGROUP_MEDICAL"
 	ICON_IDSConcernedape                          ICON_IDS = "CONCERNEDAPE"
+	ICON_IDSCondaForge                            ICON_IDS = "CONDA_FORGE"
 	ICON_IDSConnectsecure                         ICON_IDS = "CONNECTSECURE"
 	ICON_IDSConnectwise                           ICON_IDS = "CONNECTWISE"
 	ICON_IDSContainers                            ICON_IDS = "CONTAINERS"
@@ -2269,6 +2280,7 @@ const (
 	ICON_IDSDeltaControls                         ICON_IDS = "DELTA_CONTROLS"
 	ICON_IDSDeltaSoftwareTechnology               ICON_IDS = "DELTA_SOFTWARE_TECHNOLOGY"
 	ICON_IDSDenkformat                            ICON_IDS = "DENKFORMAT"
+	ICON_IDSDenoland                              ICON_IDS = "DENOLAND"
 	ICON_IDSDens                                  ICON_IDS = "DENS"
 	ICON_IDSDensoWave                             ICON_IDS = "DENSO_WAVE"
 	ICON_IDSDentaleye                             ICON_IDS = "DENTALEYE"
@@ -2298,6 +2310,7 @@ const (
 	ICON_IDSDial                                  ICON_IDS = "DIAL"
 	ICON_IDSDialpad                               ICON_IDS = "DIALPAD"
 	ICON_IDSDiamantSoftware                       ICON_IDS = "DIAMANT_SOFTWARE"
+	ICON_IDSDifftastic                            ICON_IDS = "DIFFTASTIC"
 	ICON_IDSDiffusionbee                          ICON_IDS = "DIFFUSIONBEE"
 	ICON_IDSDigiarty                              ICON_IDS = "DIGIARTY"
 	ICON_IDSDigitalAi                             ICON_IDS = "DIGITAL_AI"
@@ -2353,6 +2366,7 @@ const (
 	ICON_IDSDrSchenk                              ICON_IDS = "DR_SCHENK"
 	ICON_IDSDts                                   ICON_IDS = "DTS"
 	ICON_IDSDualMonitorTools                      ICON_IDS = "DUAL_MONITOR_TOOLS"
+	ICON_IDSDuaCli                                ICON_IDS = "DUA_CLI"
 	ICON_IDSDuckdb                                ICON_IDS = "DUCKDB"
 	ICON_IDSDuckduckgo                            ICON_IDS = "DUCKDUCKGO"
 	ICON_IDSDucky                                 ICON_IDS = "DUCKY"
@@ -2469,6 +2483,7 @@ const (
 	ICON_IDSExterro                               ICON_IDS = "EXTERRO"
 	ICON_IDSEyed3                                 ICON_IDS = "EYED3"
 	ICON_IDSEyeoGmbh                              ICON_IDS = "EYEO_GMBH"
+	ICON_IDSEza                                   ICON_IDS = "EZA"
 	ICON_IDSEzvid                                 ICON_IDS = "EZVID"
 	ICON_IDSF5                                    ICON_IDS = "F5"
 	ICON_IDSF5BigIp                               ICON_IDS = "F5_BIG_IP"
@@ -2610,13 +2625,16 @@ const (
 	ICON_IDSGingco                                ICON_IDS = "GINGCO"
 	ICON_IDSGiphy                                 ICON_IDS = "GIPHY"
 	ICON_IDSGira                                  ICON_IDS = "GIRA"
+	ICON_IDSGittools                              ICON_IDS = "GITTOOLS"
 	ICON_IDSGittyup                               ICON_IDS = "GITTYUP"
+	ICON_IDSGitCola                               ICON_IDS = "GIT_COLA"
 	ICON_IDSGlib                                  ICON_IDS = "GLIB"
 	ICON_IDSGlobofleet                            ICON_IDS = "GLOBOFLEET"
 	ICON_IDSGluon                                 ICON_IDS = "GLUON"
 	ICON_IDSGmp                                   ICON_IDS = "GMP"
 	ICON_IDSGmx                                   ICON_IDS = "GMX"
 	ICON_IDSGnome                                 ICON_IDS = "GNOME"
+	ICON_IDSGnu                                   ICON_IDS = "GNU"
 	ICON_IDSGnupg                                 ICON_IDS = "GNUPG"
 	ICON_IDSGnuProject                            ICON_IDS = "GNU_PROJECT"
 	ICON_IDSGo                                    ICON_IDS = "GO"
@@ -2679,6 +2697,7 @@ const (
 	ICON_IDSGtOfficePdfStudio                     ICON_IDS = "GT_OFFICE_PDF_STUDIO"
 	ICON_IDSGuardsix                              ICON_IDS = "GUARDSIX"
 	ICON_IDSGuinpinsoft                           ICON_IDS = "GUINPINSOFT"
+	ICON_IDSGurux                                 ICON_IDS = "GURUX"
 	ICON_IDSGData                                 ICON_IDS = "G_DATA"
 	ICON_IDSHager                                 ICON_IDS = "HAGER"
 	ICON_IDSHairersoft                            ICON_IDS = "HAIRERSOFT"
@@ -2711,9 +2730,11 @@ const (
 	ICON_IDSHidGlobal                             ICON_IDS = "HID_GLOBAL"
 	ICON_IDSHikvision                             ICON_IDS = "HIKVISION"
 	ICON_IDSHilscher                              ICON_IDS = "HILSCHER"
+	ICON_IDSHipsterWhale                          ICON_IDS = "HIPSTER_WHALE"
 	ICON_IDSHitpaw                                ICON_IDS = "HITPAW"
 	ICON_IDSHmsNetworks                           ICON_IDS = "HMS_NETWORKS"
 	ICON_IDSHncDatentechnik                       ICON_IDS = "HNC_DATENTECHNIK"
+	ICON_IDSHofer                                 ICON_IDS = "HOFER"
 	ICON_IDSHogia                                 ICON_IDS = "HOGIA"
 	ICON_IDSHohnstaedt                            ICON_IDS = "HOHNSTAEDT"
 	ICON_IDSHolophase                             ICON_IDS = "HOLOPHASE"
@@ -2730,6 +2751,7 @@ const (
 	ICON_IDSHpe                                   ICON_IDS = "HPE"
 	ICON_IDSHpeIlo                                ICON_IDS = "HPE_ILO"
 	ICON_IDSHsh                                   ICON_IDS = "HSH"
+	ICON_IDSHstPathways                           ICON_IDS = "HST_PATHWAYS"
 	ICON_IDSHtacg                                 ICON_IDS = "HTACG"
 	ICON_IDSHtc                                   ICON_IDS = "HTC"
 	ICON_IDSHttpie                                ICON_IDS = "HTTPIE"
@@ -2818,6 +2840,7 @@ const (
 	ICON_IDSIoserver                              ICON_IDS = "IOSERVER"
 	ICON_IDSIoInteractive                         ICON_IDS = "IO_INTERACTIVE"
 	ICON_IDSIproute2macProject                    ICON_IDS = "IPROUTE2MAC_PROJECT"
+	ICON_IDSIpsSendero                            ICON_IDS = "IPS_SENDERO"
 	ICON_IDSIrfanview                             ICON_IDS = "IRFANVIEW"
 	ICON_IDSIridiumMobile                         ICON_IDS = "IRIDIUM_MOBILE"
 	ICON_IDSIris                                  ICON_IDS = "IRIS"
@@ -2878,6 +2901,7 @@ const (
 	ICON_IDSJordanBaird                           ICON_IDS = "JORDAN_BAIRD"
 	ICON_IDSJpegCompressor                        ICON_IDS = "JPEG_COMPRESSOR"
 	ICON_IDSJprofiler                             ICON_IDS = "JPROFILER"
+	ICON_IDSJqlang                                ICON_IDS = "JQLANG"
 	ICON_IDSJstorrent                             ICON_IDS = "JSTORRENT"
 	ICON_IDSJumo                                  ICON_IDS = "JUMO"
 	ICON_IDSJumpcloud                             ICON_IDS = "JUMPCLOUD"
@@ -3035,6 +3059,7 @@ const (
 	ICON_IDSLoguru                                ICON_IDS = "LOGURU"
 	ICON_IDSLoom                                  ICON_IDS = "LOOM"
 	ICON_IDSLoop                                  ICON_IDS = "LOOP"
+	ICON_IDSLosslessCut                           ICON_IDS = "LOSSLESS_CUT"
 	ICON_IDSLostMinds                             ICON_IDS = "LOST_MINDS"
 	ICON_IDSLoxoneElectronicsGmbh                 ICON_IDS = "LOXONE_ELECTRONICS_GMBH"
 	ICON_IDSLrs                                   ICON_IDS = "LRS"
@@ -3065,6 +3090,7 @@ const (
 	ICON_IDSMacwhisper                            ICON_IDS = "MACWHISPER"
 	ICON_IDSMacytdl                               ICON_IDS = "MACYTDL"
 	ICON_IDSMacAdminsOpenSource                   ICON_IDS = "MAC_ADMINS_OPEN_SOURCE"
+	ICON_IDSMacCleanup                            ICON_IDS = "MAC_CLEANUP"
 	ICON_IDSMacMouseFix                           ICON_IDS = "MAC_MOUSE_FIX"
 	ICON_IDSMageia                                ICON_IDS = "MAGEIA"
 	ICON_IDSMagicalJellyBean                      ICON_IDS = "MAGICAL_JELLY_BEAN"
@@ -3081,6 +3107,7 @@ const (
 	ICON_IDSManjaro                               ICON_IDS = "MANJARO"
 	ICON_IDSManyTricks                            ICON_IDS = "MANY_TRICKS"
 	ICON_IDSMariadb                               ICON_IDS = "MARIADB"
+	ICON_IDSMarktext                              ICON_IDS = "MARKTEXT"
 	ICON_IDSMarkusHofknecht                       ICON_IDS = "MARKUS_HOFKNECHT"
 	ICON_IDSMartinLambers                         ICON_IDS = "MARTIN_LAMBERS"
 	ICON_IDSMartinMitas                           ICON_IDS = "MARTIN_MITAS"
@@ -3108,6 +3135,7 @@ const (
 	ICON_IDSMedicalHarbour                        ICON_IDS = "MEDICAL_HARBOUR"
 	ICON_IDSMedigration                           ICON_IDS = "MEDIGRATION"
 	ICON_IDSMedit                                 ICON_IDS = "MEDIT"
+	ICON_IDSMedixant                              ICON_IDS = "MEDIXANT"
 	ICON_IDSMeetmexmTechnology                    ICON_IDS = "MEETMEXM_TECHNOLOGY"
 	ICON_IDSMega                                  ICON_IDS = "MEGA"
 	ICON_IDSMegger                                ICON_IDS = "MEGGER"
@@ -3166,6 +3194,7 @@ const (
 	ICON_IDSMintplexLabs                          ICON_IDS = "MINTPLEX_LABS"
 	ICON_IDSMiro                                  ICON_IDS = "MIRO"
 	ICON_IDSMirthConnect                          ICON_IDS = "MIRTH_CONNECT"
+	ICON_IDSMise                                  ICON_IDS = "MISE"
 	ICON_IDSMist                                  ICON_IDS = "MIST"
 	ICON_IDSMisterHorse                           ICON_IDS = "MISTER_HORSE"
 	ICON_IDSMistral                               ICON_IDS = "MISTRAL"
@@ -3182,6 +3211,7 @@ const (
 	ICON_IDSMobileDev                             ICON_IDS = "MOBILE_DEV"
 	ICON_IDSMobisystems                           ICON_IDS = "MOBISYSTEMS"
 	ICON_IDSMochasoft                             ICON_IDS = "MOCHASOFT"
+	ICON_IDSMockoon                               ICON_IDS = "MOCKOON"
 	ICON_IDSModelmakerTools                       ICON_IDS = "MODELMAKER_TOOLS"
 	ICON_IDSModernCsv                             ICON_IDS = "MODERN_CSV"
 	ICON_IDSMoiRaiGames                           ICON_IDS = "MOI_RAI_GAMES"
@@ -3218,6 +3248,7 @@ const (
 	ICON_IDSMsys2                                 ICON_IDS = "MSYS2"
 	ICON_IDSMtw                                   ICON_IDS = "MTW"
 	ICON_IDSMujs                                  ICON_IDS = "MUJS"
+	ICON_IDSMullvad                               ICON_IDS = "MULLVAD"
 	ICON_IDSMulticommander                        ICON_IDS = "MULTICOMMANDER"
 	ICON_IDSMultipass                             ICON_IDS = "MULTIPASS"
 	ICON_IDSMurus                                 ICON_IDS = "MURUS"
@@ -3488,6 +3519,7 @@ const (
 	ICON_IDSPgadmin                               ICON_IDS = "PGADMIN"
 	ICON_IDSPhilippeJounin                        ICON_IDS = "PHILIPPE_JOUNIN"
 	ICON_IDSPhoenixContact                        ICON_IDS = "PHOENIX_CONTACT"
+	ICON_IDSPhp                                   ICON_IDS = "PHP"
 	ICON_IDSPhpmanagerProject                     ICON_IDS = "PHPMANAGER_PROJECT"
 	ICON_IDSPhpstorm                              ICON_IDS = "PHPSTORM"
 	ICON_IDSPhraseexpress                         ICON_IDS = "PHRASEEXPRESS"
@@ -3591,6 +3623,7 @@ const (
 	ICON_IDSQemu                                  ICON_IDS = "QEMU"
 	ICON_IDSQpidProton                            ICON_IDS = "QPID_PROTON"
 	ICON_IDSQsQualitysoft                         ICON_IDS = "QS_QUALITYSOFT"
+	ICON_IDSQt                                    ICON_IDS = "QT"
 	ICON_IDSQualityFirstSoftware                  ICON_IDS = "QUALITY_FIRST_SOFTWARE"
 	ICON_IDSQualys                                ICON_IDS = "QUALYS"
 	ICON_IDSQubes                                 ICON_IDS = "QUBES"
@@ -3652,6 +3685,7 @@ const (
 	ICON_IDSResplendence                          ICON_IDS = "RESPLENDENCE"
 	ICON_IDSRespondus                             ICON_IDS = "RESPONDUS"
 	ICON_IDSResponsively                          ICON_IDS = "RESPONSIVELY"
+	ICON_IDSRestorewindowpos                      ICON_IDS = "RESTOREWINDOWPOS"
 	ICON_IDSRevenueIrishTaxAndCustoms             ICON_IDS = "REVENUE_IRISH_TAX_AND_CUSTOMS"
 	ICON_IDSRexxSystems                           ICON_IDS = "REXX_SYSTEMS"
 	ICON_IDSRheinMainVerkehrsverbundRmv           ICON_IDS = "RHEIN_MAIN_VERKEHRSVERBUND_RMV"
@@ -3711,6 +3745,7 @@ const (
 	ICON_IDSSalt                                  ICON_IDS = "SALT"
 	ICON_IDSSalto                                 ICON_IDS = "SALTO"
 	ICON_IDSSamsung                               ICON_IDS = "SAMSUNG"
+	ICON_IDSSamPrazisionstechnik                  ICON_IDS = "SAM_PRAZISIONSTECHNIK"
 	ICON_IDSSandisk                               ICON_IDS = "SANDISK"
 	ICON_IDSSanesidebuttons                       ICON_IDS = "SANESIDEBUTTONS"
 	ICON_IDSSansan                                ICON_IDS = "SANSAN"
@@ -3722,6 +3757,7 @@ const (
 	ICON_IDSSchindlerSolutions                    ICON_IDS = "SCHINDLER_SOLUTIONS"
 	ICON_IDSSchmidtsLogin                         ICON_IDS = "SCHMIDTS_LOGIN"
 	ICON_IDSSchneiderElectric                     ICON_IDS = "SCHNEIDER_ELECTRIC"
+	ICON_IDSSchneiderSoftware                     ICON_IDS = "SCHNEIDER_SOFTWARE"
 	ICON_IDSSchweighofer                          ICON_IDS = "SCHWEIGHOFER"
 	ICON_IDSScidavis                              ICON_IDS = "SCIDAVIS"
 	ICON_IDSScientificLinux                       ICON_IDS = "SCIENTIFIC_LINUX"
@@ -3807,6 +3843,7 @@ const (
 	ICON_IDSSmcFanControl                         ICON_IDS = "SMC_FAN_CONTROL"
 	ICON_IDSSmettly                               ICON_IDS = "SMETTLY"
 	ICON_IDSSmooze                                ICON_IDS = "SMOOZE"
+	ICON_IDSSmowltech                             ICON_IDS = "SMOWLTECH"
 	ICON_IDSSmsagent                              ICON_IDS = "SMSAGENT"
 	ICON_IDSSnapaddy                              ICON_IDS = "SNAPADDY"
 	ICON_IDSSnapdownloader                        ICON_IDS = "SNAPDOWNLOADER"
@@ -3852,8 +3889,10 @@ const (
 	ICON_IDSSosBerlin                             ICON_IDS = "SOS_BERLIN"
 	ICON_IDSSoti                                  ICON_IDS = "SOTI"
 	ICON_IDSSoundcleod                            ICON_IDS = "SOUNDCLEOD"
+	ICON_IDSSourcegitScm                          ICON_IDS = "SOURCEGIT_SCM"
 	ICON_IDSSourcetree                            ICON_IDS = "SOURCETREE"
 	ICON_IDSSpacedesk                             ICON_IDS = "SPACEDESK"
+	ICON_IDSSpacesniffer                          ICON_IDS = "SPACESNIFFER"
 	ICON_IDSSparklabs                             ICON_IDS = "SPARKLABS"
 	ICON_IDSSparusSoftware                        ICON_IDS = "SPARUS_SOFTWARE"
 	ICON_IDSSparxSystems                          ICON_IDS = "SPARX_SYSTEMS"
@@ -3872,8 +3911,10 @@ const (
 	ICON_IDSSqlitestudio                          ICON_IDS = "SQLITESTUDIO"
 	ICON_IDSSquadra                               ICON_IDS = "SQUADRA"
 	ICON_IDSSquidCache                            ICON_IDS = "SQUID_CACHE"
+	ICON_IDSSshfsWinManager                       ICON_IDS = "SSHFS_WIN_MANAGER"
 	ICON_IDSSsprox                                ICON_IDS = "SSPROX"
 	ICON_IDSSsCBluePrism                          ICON_IDS = "SS_C_BLUE_PRISM"
+	ICON_IDSStacher                               ICON_IDS = "STACHER"
 	ICON_IDSStackit                               ICON_IDS = "STACKIT"
 	ICON_IDSStackConstructionTechnologies         ICON_IDS = "STACK_CONSTRUCTION_TECHNOLOGIES"
 	ICON_IDSStadtWien                             ICON_IDS = "STADT_WIEN"
@@ -3881,6 +3922,7 @@ const (
 	ICON_IDSStandBySoft                           ICON_IDS = "STAND_BY_SOFT"
 	ICON_IDSStardock                              ICON_IDS = "STARDOCK"
 	ICON_IDSStarlightApps                         ICON_IDS = "STARLIGHT_APPS"
+	ICON_IDSStartisback                           ICON_IDS = "STARTISBACK"
 	ICON_IDSStarFinanz                            ICON_IDS = "STAR_FINANZ"
 	ICON_IDSStats                                 ICON_IDS = "STATS"
 	ICON_IDSSteam                                 ICON_IDS = "STEAM"
@@ -3913,6 +3955,7 @@ const (
 	ICON_IDSSurveillanceClient                    ICON_IDS = "SURVEILLANCE_CLIENT"
 	ICON_IDSSuse                                  ICON_IDS = "SUSE"
 	ICON_IDSSustainableSoftworks                  ICON_IDS = "SUSTAINABLE_SOFTWORKS"
+	ICON_IDSSuunto                                ICON_IDS = "SUUNTO"
 	ICON_IDSSva                                   ICON_IDS = "SVA"
 	ICON_IDSSvantek                               ICON_IDS = "SVANTEK"
 	ICON_IDSSw4you                                ICON_IDS = "SW4YOU"
@@ -4039,6 +4082,7 @@ const (
 	ICON_IDSTotalCommander                        ICON_IDS = "TOTAL_COMMANDER"
 	ICON_IDSTotalFileCommanderPro                 ICON_IDS = "TOTAL_FILE_COMMANDER_PRO"
 	ICON_IDSTotalProjectLogistics                 ICON_IDS = "TOTAL_PROJECT_LOGISTICS"
+	ICON_IDSTouchbyte                             ICON_IDS = "TOUCHBYTE"
 	ICON_IDSTouchBarSimulator                     ICON_IDS = "TOUCH_BAR_SIMULATOR"
 	ICON_IDSTower                                 ICON_IDS = "TOWER"
 	ICON_IDSTpLink                                ICON_IDS = "TP_LINK"
@@ -4047,6 +4091,7 @@ const (
 	ICON_IDSTradeweb                              ICON_IDS = "TRADEWEB"
 	ICON_IDSTraduko                               ICON_IDS = "TRADUKO"
 	ICON_IDSTrae                                  ICON_IDS = "TRAE"
+	ICON_IDSTrafficmonitor                        ICON_IDS = "TRAFFICMONITOR"
 	ICON_IDSTranslucenttb                         ICON_IDS = "TRANSLUCENTTB"
 	ICON_IDSTransmissionProject                   ICON_IDS = "TRANSMISSION_PROJECT"
 	ICON_IDSTravelport                            ICON_IDS = "TRAVELPORT"
@@ -4072,6 +4117,7 @@ const (
 	ICON_IDSTurbovnc                              ICON_IDS = "TURBOVNC"
 	ICON_IDSTurck                                 ICON_IDS = "TURCK"
 	ICON_IDSTurtleBeach                           ICON_IDS = "TURTLE_BEACH"
+	ICON_IDSTutao                                 ICON_IDS = "TUTAO"
 	ICON_IDSTweaknowSoftware                      ICON_IDS = "TWEAKNOW_SOFTWARE"
 	ICON_IDSTwilio                                ICON_IDS = "TWILIO"
 	ICON_IDSTwoBrightSparks                       ICON_IDS = "TWO_BRIGHT_SPARKS"
@@ -4124,6 +4170,7 @@ const (
 	ICON_IDSVeritas                               ICON_IDS = "VERITAS"
 	ICON_IDSVerizon                               ICON_IDS = "VERIZON"
 	ICON_IDSVfssoft                               ICON_IDS = "VFSSOFT"
+	ICON_IDSViaviSolutions                        ICON_IDS = "VIAVI_SOLUTIONS"
 	ICON_IDSViber                                 ICON_IDS = "VIBER"
 	ICON_IDSVideojet                              ICON_IDS = "VIDEOJET"
 	ICON_IDSVideolan                              ICON_IDS = "VIDEOLAN"
@@ -4133,6 +4180,7 @@ const (
 	ICON_IDSVim                                   ICON_IDS = "VIM"
 	ICON_IDSVirtualbuddy                          ICON_IDS = "VIRTUALBUDDY"
 	ICON_IDSVispero                               ICON_IDS = "VISPERO"
+	ICON_IDSVisualParadigm                        ICON_IDS = "VISUAL_PARADIGM"
 	ICON_IDSVitalsource                           ICON_IDS = "VITALSOURCE"
 	ICON_IDSVivaldi                               ICON_IDS = "VIVALDI"
 	ICON_IDSVlcMediaPlayer                        ICON_IDS = "VLC_MEDIA_PLAYER"
@@ -4175,6 +4223,7 @@ const (
 	ICON_IDSWhatsapp                              ICON_IDS = "WHATSAPP"
 	ICON_IDSWhisky                                ICON_IDS = "WHISKY"
 	ICON_IDSWhispertranscribe                     ICON_IDS = "WHISPERTRANSCRIBE"
+	ICON_IDSWhispertyping                         ICON_IDS = "WHISPERTYPING"
 	ICON_IDSWhitebox                              ICON_IDS = "WHITEBOX"
 	ICON_IDSWibuSystems                           ICON_IDS = "WIBU_SYSTEMS"
 	ICON_IDSWielandElectric                       ICON_IDS = "WIELAND_ELECTRIC"
@@ -4208,6 +4257,7 @@ const (
 	ICON_IDSWizos                                 ICON_IDS = "WIZOS"
 	ICON_IDSWmhelp                                ICON_IDS = "WMHELP"
 	ICON_IDSWolfi                                 ICON_IDS = "WOLFI"
+	ICON_IDSWolframResearch                       ICON_IDS = "WOLFRAM_RESEARCH"
 	ICON_IDSWoltersKluwer                         ICON_IDS = "WOLTERS_KLUWER"
 	ICON_IDSWondershare                           ICON_IDS = "WONDERSHARE"
 	ICON_IDSWorkingHours                          ICON_IDS = "WORKING_HOURS"
@@ -4225,6 +4275,7 @@ const (
 	ICON_IDSXavierMichelon                        ICON_IDS = "XAVIER_MICHELON"
 	ICON_IDSXbmcFoundation                        ICON_IDS = "XBMC_FOUNDATION"
 	ICON_IDSXcode                                 ICON_IDS = "XCODE"
+	ICON_IDSXcodesorg                             ICON_IDS = "XCODESORG"
 	ICON_IDSXelion                                ICON_IDS = "XELION"
 	ICON_IDSXerox                                 ICON_IDS = "XEROX"
 	ICON_IDSXiaoyaStudio                          ICON_IDS = "XIAOYA_STUDIO"
@@ -4265,6 +4316,7 @@ const (
 	ICON_IDSZedSystems                            ICON_IDS = "ZED_SYSTEMS"
 	ICON_IDSZeplin                                ICON_IDS = "ZEPLIN"
 	ICON_IDSZeptolab                              ICON_IDS = "ZEPTOLAB"
+	ICON_IDSZhipuAi                               ICON_IDS = "ZHIPU_AI"
 	ICON_IDSZivid                                 ICON_IDS = "ZIVID"
 	ICON_IDSZlib                                  ICON_IDS = "ZLIB"
 	ICON_IDSZlibNg                                ICON_IDS = "ZLIB_NG"
@@ -4445,13 +4497,14 @@ const (
 	InterconnectionNodeTypeSupernet InterconnectionNodeType = "SUPERNET"
 )
 
-// IntuneDeviceGroupsEmptyReason represents why a tenant-wide device-group listing came back empty. The picker only offers groups that can run a remediation — a group with no devices cannot — so an empty list is a legitimate answer, and these are the two ways it happens. Degraded tenants never see a wrong reason: when device counting fails (Graph throttling, too many groups to count) the groups stay visible with unknown member counts, and when the group listing itself was cut short, an empty result carries no reason at all — render the generic empty state then.
+// IntuneDeviceGroupsEmptyReason represents why a tenant-wide device-group listing came back empty. The picker only offers groups that can run a remediation — a group with no devices, or with no Intune-managed Windows devices, cannot — so an empty list is a legitimate answer, and these are the ways it happens. Degraded tenants never see a wrong reason: when device counting fails (Graph throttling, too many groups to count) the groups stay visible with unknown member counts, and when the group listing itself was cut short, an empty result carries no reason at all — render the generic empty state then.
 type IntuneDeviceGroupsEmptyReason string
 
-// Why a tenant-wide device-group listing came back empty. The picker only offers groups that can run a remediation — a group with no devices cannot — so an empty list is a legitimate answer, and these are the two ways it happens. Degraded tenants never see a wrong reason: when device counting fails (Graph throttling, too many groups to count) the groups stay visible with unknown member counts, and when the group listing itself was cut short, an empty result carries no reason at all — render the generic empty state then.
+// Why a tenant-wide device-group listing came back empty. The picker only offers groups that can run a remediation — a group with no devices, or with no Intune-managed Windows devices, cannot — so an empty list is a legitimate answer, and these are the ways it happens. Degraded tenants never see a wrong reason: when device counting fails (Graph throttling, too many groups to count) the groups stay visible with unknown member counts, and when the group listing itself was cut short, an empty result carries no reason at all — render the generic empty state then.
 const (
-	IntuneDeviceGroupsEmptyReasonNoSecurityGroups    IntuneDeviceGroupsEmptyReason = "NO_SECURITY_GROUPS"     // The tenant has no Entra security groups at all. (Microsoft 365 groups and distribution lists cannot contain devices and are never offered.).
-	IntuneDeviceGroupsEmptyReasonNoGroupsWithDevices IntuneDeviceGroupsEmptyReason = "NO_GROUPS_WITH_DEVICES" // The tenant has security groups, but none of them contains a device — devices not yet Entra-registered, dynamic membership rules still evaluating, or a fresh tenant. Adding devices to a security group in Entra makes them appear here.
+	IntuneDeviceGroupsEmptyReasonNoSecurityGroups                  IntuneDeviceGroupsEmptyReason = "NO_SECURITY_GROUPS"                     // The tenant has no Entra security groups at all. (Microsoft 365 groups and distribution lists cannot contain devices and are never offered.).
+	IntuneDeviceGroupsEmptyReasonNoGroupsWithDevices               IntuneDeviceGroupsEmptyReason = "NO_GROUPS_WITH_DEVICES"                 // The tenant has security groups, but none of them contains a device — devices not yet Entra-registered, dynamic membership rules still evaluating, or a fresh tenant. Adding devices to a security group in Entra makes them appear here.
+	IntuneDeviceGroupsEmptyReasonNoGroupsWithManagedWindowsDevices IntuneDeviceGroupsEmptyReason = "NO_GROUPS_WITH_MANAGED_WINDOWS_DEVICES" // The tenant has security groups containing devices, but none of them contains a device managed by this tenant's Intune that runs Windows — for example groups of phones or Macs, or devices registered in Entra but not enrolled in Intune. Remediation scripts only run on Intune-managed Windows devices; a send to such a group is refused with NO_MANAGED_WINDOWS_DEVICES_IN_GROUP.
 )
 
 // IntuneRemediationRefusalReason represents why an Intune remediation deploy was refused rather than deployed. Values match the server's internal refusal-reason type by name. The generic WorkflowNodeState.reasonCode field carries the same strings for the (normal, asynchronous) workflow-engine path; this enum exists so a synchronous refusal, if one is ever surfaced from this mutation, is typed rather than a bare string.
@@ -4459,21 +4512,25 @@ type IntuneRemediationRefusalReason string
 
 // Why an Intune remediation deploy was refused rather than deployed. Values match the server's internal refusal-reason type by name. The generic WorkflowNodeState.reasonCode field carries the same strings for the (normal, asynchronous) workflow-engine path; this enum exists so a synchronous refusal, if one is ever surfaced from this mutation, is typed rather than a bare string.
 const (
-	IntuneRemediationRefusalReasonUnspecified                IntuneRemediationRefusalReason = "UNSPECIFIED"                   // No refusal; should not appear on a successful deploy.
-	IntuneRemediationRefusalReasonNotAWindowsPackage         IntuneRemediationRefusalReason = "NOT_A_WINDOWS_PACKAGE"         // The package (or every open package finding for the vulnerability) is not a Windows package.
-	IntuneRemediationRefusalReasonMalformedFindingMrn        IntuneRemediationRefusalReason = "MALFORMED_FINDING_MRN"         // The software finding MRN could not be parsed.
-	IntuneRemediationRefusalReasonProductFinding             IntuneRemediationRefusalReason = "PRODUCT_FINDING"               // The finding MRN names a vendor+product pair, not a specific software or CVE/advisory finding.
-	IntuneRemediationRefusalReasonMixedProducts              IntuneRemediationRefusalReason = "MIXED_PRODUCTS"                // The remediation spans more than one product; one Intune script pair can only cover one.
-	IntuneRemediationRefusalReasonNoWingetPackage            IntuneRemediationRefusalReason = "NO_WINGET_PACKAGE"             // The finding has no winget-identified package for Intune's detection gate to key on.
-	IntuneRemediationRefusalReasonNoRemediationAvailable     IntuneRemediationRefusalReason = "NO_REMEDIATION_AVAILABLE"      // No remediation could be generated, or the capability that would generate one is not available.
-	IntuneRemediationRefusalReasonPerUserInstallUnsupported  IntuneRemediationRefusalReason = "PER_USER_INSTALL_UNSUPPORTED"  // The package is installed per-user; Intune runs as SYSTEM and cannot see it.
-	IntuneRemediationRefusalReasonNoDeviceGroupSelected      IntuneRemediationRefusalReason = "NO_DEVICE_GROUP_SELECTED"      // An on-demand (device-direct) deploy had no asset to target and no group to fall back to.
-	IntuneRemediationRefusalReasonDeviceNotEnrolled          IntuneRemediationRefusalReason = "DEVICE_NOT_ENROLLED"           // The asset has no Intune managed device ID, so an on-demand trigger has nothing to target.
-	IntuneRemediationRefusalReasonOnDemandUnavailable        IntuneRemediationRefusalReason = "ON_DEMAND_UNAVAILABLE"         // The tenant's app registration cannot run an on-demand trigger (missing role, or the preview is off).
-	IntuneRemediationRefusalReasonNotExpressibleAsPowershell IntuneRemediationRefusalReason = "NOT_EXPRESSIBLE_AS_POWERSHELL" // The change/removal/remediation has no PowerShell artifact, Intune's only channel.
-	IntuneRemediationRefusalReasonNoDetectionGate            IntuneRemediationRefusalReason = "NO_DETECTION_GATE"             // No detection gate could be generated; a missing gate is never treated as an open one.
-	IntuneRemediationRefusalReasonAlreadyDeployed            IntuneRemediationRefusalReason = "ALREADY_DEPLOYED"              // An active remediation workflow already owns a deployed script for this finding + group.
-	IntuneRemediationRefusalReasonGenerationFailed           IntuneRemediationRefusalReason = "GENERATION_FAILED"             // An internal inconsistency in remediation generation (a bug guard, not a by-design gap).
+	IntuneRemediationRefusalReasonUnspecified                    IntuneRemediationRefusalReason = "UNSPECIFIED"                         // No refusal; should not appear on a successful deploy.
+	IntuneRemediationRefusalReasonNotAWindowsPackage             IntuneRemediationRefusalReason = "NOT_A_WINDOWS_PACKAGE"               // The package (or every open package finding for the vulnerability) is not a Windows package.
+	IntuneRemediationRefusalReasonMalformedFindingMrn            IntuneRemediationRefusalReason = "MALFORMED_FINDING_MRN"               // The software finding MRN could not be parsed.
+	IntuneRemediationRefusalReasonProductFinding                 IntuneRemediationRefusalReason = "PRODUCT_FINDING"                     // The finding MRN names a vendor+product pair, not a specific software or CVE/advisory finding.
+	IntuneRemediationRefusalReasonMixedProducts                  IntuneRemediationRefusalReason = "MIXED_PRODUCTS"                      // The remediation spans more than one product; one Intune script pair can only cover one.
+	IntuneRemediationRefusalReasonNoWingetPackage                IntuneRemediationRefusalReason = "NO_WINGET_PACKAGE"                   // The finding has no winget-identified package for Intune's detection gate to key on.
+	IntuneRemediationRefusalReasonNoRemediationAvailable         IntuneRemediationRefusalReason = "NO_REMEDIATION_AVAILABLE"            // No remediation could be generated, or the capability that would generate one is not available.
+	IntuneRemediationRefusalReasonPerUserInstallUnsupported      IntuneRemediationRefusalReason = "PER_USER_INSTALL_UNSUPPORTED"        // The package is installed per-user; Intune runs as SYSTEM and cannot see it.
+	IntuneRemediationRefusalReasonPerUserNoEntraSession          IntuneRemediationRefusalReason = "PER_USER_NO_ENTRA_SESSION"           // The package is installed per-user and would be fixed in the signed-in user's context, but Intune has recorded no Entra ID sign-in on the device; Intune skips a user-context script without one (a local Windows account does not count).
+	IntuneRemediationRefusalReasonNoDeviceGroupSelected          IntuneRemediationRefusalReason = "NO_DEVICE_GROUP_SELECTED"            // An on-demand (device-direct) deploy had no asset to target and no group to fall back to.
+	IntuneRemediationRefusalReasonDeviceNotEnrolled              IntuneRemediationRefusalReason = "DEVICE_NOT_ENROLLED"                 // The asset has no Intune managed device ID, so an on-demand trigger has nothing to target.
+	IntuneRemediationRefusalReasonNoManagedWindowsDevicesInGroup IntuneRemediationRefusalReason = "NO_MANAGED_WINDOWS_DEVICES_IN_GROUP" // The selected device group has no Intune-managed Windows device (health scripts only run on Windows); nothing is created or assigned.
+	IntuneRemediationRefusalReasonGroupMembershipUnresolved      IntuneRemediationRefusalReason = "GROUP_MEMBERSHIP_UNRESOLVED"         // None of the selected device group's members could be resolved to check eligibility (e.g. missing Device.Read.All); distinct from NO_MANAGED_WINDOWS_DEVICES_IN_GROUP, which is a clean resolution to zero eligible members.
+	IntuneRemediationRefusalReasonOnDemandUnavailable            IntuneRemediationRefusalReason = "ON_DEMAND_UNAVAILABLE"               // The tenant's app registration cannot run an on-demand trigger (missing role, or the preview is off).
+	IntuneRemediationRefusalReasonNotExpressibleAsPowershell     IntuneRemediationRefusalReason = "NOT_EXPRESSIBLE_AS_POWERSHELL"       // The change/removal/remediation has no PowerShell artifact, Intune's only channel.
+	IntuneRemediationRefusalReasonNoDetectionGate                IntuneRemediationRefusalReason = "NO_DETECTION_GATE"                   // No detection gate could be generated; a missing gate is never treated as an open one.
+	IntuneRemediationRefusalReasonAlreadyDeployed                IntuneRemediationRefusalReason = "ALREADY_DEPLOYED"                    // An active remediation workflow already owns a deployed script for this finding + group.
+	IntuneRemediationRefusalReasonGenerationFailed               IntuneRemediationRefusalReason = "GENERATION_FAILED"                   // An internal inconsistency in remediation generation (a bug guard, not a by-design gap).
+	IntuneRemediationRefusalReasonScriptBudgetExhausted          IntuneRemediationRefusalReason = "SCRIPT_BUDGET_EXHAUSTED"             // Creating the script(s) would exceed Intune's per-tenant health-script limit (200, counting every script in the tenant); nothing is created.
 )
 
 // InvitationOrderField represents field to order invitations by.
@@ -4493,6 +4550,15 @@ const (
 	InvitationStateAccepted InvitationState = "ACCEPTED"
 	InvitationStateDeclined InvitationState = "DECLINED"
 	InvitationStateCanceled InvitationState = "CANCELED"
+)
+
+// JiraAuthMethod represents how the Jira ticketing integration authenticates with Jira.
+type JiraAuthMethod string
+
+// How the Jira ticketing integration authenticates with Jira.
+const (
+	JiraAuthMethodBasic  JiraAuthMethod = "BASIC"  // HTTP basic auth: an Atlassian account email and API token (Jira Cloud), or a username and password (Jira Data Center / Server).
+	JiraAuthMethodBearer JiraAuthMethod = "BEARER" // HTTP bearer auth with a Jira Data Center / Server personal access token.
 )
 
 // JiraTicketContextType represents the type of the ticket context.
@@ -4561,6 +4627,36 @@ const (
 	MembershipScopeKindOrganization MembershipScopeKind = "ORGANIZATION"
 	MembershipScopeKindSpace        MembershipScopeKind = "SPACE"
 	MembershipScopeKindTeam         MembershipScopeKind = "TEAM"
+)
+
+// MicrosoftDefenderFindingType represents kind of Microsoft Defender finding to import.
+type MicrosoftDefenderFindingType string
+
+// Kind of Microsoft Defender finding to import.
+const (
+	MicrosoftDefenderFindingTypeVulnerability    MicrosoftDefenderFindingType = "VULNERABILITY"    // CVE-bearing findings — imported as vulnerabilities (VEX).
+	MicrosoftDefenderFindingTypeThreat           MicrosoftDefenderFindingType = "THREAT"           // Threat findings — imported as findings (FEX) in the THREAT category.
+	MicrosoftDefenderFindingTypeMisconfiguration MicrosoftDefenderFindingType = "MISCONFIGURATION" // Misconfiguration findings — imported as findings (FEX) in the SECURITY category.
+)
+
+// MicrosoftDefenderProduct represents microsoft Defender product to import findings from.
+type MicrosoftDefenderProduct string
+
+// Microsoft Defender product to import findings from.
+const (
+	MicrosoftDefenderProductDefenderForEndpoint MicrosoftDefenderProduct = "DEFENDER_FOR_ENDPOINT" // Microsoft Defender for Endpoint.
+	MicrosoftDefenderProductDefenderForCloud    MicrosoftDefenderProduct = "DEFENDER_FOR_CLOUD"    // Microsoft Defender for Cloud.
+)
+
+// MicrosoftDefenderSeverity represents microsoft Defender finding severity.
+type MicrosoftDefenderSeverity string
+
+// Microsoft Defender finding severity.
+const (
+	MicrosoftDefenderSeverityCritical MicrosoftDefenderSeverity = "CRITICAL" // Critical severity.
+	MicrosoftDefenderSeverityHigh     MicrosoftDefenderSeverity = "HIGH"     // High severity.
+	MicrosoftDefenderSeverityMedium   MicrosoftDefenderSeverity = "MEDIUM"   // Medium severity.
+	MicrosoftDefenderSeverityLow      MicrosoftDefenderSeverity = "LOW"      // Low severity.
 )
 
 // MqueryAssetDataFormat represents mquery asset data format.
@@ -4811,6 +4907,7 @@ type PlanActionKind string
 // What a plan does to one target. RFC-233 lets a plan pick among remediating a finding, mitigating it, and accepting it with an exception. Only the first is built; the other two are additive, and naming the axis now is what keeps them additive.
 const (
 	PlanActionKindRemediation PlanActionKind = "REMEDIATION" // Apply the change and the finding goes away — an RFC-232 ChangeSet of type `remediation`, which a governed component's removal also is.
+	PlanActionKindException   PlanActionKind = "EXCEPTION"   // Accept the finding instead of changing anything: running the step's phase applies an exception through the Exceptions system, and the Exceptions review decides whether it stands. Only findings can be excepted. The step's `exception` carries the decision.
 )
 
 // PlanEditKind represents what a hand edit did.
@@ -4818,14 +4915,19 @@ type PlanEditKind string
 
 // What a hand edit did.
 const (
-	PlanEditKindRemoveSteps   PlanEditKind = "REMOVE_STEPS"   // Took steps out of the plan.
-	PlanEditKindRestoreSteps  PlanEditKind = "RESTORE_STEPS"  // Put removed steps back.
-	PlanEditKindMoveSteps     PlanEditKind = "MOVE_STEPS"     // Moved steps between phases.
-	PlanEditKindAddPhase      PlanEditKind = "ADD_PHASE"      // Added a phase.
-	PlanEditKindRemovePhase   PlanEditKind = "REMOVE_PHASE"   // Removed a phase, moving its content to another.
-	PlanEditKindUpdatePhase   PlanEditKind = "UPDATE_PHASE"   // Changed a phase's title or description.
-	PlanEditKindReorderPhases PlanEditKind = "REORDER_PHASES" // Changed the order of the phases.
-	PlanEditKindUpdatePlan    PlanEditKind = "UPDATE_PLAN"    // Changed the plan's own title or description.
+	PlanEditKindRemoveSteps       PlanEditKind = "REMOVE_STEPS"       // Took steps out of the plan.
+	PlanEditKindRestoreSteps      PlanEditKind = "RESTORE_STEPS"      // Put removed steps back.
+	PlanEditKindMoveSteps         PlanEditKind = "MOVE_STEPS"         // Moved steps between phases.
+	PlanEditKindAddPhase          PlanEditKind = "ADD_PHASE"          // Added a phase.
+	PlanEditKindRemovePhase       PlanEditKind = "REMOVE_PHASE"       // Removed a phase, moving its content to another.
+	PlanEditKindUpdatePhase       PlanEditKind = "UPDATE_PHASE"       // Changed a phase's title or description.
+	PlanEditKindReorderPhases     PlanEditKind = "REORDER_PHASES"     // Changed the order of the phases.
+	PlanEditKindUpdatePlan        PlanEditKind = "UPDATE_PLAN"        // Changed the plan's own title or description.
+	PlanEditKindRestructurePhases PlanEditKind = "RESTRUCTURE_PHASES" // Re-divided the editable phases by criteria.
+	PlanEditKindAddSteps          PlanEditKind = "ADD_STEPS"          // Added findings, governed components or software.
+	PlanEditKindSetAction         PlanEditKind = "SET_ACTION"         // Changed what steps do: an exception, or a remediation again or to another target.
+	PlanEditKindRevert            PlanEditKind = "REVERT"             // Restored the plan as it was after an earlier revision: a revert, an undo or a redo.
+	PlanEditKindExpire            PlanEditKind = "EXPIRE"             // The draft expired, and the re-opened plan went back to the state it was finalized in.
 )
 
 // PlanOutOfScopeReason represents why a candidate is not in the plan. "14 of 60 assets" collapses situations that ask an operator for completely different things: onboard an actuator, wait for a catalog entry, fix a paused integration, or nothing at all because the component is not even installed there. Each value below is a distinct next step, which is the whole reason this is an enum rather than a count. Every value is already a distinction the server draws internally. What is new is that a reader can see it: `resolveActionSet` collapses the first five into one status with the reason in prose, and the last four are only reachable today by calling `applyRemediation` and having it refuse.
@@ -4857,6 +4959,7 @@ const (
 	PlanOutOfScopeReasonDispatchFailed                 PlanOutOfScopeReason = "DISPATCH_FAILED"                   // Everything about the step was right and handing it to the actuating system failed. Only reachable from `runPlan`. Distinct from every reason above, which are answers about the fleet or about us: this one is a transport failure against a change that resolved, an actuator that was selected and a delivery path that accepted it. Retrying the same step unchanged is the correct response, which is true of no other value here except `ACTUATOR_UNAVAILABLE`.
 	PlanOutOfScopeReasonClosed                         PlanOutOfScopeReason = "CLOSED"                            // The phase was closed by hand before this step was handed over. Nothing was applied.
 	PlanOutOfScopeReasonRemovedByHand                  PlanOutOfScopeReason = "REMOVED_BY_HAND"                   // Taken out of the draft by hand (`editPlan`). A decision not to deal with something is itself a decision worth keeping, so it is recorded — who, when and why — and can be restored while the phase is undispatched.
+	PlanOutOfScopeReasonExceptionFailed                PlanOutOfScopeReason = "EXCEPTION_FAILED"                  // An exception step whose exception the Exceptions system did not apply, e.g. because the person running the phase may not create exceptions. Nothing was changed; running the remainder tries again.
 	PlanOutOfScopeReasonOther                          PlanOutOfScopeReason = "OTHER"                             // None of the above. Present so a reason we have not yet named lands somewhere honest rather than being filed under a neighbouring one that would send a reader after the wrong fix.
 )
 
@@ -4909,6 +5012,16 @@ const (
 	PlanPlannerChoiceAuto       PlanPlannerChoice = "AUTO"       // The AI planner when it is available to the organization, else the strategies.
 	PlanPlannerChoiceAi         PlanPlannerChoice = "AI"         // The AI planner. When it is unavailable or its plan fails validation, the strategies divide the plan and `Plan.aiRun` records why.
 	PlanPlannerChoiceStrategies PlanPlannerChoice = "STRATEGIES" // The strategies only.
+)
+
+// PlanRevertDirection represents which way a revert goes.
+type PlanRevertDirection string
+
+// Which way a revert goes.
+const (
+	PlanRevertDirectionUndo PlanRevertDirection = "UNDO" // Undo the latest change that was not undone.
+	PlanRevertDirectionRedo PlanRevertDirection = "REDO" // Redo what the latest undo took back.
+	PlanRevertDirectionTo   PlanRevertDirection = "TO"   // Restore the revision named in toRevision.
 )
 
 // PlanState represents a plan's authoring state (RFC-233 § Plan lifecycle). Runtime is in progress and outcomes, never here.
