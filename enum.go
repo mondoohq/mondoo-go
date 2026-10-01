@@ -446,7 +446,8 @@ const (
 	AssetOrderFieldLastUpdated AssetOrderField = "LAST_UPDATED"
 	AssetOrderFieldRiskScore   AssetOrderField = "RISK_SCORE"
 	AssetOrderFieldRiskValue   AssetOrderField = "RISK_VALUE"
-	AssetOrderFieldEolDate     AssetOrderField = "EOL_DATE" // Order by the per-asset end-of-life date (nulls last). Pairs with the eolStatus filter to build date-ordered "what goes EOL next" listings.
+	AssetOrderFieldEolDate     AssetOrderField = "EOL_DATE"     // Order by the per-asset end-of-life date (nulls last). Pairs with the eolStatus filter to build date-ordered "what goes EOL next" listings.
+	AssetOrderFieldLastScanned AssetOrderField = "LAST_SCANNED" // Order by when the asset was last scanned: lastCnspecScanTime, or lastUpstreamScanTime when cnspec never scanned it (nulls last).
 )
 
 // AssetOverviewReferenceTypeEnum represents an enumeration of the possible reference types for a item for an asset overview.
@@ -837,6 +838,7 @@ const (
 	ClientIntegrationTypeSccm                      ClientIntegrationType = "SCCM"
 	ClientIntegrationTypeJfrogXray                 ClientIntegrationType = "JFROG_XRAY"
 	ClientIntegrationTypeMoonRabbit                ClientIntegrationType = "MOON_RABBIT"
+	ClientIntegrationTypeAtlassian                 ClientIntegrationType = "ATLASSIAN"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -970,6 +972,7 @@ const (
 	CredentialV2KindDigitaloceanApiToken     CredentialV2Kind = "DIGITALOCEAN_API_TOKEN"      // DigitalOcean personal access token.
 	CredentialV2KindVercelApiToken           CredentialV2Kind = "VERCEL_API_TOKEN"            // Vercel API token.
 	CredentialV2KindOktaApiToken             CredentialV2Kind = "OKTA_API_TOKEN"              // Okta API token (SSWS), together with the org domain it belongs to.
+	CredentialV2KindAtlassianAdminApiToken   CredentialV2Kind = "ATLASSIAN_ADMIN_API_TOKEN"   // Atlassian organization admin API key, from admin.atlassian.com. The organization half of an Atlassian tenant; the site half is JIRA.
 	CredentialV2KindGitlabToken              CredentialV2Kind = "GITLAB_TOKEN"                // GitLab access token — personal, group or project.
 	CredentialV2KindEntraClientSecret        CredentialV2Kind = "ENTRA_CLIENT_SECRET"         // Microsoft Entra ID app registration authenticating with a client secret.
 	CredentialV2KindEntraCertificate         CredentialV2Kind = "ENTRA_CERTIFICATE"           // Microsoft Entra ID app registration authenticating with a certificate.
@@ -1038,6 +1041,7 @@ const (
 	CredentialV2SecretFieldDigitaloceanApiToken     CredentialV2SecretField = "DIGITALOCEAN_API_TOKEN"
 	CredentialV2SecretFieldVercelApiToken           CredentialV2SecretField = "VERCEL_API_TOKEN"
 	CredentialV2SecretFieldOktaApiToken             CredentialV2SecretField = "OKTA_API_TOKEN"
+	CredentialV2SecretFieldAtlassianAdminApiToken   CredentialV2SecretField = "ATLASSIAN_ADMIN_API_TOKEN"
 	CredentialV2SecretFieldGitlabToken              CredentialV2SecretField = "GITLAB_TOKEN"
 	CredentialV2SecretFieldEntraClientSecret        CredentialV2SecretField = "ENTRA_CLIENT_SECRET"
 	CredentialV2SecretFieldEntraCertificate         CredentialV2SecretField = "ENTRA_CERTIFICATE"
@@ -1747,6 +1751,7 @@ const (
 	ICON_IDSAccruent                              ICON_IDS = "ACCRUENT"
 	ICON_IDSAccuweather                           ICON_IDS = "ACCUWEATHER"
 	ICON_IDSAcer                                  ICON_IDS = "ACER"
+	ICON_IDSAckermannAutomation                   ICON_IDS = "ACKERMANN_AUTOMATION"
 	ICON_IDSAcl                                   ICON_IDS = "ACL"
 	ICON_IDSAcronis                               ICON_IDS = "ACRONIS"
 	ICON_IDSActeon                                ICON_IDS = "ACTEON"
@@ -1794,6 +1799,7 @@ const (
 	ICON_IDSAerial                                ICON_IDS = "AERIAL"
 	ICON_IDSAetEurope                             ICON_IDS = "AET_EUROPE"
 	ICON_IDSAffinity                              ICON_IDS = "AFFINITY"
+	ICON_IDSAge                                   ICON_IDS = "AGE"
 	ICON_IDSAgfeo                                 ICON_IDS = "AGFEO"
 	ICON_IDSAgilioSoftware                        ICON_IDS = "AGILIO_SOFTWARE"
 	ICON_IDSAgisoft                               ICON_IDS = "AGISOFT"
@@ -1826,6 +1832,7 @@ const (
 	ICON_IDSAllisone                              ICON_IDS = "ALLISONE"
 	ICON_IDSAllplan                               ICON_IDS = "ALLPLAN"
 	ICON_IDSAlludo                                ICON_IDS = "ALLUDO"
+	ICON_IDSAllInOneNews                          ICON_IDS = "ALL_IN_ONE_NEWS"
 	ICON_IDSAlmaLinux                             ICON_IDS = "ALMA_LINUX"
 	ICON_IDSAlphatheta                            ICON_IDS = "ALPHATHETA"
 	ICON_IDSAlpine                                ICON_IDS = "ALPINE"
@@ -1859,6 +1866,7 @@ const (
 	ICON_IDSAnolis                                ICON_IDS = "ANOLIS"
 	ICON_IDSAnomaly                               ICON_IDS = "ANOMALY"
 	ICON_IDSAnotherRedisDesktopManager            ICON_IDS = "ANOTHER_REDIS_DESKTOP_MANAGER"
+	ICON_IDSAnqingInspectorSoftware               ICON_IDS = "ANQING_INSPECTOR_SOFTWARE"
 	ICON_IDSAnsible                               ICON_IDS = "ANSIBLE"
 	ICON_IDSAntaresSql                            ICON_IDS = "ANTARES_SQL"
 	ICON_IDSAntigravity                           ICON_IDS = "ANTIGRAVITY"
@@ -1941,6 +1949,7 @@ const (
 	ICON_IDSAvg                                   ICON_IDS = "AVG"
 	ICON_IDSAviationexam                          ICON_IDS = "AVIATIONEXAM"
 	ICON_IDSAvid                                  ICON_IDS = "AVID"
+	ICON_IDSAvidemuxProject                       ICON_IDS = "AVIDEMUX_PROJECT"
 	ICON_IDSAvm                                   ICON_IDS = "AVM"
 	ICON_IDSAwayke                                ICON_IDS = "AWAYKE"
 	ICON_IDSAweray                                ICON_IDS = "AWERAY"
@@ -1973,6 +1982,7 @@ const (
 	ICON_IDSBarracuda                             ICON_IDS = "BARRACUDA"
 	ICON_IDSBashCompletion                        ICON_IDS = "BASH_COMPLETION"
 	ICON_IDSBasler                                ICON_IDS = "BASLER"
+	ICON_IDSBat                                   ICON_IDS = "BAT"
 	ICON_IDSBattleNet                             ICON_IDS = "BATTLE_NET"
 	ICON_IDSBdrive                                ICON_IDS = "BDRIVE"
 	ICON_IDSBeamdog                               ICON_IDS = "BEAMDOG"
@@ -1989,6 +1999,7 @@ const (
 	ICON_IDSBetterdisplay                         ICON_IDS = "BETTERDISPLAY"
 	ICON_IDSBetterme                              ICON_IDS = "BETTERME"
 	ICON_IDSBettersnaptool                        ICON_IDS = "BETTERSNAPTOOL"
+	ICON_IDSBetterApp                             ICON_IDS = "BETTER_APP"
 	ICON_IDSBewotec                               ICON_IDS = "BEWOTEC"
 	ICON_IDSBeycodent                             ICON_IDS = "BEYCODENT"
 	ICON_IDSBeyerdynamic                          ICON_IDS = "BEYERDYNAMIC"
@@ -2021,6 +2032,7 @@ const (
 	ICON_IDSBloomrpc                              ICON_IDS = "BLOOMRPC"
 	ICON_IDSBlueYonder                            ICON_IDS = "BLUE_YONDER"
 	ICON_IDSBmw                                   ICON_IDS = "BMW"
+	ICON_IDSBoehmeWeihs                           ICON_IDS = "BOEHME_WEIHS"
 	ICON_IDSBombichSoftware                       ICON_IDS = "BOMBICH_SOFTWARE"
 	ICON_IDSBonitasoft                            ICON_IDS = "BONITASOFT"
 	ICON_IDSBookingHoldings                       ICON_IDS = "BOOKING_HOLDINGS"
@@ -2031,6 +2043,7 @@ const (
 	ICON_IDSBoschSecurity                         ICON_IDS = "BOSCH_SECURITY"
 	ICON_IDSBoseProfessional                      ICON_IDS = "BOSE_PROFESSIONAL"
 	ICON_IDSBotkind                               ICON_IDS = "BOTKIND"
+	ICON_IDSBottom                                ICON_IDS = "BOTTOM"
 	ICON_IDSBotProductions                        ICON_IDS = "BOT_PRODUCTIONS"
 	ICON_IDSBox                                   ICON_IDS = "BOX"
 	ICON_IDSBoxer                                 ICON_IDS = "BOXER"
@@ -2103,12 +2116,15 @@ const (
 	ICON_IDSCfitsio                               ICON_IDS = "CFITSIO"
 	ICON_IDSCfr                                   ICON_IDS = "CFR"
 	ICON_IDSChainguard                            ICON_IDS = "CHAINGUARD"
+	ICON_IDSChaos                                 ICON_IDS = "CHAOS"
 	ICON_IDSCharlessoft                           ICON_IDS = "CHARLESSOFT"
+	ICON_IDSCharmbracelet                         ICON_IDS = "CHARMBRACELET"
 	ICON_IDSCheck                                 ICON_IDS = "CHECK"
 	ICON_IDSCheckmk                               ICON_IDS = "CHECKMK"
 	ICON_IDSCheckPoint                            ICON_IDS = "CHECK_POINT"
 	ICON_IDSChef                                  ICON_IDS = "CHEF"
 	ICON_IDSChilkat                               ICON_IDS = "CHILKAT"
+	ICON_IDSChillicream                           ICON_IDS = "CHILLICREAM"
 	ICON_IDSChocolatey                            ICON_IDS = "CHOCOLATEY"
 	ICON_IDSChristianSchenk                       ICON_IDS = "CHRISTIAN_SCHENK"
 	ICON_IDSChromium                              ICON_IDS = "CHROMIUM"
@@ -2133,6 +2149,7 @@ const (
 	ICON_IDSClaris                                ICON_IDS = "CLARIS"
 	ICON_IDSClassicShell                          ICON_IDS = "CLASSIC_SHELL"
 	ICON_IDSClaude                                ICON_IDS = "CLAUDE"
+	ICON_IDSClavierPlus                           ICON_IDS = "CLAVIER_PLUS"
 	ICON_IDSClavister                             ICON_IDS = "CLAVISTER"
 	ICON_IDSClearLinux                            ICON_IDS = "CLEAR_LINUX"
 	ICON_IDSCleverfiles                           ICON_IDS = "CLEVERFILES"
@@ -2197,7 +2214,9 @@ const (
 	ICON_IDSCordaware                             ICON_IDS = "CORDAWARE"
 	ICON_IDSCorel                                 ICON_IDS = "COREL"
 	ICON_IDSCoreos                                ICON_IDS = "COREOS"
+	ICON_IDSCoreInfotech                          ICON_IDS = "CORE_INFOTECH"
 	ICON_IDSCorsair                               ICON_IDS = "CORSAIR"
+	ICON_IDSCosinex                               ICON_IDS = "COSINEX"
 	ICON_IDSCoteditor                             ICON_IDS = "COTEDITOR"
 	ICON_IDSCovenantEyes                          ICON_IDS = "COVENANT_EYES"
 	ICON_IDSCpuid                                 ICON_IDS = "CPUID"
@@ -2275,6 +2294,7 @@ const (
 	ICON_IDSDefault                               ICON_IDS = "DEFAULT"
 	ICON_IDSDefineStudio                          ICON_IDS = "DEFINE_STUDIO"
 	ICON_IDSDelinea                               ICON_IDS = "DELINEA"
+	ICON_IDSDeliverhealth                         ICON_IDS = "DELIVERHEALTH"
 	ICON_IDSDell                                  ICON_IDS = "DELL"
 	ICON_IDSDellIdrac                             ICON_IDS = "DELL_IDRAC"
 	ICON_IDSDeltaControls                         ICON_IDS = "DELTA_CONTROLS"
@@ -2335,6 +2355,7 @@ const (
 	ICON_IDSDmDrogerieMarkt                       ICON_IDS = "DM_DROGERIE_MARKT"
 	ICON_IDSDns                                   ICON_IDS = "DNS"
 	ICON_IDSDockdoor                              ICON_IDS = "DOCKDOOR"
+	ICON_IDSDockerun                              ICON_IDS = "DOCKERUN"
 	ICON_IDSDockerDesktop                         ICON_IDS = "DOCKER_DESKTOP"
 	ICON_IDSDoctolib                              ICON_IDS = "DOCTOLIB"
 	ICON_IDSDocuform                              ICON_IDS = "DOCUFORM"
@@ -2359,9 +2380,11 @@ const (
 	ICON_IDSDraytek                               ICON_IDS = "DRAYTEK"
 	ICON_IDSDrivehq                               ICON_IDS = "DRIVEHQ"
 	ICON_IDSDrivelock                             ICON_IDS = "DRIVELOCK"
+	ICON_IDSDrooms                                ICON_IDS = "DROOMS"
 	ICON_IDSDropbox                               ICON_IDS = "DROPBOX"
 	ICON_IDSDruide                                ICON_IDS = "DRUIDE"
 	ICON_IDSDrFlex                                ICON_IDS = "DR_FLEX"
+	ICON_IDSDrKapusta                             ICON_IDS = "DR_KAPUSTA"
 	ICON_IDSDrLauerKarrenbauer                    ICON_IDS = "DR_LAUER_KARRENBAUER"
 	ICON_IDSDrSchenk                              ICON_IDS = "DR_SCHENK"
 	ICON_IDSDts                                   ICON_IDS = "DTS"
@@ -2387,7 +2410,9 @@ const (
 	ICON_IDSDVelop                                ICON_IDS = "D_VELOP"
 	ICON_IDSE2fsprogsProject                      ICON_IDS = "E2FSPROGS_PROJECT"
 	ICON_IDSEaseus                                ICON_IDS = "EASEUS"
+	ICON_IDSEasycast                              ICON_IDS = "EASYCAST"
 	ICON_IDSEasyeda                               ICON_IDS = "EASYEDA"
+	ICON_IDSEasymorph                             ICON_IDS = "EASYMORPH"
 	ICON_IDSEasysoft                              ICON_IDS = "EASYSOFT"
 	ICON_IDSEaton                                 ICON_IDS = "EATON"
 	ICON_IDSEbro                                  ICON_IDS = "EBRO"
@@ -2425,6 +2450,7 @@ const (
 	ICON_IDSElxr                                  ICON_IDS = "ELXR"
 	ICON_IDSEmbarcadero                           ICON_IDS = "EMBARCADERO"
 	ICON_IDSEmeet                                 ICON_IDS = "EMEET"
+	ICON_IDSEmlReader                             ICON_IDS = "EML_READER"
 	ICON_IDSEmoteInteractive                      ICON_IDS = "EMOTE_INTERACTIVE"
 	ICON_IDSEmtecInnovative                       ICON_IDS = "EMTEC_INNOVATIVE"
 	ICON_IDSEmuElectronic                         ICON_IDS = "EMU_ELECTRONIC"
@@ -2459,6 +2485,7 @@ const (
 	ICON_IDSEtimark                               ICON_IDS = "ETIMARK"
 	ICON_IDSEtLegacy                              ICON_IDS = "ET_LEGACY"
 	ICON_IDSEucweb                                ICON_IDS = "EUCWEB"
+	ICON_IDSEuronda                               ICON_IDS = "EURONDA"
 	ICON_IDSEuroLinux                             ICON_IDS = "EURO_LINUX"
 	ICON_IDSEusingSoftware                        ICON_IDS = "EUSING_SOFTWARE"
 	ICON_IDSEverforo                              ICON_IDS = "EVERFORO"
@@ -2495,9 +2522,12 @@ const (
 	ICON_IDSFastviewer                            ICON_IDS = "FASTVIEWER"
 	ICON_IDSFathom                                ICON_IDS = "FATHOM"
 	ICON_IDSFatshark                              ICON_IDS = "FATSHARK"
+	ICON_IDSFaulhaber                             ICON_IDS = "FAULHABER"
 	ICON_IDSFauErlangenNurnberg                   ICON_IDS = "FAU_ERLANGEN_NURNBERG"
+	ICON_IDSFd                                    ICON_IDS = "FD"
 	ICON_IDSFedora                                ICON_IDS = "FEDORA"
 	ICON_IDSFedoraProject                         ICON_IDS = "FEDORA_PROJECT"
+	ICON_IDSFeedly                                ICON_IDS = "FEEDLY"
 	ICON_IDSFenaco                                ICON_IDS = "FENACO"
 	ICON_IDSFeralInteractive                      ICON_IDS = "FERAL_INTERACTIVE"
 	ICON_IDSFerdium                               ICON_IDS = "FERDIUM"
@@ -2532,6 +2562,8 @@ const (
 	ICON_IDSFlatcc                                ICON_IDS = "FLATCC"
 	ICON_IDSFleetboard                            ICON_IDS = "FLEETBOARD"
 	ICON_IDSFlexera                               ICON_IDS = "FLEXERA"
+	ICON_IDSFlexfone                              ICON_IDS = "FLEXFONE"
+	ICON_IDSFlexoptix                             ICON_IDS = "FLEXOPTIX"
 	ICON_IDSFlipboard                             ICON_IDS = "FLIPBOARD"
 	ICON_IDSFlipper                               ICON_IDS = "FLIPPER"
 	ICON_IDSFltk                                  ICON_IDS = "FLTK"
@@ -2544,6 +2576,7 @@ const (
 	ICON_IDSFmRadioStationsProTune                ICON_IDS = "FM_RADIO_STATIONS_PRO_TUNE"
 	ICON_IDSFnm                                   ICON_IDS = "FNM"
 	ICON_IDSFnmtRcm                               ICON_IDS = "FNMT_RCM"
+	ICON_IDSFnordSoftware                         ICON_IDS = "FNORD_SOFTWARE"
 	ICON_IDSFocusrite                             ICON_IDS = "FOCUSRITE"
 	ICON_IDSFokusekEnterprise                     ICON_IDS = "FOKUSEK_ENTERPRISE"
 	ICON_IDSFolivoraAi                            ICON_IDS = "FOLIVORA_AI"
@@ -2586,6 +2619,7 @@ const (
 	ICON_IDSFutudent                              ICON_IDS = "FUTUDENT"
 	ICON_IDSFxhome                                ICON_IDS = "FXHOME"
 	ICON_IDSFxsoundLlc                            ICON_IDS = "FXSOUND_LLC"
+	ICON_IDSFzf                                   ICON_IDS = "FZF"
 	ICON_IDSG5Entertainment                       ICON_IDS = "G5_ENTERTAINMENT"
 	ICON_IDSGallagherRobertson                    ICON_IDS = "GALLAGHER_ROBERTSON"
 	ICON_IDSGameloft                              ICON_IDS = "GAMELOFT"
@@ -2666,6 +2700,7 @@ const (
 	ICON_IDSGoogleWorkspace                       ICON_IDS = "GOOGLE_WORKSPACE"
 	ICON_IDSGoose                                 ICON_IDS = "GOOSE"
 	ICON_IDSGopro                                 ICON_IDS = "GOPRO"
+	ICON_IDSGossenMetrawatt                       ICON_IDS = "GOSSEN_METRAWATT"
 	ICON_IDSGothaerVersicherung                   ICON_IDS = "GOTHAER_VERSICHERUNG"
 	ICON_IDSGoto                                  ICON_IDS = "GOTO"
 	ICON_IDSGotomaxx                              ICON_IDS = "GOTOMAXX"
@@ -2694,6 +2729,7 @@ const (
 	ICON_IDSGstPluginsBad                         ICON_IDS = "GST_PLUGINS_BAD"
 	ICON_IDSGstPluginsGood                        ICON_IDS = "GST_PLUGINS_GOOD"
 	ICON_IDSGtk                                   ICON_IDS = "GTK"
+	ICON_IDSGtswTools                             ICON_IDS = "GTSW_TOOLS"
 	ICON_IDSGtOfficePdfStudio                     ICON_IDS = "GT_OFFICE_PDF_STUDIO"
 	ICON_IDSGuardsix                              ICON_IDS = "GUARDSIX"
 	ICON_IDSGuinpinsoft                           ICON_IDS = "GUINPINSOFT"
@@ -2704,6 +2740,7 @@ const (
 	ICON_IDSHammerdb                              ICON_IDS = "HAMMERDB"
 	ICON_IDSHammerspoon                           ICON_IDS = "HAMMERSPOON"
 	ICON_IDSHamInnovation                         ICON_IDS = "HAM_INNOVATION"
+	ICON_IDSHanakianSoftware                      ICON_IDS = "HANAKIAN_SOFTWARE"
 	ICON_IDSHandbrake                             ICON_IDS = "HANDBRAKE"
 	ICON_IDSHandy                                 ICON_IDS = "HANDY"
 	ICON_IDSHankinsoft                            ICON_IDS = "HANKINSOFT"
@@ -2715,6 +2752,7 @@ const (
 	ICON_IDSHclNotes                              ICON_IDS = "HCL_NOTES"
 	ICON_IDSHcp                                   ICON_IDS = "HCP"
 	ICON_IDSHeadlamp                              ICON_IDS = "HEADLAMP"
+	ICON_IDSHeicPlus                              ICON_IDS = "HEIC_PLUS"
 	ICON_IDSHeidisql                              ICON_IDS = "HEIDISQL"
 	ICON_IDSHelgeKlein                            ICON_IDS = "HELGE_KLEIN"
 	ICON_IDSHeliosSolutions                       ICON_IDS = "HELIOS_SOLUTIONS"
@@ -2737,6 +2775,7 @@ const (
 	ICON_IDSHofer                                 ICON_IDS = "HOFER"
 	ICON_IDSHogia                                 ICON_IDS = "HOGIA"
 	ICON_IDSHohnstaedt                            ICON_IDS = "HOHNSTAEDT"
+	ICON_IDSHokuyoAutomatic                       ICON_IDS = "HOKUYO_AUTOMATIC"
 	ICON_IDSHolophase                             ICON_IDS = "HOLOPHASE"
 	ICON_IDSHomedev                               ICON_IDS = "HOMEDEV"
 	ICON_IDSHomielab                              ICON_IDS = "HOMIELAB"
@@ -2812,6 +2851,7 @@ const (
 	ICON_IDSInedo                                 ICON_IDS = "INEDO"
 	ICON_IDSInera                                 ICON_IDS = "INERA"
 	ICON_IDSInfatica                              ICON_IDS = "INFATICA"
+	ICON_IDSInfinittHealthcare                    ICON_IDS = "INFINITT_HEALTHCARE"
 	ICON_IDSInfocert                              ICON_IDS = "INFOCERT"
 	ICON_IDSInfoniqa                              ICON_IDS = "INFONIQA"
 	ICON_IDSInfor                                 ICON_IDS = "INFOR"
@@ -2890,6 +2930,7 @@ const (
 	ICON_IDSJetbrainsMps                          ICON_IDS = "JETBRAINS_MPS"
 	ICON_IDSJetbrainsToolbox                      ICON_IDS = "JETBRAINS_TOOLBOX"
 	ICON_IDSJetPilot                              ICON_IDS = "JET_PILOT"
+	ICON_IDSJfrog                                 ICON_IDS = "JFROG"
 	ICON_IDSJgm                                   ICON_IDS = "JGM"
 	ICON_IDSJiggler                               ICON_IDS = "JIGGLER"
 	ICON_IDSJimRadford                            ICON_IDS = "JIM_RADFORD"
@@ -2913,6 +2954,7 @@ const (
 	ICON_IDSJust2d                                ICON_IDS = "JUST2D"
 	ICON_IDSJxplorer                              ICON_IDS = "JXPLORER"
 	ICON_IDSJMorita                               ICON_IDS = "J_MORITA"
+	ICON_IDSK3dIo                                 ICON_IDS = "K3D_IO"
 	ICON_IDSK8s                                   ICON_IDS = "K8S"
 	ICON_IDSKaasoft                               ICON_IDS = "KAASOFT"
 	ICON_IDSKaeros                                ICON_IDS = "KAEROS"
@@ -2945,6 +2987,7 @@ const (
 	ICON_IDSKindermann                            ICON_IDS = "KINDERMANN"
 	ICON_IDSKineapps                              ICON_IDS = "KINEAPPS"
 	ICON_IDSKing                                  ICON_IDS = "KING"
+	ICON_IDSKingloft                              ICON_IDS = "KINGLOFT"
 	ICON_IDSKingsoft                              ICON_IDS = "KINGSOFT"
 	ICON_IDSKingstonTechnology                    ICON_IDS = "KINGSTON_TECHNOLOGY"
 	ICON_IDSKingstElectronics                     ICON_IDS = "KINGST_ELECTRONICS"
@@ -2972,11 +3015,15 @@ const (
 	ICON_IDSKpsc                                  ICON_IDS = "KPSC"
 	ICON_IDSKreuzwortraetsel                      ICON_IDS = "KREUZWORTRAETSEL"
 	ICON_IDSKrzysztofKowalczyk                    ICON_IDS = "KRZYSZTOF_KOWALCZYK"
+	ICON_IDSKubeconform                           ICON_IDS = "KUBECONFORM"
+	ICON_IDSKubectx                               ICON_IDS = "KUBECTX"
 	ICON_IDSKubernetes                            ICON_IDS = "KUBERNETES"
+	ICON_IDSKubie                                 ICON_IDS = "KUBIE"
 	ICON_IDSKuferSoftware                         ICON_IDS = "KUFER_SOFTWARE"
 	ICON_IDSKuka                                  ICON_IDS = "KUKA"
 	ICON_IDSKulcsSoft                             ICON_IDS = "KULCS_SOFT"
 	ICON_IDSKuritaAmerica                         ICON_IDS = "KURITA_AMERICA"
+	ICON_IDSKurrent                               ICON_IDS = "KURRENT"
 	ICON_IDSKurtDowswell                          ICON_IDS = "KURT_DOWSWELL"
 	ICON_IDSKwsoft                                ICON_IDS = "KWSOFT"
 	ICON_IDSKyocera                               ICON_IDS = "KYOCERA"
@@ -2994,6 +3041,7 @@ const (
 	ICON_IDSLastpass                              ICON_IDS = "LASTPASS"
 	ICON_IDSLatticeSemiconductor                  ICON_IDS = "LATTICE_SEMICONDUCTOR"
 	ICON_IDSLaunchControl                         ICON_IDS = "LAUNCH_CONTROL"
+	ICON_IDSLbbw                                  ICON_IDS = "LBBW"
 	ICON_IDSLdapsoft                              ICON_IDS = "LDAPSOFT"
 	ICON_IDSLdns                                  ICON_IDS = "LDNS"
 	ICON_IDSLede                                  ICON_IDS = "LEDE"
@@ -3098,8 +3146,10 @@ const (
 	ICON_IDSMagix                                 ICON_IDS = "MAGIX"
 	ICON_IDSMagnet                                ICON_IDS = "MAGNET"
 	ICON_IDSMahtcaGlobal                          ICON_IDS = "MAHTCA_GLOBAL"
+	ICON_IDSMail                                  ICON_IDS = "MAIL"
 	ICON_IDSMailenable                            ICON_IDS = "MAILENABLE"
 	ICON_IDSMailstore                             ICON_IDS = "MAILSTORE"
+	ICON_IDSMaketone                              ICON_IDS = "MAKETONE"
 	ICON_IDSMalwarebytes                          ICON_IDS = "MALWAREBYTES"
 	ICON_IDSManageengine                          ICON_IDS = "MANAGEENGINE"
 	ICON_IDSMangoapps                             ICON_IDS = "MANGOAPPS"
@@ -3141,6 +3191,7 @@ const (
 	ICON_IDSMegger                                ICON_IDS = "MEGGER"
 	ICON_IDSMelagMedizintechnik                   ICON_IDS = "MELAG_MEDIZINTECHNIK"
 	ICON_IDSMeltytech                             ICON_IDS = "MELTYTECH"
+	ICON_IDSMeltyLabs                             ICON_IDS = "MELTY_LABS"
 	ICON_IDSMendelsonECommerce                    ICON_IDS = "MENDELSON_E_COMMERCE"
 	ICON_IDSMenschUndMaschine                     ICON_IDS = "MENSCH_UND_MASCHINE"
 	ICON_IDSMerriamWebster                        ICON_IDS = "MERRIAM_WEBSTER"
@@ -3156,6 +3207,7 @@ const (
 	ICON_IDSMichaelTippach                        ICON_IDS = "MICHAEL_TIPPACH"
 	ICON_IDSMicontrol                             ICON_IDS = "MICONTROL"
 	ICON_IDSMicrochip                             ICON_IDS = "MICROCHIP"
+	ICON_IDSMicroclarity                          ICON_IDS = "MICROCLARITY"
 	ICON_IDSMicrosensys                           ICON_IDS = "MICROSENSYS"
 	ICON_IDSMicrosoft                             ICON_IDS = "MICROSOFT"
 	ICON_IDSMicrosoftCopilot                      ICON_IDS = "MICROSOFT_COPILOT"
@@ -3239,6 +3291,7 @@ const (
 	ICON_IDSMozillaThunderbird                    ICON_IDS = "MOZILLA_THUNDERBIRD"
 	ICON_IDSMp3tagForMac                          ICON_IDS = "MP3TAG_FOR_MAC"
 	ICON_IDSMpg123Project                         ICON_IDS = "MPG123_PROJECT"
+	ICON_IDSMpvProject                            ICON_IDS = "MPV_PROJECT"
 	ICON_IDSMqttx                                 ICON_IDS = "MQTTX"
 	ICON_IDSMremoteng                             ICON_IDS = "MREMOTENG"
 	ICON_IDSMs365                                 ICON_IDS = "MS365"
@@ -3251,6 +3304,7 @@ const (
 	ICON_IDSMullvad                               ICON_IDS = "MULLVAD"
 	ICON_IDSMulticommander                        ICON_IDS = "MULTICOMMANDER"
 	ICON_IDSMultipass                             ICON_IDS = "MULTIPASS"
+	ICON_IDSMural                                 ICON_IDS = "MURAL"
 	ICON_IDSMurus                                 ICON_IDS = "MURUS"
 	ICON_IDSMusescore                             ICON_IDS = "MUSESCORE"
 	ICON_IDSMuseGroup                             ICON_IDS = "MUSE_GROUP"
@@ -3279,6 +3333,7 @@ const (
 	ICON_IDSNektony                               ICON_IDS = "NEKTONY"
 	ICON_IDSNellySolutionsGmbh                    ICON_IDS = "NELLY_SOLUTIONS_GMBH"
 	ICON_IDSNeovim                                ICON_IDS = "NEOVIM"
+	ICON_IDSNeplan                                ICON_IDS = "NEPLAN"
 	ICON_IDSNetcdf                                ICON_IDS = "NETCDF"
 	ICON_IDSNetflix                               ICON_IDS = "NETFLIX"
 	ICON_IDSNetsdk                                ICON_IDS = "NETSDK"
@@ -3322,8 +3377,10 @@ const (
 	ICON_IDSNovapdf                               ICON_IDS = "NOVAPDF"
 	ICON_IDSNovasina                              ICON_IDS = "NOVASINA"
 	ICON_IDSNowGg                                 ICON_IDS = "NOW_GG"
+	ICON_IDSNpiperelay                            ICON_IDS = "NPIPERELAY"
 	ICON_IDSNsis                                  ICON_IDS = "NSIS"
 	ICON_IDSNswag                                 ICON_IDS = "NSWAG"
+	ICON_IDSNtaSystemhaus                         ICON_IDS = "NTA_SYSTEMHAUS"
 	ICON_IDSNtpProject                            ICON_IDS = "NTP_PROJECT"
 	ICON_IDSNtwindSoftware                        ICON_IDS = "NTWIND_SOFTWARE"
 	ICON_IDSNtWare                                ICON_IDS = "NT_WARE"
@@ -3378,6 +3435,7 @@ const (
 	ICON_IDSObsStudio                             ICON_IDS = "OBS_STUDIO"
 	ICON_IDSOci                                   ICON_IDS = "OCI"
 	ICON_IDSOctopusDeploy                         ICON_IDS = "OCTOPUS_DEPLOY"
+	ICON_IDSOfficesuitelab                        ICON_IDS = "OFFICESUITELAB"
 	ICON_IDSOfficeRibbonxEditor                   ICON_IDS = "OFFICE_RIBBONX_EDITOR"
 	ICON_IDSOgre                                  ICON_IDS = "OGRE"
 	ICON_IDSOki                                   ICON_IDS = "OKI"
@@ -3390,6 +3448,7 @@ const (
 	ICON_IDSOmDigitalSolutions                    ICON_IDS = "OM_DIGITAL_SOLUTIONS"
 	ICON_IDSOnedrive                              ICON_IDS = "ONEDRIVE"
 	ICON_IDSOnefootball                           ICON_IDS = "ONEFOOTBALL"
+	ICON_IDSOnelaunchTechnologies                 ICON_IDS = "ONELAUNCH_TECHNOLOGIES"
 	ICON_IDSOnestartTechnologies                  ICON_IDS = "ONESTART_TECHNOLOGIES"
 	ICON_IDSOneAndOne                             ICON_IDS = "ONE_AND_ONE"
 	ICON_IDSOneBlocker                            ICON_IDS = "ONE_BLOCKER"
@@ -3519,6 +3578,7 @@ const (
 	ICON_IDSPgadmin                               ICON_IDS = "PGADMIN"
 	ICON_IDSPhilippeJounin                        ICON_IDS = "PHILIPPE_JOUNIN"
 	ICON_IDSPhoenixContact                        ICON_IDS = "PHOENIX_CONTACT"
+	ICON_IDSPhotoCoolApps                         ICON_IDS = "PHOTO_COOL_APPS"
 	ICON_IDSPhp                                   ICON_IDS = "PHP"
 	ICON_IDSPhpmanagerProject                     ICON_IDS = "PHPMANAGER_PROJECT"
 	ICON_IDSPhpstorm                              ICON_IDS = "PHPSTORM"
@@ -3534,6 +3594,7 @@ const (
 	ICON_IDSPintaProject                          ICON_IDS = "PINTA_PROJECT"
 	ICON_IDSPisaSales                             ICON_IDS = "PISA_SALES"
 	ICON_IDSPixelmator                            ICON_IDS = "PIXELMATOR"
+	ICON_IDSPixiv                                 ICON_IDS = "PIXIV"
 	ICON_IDSPixman                                ICON_IDS = "PIXMAN"
 	ICON_IDSPixmeo                                ICON_IDS = "PIXMEO"
 	ICON_IDSPixum                                 ICON_IDS = "PIXUM"
@@ -3543,6 +3604,7 @@ const (
 	ICON_IDSPlandent                              ICON_IDS = "PLANDENT"
 	ICON_IDSPlanmeca                              ICON_IDS = "PLANMECA"
 	ICON_IDSPlanner5d                             ICON_IDS = "PLANNER_5D"
+	ICON_IDSPlayerisplayer                        ICON_IDS = "PLAYERISPLAYER"
 	ICON_IDSPlayrix                               ICON_IDS = "PLAYRIX"
 	ICON_IDSPlaysaurus                            ICON_IDS = "PLAYSAURUS"
 	ICON_IDSPlcnext                               ICON_IDS = "PLCNEXT"
@@ -3579,6 +3641,7 @@ const (
 	ICON_IDSPrecisely                             ICON_IDS = "PRECISELY"
 	ICON_IDSPreemptive                            ICON_IDS = "PREEMPTIVE"
 	ICON_IDSPremiumsoft                           ICON_IDS = "PREMIUMSOFT"
+	ICON_IDSPresenterm                            ICON_IDS = "PRESENTERM"
 	ICON_IDSPresonus                              ICON_IDS = "PRESONUS"
 	ICON_IDSPrezi                                 ICON_IDS = "PREZI"
 	ICON_IDSPreCommit                             ICON_IDS = "PRE_COMMIT"
@@ -3590,6 +3653,7 @@ const (
 	ICON_IDSProgressSoftware                      ICON_IDS = "PROGRESS_SOFTWARE"
 	ICON_IDSProjectlibre                          ICON_IDS = "PROJECTLIBRE"
 	ICON_IDSPrometheus                            ICON_IDS = "PROMETHEUS"
+	ICON_IDSProphix                               ICON_IDS = "PROPHIX"
 	ICON_IDSProsa                                 ICON_IDS = "PROSA"
 	ICON_IDSProsoftTechnology                     ICON_IDS = "PROSOFT_TECHNOLOGY"
 	ICON_IDSProsoz                                ICON_IDS = "PROSOZ"
@@ -3613,6 +3677,7 @@ const (
 	ICON_IDSPypi                                  ICON_IDS = "PYPI"
 	ICON_IDSQbittorrent                           ICON_IDS = "QBITTORRENT"
 	ICON_IDSQdbm                                  ICON_IDS = "QDBM"
+	ICON_IDSQformGroup                            ICON_IDS = "QFORM_GROUP"
 	ICON_IDSQihoo360                              ICON_IDS = "QIHOO_360"
 	ICON_IDSQingqingYu                            ICON_IDS = "QINGQING_YU"
 	ICON_IDSQlik                                  ICON_IDS = "QLIK"
@@ -3627,6 +3692,7 @@ const (
 	ICON_IDSQualityFirstSoftware                  ICON_IDS = "QUALITY_FIRST_SOFTWARE"
 	ICON_IDSQualys                                ICON_IDS = "QUALYS"
 	ICON_IDSQubes                                 ICON_IDS = "QUBES"
+	ICON_IDSQueenloft                             ICON_IDS = "QUEENLOFT"
 	ICON_IDSQuest                                 ICON_IDS = "QUEST"
 	ICON_IDSQuestionmark                          ICON_IDS = "QUESTIONMARK"
 	ICON_IDSQuicklook                             ICON_IDS = "QUICKLOOK"
@@ -3634,6 +3700,7 @@ const (
 	ICON_IDSQuickshade                            ICON_IDS = "QUICKSHADE"
 	ICON_IDSQwen                                  ICON_IDS = "QWEN"
 	ICON_IDSRabbitmq                              ICON_IDS = "RABBITMQ"
+	ICON_IDSRadioPlayerStationsOnline             ICON_IDS = "RADIO_PLAYER_STATIONS_ONLINE"
 	ICON_IDSRadzen                                ICON_IDS = "RADZEN"
 	ICON_IDSRainmeter                             ICON_IDS = "RAINMETER"
 	ICON_IDSRamp                                  ICON_IDS = "RAMP"
@@ -3663,6 +3730,7 @@ const (
 	ICON_IDSRecastSoftware                        ICON_IDS = "RECAST_SOFTWARE"
 	ICON_IDSRectangle                             ICON_IDS = "RECTANGLE"
 	ICON_IDSRedbrick                              ICON_IDS = "REDBRICK"
+	ICON_IDSReddoxx                               ICON_IDS = "REDDOXX"
 	ICON_IDSRedfish                               ICON_IDS = "REDFISH"
 	ICON_IDSRedgate                               ICON_IDS = "REDGATE"
 	ICON_IDSRedis                                 ICON_IDS = "REDIS"
@@ -3693,6 +3761,7 @@ const (
 	ICON_IDSRichardWalters                        ICON_IDS = "RICHARD_WALTERS"
 	ICON_IDSRider                                 ICON_IDS = "RIDER"
 	ICON_IDSRingcentral                           ICON_IDS = "RINGCENTRAL"
+	ICON_IDSRio                                   ICON_IDS = "RIO"
 	ICON_IDSRiotGames                             ICON_IDS = "RIOT_GAMES"
 	ICON_IDSRipgrepAll                            ICON_IDS = "RIPGREP_ALL"
 	ICON_IDSRiverside                             ICON_IDS = "RIVERSIDE"
@@ -3712,6 +3781,7 @@ const (
 	ICON_IDSRosslare                              ICON_IDS = "ROSSLARE"
 	ICON_IDSRouvy                                 ICON_IDS = "ROUVY"
 	ICON_IDSRoxtra                                ICON_IDS = "ROXTRA"
+	ICON_IDSRoxyapps                              ICON_IDS = "ROXYAPPS"
 	ICON_IDSRoyalTsx                              ICON_IDS = "ROYAL_TSX"
 	ICON_IDSRpost                                 ICON_IDS = "RPOST"
 	ICON_IDSRtklib                                ICON_IDS = "RTKLIB"
@@ -3747,7 +3817,9 @@ const (
 	ICON_IDSSamsung                               ICON_IDS = "SAMSUNG"
 	ICON_IDSSamPrazisionstechnik                  ICON_IDS = "SAM_PRAZISIONSTECHNIK"
 	ICON_IDSSandisk                               ICON_IDS = "SANDISK"
+	ICON_IDSSandvikCoromant                       ICON_IDS = "SANDVIK_COROMANT"
 	ICON_IDSSanesidebuttons                       ICON_IDS = "SANESIDEBUTTONS"
+	ICON_IDSSangoma                               ICON_IDS = "SANGOMA"
 	ICON_IDSSansan                                ICON_IDS = "SANSAN"
 	ICON_IDSSap                                   ICON_IDS = "SAP"
 	ICON_IDSSargentAndGreenleaf                   ICON_IDS = "SARGENT_AND_GREENLEAF"
@@ -3795,6 +3867,7 @@ const (
 	ICON_IDSSergeiPleis                           ICON_IDS = "SERGEI_PLEIS"
 	ICON_IDSServerEye                             ICON_IDS = "SERVER_EYE"
 	ICON_IDSServicenow                            ICON_IDS = "SERVICENOW"
+	ICON_IDSServiceware                           ICON_IDS = "SERVICEWARE"
 	ICON_IDSSerGroup                              ICON_IDS = "SER_GROUP"
 	ICON_IDSSetdefaultbrowser                     ICON_IDS = "SETDEFAULTBROWSER"
 	ICON_IDSSetuserfta                            ICON_IDS = "SETUSERFTA"
@@ -3826,11 +3899,13 @@ const (
 	ICON_IDSSimonsvoss                            ICON_IDS = "SIMONSVOSS"
 	ICON_IDSSimonKnuth                            ICON_IDS = "SIMON_KNUTH"
 	ICON_IDSSindreSorhus                          ICON_IDS = "SINDRE_SORHUS"
+	ICON_IDSSipgate                               ICON_IDS = "SIPGATE"
 	ICON_IDSSiratIt                               ICON_IDS = "SIRAT_IT"
 	ICON_IDSSite24x7                              ICON_IDS = "SITE24X7"
 	ICON_IDSSitecore                              ICON_IDS = "SITECORE"
 	ICON_IDSSitesucker                            ICON_IDS = "SITESUCKER"
 	ICON_IDSSketch                                ICON_IDS = "SKETCH"
+	ICON_IDSSkhd                                  ICON_IDS = "SKHD"
 	ICON_IDSSkillbrains                           ICON_IDS = "SKILLBRAINS"
 	ICON_IDSSky                                   ICON_IDS = "SKY"
 	ICON_IDSSkylum                                ICON_IDS = "SKYLUM"
@@ -3842,6 +3917,7 @@ const (
 	ICON_IDSSmartTechnologies                     ICON_IDS = "SMART_TECHNOLOGIES"
 	ICON_IDSSmcFanControl                         ICON_IDS = "SMC_FAN_CONTROL"
 	ICON_IDSSmettly                               ICON_IDS = "SMETTLY"
+	ICON_IDSSmilecloud                            ICON_IDS = "SMILECLOUD"
 	ICON_IDSSmooze                                ICON_IDS = "SMOOZE"
 	ICON_IDSSmowltech                             ICON_IDS = "SMOWLTECH"
 	ICON_IDSSmsagent                              ICON_IDS = "SMSAGENT"
@@ -3880,6 +3956,7 @@ const (
 	ICON_IDSSolventum                             ICON_IDS = "SOLVENTUM"
 	ICON_IDSSolvusoft                             ICON_IDS = "SOLVUSOFT"
 	ICON_IDSSomaZone                              ICON_IDS = "SOMA_ZONE"
+	ICON_IDSSomeMediaApps                         ICON_IDS = "SOME_MEDIA_APPS"
 	ICON_IDSSonicwall                             ICON_IDS = "SONICWALL"
 	ICON_IDSSonnySoftware                         ICON_IDS = "SONNY_SOFTWARE"
 	ICON_IDSSonos                                 ICON_IDS = "SONOS"
@@ -3928,6 +4005,7 @@ const (
 	ICON_IDSSteam                                 ICON_IDS = "STEAM"
 	ICON_IDSSteamOs                               ICON_IDS = "STEAM_OS"
 	ICON_IDSSteelseries                           ICON_IDS = "STEELSERIES"
+	ICON_IDSStellantis                            ICON_IDS = "STELLANTIS"
 	ICON_IDSStellarium                            ICON_IDS = "STELLARIUM"
 	ICON_IDSStepover                              ICON_IDS = "STEPOVER"
 	ICON_IDSSteuerbot                             ICON_IDS = "STEUERBOT"
@@ -3942,6 +4020,7 @@ const (
 	ICON_IDSSubhra74                              ICON_IDS = "SUBHRA74"
 	ICON_IDSSublimeMerge                          ICON_IDS = "SUBLIME_MERGE"
 	ICON_IDSSublimeText                           ICON_IDS = "SUBLIME_TEXT"
+	ICON_IDSSuperfile                             ICON_IDS = "SUPERFILE"
 	ICON_IDSSuperflyInc                           ICON_IDS = "SUPERFLY_INC"
 	ICON_IDSSupergiantGames                       ICON_IDS = "SUPERGIANT_GAMES"
 	ICON_IDSSuperhighfives                        ICON_IDS = "SUPERHIGHFIVES"
@@ -3990,6 +4069,7 @@ const (
 	ICON_IDSTableplus                             ICON_IDS = "TABLEPLUS"
 	ICON_IDSTablepro                              ICON_IDS = "TABLEPRO"
 	ICON_IDSTabularEditor                         ICON_IDS = "TABULAR_EDITOR"
+	ICON_IDSTad                                   ICON_IDS = "TAD"
 	ICON_IDSTails                                 ICON_IDS = "TAILS"
 	ICON_IDSTailscale                             ICON_IDS = "TAILSCALE"
 	ICON_IDSTalos                                 ICON_IDS = "TALOS"
@@ -4060,6 +4140,7 @@ const (
 	ICON_IDSTidalMusic                            ICON_IDS = "TIDAL_MUSIC"
 	ICON_IDSTigervnc                              ICON_IDS = "TIGERVNC"
 	ICON_IDSTightvnc                              ICON_IDS = "TIGHTVNC"
+	ICON_IDSTikiTaka                              ICON_IDS = "TIKI_TAKA"
 	ICON_IDSTildeslash                            ICON_IDS = "TILDESLASH"
 	ICON_IDSTimelineApp                           ICON_IDS = "TIMELINE_APP"
 	ICON_IDSTimoPartl                             ICON_IDS = "TIMO_PARTL"
@@ -4094,6 +4175,7 @@ const (
 	ICON_IDSTrafficmonitor                        ICON_IDS = "TRAFFICMONITOR"
 	ICON_IDSTranslucenttb                         ICON_IDS = "TRANSLUCENTTB"
 	ICON_IDSTransmissionProject                   ICON_IDS = "TRANSMISSION_PROJECT"
+	ICON_IDSTrash                                 ICON_IDS = "TRASH"
 	ICON_IDSTravelport                            ICON_IDS = "TRAVELPORT"
 	ICON_IDSTrayport                              ICON_IDS = "TRAYPORT"
 	ICON_IDSTreesoft                              ICON_IDS = "TREESOFT"
@@ -4147,11 +4229,13 @@ const (
 	ICON_IDSUnify                                 ICON_IDS = "UNIFY"
 	ICON_IDSUnityTechnologies                     ICON_IDS = "UNITY_TECHNOLOGIES"
 	ICON_IDSUniversalRobots                       ICON_IDS = "UNIVERSAL_ROBOTS"
+	ICON_IDSUnsplash                              ICON_IDS = "UNSPLASH"
 	ICON_IDSUps                                   ICON_IDS = "UPS"
 	ICON_IDSUpscayl                               ICON_IDS = "UPSCAYL"
 	ICON_IDSUrbanCyberSecurity                    ICON_IDS = "URBAN_CYBER_SECURITY"
 	ICON_IDSUrbanRoadDesignOffice                 ICON_IDS = "URBAN_ROAD_DESIGN_OFFICE"
 	ICON_IDSUsbpcap                               ICON_IDS = "USBPCAP"
+	ICON_IDSUserCamp                              ICON_IDS = "USER_CAMP"
 	ICON_IDSUtilLinuxProject                      ICON_IDS = "UTIL_LINUX_PROJECT"
 	ICON_IDSUtm                                   ICON_IDS = "UTM"
 	ICON_IDSValeton                               ICON_IDS = "VALETON"
@@ -4189,6 +4273,7 @@ const (
 	ICON_IDSVmwareFusion                          ICON_IDS = "VMWARE_FUSION"
 	ICON_IDSVmwarePhoton                          ICON_IDS = "VMWARE_PHOTON"
 	ICON_IDSVmwareTools                           ICON_IDS = "VMWARE_TOOLS"
+	ICON_IDSVoicestack                            ICON_IDS = "VOICESTACK"
 	ICON_IDSVoidtools                             ICON_IDS = "VOIDTOOLS"
 	ICON_IDSVoidLinux                             ICON_IDS = "VOID_LINUX"
 	ICON_IDSVolagSystem                           ICON_IDS = "VOLAG_SYSTEM"
@@ -4301,6 +4386,7 @@ const (
 	ICON_IDSYeslogic                              ICON_IDS = "YESLOGIC"
 	ICON_IDSYokogawa                              ICON_IDS = "YOKOGAWA"
 	ICON_IDSYoutubeDlProject                      ICON_IDS = "YOUTUBE_DL_PROJECT"
+	ICON_IDSYq                                    ICON_IDS = "YQ"
 	ICON_IDSYtDlpProject                          ICON_IDS = "YT_DLP_PROJECT"
 	ICON_IDSYubico                                ICON_IDS = "YUBICO"
 	ICON_IDSYugen                                 ICON_IDS = "YUGEN"
@@ -4317,10 +4403,12 @@ const (
 	ICON_IDSZeplin                                ICON_IDS = "ZEPLIN"
 	ICON_IDSZeptolab                              ICON_IDS = "ZEPTOLAB"
 	ICON_IDSZhipuAi                               ICON_IDS = "ZHIPU_AI"
+	ICON_IDSZidoro                                ICON_IDS = "ZIDORO"
 	ICON_IDSZivid                                 ICON_IDS = "ZIVID"
 	ICON_IDSZlib                                  ICON_IDS = "ZLIB"
 	ICON_IDSZlibNg                                ICON_IDS = "ZLIB_NG"
 	ICON_IDSZlAudio                               ICON_IDS = "ZL_AUDIO"
+	ICON_IDSZoho                                  ICON_IDS = "ZOHO"
 	ICON_IDSZoom                                  ICON_IDS = "ZOOM"
 	ICON_IDSZorin                                 ICON_IDS = "ZORIN"
 	ICON_IDSZotero                                ICON_IDS = "ZOTERO"
@@ -4329,6 +4417,7 @@ const (
 	ICON_IDSZshAutocomplete                       ICON_IDS = "ZSH_AUTOCOMPLETE"
 	ICON_IDSZshUsers                              ICON_IDS = "ZSH_USERS"
 	ICON_IDSZugferdCommunity                      ICON_IDS = "ZUGFERD_COMMUNITY"
+	ICON_IDSZwift                                 ICON_IDS = "ZWIFT"
 	ICON_IDSZynga                                 ICON_IDS = "ZYNGA"
 	ICON_IDSZyxel                                 ICON_IDS = "ZYXEL"
 )
@@ -4464,6 +4553,7 @@ const (
 	IntegrationTypeSccm                      IntegrationType = "SCCM"
 	IntegrationTypeJfrogXray                 IntegrationType = "JFROG_XRAY"
 	IntegrationTypeMoonRabbit                IntegrationType = "MOON_RABBIT"
+	IntegrationTypeAtlassian                 IntegrationType = "ATLASSIAN"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
@@ -4805,6 +4895,16 @@ const (
 	MvdVulnerabilityOrderFieldRelevance MvdVulnerabilityOrderField = "RELEVANCE"  // Text relevance. Valid only when `filter.query` is set.
 )
 
+// NothingToPlanKind represents which kind of empty answer a selection got. Each asks something different of a reader.
+type NothingToPlanKind string
+
+// Which kind of empty answer a selection got. Each asks something different of a reader.
+const (
+	NothingToPlanKindNothingMatched NothingToPlanKind = "NOTHING_MATCHED" // Nothing in the space matches the selection: no asset has the finding open or the software installed.
+	NothingToPlanKindUpToDate       NothingToPlanKind = "UP_TO_DATE"      // Every pair was checked and is already current (`EXCLUDED_UP_TO_DATE`). Good news: there is nothing to change. Never set when `selection.truncated`, since the pairs beyond the cap were not checked.
+	NothingToPlanKindOutOfScope     NothingToPlanKind = "OUT_OF_SCOPE"    // Pairs matched and none can become a step. `outOfScope` says why, per pair. When `selection.truncated` is set, only the planned pairs were checked; the rest may be actionable.
+)
+
 // NotificationType represents slack notification type enum.
 type NotificationType string
 
@@ -4930,6 +5030,55 @@ const (
 	PlanEditKindExpire            PlanEditKind = "EXPIRE"             // The draft expired, and the re-opened plan went back to the state it was finalized in.
 )
 
+// PlanFindingFixGap represents why a finding's fix is no change a plan can make on one asset — the causes `FINDING_NOT_PACKAGE_EXPRESSIBLE` covers, which a zero state has to tell apart: "no fix exists yet" is a wait, "the fix is a manual step" is work for a person.
+type PlanFindingFixGap string
+
+// Why a finding's fix is no change a plan can make on one asset — the causes `FINDING_NOT_PACKAGE_EXPRESSIBLE` covers, which a zero state has to tell apart: "no fix exists yet" is a wait, "the fix is a manual step" is work for a person.
+const (
+	PlanFindingFixGapNoFixedVersion         PlanFindingFixGap = "NO_FIXED_VERSION"        // The asset carries an affected package and no advisory names a fixed version for it, nor does an installer exist that fetches the vendor's newest build. There is no version to move to yet.
+	PlanFindingFixGapManualStep             PlanFindingFixGap = "MANUAL_STEP"             // The finding is a check or a query: its remediation is guidance a person applies, not a package change.
+	PlanFindingFixGapFixNotConfirmable      PlanFindingFixGap = "FIX_NOT_CONFIRMABLE"     // A software finding. Its fix is a package change, but a finding of this kind cannot be confirmed closed after delivery, so no plan offers it; fix the CVEs it carries instead.
+	PlanFindingFixGapNoAffectedPackage      PlanFindingFixGap = "NO_AFFECTED_PACKAGE"     // The asset reports no package the finding affects, so there is nothing to change on it. The finding typically closes with the asset's next scan.
+	PlanFindingFixGapRemediationUnavailable PlanFindingFixGap = "REMEDIATION_UNAVAILABLE" // Working out the fix failed for this asset, for instance because its platform is not covered. Says nothing about whether a fix exists.
+)
+
+// PlanFindingKind represents the kind of a finding in a plan's impact.
+type PlanFindingKind string
+
+// The kind of a finding in a plan's impact.
+const (
+	PlanFindingKindCve   PlanFindingKind = "CVE"   // A vulnerability finding: a CVE or an advisory.
+	PlanFindingKindCheck PlanFindingKind = "CHECK" // A failing check.
+)
+
+// PlanGoalDirection represents which way a goal moves its objective.
+type PlanGoalDirection string
+
+// Which way a goal moves its objective.
+const (
+	PlanGoalDirectionMaximize PlanGoalDirection = "MAXIMIZE"
+	PlanGoalDirectionMinimize PlanGoalDirection = "MINIMIZE"
+)
+
+// PlanGoalKind represents what a plan is for (RFC-233 § Goals).
+type PlanGoalKind string
+
+// What a plan is for (RFC-233 § Goals).
+const (
+	PlanGoalKindRiskReduction    PlanGoalKind = "RISK_REDUCTION"    // Hit as many high-risk things as possible: every critical and high risk finding, riskiest first, exploitable ones first.
+	PlanGoalKindScoreImprovement PlanGoalKind = "SCORE_IMPROVEMENT" // Move the space's risk score: on each asset, the findings its vulnerability score is set by, worst-scored first.
+	PlanGoalKindMttr             PlanGoalKind = "MTTR"              // Pick what is quick to do: every finding a fix is available for, riskiest first.
+	PlanGoalKindSla              PlanGoalKind = "SLA"               // Every finding past its SLA deadline or about to be, nearest deadline first.
+)
+
+// PlanImpactUnavailableReason represents why a plan's score figures are absent.
+type PlanImpactUnavailableReason string
+
+// Why a plan's score figures are absent.
+const (
+	PlanImpactUnavailableReasonWorstOfModel PlanImpactUnavailableReason = "WORST_OF_MODEL" // The space scores assets worst-of over a pool that includes their checks, which the plan's findings alone do not determine. Counts are still reported.
+)
+
 // PlanOutOfScopeReason represents why a candidate is not in the plan. "14 of 60 assets" collapses situations that ask an operator for completely different things: onboard an actuator, wait for a catalog entry, fix a paused integration, or nothing at all because the component is not even installed there. Each value below is a distinct next step, which is the whole reason this is an enum rather than a count. Every value is already a distinction the server draws internally. What is new is that a reader can see it: `resolveActionSet` collapses the first five into one status with the reason in prose, and the last four are only reachable today by calling `applyRemediation` and having it refuse.
 type PlanOutOfScopeReason string
 
@@ -4940,7 +5089,7 @@ const (
 	PlanOutOfScopeReasonExcludedUpToDate               PlanOutOfScopeReason = "EXCLUDED_UP_TO_DATE"               // The software is on this asset, we know it is at the newest version we know of, and the plan's `upgradePatchStates` does not include `UP_TO_DATE`. Not a refusal — a scope decision, and reversible by the caller. Add `UP_TO_DATE` and the asset gets the change: the upgrade-available gate in front of the delivery makes it a no-op if we were right, and running it anyway is a reasonable thing to insist on.
 	PlanOutOfScopeReasonExcludedPatchStateUnknown      PlanOutOfScopeReason = "EXCLUDED_PATCH_STATE_UNKNOWN"      // The software is on this asset, we hold no newer-version reference for it, and the plan's `upgradePatchStates` does not include `PATCH_STATE_UNKNOWN`. Strictly apart from `EXCLUDED_UP_TO_DATE`, and the distinction is the important one: "we checked, this host is current" and "we do not know whether this host is current" read identically in a count and mean opposite things. Add `PATCH_STATE_UNKNOWN` and the asset is upgraded to whatever its package manager offers — which is a real change even though we cannot name the version it lands on. Reachable only because the caller narrowed the default scope; unknown is included by default, since most of the fleet is in it.
 	PlanOutOfScopeReasonUpgradeNotExpressible          PlanOutOfScopeReason = "UPGRADE_NOT_EXPRESSIBLE"           // The software is on this asset and not as something that can be upgraded — a macOS application bundle, which no package manager on the asset updates, or a package row with no resolvable ecosystem to route to one. This is the only *capability* answer the upgrade path gives, and it does not depend on knowing a target version: every package manager we generate for takes "bring this package to the newest you have" without one.
-	PlanOutOfScopeReasonFindingNotPackageExpressible   PlanOutOfScopeReason = "FINDING_NOT_PACKAGE_EXPRESSIBLE"   // The finding carries guidance rather than a package change, or names no fixed version to move to. A human applies it; no actuator ever will.
+	PlanOutOfScopeReasonFindingNotPackageExpressible   PlanOutOfScopeReason = "FINDING_NOT_PACKAGE_EXPRESSIBLE"   // The finding's fix is no package change on this asset: it carries guidance rather than a package change, names no fixed version to move to, or has nothing on the asset to change. Each item's `findingFixGap` says which: the reason covers several causes that ask a reader for different next steps.
 	PlanOutOfScopeReasonNothingResolved                PlanOutOfScopeReason = "NOTHING_RESOLVED"                  // Resolution produced neither packages nor paths, so there is nothing for a change to act on.
 	PlanOutOfScopeReasonNoSafePathRemoval              PlanOutOfScopeReason = "NO_SAFE_PATH_REMOVAL"              // The change would have to delete the install locations we observed, and none of them can be deleted safely enough to script.
 	PlanOutOfScopeReasonNoResolvableEcosystem          PlanOutOfScopeReason = "NO_RESOLVABLE_ECOSYSTEM"           // The installed package has no resolvable ecosystem, so it cannot be routed to a package manager.
@@ -5022,6 +5171,31 @@ const (
 	PlanRevertDirectionUndo PlanRevertDirection = "UNDO" // Undo the latest change that was not undone.
 	PlanRevertDirectionRedo PlanRevertDirection = "REDO" // Redo what the latest undo took back.
 	PlanRevertDirectionTo   PlanRevertDirection = "TO"   // Restore the revision named in toRevision.
+)
+
+// PlanScriptGapReason represents why a step would put no script on a device.
+type PlanScriptGapReason string
+
+// Why a step would put no script on a device.
+const (
+	PlanScriptGapReasonChangeNotFound         PlanScriptGapReason = "CHANGE_NOT_FOUND"         // The step's ActionSet no longer exists.
+	PlanScriptGapReasonNoActuator             PlanScriptGapReason = "NO_ACTUATOR"              // The step names no actuator.
+	PlanScriptGapReasonDeliveryNotImplemented PlanScriptGapReason = "DELIVERY_NOT_IMPLEMENTED" // Mondoo has no delivery path for the step's actuator type.
+	PlanScriptGapReasonNotExpressible         PlanScriptGapReason = "NOT_EXPRESSIBLE"          // The change cannot be written in the mechanism the actuator runs.
+	PlanScriptGapReasonNoDetectionGate        PlanScriptGapReason = "NO_DETECTION_GATE"        // The actuator runs a remediation only behind a detection gate, and no gate can be generated for this change. A missing gate is not an open gate, so it is not delivered.
+	PlanScriptGapReasonPerUserInstall         PlanScriptGapReason = "PER_USER_INSTALL"         // The software is installed per user, and the actuator runs as the machine's system account, which cannot see it.
+	PlanScriptGapReasonRenderFailed           PlanScriptGapReason = "RENDER_FAILED"            // Rendering failed on the server.
+	PlanScriptGapReasonPlatformUnknown        PlanScriptGapReason = "PLATFORM_UNKNOWN"         // The actuator picks the script from the device's OS, and the inventory has no platform for the asset, or no longer has the asset, so which script would run cannot be shown.
+	PlanScriptGapReasonPlatformNotSupported   PlanScriptGapReason = "PLATFORM_NOT_SUPPORTED"   // The actuator picks the script from the device's OS, and delivers none to the asset's platform.
+)
+
+// PlanScriptRole represents what a script does on the device.
+type PlanScriptRole string
+
+// What a script does on the device.
+const (
+	PlanScriptRoleRemediation PlanScriptRole = "REMEDIATION" // Makes the change.
+	PlanScriptRoleDetection   PlanScriptRole = "DETECTION"   // Changes nothing: decides whether the remediation runs, and afterwards whether it worked. Intune runs one in front of every remediation (ADR-100). It is not a remediation.
 )
 
 // PlanState represents a plan's authoring state (RFC-233 § Plan lifecycle). Runtime is in progress and outcomes, never here.
@@ -5345,6 +5519,16 @@ const (
 	RiskMagnitudeExplainationIncreasesRisk RiskMagnitudeExplaination = "INCREASES_RISK"
 	RiskMagnitudeExplainationDecreasesRisk RiskMagnitudeExplaination = "DECREASES_RISK"
 	RiskMagnitudeExplainationNoEffect      RiskMagnitudeExplaination = "NO_EFFECT"
+)
+
+// SLAConfigurationSource represents where a scope's SLAs come from.
+type SLAConfigurationSource string
+
+// Where a scope's SLAs come from.
+const (
+	SLAConfigurationSourceDefault      SLAConfigurationSource = "DEFAULT"      // Nothing is set for the scope (nor, for a space, its organization): the Mondoo defaults apply.
+	SLAConfigurationSourceSpace        SLAConfigurationSource = "SPACE"        // The space's own SLAs.
+	SLAConfigurationSourceOrganization SLAConfigurationSource = "ORGANIZATION" // The organization's SLAs, in force on every space of the organization. A space cannot change them.
 )
 
 // SLARatingSource represents sLA rating source — controls how findings are bucketed into SLA severity tiers.
