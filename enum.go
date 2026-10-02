@@ -37,6 +37,32 @@ const (
 	AccessPrivate       Access = "PRIVATE"
 )
 
+// ActionSetConsiderationKind represents what kind of operational consequence a consideration is (RFC-232). The vocabulary grows when a change has a consequence none of these names.
+type ActionSetConsiderationKind string
+
+// What kind of operational consequence a consideration is (RFC-232). The vocabulary grows when a change has a consequence none of these names.
+const (
+	ActionSetConsiderationKindServiceInterruption ActionSetConsiderationKind = "SERVICE_INTERRUPTION" // Something running stops or restarts while the change is applied.
+	ActionSetConsiderationKindRestartRequired     ActionSetConsiderationKind = "RESTART_REQUIRED"     // The asset has to restart before the change is complete.
+	ActionSetConsiderationKindDataLoss            ActionSetConsiderationKind = "DATA_LOSS"            // The change destroys data the platform cannot restore.
+	ActionSetConsiderationKindPrerequisite        ActionSetConsiderationKind = "PREREQUISITE"         // Something must hold for the change to do what it says.
+	ActionSetConsiderationKindIrreversible        ActionSetConsiderationKind = "IRREVERSIBLE"         // Re-running or reversing the change does not undo it.
+	ActionSetConsiderationKindOther               ActionSetConsiderationKind = "OTHER"                // A consideration stored before its kind was named.
+)
+
+// ActionSetConsiderationReason represents the specific cause of a consideration. Named for the consequence, not for the source that reported it. The vocabulary grows when a change has a consequence none of these names.
+type ActionSetConsiderationReason string
+
+// The specific cause of a consideration. Named for the consequence, not for the source that reported it. The vocabulary grows when a change has a consequence none of these names.
+const (
+	ActionSetConsiderationReasonReplacesRunningVersion ActionSetConsiderationReason = "REPLACES_RUNNING_VERSION" // An upgrade or fix replaces the running version, restarting whatever uses it.
+	ActionSetConsiderationReasonRemovesSoftware        ActionSetConsiderationReason = "REMOVES_SOFTWARE"         // Removing software stops it, and anything depending on it.
+	ActionSetConsiderationReasonOsRestart              ActionSetConsiderationReason = "OS_RESTART"               // The asset's operating system has to restart to finish the change.
+	ActionSetConsiderationReasonDeletesFiles           ActionSetConsiderationReason = "DELETES_FILES"            // The change deletes files.
+	ActionSetConsiderationReasonTargetVersionUnknown   ActionSetConsiderationReason = "TARGET_VERSION_UNKNOWN"   // No target version is known, so the change installs the newest version the package manager offers. It may change nothing, and a finding closes only if that version is no longer affected.
+	ActionSetConsiderationReasonOther                  ActionSetConsiderationReason = "OTHER"                    // A consideration stored before its cause was named. Its `summary` is the stored sentence.
+)
+
 // ActionType represents action type used when triggering action on client integration.
 type ActionType string
 
@@ -220,6 +246,7 @@ type AggregateScoreOrderField string
 const (
 	AggregateScoreOrderFieldRiskScore       AggregateScoreOrderField = "RISK_SCORE"        // Risk score field.
 	AggregateScoreOrderFieldRiskValue       AggregateScoreOrderField = "RISK_VALUE"        // Risk value.
+	AggregateScoreOrderFieldCvss            AggregateScoreOrderField = "CVSS"              // Worst CVSS base score across the finding's packages — the same number the `cvss` field renders. Unlike RISK_VALUE this is not inverted: a higher CVSS is worse, so DESC surfaces the worst first. A finding carrying no CVSS sorts last descending and first ascending. Only SOFTWARE, INSTALLED_SOFTWARE, VULNERABILITY and ADVISORY findings carry a CVSS; every other score type reads 0. The value is populated on a scope's next aggregate-score refresh, so a scope that has not refreshed since this shipped sorts flat.
 	AggregateScoreOrderFieldRiskCategory    AggregateScoreOrderField = "RISK_CATEGORY"     // Risk category bucket (critical > high > medium > low > none), derived from the risk score. Unlike RISK_SCORE, this sorts by the discretized rating bucket, so a secondary order (e.g. ASSET_COUNT via thenBy) breaks ties within a category.
 	AggregateScoreOrderFieldRank            AggregateScoreOrderField = "RANK"              // Risk rank.
 	AggregateScoreOrderFieldBlastRadius     AggregateScoreOrderField = "BLAST_RADIUS"      // Risk score blast radius.
@@ -1337,7 +1364,7 @@ const (
 	FindingActionStateNoFixedVersion    FindingActionState = "NO_FIXED_VERSION"
 	FindingActionStateScript            FindingActionState = "SCRIPT"
 	FindingActionStateSecurityPipeline  FindingActionState = "SECURITY_PIPELINE"
-	FindingActionStateIntuneRemediation FindingActionState = "INTUNE_REMEDIATION" // Finding can be remediated through the Microsoft Intune integration — its affected Windows software is in the product mapping catalog with a winget_id. Ranked above SCRIPT/SECURITY_PIPELINE in the action-dimension picker. The UI gates the "Send to Intune" action on `state.action == INTUNE_REMEDIATION`. The flag does NOT consider whether the space has an Intune integration configured or whether the asset is enrolled in Intune — those are checked separately.
+	FindingActionStateIntuneRemediation FindingActionState = "INTUNE_REMEDIATION" // Finding can be remediated through the Microsoft Intune integration — its affected Windows software is in the product mapping catalog with a winget_id. Ranked above SCRIPT/SECURITY_PIPELINE in the action-dimension picker. The UI gates the "Send to Intune" action on `state.action == INTUNE_REMEDIATION`. The flag does NOT consider whether the space has an Intune integration configured or whether the asset is enrolled in Intune — those are checked separately. Superseded by the plan flow: the "Send to Intune" action it gates (`applyIntuneRemediation`) is deprecated. The value is still returned and still counts toward FIX_AVAILABLE; clients should stop gating on it and ask `findingActuatorCoverage` / `createPlan` which system can carry a fix.
 )
 
 // FindingAgeState represents the age state for a finding - whether it is new or not.
@@ -2529,6 +2556,7 @@ const (
 	ICON_IDSFedoraProject                         ICON_IDS = "FEDORA_PROJECT"
 	ICON_IDSFeedly                                ICON_IDS = "FEEDLY"
 	ICON_IDSFenaco                                ICON_IDS = "FENACO"
+	ICON_IDSFences                                ICON_IDS = "FENCES"
 	ICON_IDSFeralInteractive                      ICON_IDS = "FERAL_INTERACTIVE"
 	ICON_IDSFerdium                               ICON_IDS = "FERDIUM"
 	ICON_IDSFerrariElectronic                     ICON_IDS = "FERRARI_ELECTRONIC"
@@ -2814,6 +2842,7 @@ const (
 	ICON_IDSIcedteaWeb                            ICON_IDS = "ICEDTEA_WEB"
 	ICON_IDSIcinga                                ICON_IDS = "ICINGA"
 	ICON_IDSIcloud                                ICON_IDS = "ICLOUD"
+	ICON_IDSIcq                                   ICON_IDS = "ICQ"
 	ICON_IDSIcsharpcode                           ICON_IDS = "ICSHARPCODE"
 	ICON_IDSIdeasoncanvas                         ICON_IDS = "IDEASONCANVAS"
 	ICON_IDSIdentiv                               ICON_IDS = "IDENTIV"
@@ -5010,6 +5039,26 @@ const (
 	PlanActionKindException   PlanActionKind = "EXCEPTION"   // Accept the finding instead of changing anything: running the step's phase applies an exception through the Exceptions system, and the Exceptions review decides whether it stands. Only findings can be excepted. The step's `exception` carries the decision.
 )
 
+// PlanConfirmedVia represents what ended an ActionStep's delivery wait (ADR-175).
+type PlanConfirmedVia string
+
+// What ended an ActionStep's delivery wait (ADR-175).
+const (
+	PlanConfirmedViaDeviceReport     PlanConfirmedVia = "DEVICE_REPORT"      // The device reported its result directly.
+	PlanConfirmedViaGraph            PlanConfirmedVia = "GRAPH"              // Intune's Graph reporting said the script ran.
+	PlanConfirmedViaDeviceReportLate PlanConfirmedVia = "DEVICE_REPORT_LATE" // The device reported after the delivery's window: recorded, no scan, no outcome change.
+)
+
+// PlanDeliveryProgress represents how far an ActionStep's delivery got (ADR-175).
+type PlanDeliveryProgress string
+
+// How far an ActionStep's delivery got (ADR-175).
+const (
+	PlanDeliveryProgressDispatched     PlanDeliveryProgress = "DISPATCHED"      // Handed to the device.
+	PlanDeliveryProgressDeviceReported PlanDeliveryProgress = "DEVICE_REPORTED" // The device reported its own result over its Intune MDM certificate.
+	PlanDeliveryProgressConfirming     PlanDeliveryProgress = "CONFIRMING"      // The confirmation scan of the device runs.
+)
+
 // PlanEditKind represents what a hand edit did.
 type PlanEditKind string
 
@@ -5024,6 +5073,7 @@ const (
 	PlanEditKindReorderPhases     PlanEditKind = "REORDER_PHASES"     // Changed the order of the phases.
 	PlanEditKindUpdatePlan        PlanEditKind = "UPDATE_PLAN"        // Changed the plan's own title or description.
 	PlanEditKindRestructurePhases PlanEditKind = "RESTRUCTURE_PHASES" // Re-divided the editable phases by criteria.
+	PlanEditKindSplitPhase        PlanEditKind = "SPLIT_PHASE"        // Re-divided one phase by criteria or by axes.
 	PlanEditKindAddSteps          PlanEditKind = "ADD_STEPS"          // Added findings, governed components or software.
 	PlanEditKindSetAction         PlanEditKind = "SET_ACTION"         // Changed what steps do: an exception, or a remediation again or to another target.
 	PlanEditKindRevert            PlanEditKind = "REVERT"             // Restored the plan as it was after an earlier revision: a revert, an undo or a redo.
@@ -5119,8 +5169,8 @@ type PlanOutcomeBucket string
 const (
 	PlanOutcomeBucketExecutedValidated        PlanOutcomeBucket = "EXECUTED_VALIDATED"         // Ran, and the fleet confirmed the intended change.
 	PlanOutcomeBucketExecuted                 PlanOutcomeBucket = "EXECUTED"                   // Ran; nothing confirmed it yet, or no validation was possible.
-	PlanOutcomeBucketExecutedErrored          PlanOutcomeBucket = "EXECUTED_ERRORED"           // Ran and reported errors.
-	PlanOutcomeBucketExecutedFailedValidation PlanOutcomeBucket = "EXECUTED_FAILED_VALIDATION" // Ran, and validation says it did not take.
+	PlanOutcomeBucketExecutedErrored          PlanOutcomeBucket = "EXECUTED_ERRORED"           // Could not be delivered: the change never ran (a channel or dispatch failure, a missing script or group, an unreachable device), and cnspec has not seen it applied (ADR-190). A script that ran and reported a failure is not this; see `ActionStep.execution`.
+	PlanOutcomeBucketExecutedFailedValidation PlanOutcomeBucket = "EXECUTED_FAILED_VALIDATION" // Ran, and a confirmation scan that finished after the delivery still finds the change needed (ADR-190).
 	PlanOutcomeBucketRemovedAssetGone         PlanOutcomeBucket = "REMOVED_ASSET_GONE"         // Removed from scope: the asset no longer exists.
 	PlanOutcomeBucketRemovedAlreadyApplied    PlanOutcomeBucket = "REMOVED_ALREADY_APPLIED"    // Removed from scope: the change was already applied.
 	PlanOutcomeBucketRemovedNotApplicable     PlanOutcomeBucket = "REMOVED_NOT_APPLICABLE"     // Removed from scope: the action no longer applies to this target.
@@ -5209,6 +5259,17 @@ const (
 	PlanStateDismissed PlanState = "DISMISSED" // A proposal someone set aside.
 )
 
+// PlanStepExecution represents whether an ActionStep's delivery ran the change (ADR-190).
+type PlanStepExecution string
+
+// Whether an ActionStep's delivery ran the change (ADR-190).
+const (
+	PlanStepExecutionNotDispatched PlanStepExecution = "NOT_DISPATCHED" // Not handed to a delivery yet.
+	PlanStepExecutionDelivered     PlanStepExecution = "DELIVERED"      // The change reached the target and ran, whatever the script reported.
+	PlanStepExecutionNotDelivered  PlanStepExecution = "NOT_DELIVERED"  // It never ran: a channel or dispatch failure, a missing script or group, an unreachable device, or no evidence of a run.
+	PlanStepExecutionDeferred      PlanStepExecution = "DEFERRED"       // It ran and changed nothing because the software was in use (ADR-171).
+)
+
 // PlanStepValidation represents whether a step's change is still needed on its asset (RFC-233). Read from the fleet's own scan results, never from workflow execution state — see `ActionStep.executionMrn` for why the second cannot answer this.
 type PlanStepValidation string
 
@@ -5218,6 +5279,17 @@ const (
 	PlanStepValidationPending   PlanStepValidation = "PENDING"    // The change is still needed. Whatever was dispatched has not taken — yet, or at all.
 	PlanStepValidationAssetGone PlanStepValidation = "ASSET_GONE" // The asset no longer exists. RFC-233's `removed_asset_gone`: not a failure and not a success, and reporting it as either would be a claim about a machine we cannot see.
 	PlanStepValidationUnknown   PlanStepValidation = "UNKNOWN"    // We could not determine it. Kept strictly apart from `CONVERGED`: a verdict standing in for "we did not look" is how a report claims work that never happened.
+)
+
+// PlanStepValidationState represents whether cnspec confirms an ActionStep's change (ADR-190), as recorded on the step. Unlike `PlanStepValidation`, which `planValidation` computes on read, this is what the step's own delivery and later promotion concluded.
+type PlanStepValidationState string
+
+// Whether cnspec confirms an ActionStep's change (ADR-190), as recorded on the step. Unlike `PlanStepValidation`, which `planValidation` computes on read, this is what the step's own delivery and later promotion concluded.
+const (
+	PlanStepValidationStatePending   PlanStepValidationState = "PENDING"   // No cnspec result since the delivery answers it yet.
+	PlanStepValidationStateValidated PlanStepValidationState = "VALIDATED" // cnspec confirms the change on the asset (or the group roll-up converged).
+	PlanStepValidationStateNotFixed  PlanStepValidationState = "NOT_FIXED" // A confirmation scan that finished after the delivery still finds the change needed.
+	PlanStepValidationStateUnknown   PlanStepValidationState = "UNKNOWN"   // cnspec cannot answer, e.g. the change no longer resolves to a checkable subject.
 )
 
 // PlanSubjectKind represents what kind of thing a plan's steps act on. The same three-way choice `createPlan` draws with its mutually exclusive `findingMrns` / `governedMrns` / `upgradeMrns`, and the same one an ActionSet stores: the three are different changes resolved by different code, and a subject MRN is not self-describing enough to guess from — a governed component and a piece of software are BOTH named by an ARD entity MRN, so the kind is the only thing that says which. A plan is single-kind by construction, so this is one field per request rather than one per pair.
@@ -5621,9 +5693,10 @@ type ScoreStateFilter string
 const (
 	ScoreStateFilterAll       ScoreStateFilter = "ALL"        // All.
 	ScoreStateFilterOpen      ScoreStateFilter = "OPEN"       // Only failing results. Scan errors are not open; see SCAN_ERROR.
-	ScoreStateFilterClosed    ScoreStateFilter = "CLOSED"     // Only fixed/passed.
+	ScoreStateFilterClosed    ScoreStateFilter = "CLOSED"     // Only fixed, skipped or excepted. On the findings list this leaves out PASSED checks, which have never failed.
 	ScoreStateFilterException ScoreStateFilter = "EXCEPTION"  // Only scores with exceptions.
 	ScoreStateFilterScanError ScoreStateFilter = "SCAN_ERROR" // Only checks that errored during the scan; neither open nor fixed.
+	ScoreStateFilterPassed    ScoreStateFilter = "PASSED"     // Only policy checks whose score state is PASSED: passing, never failed. Findings list only.
 )
 
 // ScoreType represents score type.
