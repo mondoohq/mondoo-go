@@ -1620,13 +1620,13 @@ const (
 	FleetScanHostOrderFieldDuration FleetScanHostOrderField = "DURATION" // Bootstrap duration; hosts without a duration sort first ascending, last descending.
 )
 
-// FleetScanHostOutcome represents where one host of a fleet scan lands in the outcome model, for filtering FleetScan.hostsConnection. A host's outcome is its status plus its reason: a host the scan never reached (reason OFFLINE, NOT_REACHED or IME_NOT_RESPONDING) is not assessed whatever status carries it.
+// FleetScanHostOutcome represents where one host of a fleet scan lands in the outcome model, for filtering FleetScan.hostsConnection. A host's outcome is its status plus its reason: a host the scan never reached (reason OFFLINE, NOT_REACHED or IME_NOT_RESPONDING) or could not tell it reached (reason START_UNKNOWN) is not assessed whatever status carries it.
 type FleetScanHostOutcome string
 
-// Where one host of a fleet scan lands in the outcome model, for filtering FleetScan.hostsConnection. A host's outcome is its status plus its reason: a host the scan never reached (reason OFFLINE, NOT_REACHED or IME_NOT_RESPONDING) is not assessed whatever status carries it.
+// Where one host of a fleet scan lands in the outcome model, for filtering FleetScan.hostsConnection. A host's outcome is its status plus its reason: a host the scan never reached (reason OFFLINE, NOT_REACHED or IME_NOT_RESPONDING) or could not tell it reached (reason START_UNKNOWN) is not assessed whatever status carries it.
 const (
 	FleetScanHostOutcomeSucceeded   FleetScanHostOutcome = "SUCCEEDED"    // The scan ran on the host (status SUCCESS).
-	FleetScanHostOutcomeNotAssessed FleetScanHostOutcome = "NOT_ASSESSED" // The scan did not reach the host: reason OFFLINE, NOT_REACHED or IME_NOT_RESPONDING, or still PENDING once the scan has ended. Counted in FleetScan.notAssessedHosts.
+	FleetScanHostOutcomeNotAssessed FleetScanHostOutcome = "NOT_ASSESSED" // The scan did not reach the host: reason OFFLINE, NOT_REACHED, IME_NOT_RESPONDING or START_UNKNOWN, or still PENDING once the scan has ended. Counted in FleetScan.notAssessedHosts.
 	FleetScanHostOutcomeFailed      FleetScanHostOutcome = "FAILED"       // The scan reached the host and something broke: ERROR or TIMEOUT, not unreached. Counted in FleetScan.failedHosts.
 	FleetScanHostOutcomeNotEligible FleetScanHostOutcome = "NOT_ELIGIBLE" // The scan could never run on the host: SKIPPED, not unreached. Counted in FleetScan.skippedHosts.
 	FleetScanHostOutcomePending     FleetScanHostOutcome = "PENDING"      // The host has not reported yet and the scan is still running.
@@ -1652,6 +1652,7 @@ const (
 	FleetScanHostReasonBootstrapError      FleetScanHostReason = "BOOTSTRAP_ERROR"      // The bootstrap itself failed (bad manifest, auth setup).
 	FleetScanHostReasonImeNotResponding    FleetScanHostReason = "IME_NOT_RESPONDING"   // The device checked in after the sync request, but the Intune Management Extension did not pick up the scan's script within the grace period.
 	FleetScanHostReasonNotCheckingIn       FleetScanHostReason = "NOT_CHECKING_IN"      // MDM check-in did not move after the sync request. Set on a host that is still pending: the device's Intune Management Extension can still run the scan, so the scan keeps waiting for it.
+	FleetScanHostReasonStartUnknown        FleetScanHostReason = "START_UNKNOWN"        // The server dispatching the scan stopped while it sent the scan to this device, so whether the scan reached the device is unknown, and no result arrived before the scan's time ran out. Not assessed, not failed; the next scan tries the device again.
 )
 
 // FleetScanHostStatus represents bootstrap status on a single endpoint. PENDING — device received the policy but hasn't finished running it. SUCCESS — bootstrap script exited cleanly. TIMEOUT — bootstrap exceeded its budget without finishing. ERROR — bootstrap returned a non-zero exit code. SKIPPED — host wasn't targeted (unsupported platform, offline beyond window).
@@ -3376,6 +3377,7 @@ const (
 	ICON_IDSJawsetVisualComputing                   ICON_IDS = "JAWSET_VISUAL_COMPUTING"
 	ICON_IDSJbig2enc                                ICON_IDS = "JBIG2ENC"
 	ICON_IDSJbl                                     ICON_IDS = "JBL"
+	ICON_IDSJedermannVerlag                         ICON_IDS = "JEDERMANN_VERLAG"
 	ICON_IDSJellyfin                                ICON_IDS = "JELLYFIN"
 	ICON_IDSJeniusApps                              ICON_IDS = "JENIUS_APPS"
 	ICON_IDSJetbrains                               ICON_IDS = "JETBRAINS"
@@ -4040,6 +4042,7 @@ const (
 	ICON_IDSOdysseyTeam                             ICON_IDS = "ODYSSEY_TEAM"
 	ICON_IDSOfficesuitelab                          ICON_IDS = "OFFICESUITELAB"
 	ICON_IDSOfficeRibbonxEditor                     ICON_IDS = "OFFICE_RIBBONX_EDITOR"
+	ICON_IDSOffsec                                  ICON_IDS = "OFFSEC"
 	ICON_IDSOgre                                    ICON_IDS = "OGRE"
 	ICON_IDSOki                                     ICON_IDS = "OKI"
 	ICON_IDSOkta                                    ICON_IDS = "OKTA"
@@ -4078,6 +4081,7 @@ const (
 	ICON_IDSOpencloudos                             ICON_IDS = "OPENCLOUDOS"
 	ICON_IDSOpencode                                ICON_IDS = "OPENCODE"
 	ICON_IDSOpenconnect                             ICON_IDS = "OPENCONNECT"
+	ICON_IDSOpencppcoverage                         ICON_IDS = "OPENCPPCOVERAGE"
 	ICON_IDSOpeneuler                               ICON_IDS = "OPENEULER"
 	ICON_IDSOpenh264                                ICON_IDS = "OPENH264"
 	ICON_IDSOpenhands                               ICON_IDS = "OPENHANDS"
@@ -5127,6 +5131,7 @@ const (
 	ICON_IDSValentinSoftware                        ICON_IDS = "VALENTIN_SOFTWARE"
 	ICON_IDSValeton                                 ICON_IDS = "VALETON"
 	ICON_IDSValinet                                 ICON_IDS = "VALINET"
+	ICON_IDSValve                                   ICON_IDS = "VALVE"
 	ICON_IDSVandenBroele                            ICON_IDS = "VANDEN_BROELE"
 	ICON_IDSVanta                                   ICON_IDS = "VANTA"
 	ICON_IDSVartikaSoftware                         ICON_IDS = "VARTIKA_SOFTWARE"
@@ -5186,6 +5191,7 @@ const (
 	ICON_IDSVoomly                                  ICON_IDS = "VOOMLY"
 	ICON_IDSVorssaint                               ICON_IDS = "VORSSAINT"
 	ICON_IDSVoxengo                                 ICON_IDS = "VOXENGO"
+	ICON_IDSVoxPupuli                               ICON_IDS = "VOX_PUPULI"
 	ICON_IDSVrNetworldGmbh                          ICON_IDS = "VR_NETWORLD_GMBH"
 	ICON_IDSVscodium                                ICON_IDS = "VSCODIUM"
 	ICON_IDSVulkan                                  ICON_IDS = "VULKAN"
