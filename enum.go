@@ -1565,6 +1565,7 @@ type FleetDeviceIssueCode string
 // Kind of readiness problem on a host-group device (see FleetHostGroupDevice.readinessIssues).
 const (
 	FleetDeviceIssueCodeRtrPolicyNotApplied  FleetDeviceIssueCode = "RTR_POLICY_NOT_APPLIED" // No Response Policy is applied to the host (none assigned, or assigned but not yet applied by the sensor), so Real Time Response refuses runscript and put.
+	FleetDeviceIssueCodeRtrPolicyDisallows   FleetDeviceIssueCode = "RTR_POLICY_DISALLOWS"   // A Response Policy is applied to the host, but it does not allow what a fleet scan needs (Real Time Response, custom scripts, put), so the scan's script is refused. Checked only when the integration can read Response Policies.
 	FleetDeviceIssueCodeReducedFunctionality FleetDeviceIssueCode = "REDUCED_FUNCTIONALITY"  // The agent runs in reduced functionality mode (typically an unsupported kernel or OS build), where remote execution may be unavailable.
 	FleetDeviceIssueCodeDuplicateSensor      FleetDeviceIssueCode = "DUPLICATE_SENSOR"       // More than one visible agent registration shares this hostname. Only one runs on the machine; a command sent to the stale (older) registration never executes.
 	FleetDeviceIssueCodeSensorHidden         FleetDeviceIssueCode = "SENSOR_HIDDEN"          // The host is hidden in the management console, so nothing is delivered to it.
@@ -1665,6 +1666,8 @@ const (
 	FleetScanHostReasonImeNotResponding    FleetScanHostReason = "IME_NOT_RESPONDING"   // The device checked in after the sync request, but the Intune Management Extension did not pick up the scan's script within the grace period.
 	FleetScanHostReasonNotCheckingIn       FleetScanHostReason = "NOT_CHECKING_IN"      // MDM check-in did not move after the sync request. Set on a host that is still pending: the device's Intune Management Extension can still run the scan, so the scan keeps waiting for it.
 	FleetScanHostReasonStartUnknown        FleetScanHostReason = "START_UNKNOWN"        // The server dispatching the scan stopped while it sent the scan to this device, so whether the scan reached the device is unknown, and no result arrived before the scan's time ran out. Not assessed, not failed; the next scan tries the device again.
+	FleetScanHostReasonNoResult            FleetScanHostReason = "NO_RESULT"            // The management system started the run on the device, but returned no result to read (no task to follow, or a task that could not be read). Failed; what happened on the device is unknown.
+	FleetScanHostReasonPolicyRefused       FleetScanHostReason = "POLICY_REFUSED"       // The management system's policy for the device refused the run (CrowdStrike: the RTR Response Policy does not allow custom scripts). Failed; fix the policy in the management system.
 )
 
 // FleetScanHostStatus represents bootstrap status on a single endpoint. PENDING — device received the policy but hasn't finished running it. SUCCESS — bootstrap script exited cleanly. TIMEOUT — bootstrap exceeded its budget without finishing. ERROR — bootstrap returned a non-zero exit code. SKIPPED — host wasn't targeted (unsupported platform, offline beyond window).
