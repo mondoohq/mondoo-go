@@ -694,6 +694,16 @@ const (
 	AwsSecurityHubSeverityInformational AwsSecurityHubSeverity = "INFORMATIONAL"
 )
 
+// AzureDevopsReposCredentialMode represents how an Azure DevOps repository-scanning integration authenticates. Only ENTRA_CLIENT_SECRET is available today. PAT and MONDOO_APP_CONSENT are part of the contract so a client written now keeps working when they ship, but a create or update that selects either is refused with an UNIMPLEMENTED error ("not supported yet") rather than accepted and ignored. A request that also sends entraClientSecret with any mode other than ENTRA_CLIENT_SECRET is refused with an INVALID_ARGUMENT error instead.
+type AzureDevopsReposCredentialMode string
+
+// How an Azure DevOps repository-scanning integration authenticates. Only ENTRA_CLIENT_SECRET is available today. PAT and MONDOO_APP_CONSENT are part of the contract so a client written now keeps working when they ship, but a create or update that selects either is refused with an UNIMPLEMENTED error ("not supported yet") rather than accepted and ignored. A request that also sends entraClientSecret with any mode other than ENTRA_CLIENT_SECRET is refused with an INVALID_ARGUMENT error instead.
+const (
+	AzureDevopsReposCredentialModeEntraClientSecret AzureDevopsReposCredentialMode = "ENTRA_CLIENT_SECRET" // A Microsoft Entra app registration (tenant id, client id and client secret). The only mode available today.
+	AzureDevopsReposCredentialModePat               AzureDevopsReposCredentialMode = "PAT"                 // An Azure DevOps personal access token. Not supported yet.
+	AzureDevopsReposCredentialModeMondooAppConsent  AzureDevopsReposCredentialMode = "MONDOO_APP_CONSENT"  // The one-click Mondoo Azure DevOps app consent flow from the Visual Studio Marketplace. Not supported yet.
+)
+
 // AzureDevopsTicketContextType represents the type of the ticket context.
 type AzureDevopsTicketContextType string
 
@@ -886,6 +896,7 @@ const (
 	ClientIntegrationTypeJfrogXray                 ClientIntegrationType = "JFROG_XRAY"
 	ClientIntegrationTypeMoonRabbit                ClientIntegrationType = "MOON_RABBIT"
 	ClientIntegrationTypeAtlassian                 ClientIntegrationType = "ATLASSIAN"
+	ClientIntegrationTypeAzureDevopsRepos          ClientIntegrationType = "AZURE_DEVOPS_REPOS"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -2143,6 +2154,7 @@ const (
 	ICON_IDSAzalea                                  ICON_IDS = "AZALEA"
 	ICON_IDSAzuon                                   ICON_IDS = "AZUON"
 	ICON_IDSAzure                                   ICON_IDS = "AZURE"
+	ICON_IDSAzureDevops                             ICON_IDS = "AZURE_DEVOPS"
 	ICON_IDSAMustInEveryOffice                      ICON_IDS = "A_MUST_IN_EVERY_OFFICE"
 	ICON_IDSAParentMediaCo                          ICON_IDS = "A_PARENT_MEDIA_CO"
 	ICON_IDSB3Digital                               ICON_IDS = "B3_DIGITAL"
@@ -3493,6 +3505,7 @@ const (
 	ICON_IDSKadaster                                ICON_IDS = "KADASTER"
 	ICON_IDSKaeros                                  ICON_IDS = "KAEROS"
 	ICON_IDSKakao                                   ICON_IDS = "KAKAO"
+	ICON_IDSKakitiro                                ICON_IDS = "KAKITIRO"
 	ICON_IDSKali                                    ICON_IDS = "KALI"
 	ICON_IDSKandraLabs                              ICON_IDS = "KANDRA_LABS"
 	ICON_IDSKarabinerElements                       ICON_IDS = "KARABINER_ELEMENTS"
@@ -4059,6 +4072,7 @@ const (
 	ICON_IDSNorthPoleSecurity                       ICON_IDS = "NORTH_POLE_SECURITY"
 	ICON_IDSNorton                                  ICON_IDS = "NORTON"
 	ICON_IDSNotarius                                ICON_IDS = "NOTARIUS"
+	ICON_IDSNotepadnext                             ICON_IDS = "NOTEPADNEXT"
 	ICON_IDSNotepadx                                ICON_IDS = "NOTEPADX"
 	ICON_IDSNotjustapps                             ICON_IDS = "NOTJUSTAPPS"
 	ICON_IDSNovapdf                                 ICON_IDS = "NOVAPDF"
@@ -4447,6 +4461,7 @@ const (
 	ICON_IDSPulseway                                ICON_IDS = "PULSEWAY"
 	ICON_IDSPungo                                   ICON_IDS = "PUNGO"
 	ICON_IDSPuretext                                ICON_IDS = "PURETEXT"
+	ICON_IDSPurePaste                               ICON_IDS = "PURE_PASTE"
 	ICON_IDSPurpleCover                             ICON_IDS = "PURPLE_COVER"
 	ICON_IDSPurplePen                               ICON_IDS = "PURPLE_PEN"
 	ICON_IDSPutty                                   ICON_IDS = "PUTTY"
@@ -5037,6 +5052,7 @@ const (
 	ICON_IDSTeethan                                 ICON_IDS = "TEETHAN"
 	ICON_IDSTekbrio                                 ICON_IDS = "TEKBRIO"
 	ICON_IDSTeklynx                                 ICON_IDS = "TEKLYNX"
+	ICON_IDSTeknologiBagiSemua                      ICON_IDS = "TEKNOLOGI_BAGI_SEMUA"
 	ICON_IDSTektoncd                                ICON_IDS = "TEKTONCD"
 	ICON_IDSTeledyneFlir                            ICON_IDS = "TELEDYNE_FLIR"
 	ICON_IDSTeledyneLecroy                          ICON_IDS = "TELEDYNE_LECROY"
@@ -5054,6 +5070,7 @@ const (
 	ICON_IDSTermius                                 ICON_IDS = "TERMIUS"
 	ICON_IDSTerraform                               ICON_IDS = "TERRAFORM"
 	ICON_IDSTerraformDocs                           ICON_IDS = "TERRAFORM_DOCS"
+	ICON_IDSTerraformLinters                        ICON_IDS = "TERRAFORM_LINTERS"
 	ICON_IDSTerratec                                ICON_IDS = "TERRATEC"
 	ICON_IDSTesseractOcrProject                     ICON_IDS = "TESSERACT_OCR_PROJECT"
 	ICON_IDSTestfully                               ICON_IDS = "TESTFULLY"
@@ -5067,6 +5084,7 @@ const (
 	ICON_IDSTextBlaze                               ICON_IDS = "TEXT_BLAZE"
 	ICON_IDSTexUsersGroup                           ICON_IDS = "TEX_USERS_GROUP"
 	ICON_IDSTeSystems                               ICON_IDS = "TE_SYSTEMS"
+	ICON_IDSTfswitch                                ICON_IDS = "TFSWITCH"
 	ICON_IDSTfupdate                                ICON_IDS = "TFUPDATE"
 	ICON_IDSTgrmnSoftware                           ICON_IDS = "TGRMN_SOFTWARE"
 	ICON_IDSThales                                  ICON_IDS = "THALES"
@@ -5369,6 +5387,7 @@ const (
 	ICON_IDSWhitespectre                            ICON_IDS = "WHITESPECTRE"
 	ICON_IDSWhmcsSmarters                           ICON_IDS = "WHMCS_SMARTERS"
 	ICON_IDSWibuSystems                             ICON_IDS = "WIBU_SYSTEMS"
+	ICON_IDSWidgetWall                              ICON_IDS = "WIDGET_WALL"
 	ICON_IDSWielandElectric                         ICON_IDS = "WIELAND_ELECTRIC"
 	ICON_IDSWiesemannTheis                          ICON_IDS = "WIESEMANN_THEIS"
 	ICON_IDSWifiQrCodeScanner                       ICON_IDS = "WIFI_QR_CODE_SCANNER"
@@ -5665,6 +5684,7 @@ const (
 	IntegrationTypeJfrogXray                 IntegrationType = "JFROG_XRAY"
 	IntegrationTypeMoonRabbit                IntegrationType = "MOON_RABBIT"
 	IntegrationTypeAtlassian                 IntegrationType = "ATLASSIAN"
+	IntegrationTypeAzureDevopsRepos          IntegrationType = "AZURE_DEVOPS_REPOS"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
