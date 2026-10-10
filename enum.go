@@ -694,14 +694,15 @@ const (
 	AwsSecurityHubSeverityInformational AwsSecurityHubSeverity = "INFORMATIONAL"
 )
 
-// AzureDevopsReposCredentialMode represents how an Azure DevOps repository-scanning integration authenticates. Only ENTRA_CLIENT_SECRET is available today. PAT and MONDOO_APP_CONSENT are part of the contract so a client written now keeps working when they ship, but a create or update that selects either is refused with an UNIMPLEMENTED error ("not supported yet") rather than accepted and ignored. A request that also sends entraClientSecret with any mode other than ENTRA_CLIENT_SECRET is refused with an INVALID_ARGUMENT error instead.
+// AzureDevopsReposCredentialMode represents how an Azure DevOps repository-scanning integration authenticates. ENTRA_CLIENT_SECRET and ENTRA_CERTIFICATE are available today. PAT and MONDOO_APP_CONSENT are part of the contract so a client written now keeps working when they ship, but a create or update that selects either is refused with an UNIMPLEMENTED error ("not supported yet") rather than accepted and ignored. A request that sends entraClientSecret with any mode other than ENTRA_CLIENT_SECRET, or entraCertificate with any mode other than ENTRA_CERTIFICATE, is refused with an INVALID_ARGUMENT error instead. The mode is chosen when the integration is created and cannot be changed afterwards.
 type AzureDevopsReposCredentialMode string
 
-// How an Azure DevOps repository-scanning integration authenticates. Only ENTRA_CLIENT_SECRET is available today. PAT and MONDOO_APP_CONSENT are part of the contract so a client written now keeps working when they ship, but a create or update that selects either is refused with an UNIMPLEMENTED error ("not supported yet") rather than accepted and ignored. A request that also sends entraClientSecret with any mode other than ENTRA_CLIENT_SECRET is refused with an INVALID_ARGUMENT error instead.
+// How an Azure DevOps repository-scanning integration authenticates. ENTRA_CLIENT_SECRET and ENTRA_CERTIFICATE are available today. PAT and MONDOO_APP_CONSENT are part of the contract so a client written now keeps working when they ship, but a create or update that selects either is refused with an UNIMPLEMENTED error ("not supported yet") rather than accepted and ignored. A request that sends entraClientSecret with any mode other than ENTRA_CLIENT_SECRET, or entraCertificate with any mode other than ENTRA_CERTIFICATE, is refused with an INVALID_ARGUMENT error instead. The mode is chosen when the integration is created and cannot be changed afterwards.
 const (
-	AzureDevopsReposCredentialModeEntraClientSecret AzureDevopsReposCredentialMode = "ENTRA_CLIENT_SECRET" // A Microsoft Entra app registration (tenant id, client id and client secret). The only mode available today.
+	AzureDevopsReposCredentialModeEntraClientSecret AzureDevopsReposCredentialMode = "ENTRA_CLIENT_SECRET" // A Microsoft Entra app registration (tenant id, client id and client secret).
 	AzureDevopsReposCredentialModePat               AzureDevopsReposCredentialMode = "PAT"                 // An Azure DevOps personal access token. Not supported yet.
 	AzureDevopsReposCredentialModeMondooAppConsent  AzureDevopsReposCredentialMode = "MONDOO_APP_CONSENT"  // The one-click Mondoo Azure DevOps app consent flow from the Visual Studio Marketplace. Not supported yet.
+	AzureDevopsReposCredentialModeEntraCertificate  AzureDevopsReposCredentialMode = "ENTRA_CERTIFICATE"   // A Microsoft Entra app registration (tenant id, client id and certificate), for tenants that do not allow client secrets on app registrations.
 )
 
 // AzureDevopsTicketContextType represents the type of the ticket context.
@@ -5605,6 +5606,17 @@ const (
 	IntegrationMessageStatusError   IntegrationMessageStatus = "ERROR"
 )
 
+// IntegrationRepoSyncState represents the state of an organization-scanning integration's repository discovery.
+type IntegrationRepoSyncState string
+
+// The state of an organization-scanning integration's repository discovery.
+const (
+	IntegrationRepoSyncStateNone      IntegrationRepoSyncState = "NONE"      // Never ran, or aged out of retention.
+	IntegrationRepoSyncStateRunning   IntegrationRepoSyncState = "RUNNING"   // A discovery run is in progress.
+	IntegrationRepoSyncStateSucceeded IntegrationRepoSyncState = "SUCCEEDED" // The latest run completed; the repositories are current as of it.
+	IntegrationRepoSyncStateFailed    IntegrationRepoSyncState = "FAILED"    // The latest run failed; failureReason classifies it when known.
+)
+
 // IntegrationType represents summary of client integrations.
 type IntegrationType string
 
@@ -7079,6 +7091,20 @@ const (
 	VulnerabilityScoreSourceVendorQualys      VulnerabilityScoreSourceVendor = "QUALYS"
 	VulnerabilityScoreSourceVendorAws         VulnerabilityScoreSourceVendor = "AWS"    // Amazon Web Services (AWS Security Hub findings).
 	VulnerabilityScoreSourceVendorGoogle      VulnerabilityScoreSourceVendor = "GOOGLE" // Google Cloud (Security Command Center findings).
+)
+
+// Weekday represents a day of the week.
+type Weekday string
+
+// A day of the week.
+const (
+	WeekdayMonday    Weekday = "MONDAY"
+	WeekdayTuesday   Weekday = "TUESDAY"
+	WeekdayWednesday Weekday = "WEDNESDAY"
+	WeekdayThursday  Weekday = "THURSDAY"
+	WeekdayFriday    Weekday = "FRIDAY"
+	WeekdaySaturday  Weekday = "SATURDAY"
+	WeekdaySunday    Weekday = "SUNDAY"
 )
 
 // WorkflowExecutionKind represents the kind of job a workflow execution performs.
