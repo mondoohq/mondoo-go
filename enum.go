@@ -1593,7 +1593,7 @@ type FleetScanBinarySource string
 const (
 	FleetScanBinarySourceProvider              FleetScanBinarySource = "PROVIDER"
 	FleetScanBinarySourceReleaseMirrorFallback FleetScanBinarySource = "RELEASE_MIRROR_FALLBACK"
-	FleetScanBinarySourceInstallApi            FleetScanBinarySource = "INSTALL_API" // The package install API, the default download since ADR-149. Not returned yet: the server reports it as RELEASE_MIRROR_FALLBACK until clients understand the value.
+	FleetScanBinarySourceInstallApi            FleetScanBinarySource = "INSTALL_API" // The package install API, the default download since ADR-149. Returned on reads: such hosts are no longer reported as RELEASE_MIRROR_FALLBACK.
 	FleetScanBinarySourceCache                 FleetScanBinarySource = "CACHE"       // A copy of cnspec an earlier scan kept on the device, used only when its SHA-256 matches the manifest.
 )
 
@@ -1715,6 +1715,18 @@ type FleetScanTriggerKind string
 const (
 	FleetScanTriggerKindManual   FleetScanTriggerKind = "MANUAL"
 	FleetScanTriggerKindSchedule FleetScanTriggerKind = "SCHEDULE"
+)
+
+// FleetScanWindowFitKind represents how a scan schedule's next firing relates to its maintenance windows.
+type FleetScanWindowFitKind string
+
+// How a scan schedule's next firing relates to its maintenance windows.
+const (
+	FleetScanWindowFitKindNoWindow     FleetScanWindowFitKind = "NO_WINDOW"     // No window governs scans of this group.
+	FleetScanWindowFitKindFits         FleetScanWindowFitKind = "FITS"          // The next firing falls inside the effective window.
+	FleetScanWindowFitKindOutside      FleetScanWindowFitKind = "OUTSIDE"       // The next firing falls outside the effective window. It still runs (ADR-245 § 8).
+	FleetScanWindowFitKindUnconfinable FleetScanWindowFitKind = "UNCONFINABLE"  // A window applies but the schedule cannot be confined to it (an hourly native schedule).
+	FleetScanWindowFitKindNotScheduled FleetScanWindowFitKind = "NOT_SCHEDULED" // The schedule has no next firing (disabled, or not known).
 )
 
 // FormatType represents output format.
@@ -1927,6 +1939,7 @@ const (
 	ICON_IDSAdvancedCardSystems                     ICON_IDS = "ADVANCED_CARD_SYSTEMS"
 	ICON_IDSAdvancedIpScanner                       ICON_IDS = "ADVANCED_IP_SCANNER"
 	ICON_IDSAdvancis                                ICON_IDS = "ADVANCIS"
+	ICON_IDSAdvantageCloud                          ICON_IDS = "ADVANTAGE_CLOUD"
 	ICON_IDSAdvantech                               ICON_IDS = "ADVANTECH"
 	ICON_IDSAdSoftware                              ICON_IDS = "AD_SOFTWARE"
 	ICON_IDSAegisub                                 ICON_IDS = "AEGISUB"
@@ -2189,6 +2202,7 @@ const (
 	ICON_IDSBashLsp                                 ICON_IDS = "BASH_LSP"
 	ICON_IDSBasler                                  ICON_IDS = "BASLER"
 	ICON_IDSBat                                     ICON_IDS = "BAT"
+	ICON_IDSBatteryToolkit                          ICON_IDS = "BATTERY_TOOLKIT"
 	ICON_IDSBattleNet                               ICON_IDS = "BATTLE_NET"
 	ICON_IDSBazwise                                 ICON_IDS = "BAZWISE"
 	ICON_IDSBdrive                                  ICON_IDS = "BDRIVE"
@@ -2198,6 +2212,7 @@ const (
 	ICON_IDSBeckhoff                                ICON_IDS = "BECKHOFF"
 	ICON_IDSBeekeeperStudio                         ICON_IDS = "BEEKEEPER_STUDIO"
 	ICON_IDSBego                                    ICON_IDS = "BEGO"
+	ICON_IDSBelarc                                  ICON_IDS = "BELARC"
 	ICON_IDSBelfius                                 ICON_IDS = "BELFIUS"
 	ICON_IDSBelgiumEid                              ICON_IDS = "BELGIUM_EID"
 	ICON_IDSBelledonneCommunications                ICON_IDS = "BELLEDONNE_COMMUNICATIONS"
@@ -2362,6 +2377,7 @@ const (
 	ICON_IDSCenturyGames                            ICON_IDS = "CENTURY_GAMES"
 	ICON_IDSCerberusFtpServer                       ICON_IDS = "CERBERUS_FTP_SERVER"
 	ICON_IDSCertak                                  ICON_IDS = "CERTAK"
+	ICON_IDSCertifi                                 ICON_IDS = "CERTIFI"
 	ICON_IDSCertum                                  ICON_IDS = "CERTUM"
 	ICON_IDSCewe                                    ICON_IDS = "CEWE"
 	ICON_IDSCfitsio                                 ICON_IDS = "CFITSIO"
@@ -2410,6 +2426,7 @@ const (
 	ICON_IDSClarivate                               ICON_IDS = "CLARIVATE"
 	ICON_IDSClassicShell                            ICON_IDS = "CLASSIC_SHELL"
 	ICON_IDSClaude                                  ICON_IDS = "CLAUDE"
+	ICON_IDSClaudeUsageTracker                      ICON_IDS = "CLAUDE_USAGE_TRACKER"
 	ICON_IDSClavierPlus                             ICON_IDS = "CLAVIER_PLUS"
 	ICON_IDSClavister                               ICON_IDS = "CLAVISTER"
 	ICON_IDSCleanstart                              ICON_IDS = "CLEANSTART"
@@ -2452,6 +2469,7 @@ const (
 	ICON_IDSCodesys                                 ICON_IDS = "CODESYS"
 	ICON_IDSCodetwo                                 ICON_IDS = "CODETWO"
 	ICON_IDSCodeweavers                             ICON_IDS = "CODEWEAVERS"
+	ICON_IDSCodexbar                                ICON_IDS = "CODEXBAR"
 	ICON_IDSCodeBlocks                              ICON_IDS = "CODE_BLOCKS"
 	ICON_IDSCodeSector                              ICON_IDS = "CODE_SECTOR"
 	ICON_IDSCodeSpark                               ICON_IDS = "CODE_SPARK"
@@ -2506,6 +2524,7 @@ const (
 	ICON_IDSCopaData                                ICON_IDS = "COPA_DATA"
 	ICON_IDSCopaSysteme                             ICON_IDS = "COPA_SYSTEME"
 	ICON_IDSCope                                    ICON_IDS = "COPE"
+	ICON_IDSCopilotMoney                            ICON_IDS = "COPILOT_MONEY"
 	ICON_IDSCopypathmenu                            ICON_IDS = "COPYPATHMENU"
 	ICON_IDSCopyq                                   ICON_IDS = "COPYQ"
 	ICON_IDSCopytrans                               ICON_IDS = "COPYTRANS"
@@ -2562,6 +2581,7 @@ const (
 	ICON_IDSCyberduck                               ICON_IDS = "CYBERDUCK"
 	ICON_IDSCybereason                              ICON_IDS = "CYBEREASON"
 	ICON_IDSCyberfox                                ICON_IDS = "CYBERFOX"
+	ICON_IDSCyberghost                              ICON_IDS = "CYBERGHOST"
 	ICON_IDSCyberlink                               ICON_IDS = "CYBERLINK"
 	ICON_IDSCybermed                                ICON_IDS = "CYBERMED"
 	ICON_IDSCyclonedds                              ICON_IDS = "CYCLONEDDS"
@@ -2572,6 +2592,7 @@ const (
 	ICON_IDSCytoscape                               ICON_IDS = "CYTOSCAPE"
 	ICON_IDSCAres                                   ICON_IDS = "C_ARES"
 	ICON_IDSDahua                                   ICON_IDS = "DAHUA"
+	ICON_IDSDaisyAkademieVerlag                     ICON_IDS = "DAISY_AKADEMIE_VERLAG"
 	ICON_IDSDalux                                   ICON_IDS = "DALUX"
 	ICON_IDSDamienDelaire                           ICON_IDS = "DAMIEN_DELAIRE"
 	ICON_IDSDanilPristupov                          ICON_IDS = "DANIL_PRISTUPOV"
@@ -2673,6 +2694,7 @@ const (
 	ICON_IDSDigitronicComputersysteme               ICON_IDS = "DIGITRONIC_COMPUTERSYSTEME"
 	ICON_IDSDigiInternational                       ICON_IDS = "DIGI_INTERNATIONAL"
 	ICON_IDSDiktamen                                ICON_IDS = "DIKTAMEN"
+	ICON_IDSDiladele                                ICON_IDS = "DILADELE"
 	ICON_IDSDiligent                                ICON_IDS = "DILIGENT"
 	ICON_IDSDiroots                                 ICON_IDS = "DIROOTS"
 	ICON_IDSDisa                                    ICON_IDS = "DISA"
@@ -2707,6 +2729,7 @@ const (
 	ICON_IDSDocusnap                                ICON_IDS = "DOCUSNAP"
 	ICON_IDSDocuware                                ICON_IDS = "DOCUWARE"
 	ICON_IDSDof                                     ICON_IDS = "DOF"
+	ICON_IDSDokanDev                                ICON_IDS = "DOKAN_DEV"
 	ICON_IDSDolbeySystems                           ICON_IDS = "DOLBEY_SYSTEMS"
 	ICON_IDSDolby                                   ICON_IDS = "DOLBY"
 	ICON_IDSDolphinComputerAccess                   ICON_IDS = "DOLPHIN_COMPUTER_ACCESS"
@@ -2777,8 +2800,10 @@ const (
 	ICON_IDSEastTec                                 ICON_IDS = "EAST_TEC"
 	ICON_IDSEasycast                                ICON_IDS = "EASYCAST"
 	ICON_IDSEasyeda                                 ICON_IDS = "EASYEDA"
+	ICON_IDSEasymodo                                ICON_IDS = "EASYMODO"
 	ICON_IDSEasymorph                               ICON_IDS = "EASYMORPH"
 	ICON_IDSEasysoft                                ICON_IDS = "EASYSOFT"
+	ICON_IDSEasyAccessForGoogleDrive                ICON_IDS = "EASY_ACCESS_FOR_GOOGLE_DRIVE"
 	ICON_IDSEasyOfficeSuite                         ICON_IDS = "EASY_OFFICE_SUITE"
 	ICON_IDSEasySoftware                            ICON_IDS = "EASY_SOFTWARE"
 	ICON_IDSEaton                                   ICON_IDS = "EATON"
@@ -2964,6 +2989,8 @@ const (
 	ICON_IDSFileFormatApps                          ICON_IDS = "FILE_FORMAT_APPS"
 	ICON_IDSFileNewProject                          ICON_IDS = "FILE_NEW_PROJECT"
 	ICON_IDSFilius                                  ICON_IDS = "FILIUS"
+	ICON_IDSFinalwire                               ICON_IDS = "FINALWIRE"
+	ICON_IDSFinalDraft                              ICON_IDS = "FINAL_DRAFT"
 	ICON_IDSFinansiellIdTeknik                      ICON_IDS = "FINANSIELL_ID_TEKNIK"
 	ICON_IDSFinetune                                ICON_IDS = "FINETUNE"
 	ICON_IDSFing                                    ICON_IDS = "FING"
@@ -2992,6 +3019,7 @@ const (
 	ICON_IDSFleetboard                              ICON_IDS = "FLEETBOARD"
 	ICON_IDSFlexera                                 ICON_IDS = "FLEXERA"
 	ICON_IDSFlexfone                                ICON_IDS = "FLEXFONE"
+	ICON_IDSFlexibits                               ICON_IDS = "FLEXIBITS"
 	ICON_IDSFlexoptix                               ICON_IDS = "FLEXOPTIX"
 	ICON_IDSFlipboard                               ICON_IDS = "FLIPBOARD"
 	ICON_IDSFlipper                                 ICON_IDS = "FLIPPER"
@@ -3001,6 +3029,7 @@ const (
 	ICON_IDSFltk                                    ICON_IDS = "FLTK"
 	ICON_IDSFluentBit                               ICON_IDS = "FLUENT_BIT"
 	ICON_IDSFluid                                   ICON_IDS = "FLUID"
+	ICON_IDSFluidsynth                              ICON_IDS = "FLUIDSYNTH"
 	ICON_IDSFluke                                   ICON_IDS = "FLUKE"
 	ICON_IDSFlukeNetworks                           ICON_IDS = "FLUKE_NETWORKS"
 	ICON_IDSFluxSoftware                            ICON_IDS = "FLUX_SOFTWARE"
@@ -3016,6 +3045,7 @@ const (
 	ICON_IDSFolge                                   ICON_IDS = "FOLGE"
 	ICON_IDSFolivoraAi                              ICON_IDS = "FOLIVORA_AI"
 	ICON_IDSFontconfig                              ICON_IDS = "FONTCONFIG"
+	ICON_IDSFontforge                               ICON_IDS = "FONTFORGE"
 	ICON_IDSFoobar2000                              ICON_IDS = "FOOBAR2000"
 	ICON_IDSFookes                                  ICON_IDS = "FOOKES"
 	ICON_IDSForensit                                ICON_IDS = "FORENSIT"
@@ -3101,6 +3131,7 @@ const (
 	ICON_IDSGeogebra                                ICON_IDS = "GEOGEBRA"
 	ICON_IDSGeorgiaSoftworks                        ICON_IDS = "GEORGIA_SOFTWORKS"
 	ICON_IDSGephi                                   ICON_IDS = "GEPHI"
+	ICON_IDSGermancoding                            ICON_IDS = "GERMANCODING"
 	ICON_IDSGesturesign                             ICON_IDS = "GESTURESIGN"
 	ICON_IDSGfiSoftware                             ICON_IDS = "GFI_SOFTWARE"
 	ICON_IDSGgml                                    ICON_IDS = "GGML"
@@ -3327,6 +3358,7 @@ const (
 	ICON_IDSIdeasoncanvas                           ICON_IDS = "IDEASONCANVAS"
 	ICON_IDSIdentiv                                 ICON_IDS = "IDENTIV"
 	ICON_IDSIdmComputerSolutions                    ICON_IDS = "IDM_COMPUTER_SOLUTIONS"
+	ICON_IDSIdrassi                                 ICON_IDS = "IDRASSI"
 	ICON_IDSIdrix                                   ICON_IDS = "IDRIX"
 	ICON_IDSIDsImaging                              ICON_IDS = "IDS_IMAGING"
 	ICON_IDSIdyllicPixel                            ICON_IDS = "IDYLLIC_PIXEL"
@@ -3365,6 +3397,7 @@ const (
 	ICON_IDSImpulseRecord                           ICON_IDS = "IMPULSE_RECORD"
 	ICON_IDSImput                                   ICON_IDS = "IMPUT"
 	ICON_IDSIncident57                              ICON_IDS = "INCIDENT_57"
+	ICON_IDSIndoorTraining                          ICON_IDS = "INDOOR_TRAINING"
 	ICON_IDSInductiveAutomation                     ICON_IDS = "INDUCTIVE_AUTOMATION"
 	ICON_IDSInedo                                   ICON_IDS = "INEDO"
 	ICON_IDSInera                                   ICON_IDS = "INERA"
@@ -3446,6 +3479,7 @@ const (
 	ICON_IDSJabra                                   ICON_IDS = "JABRA"
 	ICON_IDSJabref                                  ICON_IDS = "JABREF"
 	ICON_IDSJackett                                 ICON_IDS = "JACKETT"
+	ICON_IDSJagex                                   ICON_IDS = "JAGEX"
 	ICON_IDSJameda                                  ICON_IDS = "JAMEDA"
 	ICON_IDSJamf                                    ICON_IDS = "JAMF"
 	ICON_IDSJamfcheck                               ICON_IDS = "JAMFCHECK"
@@ -3455,7 +3489,9 @@ const (
 	ICON_IDSJanitza                                 ICON_IDS = "JANITZA"
 	ICON_IDSJanDeDobbeleer                          ICON_IDS = "JAN_DE_DOBBELEER"
 	ICON_IDSJanFiala                                ICON_IDS = "JAN_FIALA"
+	ICON_IDSJasonGinchereau                         ICON_IDS = "JASON_GINCHEREAU"
 	ICON_IDSJasp                                    ICON_IDS = "JASP"
+	ICON_IDSJasperProject                           ICON_IDS = "JASPER_PROJECT"
 	ICON_IDSJava                                    ICON_IDS = "JAVA"
 	ICON_IDSJavierGutierrezChamorro                 ICON_IDS = "JAVIER_GUTIERREZ_CHAMORRO"
 	ICON_IDSJawsetVisualComputing                   ICON_IDS = "JAWSET_VISUAL_COMPUTING"
@@ -3675,6 +3711,7 @@ const (
 	ICON_IDSLife360                                 ICON_IDS = "LIFE360"
 	ICON_IDSLifofinn                                ICON_IDS = "LIFOFINN"
 	ICON_IDSLightburnSoftware                       ICON_IDS = "LIGHTBURN_SOFTWARE"
+	ICON_IDSLightcut                                ICON_IDS = "LIGHTCUT"
 	ICON_IDSLimaVm                                  ICON_IDS = "LIMA_VM"
 	ICON_IDSLindeMaterialHandling                   ICON_IDS = "LINDE_MATERIAL_HANDLING"
 	ICON_IDSLinear                                  ICON_IDS = "LINEAR"
@@ -3684,6 +3721,7 @@ const (
 	ICON_IDSLinqpad                                 ICON_IDS = "LINQPAD"
 	ICON_IDSLinux                                   ICON_IDS = "LINUX"
 	ICON_IDSLinuxMint                               ICON_IDS = "LINUX_MINT"
+	ICON_IDSLiquibase                               ICON_IDS = "LIQUIBASE"
 	ICON_IDSLiquidfiles                             ICON_IDS = "LIQUIDFILES"
 	ICON_IDSLisAppStudio                            ICON_IDS = "LIS_APP_STUDIO"
 	ICON_IDSLitera                                  ICON_IDS = "LITERA"
@@ -3810,6 +3848,7 @@ const (
 	ICON_IDSMechanistry                             ICON_IDS = "MECHANISTRY"
 	ICON_IDSMedavis                                 ICON_IDS = "MEDAVIS"
 	ICON_IDSMediaarea                               ICON_IDS = "MEDIAAREA"
+	ICON_IDSMediahuman                              ICON_IDS = "MEDIAHUMAN"
 	ICON_IDSMediaAtelier                            ICON_IDS = "MEDIA_ATELIER"
 	ICON_IDSMedicalHarbour                          ICON_IDS = "MEDICAL_HARBOUR"
 	ICON_IDSMedigration                             ICON_IDS = "MEDIGRATION"
@@ -4023,6 +4062,7 @@ const (
 	ICON_IDSNetpad                                  ICON_IDS = "NETPAD"
 	ICON_IDSNetsdk                                  ICON_IDS = "NETSDK"
 	ICON_IDSNetsec                                  ICON_IDS = "NETSEC"
+	ICON_IDSNetsetman                               ICON_IDS = "NETSETMAN"
 	ICON_IDSNetsDanid                               ICON_IDS = "NETS_DANID"
 	ICON_IDSNettime                                 ICON_IDS = "NETTIME"
 	ICON_IDSNetworkmanager                          ICON_IDS = "NETWORKMANAGER"
@@ -4049,6 +4089,7 @@ const (
 	ICON_IDSNgwin                                   ICON_IDS = "NGWIN"
 	ICON_IDSNgBranchTechnology                      ICON_IDS = "NG_BRANCH_TECHNOLOGY"
 	ICON_IDSNgPdfLab                                ICON_IDS = "NG_PDF_LAB"
+	ICON_IDSNicolasBonnefon                         ICON_IDS = "NICOLAS_BONNEFON"
 	ICON_IDSNielseniq                               ICON_IDS = "NIELSENIQ"
 	ICON_IDSNikitaBobko                             ICON_IDS = "NIKITA_BOBKO"
 	ICON_IDSNiko                                    ICON_IDS = "NIKO"
@@ -4059,6 +4100,7 @@ const (
 	ICON_IDSNirsoft                                 ICON_IDS = "NIRSOFT"
 	ICON_IDSNisAg                                   ICON_IDS = "NIS_AG"
 	ICON_IDSNitroSoftware                           ICON_IDS = "NITRO_SOFTWARE"
+	ICON_IDSNiubi                                   ICON_IDS = "NIUBI"
 	ICON_IDSNlitesoft                               ICON_IDS = "NLITESOFT"
 	ICON_IDSNlnetlabs                               ICON_IDS = "NLNETLABS"
 	ICON_IDSNobelBiocare                            ICON_IDS = "NOBEL_BIOCARE"
@@ -4097,9 +4139,11 @@ const (
 	ICON_IDSNugetPackageExplorerProject             ICON_IDS = "NUGET_PACKAGE_EXPLORER_PROJECT"
 	ICON_IDSNumbrapp                                ICON_IDS = "NUMBRAPP"
 	ICON_IDSNuphy                                   ICON_IDS = "NUPHY"
+	ICON_IDSNushell                                 ICON_IDS = "NUSHELL"
 	ICON_IDSNvAccess                                ICON_IDS = "NV_ACCESS"
 	ICON_IDSNwea                                    ICON_IDS = "NWEA"
 	ICON_IDSNxp                                     ICON_IDS = "NXP"
+	ICON_IDSNzxt                                    ICON_IDS = "NZXT"
 	ICON_IDSNAble                                   ICON_IDS = "N_ABLE"
 	ICON_IDSNeon                                    ICON_IDS = "NEON"
 	ICON_IDSNeonDb                                  ICON_IDS = "NEON_DB"
@@ -4194,6 +4238,7 @@ const (
 	ICON_IDSOpencloudos                             ICON_IDS = "OPENCLOUDOS"
 	ICON_IDSOpencode                                ICON_IDS = "OPENCODE"
 	ICON_IDSOpenconnect                             ICON_IDS = "OPENCONNECT"
+	ICON_IDSOpencoreAmr                             ICON_IDS = "OPENCORE_AMR"
 	ICON_IDSOpencppcoverage                         ICON_IDS = "OPENCPPCOVERAGE"
 	ICON_IDSOpeneuler                               ICON_IDS = "OPENEULER"
 	ICON_IDSOpenh264                                ICON_IDS = "OPENH264"
@@ -4220,6 +4265,7 @@ const (
 	ICON_IDSOpentrons                               ICON_IDS = "OPENTRONS"
 	ICON_IDSOpenvpn                                 ICON_IDS = "OPENVPN"
 	ICON_IDSOpenwall                                ICON_IDS = "OPENWALL"
+	ICON_IDSOpenwhispr                              ICON_IDS = "OPENWHISPR"
 	ICON_IDSOpenwrt                                 ICON_IDS = "OPENWRT"
 	ICON_IDSOpenChemistry                           ICON_IDS = "OPEN_CHEMISTRY"
 	ICON_IDSOpenDentalSoftware                      ICON_IDS = "OPEN_DENTAL_SOFTWARE"
@@ -4246,6 +4292,7 @@ const (
 	ICON_IDSOrderman                                ICON_IDS = "ORDERMAN"
 	ICON_IDSOrderPingX                              ICON_IDS = "ORDER_PING_X"
 	ICON_IDSOrica                                   ICON_IDS = "ORICA"
+	ICON_IDSOrmco                                   ICON_IDS = "ORMCO"
 	ICON_IDSOscium                                  ICON_IDS = "OSCIUM"
 	ICON_IDSOsmcode                                 ICON_IDS = "OSMCODE"
 	ICON_IDSOsquery                                 ICON_IDS = "OSQUERY"
@@ -4339,6 +4386,7 @@ const (
 	ICON_IDSPgn                                     ICON_IDS = "PGN"
 	ICON_IDSPhiewer                                 ICON_IDS = "PHIEWER"
 	ICON_IDSPhilippeJounin                          ICON_IDS = "PHILIPPE_JOUNIN"
+	ICON_IDSPhilips                                 ICON_IDS = "PHILIPS"
 	ICON_IDSPhoenixCode                             ICON_IDS = "PHOENIX_CODE"
 	ICON_IDSPhoenixContact                          ICON_IDS = "PHOENIX_CONTACT"
 	ICON_IDSPhonerlite                              ICON_IDS = "PHONERLITE"
@@ -4395,6 +4443,7 @@ const (
 	ICON_IDSPolarr                                  ICON_IDS = "POLARR"
 	ICON_IDSPolarElectro                            ICON_IDS = "POLAR_ELECTRO"
 	ICON_IDSPolarInstruments                        ICON_IDS = "POLAR_INSTRUMENTS"
+	ICON_IDSPoliceChief                             ICON_IDS = "POLICE_CHIEF"
 	ICON_IDSPolicy                                  ICON_IDS = "POLICY"
 	ICON_IDSPollEverywhere                          ICON_IDS = "POLL_EVERYWHERE"
 	ICON_IDSPoly                                    ICON_IDS = "POLY"
@@ -4434,6 +4483,7 @@ const (
 	ICON_IDSProalpha                                ICON_IDS = "PROALPHA"
 	ICON_IDSProcessingFoundation                    ICON_IDS = "PROCESSING_FOUNDATION"
 	ICON_IDSProcessHacker                           ICON_IDS = "PROCESS_HACKER"
+	ICON_IDSProcpsNg                                ICON_IDS = "PROCPS_NG"
 	ICON_IDSProgrammersNotepad                      ICON_IDS = "PROGRAMMERS_NOTEPAD"
 	ICON_IDSProgrammerDvorak                        ICON_IDS = "PROGRAMMER_DVORAK"
 	ICON_IDSProgrammerForSertronicsTag              ICON_IDS = "PROGRAMMER_FOR_SERTRONICS_TAG"
@@ -4453,6 +4503,7 @@ const (
 	ICON_IDSProxmox                                 ICON_IDS = "PROXMOX"
 	ICON_IDSProxychainsNgProject                    ICON_IDS = "PROXYCHAINS_NG_PROJECT"
 	ICON_IDSProxyman                                ICON_IDS = "PROXYMAN"
+	ICON_IDSPrsyahmi                                ICON_IDS = "PRSYAHMI"
 	ICON_IDSPrusaResearch                           ICON_IDS = "PRUSA_RESEARCH"
 	ICON_IDSPseSolutions                            ICON_IDS = "PSE_SOLUTIONS"
 	ICON_IDSPsiServices                             ICON_IDS = "PSI_SERVICES"
@@ -4496,6 +4547,7 @@ const (
 	ICON_IDSQognify                                 ICON_IDS = "QOGNIFY"
 	ICON_IDSQemu                                    ICON_IDS = "QEMU"
 	ICON_IDSQoppaSoftware                           ICON_IDS = "QOPPA_SOFTWARE"
+	ICON_IDSQpdf                                    ICON_IDS = "QPDF"
 	ICON_IDSQpidProton                              ICON_IDS = "QPID_PROTON"
 	ICON_IDSQsQualitysoft                           ICON_IDS = "QS_QUALITYSOFT"
 	ICON_IDSQt                                      ICON_IDS = "QT"
@@ -4512,6 +4564,7 @@ const (
 	ICON_IDSQuicklookVideo                          ICON_IDS = "QUICKLOOK_VIDEO"
 	ICON_IDSQuickshade                              ICON_IDS = "QUICKSHADE"
 	ICON_IDSQuicksilva                              ICON_IDS = "QUICKSILVA"
+	ICON_IDSQuickNote                               ICON_IDS = "QUICK_NOTE"
 	ICON_IDSQuirkos                                 ICON_IDS = "QUIRKOS"
 	ICON_IDSQwen                                    ICON_IDS = "QWEN"
 	ICON_IDSQz                                      ICON_IDS = "QZ"
@@ -4564,6 +4617,7 @@ const (
 	ICON_IDSRedfish                                 ICON_IDS = "REDFISH"
 	ICON_IDSRedgate                                 ICON_IDS = "REDGATE"
 	ICON_IDSRedis                                   ICON_IDS = "REDIS"
+	ICON_IDSRedisant                                ICON_IDS = "REDISANT"
 	ICON_IDSRedmon                                  ICON_IDS = "REDMON"
 	ICON_IDSRednotebook                             ICON_IDS = "REDNOTEBOOK"
 	ICON_IDSRedCactus                               ICON_IDS = "RED_CACTUS"
@@ -4630,6 +4684,7 @@ const (
 	ICON_IDSRoxtra                                  ICON_IDS = "ROXTRA"
 	ICON_IDSRoxyapps                                ICON_IDS = "ROXYAPPS"
 	ICON_IDSRoyalTsx                                ICON_IDS = "ROYAL_TSX"
+	ICON_IDSRpdsPy                                  ICON_IDS = "RPDS_PY"
 	ICON_IDSRpost                                   ICON_IDS = "RPOST"
 	ICON_IDSRtklib                                  ICON_IDS = "RTKLIB"
 	ICON_IDSRubrik                                  ICON_IDS = "RUBRIK"
@@ -4702,6 +4757,7 @@ const (
 	ICON_IDSScientificLinux                         ICON_IDS = "SCIENTIFIC_LINUX"
 	ICON_IDSScopevisio                              ICON_IDS = "SCOPEVISIO"
 	ICON_IDSScottBrogden                            ICON_IDS = "SCOTT_BROGDEN"
+	ICON_IDSScottHanselman                          ICON_IDS = "SCOTT_HANSELMAN"
 	ICON_IDSScrapestorm                             ICON_IDS = "SCRAPESTORM"
 	ICON_IDSScratch                                 ICON_IDS = "SCRATCH"
 	ICON_IDSScreamingFrog                           ICON_IDS = "SCREAMING_FROG"
@@ -4741,6 +4797,7 @@ const (
 	ICON_IDSSequelAce                               ICON_IDS = "SEQUEL_ACE"
 	ICON_IDSSerf                                    ICON_IDS = "SERF"
 	ICON_IDSSergeiPleis                             ICON_IDS = "SERGEI_PLEIS"
+	ICON_IDSSerialtool                              ICON_IDS = "SERIALTOOL"
 	ICON_IDSServerdata                              ICON_IDS = "SERVERDATA"
 	ICON_IDSServerEye                               ICON_IDS = "SERVER_EYE"
 	ICON_IDSServicenow                              ICON_IDS = "SERVICENOW"
@@ -4843,6 +4900,7 @@ const (
 	ICON_IDSSoberLemur                              ICON_IDS = "SOBER_LEMUR"
 	ICON_IDSSocioculturalResearchConsultants        ICON_IDS = "SOCIOCULTURAL_RESEARCH_CONSULTANTS"
 	ICON_IDSSoftartisans                            ICON_IDS = "SOFTARTISANS"
+	ICON_IDSSoftdeluxe                              ICON_IDS = "SOFTDELUXE"
 	ICON_IDSSoftemia                                ICON_IDS = "SOFTEMIA"
 	ICON_IDSSofterra                                ICON_IDS = "SOFTERRA"
 	ICON_IDSSoftether                               ICON_IDS = "SOFTETHER"
@@ -4884,7 +4942,9 @@ const (
 	ICON_IDSSoti                                    ICON_IDS = "SOTI"
 	ICON_IDSSoundcleod                              ICON_IDS = "SOUNDCLEOD"
 	ICON_IDSSoundcloud                              ICON_IDS = "SOUNDCLOUD"
+	ICON_IDSSounddial                               ICON_IDS = "SOUNDDIAL"
 	ICON_IDSSoundsource                             ICON_IDS = "SOUNDSOURCE"
+	ICON_IDSSourcegear                              ICON_IDS = "SOURCEGEAR"
 	ICON_IDSSourcegitScm                            ICON_IDS = "SOURCEGIT_SCM"
 	ICON_IDSSourcetree                              ICON_IDS = "SOURCETREE"
 	ICON_IDSSouthRiverTechnologies                  ICON_IDS = "SOUTH_RIVER_TECHNOLOGIES"
@@ -4929,6 +4989,7 @@ const (
 	ICON_IDSStardock                                ICON_IDS = "STARDOCK"
 	ICON_IDSStarface                                ICON_IDS = "STARFACE"
 	ICON_IDSStarlightApps                           ICON_IDS = "STARLIGHT_APPS"
+	ICON_IDSStarship                                ICON_IDS = "STARSHIP"
 	ICON_IDSStartisback                             ICON_IDS = "STARTISBACK"
 	ICON_IDSStarwindSoftware                        ICON_IDS = "STARWIND_SOFTWARE"
 	ICON_IDSStarFinanz                              ICON_IDS = "STAR_FINANZ"
@@ -4952,6 +5013,7 @@ const (
 	ICON_IDSStripe                                  ICON_IDS = "STRIPE"
 	ICON_IDSStrongbox                               ICON_IDS = "STRONGBOX"
 	ICON_IDSStructuredData                          ICON_IDS = "STRUCTURED_DATA"
+	ICON_IDSStruktur                                ICON_IDS = "STRUKTUR"
 	ICON_IDSStudioLink                              ICON_IDS = "STUDIO_LINK"
 	ICON_IDSStunnel                                 ICON_IDS = "STUNNEL"
 	ICON_IDSStuntSoftware                           ICON_IDS = "STUNT_SOFTWARE"
@@ -5098,6 +5160,7 @@ const (
 	ICON_IDSThecommander                            ICON_IDS = "THECOMMANDER"
 	ICON_IDSTheobaldSoftware                        ICON_IDS = "THEOBALD_SOFTWARE"
 	ICON_IDSTherefore                               ICON_IDS = "THEREFORE"
+	ICON_IDSTheBoringTeam                           ICON_IDS = "THE_BORING_TEAM"
 	ICON_IDSTheBrowserCompany                       ICON_IDS = "THE_BROWSER_COMPANY"
 	ICON_IDSTheHdfGroup                             ICON_IDS = "THE_HDF_GROUP"
 	ICON_IDSTheImagingSource                        ICON_IDS = "THE_IMAGING_SOURCE"
@@ -5132,6 +5195,7 @@ const (
 	ICON_IDSTimebuzzer                              ICON_IDS = "TIMEBUZZER"
 	ICON_IDSTimelineApp                             ICON_IDS = "TIMELINE_APP"
 	ICON_IDSTimely                                  ICON_IDS = "TIMELY"
+	ICON_IDSTimeular                                ICON_IDS = "TIMEULAR"
 	ICON_IDSTimoPartl                               ICON_IDS = "TIMO_PARTL"
 	ICON_IDSTimGrabinat                             ICON_IDS = "TIM_GRABINAT"
 	ICON_IDSTinnR                                   ICON_IDS = "TINN_R"
@@ -5141,6 +5205,7 @@ const (
 	ICON_IDSTipos                                   ICON_IDS = "TIPOS"
 	ICON_IDSTixeo                                   ICON_IDS = "TIXEO"
 	ICON_IDSTlwg                                    ICON_IDS = "TLWG"
+	ICON_IDSTmog                                    ICON_IDS = "TMOG"
 	ICON_IDSTnefsEnough                             ICON_IDS = "TNEFS_ENOUGH"
 	ICON_IDSTneEnterprises                          ICON_IDS = "TNE_ENTERPRISES"
 	ICON_IDSTntExpress                              ICON_IDS = "TNT_EXPRESS"
@@ -5179,6 +5244,7 @@ const (
 	ICON_IDSTraduko                                 ICON_IDS = "TRADUKO"
 	ICON_IDSTrae                                    ICON_IDS = "TRAE"
 	ICON_IDSTrafficmonitor                          ICON_IDS = "TRAFFICMONITOR"
+	ICON_IDSTraffiqx                                ICON_IDS = "TRAFFIQX"
 	ICON_IDSTranslatorx                             ICON_IDS = "TRANSLATORX"
 	ICON_IDSTranslucenttb                           ICON_IDS = "TRANSLUCENTTB"
 	ICON_IDSTransmissionProject                     ICON_IDS = "TRANSMISSION_PROJECT"
@@ -5202,6 +5268,7 @@ const (
 	ICON_IDSTrumpf                                  ICON_IDS = "TRUMPF"
 	ICON_IDSTruncad                                 ICON_IDS = "TRUNCAD"
 	ICON_IDSTrustxManagement                        ICON_IDS = "TRUSTX_MANAGEMENT"
+	ICON_IDSTsplus                                  ICON_IDS = "TSPLUS"
 	ICON_IDSTtyPlus                                 ICON_IDS = "TTY_PLUS"
 	ICON_IDSTui                                     ICON_IDS = "TUI"
 	ICON_IDSTukaaniProject                          ICON_IDS = "TUKAANI_PROJECT"
@@ -5354,6 +5421,7 @@ const (
 	ICON_IDSWago                                    ICON_IDS = "WAGO"
 	ICON_IDSWailbrew                                ICON_IDS = "WAILBREW"
 	ICON_IDSWalkme                                  ICON_IDS = "WALKME"
+	ICON_IDSWampserver                              ICON_IDS = "WAMPSERVER"
 	ICON_IDSWargaming                               ICON_IDS = "WARGAMING"
 	ICON_IDSWarp                                    ICON_IDS = "WARP"
 	ICON_IDSWasmedge                                ICON_IDS = "WASMEDGE"
@@ -5554,6 +5622,16 @@ const (
 	ICON_IDSZwift                                   ICON_IDS = "ZWIFT"
 	ICON_IDSZynga                                   ICON_IDS = "ZYNGA"
 	ICON_IDSZyxel                                   ICON_IDS = "ZYXEL"
+)
+
+// ImportAssetsScope represents which of an integration's devices are imported as Mondoo assets (ADR-252).
+type ImportAssetsScope string
+
+// Which of an integration's devices are imported as Mondoo assets (ADR-252).
+const (
+	ImportAssetsScopeOff           ImportAssetsScope = "OFF"            // No devices are imported as assets.
+	ImportAssetsScopeScannedGroups ImportAssetsScope = "SCANNED_GROUPS" // The devices of the host groups fleet scans and schedules target, imported when each scan starts.
+	ImportAssetsScopeAll           ImportAssetsScope = "ALL"            // Every device of the tenant, imported by the integration's import.
 )
 
 // InitiativeOrderField represents initiative order field.
@@ -5836,6 +5914,54 @@ const (
 	ListFrameworksFilterStateAvailable ListFrameworksFilterState = "AVAILABLE"
 )
 
+// MaintenanceWindowEffect represents whether a window lets work through or stops it.
+type MaintenanceWindowEffect string
+
+// Whether a window lets work through or stops it.
+const (
+	MaintenanceWindowEffectAllow MaintenanceWindowEffect = "ALLOW" // Work may happen inside the window.
+	MaintenanceWindowEffectBlock MaintenanceWindowEffect = "BLOCK" // A blackout: no work inside it, whatever else allows it.
+)
+
+// MaintenanceWindowPurpose represents the kind of work a window governs.
+type MaintenanceWindowPurpose string
+
+// The kind of work a window governs.
+const (
+	MaintenanceWindowPurposeRemediation MaintenanceWindowPurpose = "REMEDIATION"
+	MaintenanceWindowPurposeScan        MaintenanceWindowPurpose = "SCAN"
+)
+
+// MaintenanceWindowSource represents where a window comes from.
+type MaintenanceWindowSource string
+
+// Where a window comes from.
+const (
+	MaintenanceWindowSourceMondoo MaintenanceWindowSource = "MONDOO" // Defined in Mondoo.
+	MaintenanceWindowSourceNative MaintenanceWindowSource = "NATIVE" // Imported read-only from a management system.
+)
+
+// MaintenanceWindowSyncState represents how the last read of native windows went.
+type MaintenanceWindowSyncState string
+
+// How the last read of native windows went.
+const (
+	MaintenanceWindowSyncStateOk          MaintenanceWindowSyncState = "OK"
+	MaintenanceWindowSyncStateUnsupported MaintenanceWindowSyncState = "UNSUPPORTED" // The native schedule cannot be expressed as slots. It is shown, never approximated.
+	MaintenanceWindowSyncStateError       MaintenanceWindowSyncState = "ERROR"       // The last sync failed. The windows are as the last successful sync left them.
+	MaintenanceWindowSyncStateNever       MaintenanceWindowSyncState = "NEVER"       // The import is on and has not synced yet.
+)
+
+// MaintenanceWindowTargetKind represents what a window is assigned to.
+type MaintenanceWindowTargetKind string
+
+// What a window is assigned to.
+const (
+	MaintenanceWindowTargetKindSpace       MaintenanceWindowTargetKind = "SPACE"
+	MaintenanceWindowTargetKindIntegration MaintenanceWindowTargetKind = "INTEGRATION"
+	MaintenanceWindowTargetKindHostGroup   MaintenanceWindowTargetKind = "HOST_GROUP"
+)
+
 // MemberIdentityType represents filter options for member identity types.
 type MemberIdentityType string
 
@@ -6110,7 +6236,7 @@ const (
 	PackageManagerSnap           PackageManager = "SNAP"            // SNAP.
 	PackageManagerWinget         PackageManager = "WINGET"          // WINGET.
 	PackageManagerSoftwareUpdate PackageManager = "SOFTWARE_UPDATE" // SOFTWARE_UPDATE (macOS Software Update).
-	PackageManagerMacosApp       PackageManager = "MACOS_APP"       // MACOS_APP: a macOS application updated from its vendor's signed download (ADR-164). Not returned yet: the server still reports this route as SOFTWARE_UPDATE until clients understand the value (#20815).
+	PackageManagerMacosApp       PackageManager = "MACOS_APP"       // MACOS_APP: a macOS application updated from its vendor's signed download (ADR-164). Returned on reads for that route, which is no longer reported as SOFTWARE_UPDATE.
 )
 
 // PackageScoresOrderField represents packageScores order fields.
@@ -6303,7 +6429,7 @@ const (
 	PlanOutcomeBucketRemovedAlreadyApplied    PlanOutcomeBucket = "REMOVED_ALREADY_APPLIED"    // Removed from scope: the change was already applied.
 	PlanOutcomeBucketRemovedNotApplicable     PlanOutcomeBucket = "REMOVED_NOT_APPLICABLE"     // Removed from scope: the action no longer applies to this target.
 	PlanOutcomeBucketNeverDispatched          PlanOutcomeBucket = "NEVER_DISPATCHED"           // Never handed to an executor.
-	PlanOutcomeBucketExecutedDeferred         PlanOutcomeBucket = "EXECUTED_DEFERRED"          // Ran, and changed nothing: the software was in use and the run's `inUse` did not allow closing it (ADR-171). Retry it with `runPlanRemainder(retry: [EXECUTED_DEFERRED])` and `QUIT` or `FORCE_QUIT`. Accepted in `RunPlanRemainderInput.retry` now. Not returned on reads yet: an `ActionStep.outcome` reports such a step as `EXECUTED` (with its "Deferred…" detail) until clients understand this value, so a deployed client never receives a value it has not seen. `PlanOutcomeDistribution.executedDeferred` counts these steps already.
+	PlanOutcomeBucketExecutedDeferred         PlanOutcomeBucket = "EXECUTED_DEFERRED"          // Ran, and changed nothing: the software was in use and the run's `inUse` did not allow closing it (ADR-171). Retry it with `runPlanRemainder(retry: [EXECUTED_DEFERRED])` and `QUIT` or `FORCE_QUIT`. Returned on reads: an `ActionStep.outcome` reports such a step as `EXECUTED_DEFERRED`, no longer as `EXECUTED`, and `PlanOutcomeDistribution.executedDeferred` counts it.
 )
 
 // PlanPhaseStatus represents where a phase is.
@@ -7091,6 +7217,18 @@ const (
 	VulnerabilityScoreSourceVendorQualys      VulnerabilityScoreSourceVendor = "QUALYS"
 	VulnerabilityScoreSourceVendorAws         VulnerabilityScoreSourceVendor = "AWS"    // Amazon Web Services (AWS Security Hub findings).
 	VulnerabilityScoreSourceVendorGoogle      VulnerabilityScoreSourceVendor = "GOOGLE" // Google Cloud (Security Command Center findings).
+)
+
+// WeekOfMonth represents which occurrence of a weekday in a month.
+type WeekOfMonth string
+
+// Which occurrence of a weekday in a month.
+const (
+	WeekOfMonthFirst  WeekOfMonth = "FIRST"
+	WeekOfMonthSecond WeekOfMonth = "SECOND"
+	WeekOfMonthThird  WeekOfMonth = "THIRD"
+	WeekOfMonthFourth WeekOfMonth = "FOURTH"
+	WeekOfMonthLast   WeekOfMonth = "LAST"
 )
 
 // Weekday represents a day of the week.
