@@ -34,8 +34,15 @@ type (
 	// Int represents non-fractional signed whole numeric values.
 	Int graphql.Int
 
+	// LocalTime represents a wall-clock time of day, without a date or
+	// time zone.
+	LocalTime graphql.String
+
 	// String represents textual data as UTF-8 character sequences.
 	String graphql.String
+
+	// TimeZone represents an IANA time zone name, such as "Europe/Berlin".
+	TimeZone graphql.String
 
 	// Map represents a generic map of string keys to values.
 	Map map[string]interface{}
@@ -59,5 +66,11 @@ func NewIDPtr(v ID) *ID { return &v }
 // NewIntPtr creates a new *Int.
 func NewIntPtr(v Int) *Int { return &v }
 
+// NewLocalTimePtr creates a new *LocalTime.
+func NewLocalTimePtr(v LocalTime) *LocalTime { return &v }
+
 // NewStringPtr creates a new *String.
 func NewStringPtr(v String) *String { return &v }
+
+// NewTimeZonePtr creates a new *TimeZone.
+func NewTimeZonePtr(v TimeZone) *TimeZone { return &v }
