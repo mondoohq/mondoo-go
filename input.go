@@ -1210,6 +1210,8 @@ type BigqueryConfigurationOptionsInput struct {
 	// The BigQuery dataset ID. (Required.)
 	DatasetId String `json:"datasetId" tfgen:"required=1"`
 
+	// Optional Cloud KMS CryptoKey resource name for BigQuery query results. The key remains in Google Cloud KMS. Omit on update to preserve it; send an empty string to clear it. (Optional.)
+	KmsKeyName *String `json:"kmsKeyName,omitempty" tfgen:"required=0"`
 	// note: this is the content of the service account JSON file. Optional when using WIF (workload identity federation) credentials. (Optional.)
 	ServiceAccount *String `json:"serviceAccount,omitempty" tfgen:"required=0"`
 	// WIF audience URL for GCP workload identity federation. e.g., https://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID. (Optional.)
