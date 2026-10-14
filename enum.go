@@ -6328,26 +6328,6 @@ const (
 	PlanActionKindManual      PlanActionKind = "MANUAL"      // A fix no actuator can apply, which a person applies (ADR-226). Running the step's phase activates it and hands nothing to a delivery; a later scan that shows the finding closed completes it. Only created when the caller asks with `includeManualSteps`. The step's `manual` carries the instructions.
 )
 
-// PlanConfirmedVia represents what ended an ActionStep's delivery wait (ADR-175).
-type PlanConfirmedVia string
-
-// What ended an ActionStep's delivery wait (ADR-175).
-const (
-	PlanConfirmedViaDeviceReport     PlanConfirmedVia = "DEVICE_REPORT"      // The device reported its result directly.
-	PlanConfirmedViaGraph            PlanConfirmedVia = "GRAPH"              // Intune's Graph reporting said the script ran.
-	PlanConfirmedViaDeviceReportLate PlanConfirmedVia = "DEVICE_REPORT_LATE" // The device reported after the delivery's window: recorded, no scan, no outcome change.
-)
-
-// PlanDeliveryProgress represents how far an ActionStep's delivery got (ADR-175).
-type PlanDeliveryProgress string
-
-// How far an ActionStep's delivery got (ADR-175).
-const (
-	PlanDeliveryProgressDispatched     PlanDeliveryProgress = "DISPATCHED"      // Handed to the device.
-	PlanDeliveryProgressDeviceReported PlanDeliveryProgress = "DEVICE_REPORTED" // The device reported its own result over its Intune MDM certificate.
-	PlanDeliveryProgressConfirming     PlanDeliveryProgress = "CONFIRMING"      // The confirmation scan of the device runs.
-)
-
 // PlanEditKind represents what a hand edit did.
 type PlanEditKind string
 
