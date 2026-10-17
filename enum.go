@@ -2045,6 +2045,7 @@ const (
 	ICON_IDSAntconc                                 ICON_IDS = "ANTCONC"
 	ICON_IDSAntibodySoftware                        ICON_IDS = "ANTIBODY_SOFTWARE"
 	ICON_IDSAntigravity                             ICON_IDS = "ANTIGRAVITY"
+	ICON_IDSAntiCheatExpert                         ICON_IDS = "ANTI_CHEAT_EXPERT"
 	ICON_IDSAngryIpScanner                          ICON_IDS = "ANGRY_IP_SCANNER"
 	ICON_IDSAntmicro                                ICON_IDS = "ANTMICRO"
 	ICON_IDSAntoinePotten                           ICON_IDS = "ANTOINE_POTTEN"
