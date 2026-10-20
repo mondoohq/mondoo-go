@@ -76,6 +76,8 @@ type AWSCrossAccountScanOptionsInput struct {
 	AccountTags *[]TagInput `json:"accountTags,omitempty" tfgen:"required=0"`
 	// Foreign AWS Organizations to enumerate in addition to the hub's own organization. Organization IDs must be unique; when one is repeated, the last entry wins. Defaults to an empty list, which enumerates only the hub's own organization. (Optional.)
 	Organizations *[]AWSCrossAccountOrganizationInput `json:"organizations,omitempty" tfgen:"required=0"`
+	// Whether to scan the EC2 instances in the target accounts at the OS level through EBS snapshots: the scanner snapshots an instance's volumes in the target account, shares the snapshots with the hub account and scans copies there. Defaults to false. Takes effect only while cross-account scanning and EBS volume scanning (`ec2ScanOptions.ebsVolumeScan`) are on, and only in target accounts whose Mondoo role was deployed with the `EbsScanning` opt-in; the scanner reports the accounts that lack it. (Optional.)
+	EbsVolumeScan *Boolean `json:"ebsVolumeScan,omitempty" tfgen:"required=0"`
 }
 
 // AWSEventPatternInput represents aWSEventPatternInput describes the options for event pattern based scan triggers.
