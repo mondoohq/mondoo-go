@@ -47,6 +47,7 @@ const (
 	ActionSetConsiderationKindDataLoss            ActionSetConsiderationKind = "DATA_LOSS"            // The change destroys data the platform cannot restore.
 	ActionSetConsiderationKindPrerequisite        ActionSetConsiderationKind = "PREREQUISITE"         // Something must hold for the change to do what it says.
 	ActionSetConsiderationKindIrreversible        ActionSetConsiderationKind = "IRREVERSIBLE"         // Re-running or reversing the change does not undo it.
+	ActionSetConsiderationKindResidualExposure    ActionSetConsiderationKind = "RESIDUAL_EXPOSURE"    // The change does what it says, and some of the vulnerabilities it addresses stay open afterwards. Reported so the plan says what remains; it is never a manual step.
 	ActionSetConsiderationKindOther               ActionSetConsiderationKind = "OTHER"                // A consideration stored before its kind was named.
 )
 
@@ -60,6 +61,8 @@ const (
 	ActionSetConsiderationReasonOsRestart              ActionSetConsiderationReason = "OS_RESTART"               // The asset's operating system has to restart to finish the change.
 	ActionSetConsiderationReasonDeletesFiles           ActionSetConsiderationReason = "DELETES_FILES"            // The change deletes files.
 	ActionSetConsiderationReasonTargetVersionUnknown   ActionSetConsiderationReason = "TARGET_VERSION_UNKNOWN"   // No target version is known, so the change installs the newest version the package manager offers. It may change nothing, and a finding closes only if that version is no longer affected.
+	ActionSetConsiderationReasonNoFixInSeries          ActionSetConsiderationReason = "NO_FIX_IN_SERIES"         // No version in the installed release series fixes these vulnerabilities, so the upgrade within the series leaves them open. Moving to another series is a different change.
+	ActionSetConsiderationReasonFixNotReleased         ActionSetConsiderationReason = "FIX_NOT_RELEASED"         // A version in the installed release series fixes these vulnerabilities, but the vendor has not released it yet, so the upgrade leaves them open until it ships.
 	ActionSetConsiderationReasonOther                  ActionSetConsiderationReason = "OTHER"                    // A consideration stored before its cause was named. Its `summary` is the stored sentence.
 )
 
@@ -644,6 +647,16 @@ const (
 	AuditLogFilterTypeIdentity  AuditLogFilterType = "IDENTITY"  // Filter by identity name.
 )
 
+// AuditLogInternalFilter represents select audit log entries by whether they are internal.
+type AuditLogInternalFilter string
+
+// Select audit log entries by whether they are internal.
+const (
+	AuditLogInternalFilterExclude AuditLogInternalFilter = "EXCLUDE" // Only entries that are not internal (the default).
+	AuditLogInternalFilterOnly    AuditLogInternalFilter = "ONLY"    // Only internal entries.
+	AuditLogInternalFilterInclude AuditLogInternalFilter = "INCLUDE" // Every entry.
+)
+
 // AuditLogOrderField represents field to order audit log entries by.
 type AuditLogOrderField string
 
@@ -741,6 +754,15 @@ const (
 	CaseStatusOpen    CaseStatus = "OPEN"
 	CaseStatusClosed  CaseStatus = "CLOSED"
 	CaseStatusError   CaseStatus = "ERROR"
+)
+
+// CaseType represents case type: what a case tracks.
+type CaseType string
+
+// Case type: what a case tracks.
+const (
+	CaseTypeTicket   CaseType = "TICKET"   // An external ticket, kept in sync with its ticketing integration.
+	CaseTypeWorkflow CaseType = "WORKFLOW" // A fix driven by the workflow run that created the case, such as a remediation pull request. It has no ticket.
 )
 
 // CasesOrderField represents cases order field.
@@ -1895,6 +1917,7 @@ const (
 	ICON_IDSAcl                                     ICON_IDS = "ACL"
 	ICON_IDSAclap                                   ICON_IDS = "ACLAP"
 	ICON_IDSAconso                                  ICON_IDS = "ACONSO"
+	ICON_IDSAcontis                                 ICON_IDS = "ACONTIS"
 	ICON_IDSAcronis                                 ICON_IDS = "ACRONIS"
 	ICON_IDSActeon                                  ICON_IDS = "ACTEON"
 	ICON_IDSActfax                                  ICON_IDS = "ACTFAX"
@@ -1946,8 +1969,10 @@ const (
 	ICON_IDSAdriascan                               ICON_IDS = "ADRIASCAN"
 	ICON_IDSAdrTools                                ICON_IDS = "ADR_TOOLS"
 	ICON_IDSAdvancedCardSystems                     ICON_IDS = "ADVANCED_CARD_SYSTEMS"
+	ICON_IDSAdvancedEnergy                          ICON_IDS = "ADVANCED_ENERGY"
 	ICON_IDSAdvancedIpScanner                       ICON_IDS = "ADVANCED_IP_SCANNER"
 	ICON_IDSAdvancedLogViewer                       ICON_IDS = "ADVANCED_LOG_VIEWER"
+	ICON_IDSAdvancedMicroControls                   ICON_IDS = "ADVANCED_MICRO_CONTROLS"
 	ICON_IDSAdvancis                                ICON_IDS = "ADVANCIS"
 	ICON_IDSAdvantageCloud                          ICON_IDS = "ADVANTAGE_CLOUD"
 	ICON_IDSAdvantech                               ICON_IDS = "ADVANTECH"
@@ -2126,6 +2151,7 @@ const (
 	ICON_IDSArctera                                 ICON_IDS = "ARCTERA"
 	ICON_IDSArcticline                              ICON_IDS = "ARCTICLINE"
 	ICON_IDSArcticWolf                              ICON_IDS = "ARCTIC_WOLF"
+	ICON_IDSArdbrook                                ICON_IDS = "ARDBROOK"
 	ICON_IDSArduino                                 ICON_IDS = "ARDUINO"
 	ICON_IDSArdInspector                            ICON_IDS = "ARD_INSPECTOR"
 	ICON_IDSArecaBackup                             ICON_IDS = "ARECA_BACKUP"
@@ -2203,6 +2229,7 @@ const (
 	ICON_IDSAusweisapp                              ICON_IDS = "AUSWEISAPP"
 	ICON_IDSAutenticacaoGov                         ICON_IDS = "AUTENTICACAO_GOV"
 	ICON_IDSAuth0                                   ICON_IDS = "AUTH0"
+	ICON_IDSAuthentec                               ICON_IDS = "AUTHENTEC"
 	ICON_IDSAutoclick                               ICON_IDS = "AUTOCLICK"
 	ICON_IDSAutodarts                               ICON_IDS = "AUTODARTS"
 	ICON_IDSAutodesk                                ICON_IDS = "AUTODESK"
@@ -2258,6 +2285,7 @@ const (
 	ICON_IDSBalluff                                 ICON_IDS = "BALLUFF"
 	ICON_IDSBallXPit                                ICON_IDS = "BALL_X_PIT"
 	ICON_IDSBalsamiq                                ICON_IDS = "BALSAMIQ"
+	ICON_IDSBaltech                                 ICON_IDS = "BALTECH"
 	ICON_IDSBambuStudio                             ICON_IDS = "BAMBU_STUDIO"
 	ICON_IDSBananaCh                                ICON_IDS = "BANANA_CH"
 	ICON_IDSBandicam                                ICON_IDS = "BANDICAM"
@@ -2267,6 +2295,7 @@ const (
 	ICON_IDSBaradDur                                ICON_IDS = "BARAD_DUR"
 	ICON_IDSBaramundi                               ICON_IDS = "BARAMUNDI"
 	ICON_IDSBarco                                   ICON_IDS = "BARCO"
+	ICON_IDSBarcodewiz                              ICON_IDS = "BARCODEWIZ"
 	ICON_IDSBardSoftware                            ICON_IDS = "BARD_SOFTWARE"
 	ICON_IDSBareBonesSoftware                       ICON_IDS = "BARE_BONES_SOFTWARE"
 	ICON_IDSBareMetalSoftware                       ICON_IDS = "BARE_METAL_SOFTWARE"
@@ -2358,6 +2387,7 @@ const (
 	ICON_IDSBleachbit                               ICON_IDS = "BLEACHBIT"
 	ICON_IDSBlender                                 ICON_IDS = "BLENDER"
 	ICON_IDSBleunlock                               ICON_IDS = "BLEUNLOCK"
+	ICON_IDSBlhNobel                                ICON_IDS = "BLH_NOBEL"
 	ICON_IDSBlitz                                   ICON_IDS = "BLITZ"
 	ICON_IDSBlizzard                                ICON_IDS = "BLIZZARD"
 	ICON_IDSBloomberg                               ICON_IDS = "BLOOMBERG"
@@ -2368,6 +2398,7 @@ const (
 	ICON_IDSBluebits                                ICON_IDS = "BLUEBITS"
 	ICON_IDSBluej                                   ICON_IDS = "BLUEJ"
 	ICON_IDSBlueYonder                              ICON_IDS = "BLUE_YONDER"
+	ICON_IDSBmcSoftware                             ICON_IDS = "BMC_SOFTWARE"
 	ICON_IDSBmw                                     ICON_IDS = "BMW"
 	ICON_IDSBoardIntelligence                       ICON_IDS = "BOARD_INTELLIGENCE"
 	ICON_IDSBochs                                   ICON_IDS = "BOCHS"
@@ -2432,6 +2463,7 @@ const (
 	ICON_IDSBulkCrapUninstaller                     ICON_IDS = "BULK_CRAP_UNINSTALLER"
 	ICON_IDSBullzip                                 ICON_IDS = "BULLZIP"
 	ICON_IDSBunqcommunity                           ICON_IDS = "BUNQCOMMUNITY"
+	ICON_IDSBurkert                                 ICON_IDS = "BURKERT"
 	ICON_IDSBurnaware                               ICON_IDS = "BURNAWARE"
 	ICON_IDSBusinessFollows                         ICON_IDS = "BUSINESS_FOLLOWS"
 	ICON_IDSBusitech                                ICON_IDS = "BUSITECH"
@@ -2444,6 +2476,7 @@ const (
 	ICON_IDSBystronic                               ICON_IDS = "BYSTRONIC"
 	ICON_IDSBytedance                               ICON_IDS = "BYTEDANCE"
 	ICON_IDSBzip3                                   ICON_IDS = "BZIP3"
+	ICON_IDSBSBanksysteme                           ICON_IDS = "B_S_BANKSYSTEME"
 	ICON_IDSC4b                                     ICON_IDS = "C4B"
 	ICON_IDSCabextract                              ICON_IDS = "CABEXTRACT"
 	ICON_IDSCabProdukttechnik                       ICON_IDS = "CAB_PRODUKTTECHNIK"
@@ -2794,6 +2827,7 @@ const (
 	ICON_IDSCypressIo                               ICON_IDS = "CYPRESS_IO"
 	ICON_IDSCytoscape                               ICON_IDS = "CYTOSCAPE"
 	ICON_IDSCAres                                   ICON_IDS = "C_ARES"
+	ICON_IDSCMedia                                  ICON_IDS = "C_MEDIA"
 	ICON_IDSDagAgren                                ICON_IDS = "DAG_AGREN"
 	ICON_IDSDahua                                   ICON_IDS = "DAHUA"
 	ICON_IDSDaisyAkademieVerlag                     ICON_IDS = "DAISY_AKADEMIE_VERLAG"
@@ -2810,6 +2844,7 @@ const (
 	ICON_IDSDassaultSystemes                        ICON_IDS = "DASSAULT_SYSTEMES"
 	ICON_IDSDatabases                               ICON_IDS = "DATABASES"
 	ICON_IDSDatabricks                              ICON_IDS = "DATABRICKS"
+	ICON_IDSDatacolor                               ICON_IDS = "DATACOLOR"
 	ICON_IDSDatacomp                                ICON_IDS = "DATACOMP"
 	ICON_IDSDatadog                                 ICON_IDS = "DATADOG"
 	ICON_IDSDatafox                                 ICON_IDS = "DATAFOX"
@@ -2989,6 +3024,7 @@ const (
 	ICON_IDSDoxim                                   ICON_IDS = "DOXIM"
 	ICON_IDSDoxis                                   ICON_IDS = "DOXIS"
 	ICON_IDSDoxygen                                 ICON_IDS = "DOXYGEN"
+	ICON_IDSDpd                                     ICON_IDS = "DPD"
 	ICON_IDSDpsSoftware                             ICON_IDS = "DPS_SOFTWARE"
 	ICON_IDSDracoon                                 ICON_IDS = "DRACOON"
 	ICON_IDSDraftable                               ICON_IDS = "DRAFTABLE"
@@ -3001,6 +3037,7 @@ const (
 	ICON_IDSDrawThings                              ICON_IDS = "DRAW_THINGS"
 	ICON_IDSDraytek                                 ICON_IDS = "DRAYTEK"
 	ICON_IDSDremio                                  ICON_IDS = "DREMIO"
+	ICON_IDSDrigus                                  ICON_IDS = "DRIGUS"
 	ICON_IDSDrivehq                                 ICON_IDS = "DRIVEHQ"
 	ICON_IDSDrivelock                               ICON_IDS = "DRIVELOCK"
 	ICON_IDSDriverBooster                           ICON_IDS = "DRIVER_BOOSTER"
@@ -3048,6 +3085,7 @@ const (
 	ICON_IDSDzedSystems                             ICON_IDS = "DZED_SYSTEMS"
 	ICON_IDSDzr                                     ICON_IDS = "DZR"
 	ICON_IDSDLanguageFoundation                     ICON_IDS = "D_LANGUAGE_FOUNDATION"
+	ICON_IDSDLink                                   ICON_IDS = "D_LINK"
 	ICON_IDSDVelop                                  ICON_IDS = "D_VELOP"
 	ICON_IDSE2fsprogsProject                        ICON_IDS = "E2FSPROGS_PROJECT"
 	ICON_IDSE7z                                     ICON_IDS = "E7Z"
@@ -3114,11 +3152,13 @@ const (
 	ICON_IDSElement26                               ICON_IDS = "ELEMENT26"
 	ICON_IDSElementary                              ICON_IDS = "ELEMENTARY"
 	ICON_IDSElevenclock                             ICON_IDS = "ELEVENCLOCK"
+	ICON_IDSElevoc                                  ICON_IDS = "ELEVOC"
 	ICON_IDSElfdata                                 ICON_IDS = "ELFDATA"
 	ICON_IDSElfutils                                ICON_IDS = "ELFUTILS"
 	ICON_IDSElgato                                  ICON_IDS = "ELGATO"
 	ICON_IDSElias                                   ICON_IDS = "ELIAS"
 	ICON_IDSEliasFotinis                            ICON_IDS = "ELIAS_FOTINIS"
+	ICON_IDSEliaLaenderkooperation                  ICON_IDS = "ELIA_LAENDERKOOPERATION"
 	ICON_IDSEligianLabs                             ICON_IDS = "ELIGIAN_LABS"
 	ICON_IDSElitech                                 ICON_IDS = "ELITECH"
 	ICON_IDSEliwell                                 ICON_IDS = "ELIWELL"
@@ -3148,7 +3188,9 @@ const (
 	ICON_IDSEndeavourOs                             ICON_IDS = "ENDEAVOUR_OS"
 	ICON_IDSEndelSound                              ICON_IDS = "ENDEL_SOUND"
 	ICON_IDSEndlessSky                              ICON_IDS = "ENDLESS_SKY"
+	ICON_IDSEndressHauser                           ICON_IDS = "ENDRESS_HAUSER"
 	ICON_IDSEnercon                                 ICON_IDS = "ENERCON"
+	ICON_IDSEneTechnology                           ICON_IDS = "ENE_TECHNOLOGY"
 	ICON_IDSEngageHealthSystems                     ICON_IDS = "ENGAGE_HEALTH_SYSTEMS"
 	ICON_IDSEnghouseInteractive                     ICON_IDS = "ENGHOUSE_INTERACTIVE"
 	ICON_IDSEnghouseVideo                           ICON_IDS = "ENGHOUSE_VIDEO"
@@ -3306,6 +3348,7 @@ const (
 	ICON_IDSFiplab                                  ICON_IDS = "FIPLAB"
 	ICON_IDSFiraCode                                ICON_IDS = "FIRA_CODE"
 	ICON_IDSFirebird                                ICON_IDS = "FIREBIRD"
+	ICON_IDSFirebirdsql                             ICON_IDS = "FIREBIRDSQL"
 	ICON_IDSFirecamp                                ICON_IDS = "FIRECAMP"
 	ICON_IDSFirecore                                ICON_IDS = "FIRECORE"
 	ICON_IDSFiredaemon                              ICON_IDS = "FIREDAEMON"
@@ -3370,6 +3413,7 @@ const (
 	ICON_IDSForensit                                ICON_IDS = "FORENSIT"
 	ICON_IDSFormlabs                                ICON_IDS = "FORMLABS"
 	ICON_IDSForschungszentrumJuelich                ICON_IDS = "FORSCHUNGSZENTRUM_JUELICH"
+	ICON_IDSFortemedia                              ICON_IDS = "FORTEMEDIA"
 	ICON_IDSFortinet                                ICON_IDS = "FORTINET"
 	ICON_IDSFortra                                  ICON_IDS = "FORTRA"
 	ICON_IDSFortuneProject                          ICON_IDS = "FORTUNE_PROJECT"
@@ -3586,6 +3630,7 @@ const (
 	ICON_IDSGping                                   ICON_IDS = "GPING"
 	ICON_IDSGpodder                                 ICON_IDS = "GPODDER"
 	ICON_IDSGpsoftware                              ICON_IDS = "GPSOFTWARE"
+	ICON_IDSGraceTechnologies                       ICON_IDS = "GRACE_TECHNOLOGIES"
 	ICON_IDSGradle                                  ICON_IDS = "GRADLE"
 	ICON_IDSGrafana                                 ICON_IDS = "GRAFANA"
 	ICON_IDSGrammarly                               ICON_IDS = "GRAMMARLY"
@@ -3652,6 +3697,7 @@ const (
 	ICON_IDSHankinsoft                              ICON_IDS = "HANKINSOFT"
 	ICON_IDSHansalog                                ICON_IDS = "HANSALOG"
 	ICON_IDSHaproxy                                 ICON_IDS = "HAPROXY"
+	ICON_IDSHardyInstruments                        ICON_IDS = "HARDY_INSTRUMENTS"
 	ICON_IDSHarfbuzz                                ICON_IDS = "HARFBUZZ"
 	ICON_IDSHarlequin                               ICON_IDS = "HARLEQUIN"
 	ICON_IDSHashcat                                 ICON_IDS = "HASHCAT"
@@ -3680,6 +3726,7 @@ const (
 	ICON_IDSHelloGames                              ICON_IDS = "HELLO_GAMES"
 	ICON_IDSHelm                                    ICON_IDS = "HELM"
 	ICON_IDSHelmfile                                ICON_IDS = "HELMFILE"
+	ICON_IDSHelmholz                                ICON_IDS = "HELMHOLZ"
 	ICON_IDSHelmDocsProject                         ICON_IDS = "HELM_DOCS_PROJECT"
 	ICON_IDSHelmLsProject                           ICON_IDS = "HELM_LS_PROJECT"
 	ICON_IDSHelpfeel                                ICON_IDS = "HELPFEEL"
@@ -3765,6 +3812,7 @@ const (
 	ICON_IDSIanPage                                 ICON_IDS = "IAN_PAGE"
 	ICON_IDSIaWriter                                ICON_IDS = "IA_WRITER"
 	ICON_IDSIbaAg                                   ICON_IDS = "IBA_AG"
+	ICON_IDSIbeSoftware                             ICON_IDS = "IBE_SOFTWARE"
 	ICON_IDSIbfSolutions                            ICON_IDS = "IBF_SOLUTIONS"
 	ICON_IDSIbm                                     ICON_IDS = "IBM"
 	ICON_IDSIbsSchreiber                            ICON_IDS = "IBS_SCHREIBER"
@@ -3871,6 +3919,7 @@ const (
 	ICON_IDSInthewild                               ICON_IDS = "INTHEWILD"
 	ICON_IDSIntra2net                               ICON_IDS = "INTRA2NET"
 	ICON_IDSIntrexx                                 ICON_IDS = "INTREXX"
+	ICON_IDSIntronix                                ICON_IDS = "INTRONIX"
 	ICON_IDSIntroversionSoftware                    ICON_IDS = "INTROVERSION_SOFTWARE"
 	ICON_IDSIntuit                                  ICON_IDS = "INTUIT"
 	ICON_IDSIntuitibits                             ICON_IDS = "INTUITIBITS"
@@ -3920,6 +3969,7 @@ const (
 	ICON_IDSIpinfo                                  ICON_IDS = "IPINFO"
 	ICON_IDSIpmi                                    ICON_IDS = "IPMI"
 	ICON_IDSIru                                     ICON_IDS = "IRU"
+	ICON_IDSItohDenki                               ICON_IDS = "ITOH_DENKI"
 	ICON_IDSItop                                    ICON_IDS = "ITOP"
 	ICON_IDSItron                                   ICON_IDS = "ITRON"
 	ICON_IDSItsg                                    ICON_IDS = "ITSG"
@@ -4336,6 +4386,7 @@ const (
 	ICON_IDSLucanet                                 ICON_IDS = "LUCANET"
 	ICON_IDSLucenSoftware                           ICON_IDS = "LUCEN_SOFTWARE"
 	ICON_IDSLucidlink                               ICON_IDS = "LUCIDLINK"
+	ICON_IDSLucidVisionLabs                         ICON_IDS = "LUCID_VISION_LABS"
 	ICON_IDSLuculentSystems                         ICON_IDS = "LUCULENT_SYSTEMS"
 	ICON_IDSLulzbot                                 ICON_IDS = "LULZBOT"
 	ICON_IDSLumiveroPalisade                        ICON_IDS = "LUMIVERO_PALISADE"
@@ -4363,6 +4414,7 @@ const (
 	ICON_IDSMacai                                   ICON_IDS = "MACAI"
 	ICON_IDSMaccy                                   ICON_IDS = "MACCY"
 	ICON_IDSMacfuse                                 ICON_IDS = "MACFUSE"
+	ICON_IDSMachineering                            ICON_IDS = "MACHINEERING"
 	ICON_IDSMacintoshJs                             ICON_IDS = "MACINTOSH_JS"
 	ICON_IDSMacitbetter                             ICON_IDS = "MACITBETTER"
 	ICON_IDSMackup                                  ICON_IDS = "MACKUP"
@@ -4385,6 +4437,7 @@ const (
 	ICON_IDSMageia                                  ICON_IDS = "MAGEIA"
 	ICON_IDSMages                                   ICON_IDS = "MAGES"
 	ICON_IDSMagicalJellyBean                        ICON_IDS = "MAGICAL_JELLY_BEAN"
+	ICON_IDSMagicard                                ICON_IDS = "MAGICARD"
 	ICON_IDSMagicsplatTclTk                         ICON_IDS = "MAGICSPLAT_TCL_TK"
 	ICON_IDSMagicLasso                              ICON_IDS = "MAGIC_LASSO"
 	ICON_IDSMagix                                   ICON_IDS = "MAGIX"
@@ -4439,6 +4492,7 @@ const (
 	ICON_IDSMaxon                                   ICON_IDS = "MAXON"
 	ICON_IDSMaxthon                                 ICON_IDS = "MAXTHON"
 	ICON_IDSMaxLanger                               ICON_IDS = "MAX_LANGER"
+	ICON_IDSMaytec                                  ICON_IDS = "MAYTEC"
 	ICON_IDSMayComputer                             ICON_IDS = "MAY_COMPUTER"
 	ICON_IDSMazaika                                 ICON_IDS = "MAZAIKA"
 	ICON_IDSMbpoll                                  ICON_IDS = "MBPOLL"
@@ -4580,6 +4634,7 @@ const (
 	ICON_IDSMobileblox                              ICON_IDS = "MOBILEBLOX"
 	ICON_IDSMobileDev                               ICON_IDS = "MOBILE_DEV"
 	ICON_IDSMobisystems                             ICON_IDS = "MOBISYSTEMS"
+	ICON_IDSMobotix                                 ICON_IDS = "MOBOTIX"
 	ICON_IDSMobsya                                  ICON_IDS = "MOBSYA"
 	ICON_IDSMoby                                    ICON_IDS = "MOBY"
 	ICON_IDSMochasoft                               ICON_IDS = "MOCHASOFT"
@@ -4613,6 +4668,7 @@ const (
 	ICON_IDSMoosmullerKnauf                         ICON_IDS = "MOOSMULLER_KNAUF"
 	ICON_IDSMorningstar                             ICON_IDS = "MORNINGSTAR"
 	ICON_IDSMos                                     ICON_IDS = "MOS"
+	ICON_IDSMosca                                   ICON_IDS = "MOSCA"
 	ICON_IDSMoscaElektronik                         ICON_IDS = "MOSCA_ELEKTRONIK"
 	ICON_IDSMothersRuinSoftware                     ICON_IDS = "MOTHERS_RUIN_SOFTWARE"
 	ICON_IDSMotrix                                  ICON_IDS = "MOTRIX"
@@ -4821,6 +4877,7 @@ const (
 	ICON_IDSNurgoSoftware                           ICON_IDS = "NURGO_SOFTWARE"
 	ICON_IDSNushell                                 ICON_IDS = "NUSHELL"
 	ICON_IDSNuvoton                                 ICON_IDS = "NUVOTON"
+	ICON_IDSNvent                                   ICON_IDS = "NVENT"
 	ICON_IDSNvmSh                                   ICON_IDS = "NVM_SH"
 	ICON_IDSNvAccess                                ICON_IDS = "NV_ACCESS"
 	ICON_IDSNwea                                    ICON_IDS = "NWEA"
@@ -4917,6 +4974,7 @@ const (
 	ICON_IDSOneTwoThreePan                          ICON_IDS = "ONE_TWO_THREE_PAN"
 	ICON_IDSOniguruma                               ICON_IDS = "ONIGURUMA"
 	ICON_IDSOnionshare                              ICON_IDS = "ONIONSHARE"
+	ICON_IDSOnlineDevelopment                       ICON_IDS = "ONLINE_DEVELOPMENT"
 	ICON_IDSOnnx                                    ICON_IDS = "ONNX"
 	ICON_IDSOnsip                                   ICON_IDS = "ONSIP"
 	ICON_IDSOntopreplica                            ICON_IDS = "ONTOPREPLICA"
@@ -5060,6 +5118,7 @@ const (
 	ICON_IDSParadoxInteractive                      ICON_IDS = "PARADOX_INTERACTIVE"
 	ICON_IDSParalivesStudio                         ICON_IDS = "PARALIVES_STUDIO"
 	ICON_IDSParallels                               ICON_IDS = "PARALLELS"
+	ICON_IDSParkerHannifin                          ICON_IDS = "PARKER_HANNIFIN"
 	ICON_IDSParrot                                  ICON_IDS = "PARROT"
 	ICON_IDSParsecCloud                             ICON_IDS = "PARSEC_CLOUD"
 	ICON_IDSParsehub                                ICON_IDS = "PARSEHUB"
@@ -5112,11 +5171,13 @@ const (
 	ICON_IDSPeazip                                  ICON_IDS = "PEAZIP"
 	ICON_IDSPecb                                    ICON_IDS = "PECB"
 	ICON_IDSPeculiarVentures                        ICON_IDS = "PECULIAR_VENTURES"
+	ICON_IDSPemicro                                 ICON_IDS = "PEMICRO"
 	ICON_IDSPencil9                                 ICON_IDS = "PENCIL_9"
 	ICON_IDSPenguinLabs                             ICON_IDS = "PENGUIN_LABS"
 	ICON_IDSPentalogix                              ICON_IDS = "PENTALOGIX"
 	ICON_IDSPeoplecert                              ICON_IDS = "PEOPLECERT"
 	ICON_IDSPeoplefluent                            ICON_IDS = "PEOPLEFLUENT"
+	ICON_IDSPepperlFuchs                            ICON_IDS = "PEPPERL_FUCHS"
 	ICON_IDSPerbit                                  ICON_IDS = "PERBIT"
 	ICON_IDSPerforce                                ICON_IDS = "PERFORCE"
 	ICON_IDSPerl                                    ICON_IDS = "PERL"
@@ -5134,6 +5195,7 @@ const (
 	ICON_IDSPhilHarvey                              ICON_IDS = "PHIL_HARVEY"
 	ICON_IDSPhoenixCode                             ICON_IDS = "PHOENIX_CODE"
 	ICON_IDSPhoenixContact                          ICON_IDS = "PHOENIX_CONTACT"
+	ICON_IDSPhoenixDigital                          ICON_IDS = "PHOENIX_DIGITAL"
 	ICON_IDSPhonerlite                              ICON_IDS = "PHONERLITE"
 	ICON_IDSPhotocraft                              ICON_IDS = "PHOTOCRAFT"
 	ICON_IDSPhotoCoolApps                           ICON_IDS = "PHOTO_COOL_APPS"
@@ -5182,6 +5244,7 @@ const (
 	ICON_IDSPlcnext                                 ICON_IDS = "PLCNEXT"
 	ICON_IDSPleasantSolutions                       ICON_IDS = "PLEASANT_SOLUTIONS"
 	ICON_IDSPlenom                                  ICON_IDS = "PLENOM"
+	ICON_IDSPleora                                  ICON_IDS = "PLEORA"
 	ICON_IDSPlex                                    ICON_IDS = "PLEX"
 	ICON_IDSPlexim                                  ICON_IDS = "PLEXIM"
 	ICON_IDSPlotsoft                                ICON_IDS = "PLOTSOFT"
@@ -5211,6 +5274,7 @@ const (
 	ICON_IDSPortecleProject                         ICON_IDS = "PORTECLE_PROJECT"
 	ICON_IDSPortfolioPerformance                    ICON_IDS = "PORTFOLIO_PERFORMANCE"
 	ICON_IDSPortnox                                 ICON_IDS = "PORTNOX"
+	ICON_IDSPortraitDisplays                        ICON_IDS = "PORTRAIT_DISPLAYS"
 	ICON_IDSPortswigger                             ICON_IDS = "PORTSWIGGER"
 	ICON_IDSPoselib                                 ICON_IDS = "POSELIB"
 	ICON_IDSPosit                                   ICON_IDS = "POSIT"
@@ -5280,6 +5344,7 @@ const (
 	ICON_IDSProxmox                                 ICON_IDS = "PROXMOX"
 	ICON_IDSProxychainsNgProject                    ICON_IDS = "PROXYCHAINS_NG_PROJECT"
 	ICON_IDSProxyman                                ICON_IDS = "PROXYMAN"
+	ICON_IDSProFace                                 ICON_IDS = "PRO_FACE"
 	ICON_IDSPrsyahmi                                ICON_IDS = "PRSYAHMI"
 	ICON_IDSPrusaResearch                           ICON_IDS = "PRUSA_RESEARCH"
 	ICON_IDSPs3MediaServer                          ICON_IDS = "PS3_MEDIA_SERVER"
@@ -5409,6 +5474,7 @@ const (
 	ICON_IDSRanger                                  ICON_IDS = "RANGER"
 	ICON_IDSRanorexGmbh                             ICON_IDS = "RANOREX_GMBH"
 	ICON_IDSRapid7                                  ICON_IDS = "RAPID7"
+	ICON_IDSRapidShape                              ICON_IDS = "RAPID_SHAPE"
 	ICON_IDSRaredevs                                ICON_IDS = "RAREDEVS"
 	ICON_IDSRarlab                                  ICON_IDS = "RARLAB"
 	ICON_IDSRarExtractorUnarchiver                  ICON_IDS = "RAR_EXTRACTOR_UNARCHIVER"
@@ -5666,6 +5732,7 @@ const (
 	ICON_IDSSemgrep                                 ICON_IDS = "SEMGREP"
 	ICON_IDSSenaryDomain                            ICON_IDS = "SENARY_DOMAIN"
 	ICON_IDSSenaryTechnology                        ICON_IDS = "SENARY_TECHNOLOGY"
+	ICON_IDSSensel                                  ICON_IDS = "SENSEL"
 	ICON_IDSSensibleSideButtons                     ICON_IDS = "SENSIBLE_SIDE_BUTTONS"
 	ICON_IDSSenstar                                 ICON_IDS = "SENSTAR"
 	ICON_IDSSensu                                   ICON_IDS = "SENSU"
@@ -5686,6 +5753,7 @@ const (
 	ICON_IDSSessionTechnologyFoundation             ICON_IDS = "SESSION_TECHNOLOGY_FOUNDATION"
 	ICON_IDSSetdefaultbrowser                       ICON_IDS = "SETDEFAULTBROWSER"
 	ICON_IDSSetuserfta                              ICON_IDS = "SETUSERFTA"
+	ICON_IDSSetGmbh                                 ICON_IDS = "SET_GMBH"
 	ICON_IDSSevenPace                               ICON_IDS = "SEVEN_PACE"
 	ICON_IDSSevenPdf                                ICON_IDS = "SEVEN_PDF"
 	ICON_IDSSevenZip                                ICON_IDS = "SEVEN_ZIP"
@@ -5709,6 +5777,7 @@ const (
 	ICON_IDSShokz                                   ICON_IDS = "SHOKZ"
 	ICON_IDSShottr                                  ICON_IDS = "SHOTTR"
 	ICON_IDSShoviv                                  ICON_IDS = "SHOVIV"
+	ICON_IDSShrewSoft                               ICON_IDS = "SHREW_SOFT"
 	ICON_IDSShure                                   ICON_IDS = "SHURE"
 	ICON_IDSShutterEncoder                          ICON_IDS = "SHUTTER_ENCODER"
 	ICON_IDSSia                                     ICON_IDS = "SIA"
@@ -5719,7 +5788,9 @@ const (
 	ICON_IDSSiderolabs                              ICON_IDS = "SIDEROLABS"
 	ICON_IDSSiemens                                 ICON_IDS = "SIEMENS"
 	ICON_IDSSiemensHealthineers                     ICON_IDS = "SIEMENS_HEALTHINEERS"
+	ICON_IDSSierraWireless                          ICON_IDS = "SIERRA_WIRELESS"
 	ICON_IDSSigilEbook                              ICON_IDS = "SIGIL_EBOOK"
+	ICON_IDSSigmatek                                ICON_IDS = "SIGMATEK"
 	ICON_IDSSignal                                  ICON_IDS = "SIGNAL"
 	ICON_IDSSigniant                                ICON_IDS = "SIGNIANT"
 	ICON_IDSSignotec                                ICON_IDS = "SIGNOTEC"
@@ -5783,6 +5854,7 @@ const (
 	ICON_IDSSmartTechnologies                       ICON_IDS = "SMART_TECHNOLOGIES"
 	ICON_IDSSmath                                   ICON_IDS = "SMATH"
 	ICON_IDSSmaSolarTechnology                      ICON_IDS = "SMA_SOLAR_TECHNOLOGY"
+	ICON_IDSSmc                                     ICON_IDS = "SMC"
 	ICON_IDSSmcFanControl                           ICON_IDS = "SMC_FAN_CONTROL"
 	ICON_IDSSmettly                                 ICON_IDS = "SMETTLY"
 	ICON_IDSSmilecloud                              ICON_IDS = "SMILECLOUD"
@@ -5819,6 +5891,7 @@ const (
 	ICON_IDSSoftware4you                            ICON_IDS = "SOFTWARE4YOU"
 	ICON_IDSSoftware995                             ICON_IDS = "SOFTWARE995"
 	ICON_IDSSoftwareok                              ICON_IDS = "SOFTWAREOK"
+	ICON_IDSSoftwareAg                              ICON_IDS = "SOFTWARE_AG"
 	ICON_IDSSoftwareAmbience                        ICON_IDS = "SOFTWARE_AMBIENCE"
 	ICON_IDSSoftwareGoodiebag                       ICON_IDS = "SOFTWARE_GOODIEBAG"
 	ICON_IDSSoftwareIdeasModeler                    ICON_IDS = "SOFTWARE_IDEAS_MODELER"
@@ -5872,6 +5945,7 @@ const (
 	ICON_IDSSparxSystems                            ICON_IDS = "SPARX_SYSTEMS"
 	ICON_IDSSpecops                                 ICON_IDS = "SPECOPS"
 	ICON_IDSSpecopsSoftware                         ICON_IDS = "SPECOPS_SOFTWARE"
+	ICON_IDSSpectrumControls                        ICON_IDS = "SPECTRUM_CONTROLS"
 	ICON_IDSSpeechProcessingSolutions               ICON_IDS = "SPEECH_PROCESSING_SOLUTIONS"
 	ICON_IDSSpeedcrunch                             ICON_IDS = "SPEEDCRUNCH"
 	ICON_IDSSpeedtestCli                            ICON_IDS = "SPEEDTEST_CLI"
@@ -5892,6 +5966,7 @@ const (
 	ICON_IDSSqlfluff                                ICON_IDS = "SQLFLUFF"
 	ICON_IDSSqlite                                  ICON_IDS = "SQLITE"
 	ICON_IDSSqliteflow                              ICON_IDS = "SQLITEFLOW"
+	ICON_IDSSqliteodbc                              ICON_IDS = "SQLITEODBC"
 	ICON_IDSSqlitestudio                            ICON_IDS = "SQLITESTUDIO"
 	ICON_IDSSqlFormatterOrg                         ICON_IDS = "SQL_FORMATTER_ORG"
 	ICON_IDSSquadra                                 ICON_IDS = "SQUADRA"
@@ -5917,6 +5992,7 @@ const (
 	ICON_IDSStairwaysSoftware                       ICON_IDS = "STAIRWAYS_SOFTWARE"
 	ICON_IDSStandBySoft                             ICON_IDS = "STAND_BY_SOFT"
 	ICON_IDSStanleyBlackDecker                      ICON_IDS = "STANLEY_BLACK_DECKER"
+	ICON_IDSStarburst                               ICON_IDS = "STARBURST"
 	ICON_IDSStardock                                ICON_IDS = "STARDOCK"
 	ICON_IDSStarface                                ICON_IDS = "STARFACE"
 	ICON_IDSStarkandwayne                           ICON_IDS = "STARKANDWAYNE"
@@ -6018,6 +6094,7 @@ const (
 	ICON_IDSSwotControlling                         ICON_IDS = "SWOT_CONTROLLING"
 	ICON_IDSSylvac                                  ICON_IDS = "SYLVAC"
 	ICON_IDSSymantec                                ICON_IDS = "SYMANTEC"
+	ICON_IDSSymfonia                                ICON_IDS = "SYMFONIA"
 	ICON_IDSSymfony                                 ICON_IDS = "SYMFONY"
 	ICON_IDSSymphony                                ICON_IDS = "SYMPHONY"
 	ICON_IDSSymprex                                 ICON_IDS = "SYMPREX"
@@ -6299,6 +6376,7 @@ const (
 	ICON_IDSTuxera                                  ICON_IDS = "TUXERA"
 	ICON_IDSTuxguitar                               ICON_IDS = "TUXGUITAR"
 	ICON_IDSTuxPaint                                ICON_IDS = "TUX_PAINT"
+	ICON_IDSTuEindhoven                             ICON_IDS = "TU_EINDHOVEN"
 	ICON_IDSTvBrowser                               ICON_IDS = "TV_BROWSER"
 	ICON_IDSTw93                                    ICON_IDS = "TW93"
 	ICON_IDSTweakingCom                             ICON_IDS = "TWEAKING_COM"
@@ -6406,6 +6484,7 @@ const (
 	ICON_IDSVcv                                     ICON_IDS = "VCV"
 	ICON_IDSVdeProject                              ICON_IDS = "VDE_PROJECT"
 	ICON_IDSVcxsrv                                  ICON_IDS = "VCXSRV"
+	ICON_IDSVectorcam                               ICON_IDS = "VECTORCAM"
 	ICON_IDSVectorworks                             ICON_IDS = "VECTORWORKS"
 	ICON_IDSVeeam                                   ICON_IDS = "VEEAM"
 	ICON_IDSVektra                                  ICON_IDS = "VEKTRA"
@@ -6422,6 +6501,7 @@ const (
 	ICON_IDSVeyon                                   ICON_IDS = "VEYON"
 	ICON_IDSVfssoft                                 ICON_IDS = "VFSSOFT"
 	ICON_IDSViaviSolutions                          ICON_IDS = "VIAVI_SOLUTIONS"
+	ICON_IDSViaTechnologies                         ICON_IDS = "VIA_TECHNOLOGIES"
 	ICON_IDSVibe                                    ICON_IDS = "VIBE"
 	ICON_IDSViber                                   ICON_IDS = "VIBER"
 	ICON_IDSVictronEnergy                           ICON_IDS = "VICTRON_ENERGY"
@@ -6442,6 +6522,7 @@ const (
 	ICON_IDSVirustotalUploader                      ICON_IDS = "VIRUSTOTAL_UPLOADER"
 	ICON_IDSVispero                                 ICON_IDS = "VISPERO"
 	ICON_IDSVisualsvnSoftware                       ICON_IDS = "VISUALSVN_SOFTWARE"
+	ICON_IDSVisualComponents                        ICON_IDS = "VISUAL_COMPONENTS"
 	ICON_IDSVisualLeakDetector                      ICON_IDS = "VISUAL_LEAK_DETECTOR"
 	ICON_IDSVisualParadigm                          ICON_IDS = "VISUAL_PARADIGM"
 	ICON_IDSVitalsource                             ICON_IDS = "VITALSOURCE"
