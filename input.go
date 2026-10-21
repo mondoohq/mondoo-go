@@ -272,6 +272,8 @@ type AggregateScoreCasesFilter struct {
 
 	// Filter cases by their status. (Optional.)
 	Statuses *[]CaseStatus `json:"statuses,omitempty" tfgen:"required=0"`
+	// Filter cases by their type. If not set, returns every type. (Optional.)
+	Types *[]CaseType `json:"types,omitempty" tfgen:"required=0"`
 }
 
 // AggregateScoreFilter represents aggregate score filters.
@@ -925,6 +927,8 @@ type AuditLogsFilter struct {
 	IdentityFilter *IdentityFilter `json:"identityFilter,omitempty" tfgen:"required=0"`
 	// Filter by action (string match). (Optional.)
 	ActionFilter *String `json:"actionFilter,omitempty" tfgen:"required=0"`
+	// Select entries by whether they are internal. Same semantics as the auditlog internalFilter argument: omitted means EXCLUDE. (Optional.)
+	InternalFilter *AuditLogInternalFilter `json:"internalFilter,omitempty" tfgen:"required=0"`
 }
 
 // AwsCredentialV2Input represents a long-term AWS access key pair. Workload identity federation and role assumption hold no server-side secret and so are configured on the integration rather than stored as a credential. There is deliberately no session token: temporary STS credentials expire in hours, so a stored one would be invalid long before the daily health sweep noticed, and the credential would spend most of its life reporting a health it does not have.
@@ -1364,6 +1368,8 @@ type CasesInput struct {
 	OrderBy *CasesOrder `json:"orderBy,omitempty" tfgen:"required=0"`
 	// Initiative reference. If set, will only return cases linked to the specified initiative. (Optional.)
 	InitiativeRef *InitiativeRefInput `json:"initiativeRef,omitempty" tfgen:"required=0"`
+	// Case types. If set, will only return cases of the specified types. If not set, returns every type, so a view that lists tickets must ask for TICKET. (Optional.)
+	Types *[]CaseType `json:"types,omitempty" tfgen:"required=0"`
 }
 
 // CasesOrder represents cases order.
@@ -2976,6 +2982,8 @@ type FindingCasesFilter struct {
 
 	// Filter cases by their status. (Optional.)
 	Statuses *[]CaseStatus `json:"statuses,omitempty" tfgen:"required=0"`
+	// Filter cases by their type. If not set, returns every type. (Optional.)
+	Types *[]CaseType `json:"types,omitempty" tfgen:"required=0"`
 }
 
 // FindingDocumentOptionsInput represents input options for the finding of the document.
