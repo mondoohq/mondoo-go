@@ -6672,6 +6672,16 @@ type SoftwareFilter struct {
 	Ecosystem *String `json:"ecosystem,omitempty" tfgen:"required=0"`
 	// Filter by risk factor MRNs attached to the package. Mirrors the RiskFactorFilterQuery shape used by `findings(filter.riskFactors.mrns)` so the same input drives both APIs. AND requires every listed MRN to be present; OR matches any. EOL packages can be selected with `risks: { and: ["//policy.api.mondoo.app/risks/software-is-eol"] }`. (Optional.)
 	Risks *RiskFactorFilterQuery `json:"risks,omitempty" tfgen:"required=0"`
+	// Keep rows whose resolved governance on the asset (org > space > asset) is one of these, OR-ed; UNCLASSIFIED is the rows nobody has decided about. softwareV2 on an ASSET scope only, like `eol`, `riskRatings` and `vendors`: these are judged on the rows as displayed, so the asset's rows are filtered in memory and paged with an offset cursor. A space scope with any of them is refused. Every page of a column-filtered list reads and judges the asset's rows again (one bounded read, one batched governance read, end-of-life lookups for EOL rows only); nothing is cached across requests, so a decision made between pages shows on the next one. Prefer a larger `first` (up to 200) over many small pages. (Optional.)
+	Governance *[]GovernanceState `json:"governance,omitempty" tfgen:"required=0"`
+	// Keep rows whose end-of-life badge (`SoftwareV2.eol.status`) is one of these, OR-ed. Asset scope only (see `governance`). (Optional.)
+	Eol *[]EOLStatus `json:"eol,omitempty" tfgen:"required=0"`
+	// Keep rows whose risk value falls in one of these bands, OR-ed: CRITICAL >= 90, HIGH >= 70, MEDIUM >= 40, LOW >= 1, NONE = 0 — the bands the risk dots show. Asset scope only (see `governance`). (Optional.)
+	RiskRatings *[]ScoreRating `json:"riskRatings,omitempty" tfgen:"required=0"`
+	// Keep rows whose normalized vendor (`SoftwareV2.vendor`) equals one of these, case-insensitively, OR-ed. Asset scope only (see `governance`). (Optional.)
+	Vendors *[]String `json:"vendors,omitempty" tfgen:"required=0"`
+	// Keep rows whose OSV ecosystem (`SoftwareV2.ecosystem`, e.g. "AppX", "npm", "PyPI", "Debian") equals one of these, OR-ed. Asset scope only (see `governance`). Not the `ecosystem` filter above, which matches the raw package namespace. (Optional.)
+	Ecosystems *[]String `json:"ecosystems,omitempty" tfgen:"required=0"`
 }
 
 // SoftwareOrder represents ordering spec for the software inventory list. Direction is required and field defaults to NAME at the server when omitted.
