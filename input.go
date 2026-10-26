@@ -2030,6 +2030,8 @@ type CreatePlanInput struct {
 	FindingMrns *[]String `json:"findingMrns,omitempty" tfgen:"required=0"`
 	// Remove these governed components. Mutually exclusive with `findingMrns` and `upgradeMrns`. (Optional.)
 	GovernedMrns *[]String `json:"governedMrns,omitempty" tfgen:"required=0"`
+	// Mark each `governedMrns` component Denied at the plan's scope before planning its removal (ADR-214 Decision 1), in this one request. Valid only with `governedMrns`. The plan's scope is the asset when `assetMrns` names exactly one asset (the asset page), and the space otherwise. A component already refused there is only flagged for removal. Anything else is written as Denied and flagged, replacing an Allowed or Out of scope decision at that same scope. Refused with FAILED_PRECONDITION, and nothing written, when a higher scope (the organization above a space, the space above an asset) decides Allowed or Out of scope for any version the plan would remove: change the decision there first. Nothing is written either when the plan resolves no step. If storing the plan fails, the decisions are put back as they were. Needs the right to set governance decisions at that scope. (Optional.)
+	DenyBeforeRemove *Boolean `json:"denyBeforeRemove,omitempty" tfgen:"required=0"`
 	// Bring this software up to date — the "patch it" subject (RFC-233's software selection axis). Mutually exclusive with `findingMrns` and `governedMrns`. These are ARD software entity MRNs, exactly as `governedMrns` are: a version leaf is that one version, and a product grouping node is the product across every version in scope, which resolves per asset to the versions THAT asset runs. It is not the same request as fixing the software's CVEs, and that is why it exists. A package can be outdated with no open finding at all, and "fix every CVE on this product across the space" selects a different set of assets from "bring this product up to date". (Optional.)
 	UpgradeMrns *[]String `json:"upgradeMrns,omitempty" tfgen:"required=0"`
 	// Which newer version `upgradeMrns` moves to, where we know of one. Ignored by the other two subjects. Defaults to `LATEST_AVAILABLE`, because "patch it to the latest version" is the request this subject exists for. (Optional.)
@@ -3160,6 +3162,8 @@ type FleetScanRunInput struct {
 	Enabled *Boolean `json:"enabled,omitempty" tfgen:"required=0"`
 	// When true, the workflow skips its post-poll DeleteProviderArtifact step so an operator can inspect the per-scan management system artifact (e.g. Intune deviceHealthScript) for debugging. The deferred Cleanup activity also honours this flag. Defaults to false. (Optional.)
 	DebugKeepArtifacts *Boolean `json:"debugKeepArtifacts,omitempty" tfgen:"required=0"`
+	// With a recurrence, also start the group's first scan now (ADR-300): the schedule is saved, then one scan of the group is dispatched, and the returned FleetScanSchedule carries it as `initialScan` (or `initialScanError`). Without a recurrence it changes nothing: a one-shot run already starts now. Defaults to false. (Optional.)
+	RunNow *Boolean `json:"runNow,omitempty" tfgen:"required=0"`
 }
 
 // FleetScanWeeklyInput represents a weekly cadence.
