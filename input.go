@@ -5361,6 +5361,11 @@ type PlanValidationPairInput struct {
 	AssetMrn String `json:"assetMrn" tfgen:"required=1"`
 	// The finding, governed component or software. `ActionStep.subjectMrn`. (Required.)
 	SubjectMrn String `json:"subjectMrn" tfgen:"required=1"`
+
+	// The change the step carries. `ActionStep.actionSetMrn`. Optional. For a finding, it lets validation judge the stored change: the install variant it was for (ADR-227), and the residual exposure it recorded, which stays open after the fix and is not a failed fix (ADR-100). Without it a finding is validated as if no change were stored. It must belong to `scopeMrn`. (Optional.)
+	ActionSetMrn *String `json:"actionSetMrn,omitempty" tfgen:"required=0"`
+	// The part of the fix the step acts on. `ActionStep.packages`. Optional; empty is the whole fix. Read for a finding only. (Optional.)
+	Packages *[]String `json:"packages,omitempty" tfgen:"required=0"`
 }
 
 // PlatformInput represents platform input.
@@ -6136,6 +6141,8 @@ type ScanConfigurationInput struct {
 	PropagateAccountTags *Boolean `json:"propagateAccountTags,omitempty" tfgen:"required=0"`
 	// The AWS discovery targets the account scan runs, e.g. ["auto"] or ["accounts", "s3-buckets"]. Empty keeps the scanner's built-in targets. (Optional.)
 	DiscoveryTargets *[]String `json:"discoveryTargets,omitempty" tfgen:"required=0"`
+	// Who drives the scan cycle of the serverless scanner. Omitted keeps what is stored; a new integration defaults to LAMBDA. (Optional.)
+	Scheduling *ScanScheduling `json:"scheduling,omitempty" tfgen:"required=0"`
 }
 
 // SccmConfigurationOptionsInput represents sCCM (Microsoft Configuration Manager) integration input — fleet-scan Windows delivery via the site AdminService over a Cloud Management Gateway (CMG).
