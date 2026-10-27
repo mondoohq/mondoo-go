@@ -3474,15 +3474,17 @@ type GithubTicketConfigInput struct {
 
 // GithubTicketingConfigurationOptionsInput represents github ticketing integration input.
 type GithubTicketingConfigurationOptionsInput struct {
-	// The GitHub API token. (Required.)
-	Token String `json:"token" tfgen:"required=1"`
 	// Whether to auto-close tickets. (Required.)
 	AutoCloseTickets Boolean `json:"autoCloseTickets" tfgen:"required=1"`
 	// Whether to auto-create tickets. (Required.)
 	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 
-	// The GitHub Enterprise URL. (Optional.)
+	// The GitHub Enterprise Server URL, e.g. https://github.acme.com. Optional; empty means github.com. Supplied inline only when supplying a token inline. Omit it when supplying credentialMrn instead: a token issued by one server is only valid against that server, so on that path the credential owns the URL. On a credential-backed integration this is a mirror of the credential's base URL, kept in step by the server. Supplying it on update together with a token moves the integration — and the credential it references — to a different server; without a token it is ignored. Moving one to a different server without a token is a relink. (Optional.)
 	EnterpriseUrl *String `json:"enterpriseUrl,omitempty" tfgen:"required=0"`
+	// The GitHub API token. Optional: supply either this or credentialMrn. Required on create unless credentialMrn is supplied. On update, omitting it keeps the current token. (Optional.)
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying a token inline. Mutually exclusive with token. The credential must be a GitHub personal access token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a token of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 	// The default repository owner. (Optional.)
 	DefaultRepoOwner *String `json:"defaultRepoOwner,omitempty" tfgen:"required=0"`
 	// The default repository name. (Optional.)
@@ -7746,17 +7748,19 @@ type WorkspacesInput struct {
 
 // ZendeskConfigurationOptionsInput represents zendesk integration input.
 type ZendeskConfigurationOptionsInput struct {
-	// The Zendesk subdomain. (Required.)
+	// The Zendesk subdomain On a credential-backed integration this is a mirror of the credential's subdomain, kept in step by the server, and the value supplied here is ignored unless the same request supplies apiToken. (Required.)
 	Subdomain String `json:"subdomain" tfgen:"required=1"`
-	// The Zendesk email address. (Required.)
+	// The Zendesk email address On a credential-backed integration this is a mirror of the credential's email, kept in step by the server, and the value supplied here is ignored unless the same request supplies apiToken. (Required.)
 	Email String `json:"email" tfgen:"required=1"`
-	// The Zendesk API token. (Required.)
-	ApiToken String `json:"apiToken" tfgen:"required=1"`
 	// Whether to auto-close tickets. (Required.)
 	AutoCloseTickets Boolean `json:"autoCloseTickets" tfgen:"required=1"`
 	// Whether to auto-create tickets. (Required.)
 	AutoCreateTickets Boolean `json:"autoCreateTickets" tfgen:"required=1"`
 
+	// The Zendesk API token. Optional: supply either this or credentialMrn. Required on create unless credentialMrn is supplied. On update, omitting it keeps the current token. (Optional.)
+	ApiToken *String `json:"apiToken,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying apiToken inline. Mutually exclusive with apiToken. The credential must be a Zendesk credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. The credential's subdomain and email are what the integration authenticates as. Supplying this on create makes the integration reference the credential rather than hold a token of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 	// A list of custom fields for Zendesk. (Optional.)
 	CustomFields *[]ZendeskCustomFieldInput `json:"customFields,omitempty" tfgen:"required=0"`
 }
