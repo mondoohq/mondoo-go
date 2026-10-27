@@ -348,6 +348,24 @@ const (
 	ApplyRemediationStatusActuatorBusy                   ApplyRemediationStatus = "ACTUATOR_BUSY"                     // The asset has another delivery in flight and deliveries to one asset go one at a time (ADR-290 §2). Nothing was started; `detail` names the running execution. Retry when it has ended, or run the change through a plan, whose phase holds the step and starts it then.
 )
 
+// ArdAssetOrderField represents columns ArdEntity.assets can be ordered by: the asset's own name / platform, or a value on the entity's (entity, asset) link. A type whose links lack a key ranks every row as absent and a stable tiebreak decides. When an asset carries several of the entity's leaves (two installed versions), text and time keys take the greatest value, counts the largest and usage the sum.
+type ArdAssetOrderField string
+
+// Columns ArdEntity.assets can be ordered by: the asset's own name / platform, or a value on the entity's (entity, asset) link. A type whose links lack a key ranks every row as absent and a stable tiebreak decides. When an asset carries several of the entity's leaves (two installed versions), text and time keys take the greatest value, counts the largest and usage the sum.
+const (
+	ArdAssetOrderFieldName         ArdAssetOrderField = "NAME"
+	ArdAssetOrderFieldPlatform     ArdAssetOrderField = "PLATFORM"
+	ArdAssetOrderFieldLastObserved ArdAssetOrderField = "LAST_OBSERVED" // When the entity was last observed on the asset.
+	ArdAssetOrderFieldUser         ArdAssetOrderField = "USER"          // llm-agent account user. Case-insensitive; absent sorts last either way.
+	ArdAssetOrderFieldOrganization ArdAssetOrderField = "ORGANIZATION"  // llm-agent account organization. Case-insensitive; absent sorts last either way.
+	ArdAssetOrderFieldSubscription ArdAssetOrderField = "SUBSCRIPTION"  // llm-agent account subscription. Case-insensitive; absent sorts last either way.
+	ArdAssetOrderFieldAgent        ArdAssetOrderField = "AGENT"         // Owning agent name on skill / plugin / MCP server / model links. Absent sorts last either way.
+	ArdAssetOrderFieldSkills       ArdAssetOrderField = "SKILLS"        // Number of skills an llm-agent loads on the asset. None = 0.
+	ArdAssetOrderFieldMcpServers   ArdAssetOrderField = "MCP_SERVERS"   // Number of MCP servers an llm-agent reaches on the asset. None = 0.
+	ArdAssetOrderFieldTotalTokens  ArdAssetOrderField = "TOTAL_TOKENS"  // llm-model tokens on the asset: input + output + cache-read + cache-creation. None = 0.
+	ArdAssetOrderFieldCost         ArdAssetOrderField = "COST"          // llm-model spend on the asset (micro-USD). None = 0.
+)
+
 // ArdBrowseChildSort represents sort keys for the second level of a browse — what is inside a row (`ardBrowse(childOrder:)`). Grouped by name those are versions; a future facet-backed type brings its own next level, which is why this is not spelled "version". Distinct from `ArdBrowseSort`, which ranks the rows: NAME and VERSION_COUNT mean nothing for a single version, and VERSION means nothing for a name that has many. A key that cannot be answered would sort nothing while looking like it worked. There is no RISK_CATEGORY key — a version carries exactly one worst score, so bucketing it into a rating would only create ties with no secondary key to break them.
 type ArdBrowseChildSort string
 
@@ -5275,6 +5293,7 @@ const (
 	ICON_IDSMinimeters                              ICON_IDS = "MINIMETERS"
 	ICON_IDSMinimos                                 ICON_IDS = "MINIMOS"
 	ICON_IDSMinio                                   ICON_IDS = "MINIO"
+	ICON_IDSMinios                                  ICON_IDS = "MINIOS"
 	ICON_IDSMinisim                                 ICON_IDS = "MINISIM"
 	ICON_IDSMinistryOfInteriorOfTheSlovakRepublic   ICON_IDS = "MINISTRY_OF_INTERIOR_OF_THE_SLOVAK_REPUBLIC"
 	ICON_IDSMinitab                                 ICON_IDS = "MINITAB"
@@ -8905,6 +8924,7 @@ const (
 	PlanOutOfScopeReasonOutsideMaintenanceWindow       PlanOutOfScopeReason = "OUTSIDE_MAINTENANCE_WINDOW"        // The step's device was outside its REMEDIATION maintenance window, and the window did not open while the run could hold the step (ADR-245 § 10). Nothing was applied. Run the remainder inside the window, or override it.
 	PlanOutOfScopeReasonMaintenanceWindowsUnknown      PlanOutOfScopeReason = "MAINTENANCE_WINDOWS_UNKNOWN"       // The device's maintenance windows are unknown: an imported window Mondoo cannot evaluate, or an import with no successful read in 24 hours. Nothing is handed over until they are read again (fail closed, ADR-245 § 4). Nothing was applied.
 	PlanOutOfScopeReasonScheduledStart                 PlanOutOfScopeReason = "SCHEDULED_START"                   // The step's phase was scheduled (schedulePlan) and its start has not come yet: the plan rollout hands it over at the start (ActionStepHold.nextOpening). Nothing was applied. When the schedule was taken back (unschedulePlan), run the remainder to run it.
+	PlanOutOfScopeReasonFixChoiceUnresolved            PlanOutOfScopeReason = "FIX_CHOICE_UNRESOLVED"             // The step carries a fix option a person picked (ADR-302), and that option no longer resolves on this asset: it is no longer offered, or can no longer be delivered. Plan mode never falls back to its default on its own. Pick another option, or pick the default.
 	PlanOutOfScopeReasonRunnerNotAuthorized            PlanOutOfScopeReason = "RUNNER_NOT_AUTHORIZED"             // The step waited for the plan rollout, and the identity that ran (or scheduled) its phase no longer held the authority the run needed when the rollout was to hand it over: the permission to run the plan, to act through the actuating system, or to execute the delivery Workflow (ADR-222 § 12). A deleted identity holds none. Nothing was applied; someone with that authority can run the remainder.
 	PlanOutOfScopeReasonOther                          PlanOutOfScopeReason = "OTHER"                             // None of the above. Present so a reason we have not yet named lands somewhere honest rather than being filed under a neighbouring one that would send a reader after the wrong fix.
 	PlanOutOfScopeReasonDeliveryInFlight               PlanOutOfScopeReason = "DELIVERY_IN_FLIGHT"                // The step is held because its asset has another delivery in flight (ADR-290 §2): deliveries to one asset go one at a time, and this one starts when that one ends. A hold reason, never an outcome.
