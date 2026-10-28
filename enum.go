@@ -5457,6 +5457,7 @@ const (
 	ICON_IDSMywhoosh                                ICON_IDS = "MYWHOOSH"
 	ICON_IDSMyTicTacToe                             ICON_IDS = "MY_TIC_TAC_TOE"
 	ICON_IDSN1mmLoggerProject                       ICON_IDS = "N1MM_LOGGER_PROJECT"
+	ICON_IDSN8n                                     ICON_IDS = "N8N"
 	ICON_IDSNafi                                    ICON_IDS = "NAFI"
 	ICON_IDSNagios                                  ICON_IDS = "NAGIOS"
 	ICON_IDSNaglecode                               ICON_IDS = "NAGLECODE"
@@ -5518,6 +5519,7 @@ const (
 	ICON_IDSNetsdk                                  ICON_IDS = "NETSDK"
 	ICON_IDSNetsec                                  ICON_IDS = "NETSEC"
 	ICON_IDSNetsetman                               ICON_IDS = "NETSETMAN"
+	ICON_IDSNetsupport                              ICON_IDS = "NETSUPPORT"
 	ICON_IDSNetsDanid                               ICON_IDS = "NETS_DANID"
 	ICON_IDSNettime                                 ICON_IDS = "NETTIME"
 	ICON_IDSNetto                                   ICON_IDS = "NETTO"
@@ -8715,6 +8717,47 @@ type OrganizationEffortFindingState string
 const (
 	OrganizationEffortFindingStateOpen       OrganizationEffortFindingState = "OPEN"       // Open backlog — risk score ≤ 99.
 	OrganizationEffortFindingStateRemediated OrganizationEffortFindingState = "REMEDIATED" // Already-fixed findings — risk score = 100. Surfaces past labor saved.
+)
+
+// OwnedResourceType represents the kind of resource an owner is responsible for.
+type OwnedResourceType string
+
+// The kind of resource an owner is responsible for.
+const (
+	OwnedResourceTypePlatform     OwnedResourceType = "PLATFORM"
+	OwnedResourceTypeOrganization OwnedResourceType = "ORGANIZATION"
+	OwnedResourceTypeSpace        OwnedResourceType = "SPACE"
+	OwnedResourceTypeWorkspace    OwnedResourceType = "WORKSPACE"
+	OwnedResourceTypeAsset        OwnedResourceType = "ASSET"
+	OwnedResourceTypeFinding      OwnedResourceType = "FINDING" // A check, CVE, advisory or software finding.
+	OwnedResourceTypeCase         OwnedResourceType = "CASE"
+)
+
+// OwnerInheritanceChain represents the two inheritance chains of owners.
+type OwnerInheritanceChain string
+
+// The two inheritance chains of owners.
+const (
+	OwnerInheritanceChainResource OwnerInheritanceChain = "RESOURCE" // The resource and its parents: asset, space, organization, platform.
+	OwnerInheritanceChainFinding  OwnerInheritanceChain = "FINDING"  // A finding owned at a level above the queried scope.
+)
+
+// OwnerSource represents who set an owner.
+type OwnerSource string
+
+// Who set an owner.
+const (
+	OwnerSourceManual     OwnerSource = "MANUAL"     // Set through the API or the console.
+	OwnerSourceAnnotation OwnerSource = "ANNOTATION" // Set by the asset's mondoo.com/owners annotation. Read-only here.
+)
+
+// OwnerType represents what kind of entity an owner is.
+type OwnerType string
+
+// What kind of entity an owner is.
+const (
+	OwnerTypeTeam   OwnerType = "TEAM"   // ref is a team MRN.
+	OwnerTypePerson OwnerType = "PERSON" // A person, named by email. ref is the email address.
 )
 
 // PackageManager represents remediation script type.
