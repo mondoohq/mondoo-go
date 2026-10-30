@@ -4367,6 +4367,8 @@ type ListDocumentsFilter struct {
 
 	// Restrict results to documents whose target_mrn is this finding (policy, CVE, check, control, framework, ...). (Optional.)
 	FindingMRN *String `json:"findingMRN,omitempty" tfgen:"required=0"`
+	// Restrict results to documents whose name contains this text, case-insensitively. (Optional.)
+	Query *String `json:"query,omitempty" tfgen:"required=0"`
 }
 
 // ListExceptionGroupsFilter represents list exception groups filters.
