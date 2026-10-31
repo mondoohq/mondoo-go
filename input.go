@@ -930,6 +930,8 @@ type AuditLogExportConfigurationOptionsInput struct {
 	WifAudience *String `json:"wifAudience,omitempty" tfgen:"required=0"`
 	// Optional GCP service account email for WIF service account impersonation. (Optional.)
 	WifServiceAccountEmail *String `json:"wifServiceAccountEmail,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential (a gcp_service_account document) owned by the integration's own scope. Mutually exclusive with serviceAccountJson and with WIF. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
 // AuditLogOrder represents input for ordering audit log entries.
