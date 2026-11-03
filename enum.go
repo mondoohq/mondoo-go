@@ -111,6 +111,7 @@ const (
 	ActuatorCapabilityKindIacTerraform      ActuatorCapabilityKind = "IAC_TERRAFORM"      // Accepts Terraform content.
 	ActuatorCapabilityKindIacCloudformation ActuatorCapabilityKind = "IAC_CLOUDFORMATION" // Accepts CloudFormation content.
 	ActuatorCapabilityKindPackage           ActuatorCapabilityKind = "PACKAGE"            // Addresses the actuator's own package vocabulary — Intune's winget ids, opsi's depot products, a Jamf app catalog — so the actuator does its own detection and reporting rather than executing a script we wrote. Whether a given product is covered is a catalog question, not a capability one.
+	ActuatorCapabilityKindSource            ActuatorCapabilityKind = "SOURCE"             // Changes a repository's dependency manifests and lockfiles and proposes them for review — a pull request or merge request through the system that holds the repository (ADR-333). Nothing changes until a person merges it.
 )
 
 // ActuatorDurability represents whether a change delivered this way stays.
@@ -177,6 +178,44 @@ const (
 	ActuatorUnresolvedReasonNoMatchingCapability        ActuatorUnresolvedReason = "NO_MATCHING_CAPABILITY"        // The asset has actuators, but none accepts this vocabulary. The gap is a delivery path, not an association.
 	ActuatorUnresolvedReasonAllDisabled                 ActuatorUnresolvedReason = "ALL_DISABLED"                  // An actuator could have delivered it, but every candidate is switched off. The gap is a toggle, and it is the case an operator is most likely to have caused themselves.
 	ActuatorUnresolvedReasonMechanismNotActuatable      ActuatorUnresolvedReason = "MECHANISM_NOT_ACTUATABLE"      // Every requested mechanism is manual — prose a human applies. No actuator will ever match, on this asset or any other, so there is no gap to close. Distinct from NO_MATCHING_CAPABILITY on purpose: that one asks an operator to add an actuator, which for a manual mechanism is advice that can never be taken.
+)
+
+// ActuatorWriteAccess represents how setActuatorWriteGrants changes one write grant.
+type ActuatorWriteAccess string
+
+// How setActuatorWriteGrants changes one write grant.
+const (
+	ActuatorWriteAccessAllow   ActuatorWriteAccess = "ALLOW"   // The space may deliver changes through the integration to the grant's target.
+	ActuatorWriteAccessDeny    ActuatorWriteAccess = "DENY"    // The space may not deliver changes through the integration to the grant's target.
+	ActuatorWriteAccessInherit ActuatorWriteAccess = "INHERIT" // Remove the grant, so the space follows the next level, then the integration's write default. Only valid as input; a stored grant is ALLOW or DENY.
+)
+
+// ActuatorWriteGrantLevel represents what a write grant or request covers.
+type ActuatorWriteGrantLevel string
+
+// What a write grant or request covers.
+const (
+	ActuatorWriteGrantLevelIntegration ActuatorWriteGrantLevel = "INTEGRATION" // Everything the space reads through the integration.
+	ActuatorWriteGrantLevelAsset       ActuatorWriteGrantLevel = "ASSET"       // One asset's target, named by the actuator's external id (e.g. a repository).
+)
+
+// ActuatorWriteRequestOutcome represents what requestActuatorWrite did.
+type ActuatorWriteRequestOutcome string
+
+// What requestActuatorWrite did.
+const (
+	ActuatorWriteRequestOutcomeRequested      ActuatorWriteRequestOutcome = "REQUESTED"       // A pending request was stored for an org admin to decide.
+	ActuatorWriteRequestOutcomeAlreadyGranted ActuatorWriteRequestOutcome = "ALREADY_GRANTED" // The space already has write access; nothing was stored.
+)
+
+// ActuatorWriteRequestState represents where a request for write access stands.
+type ActuatorWriteRequestState string
+
+// Where a request for write access stands.
+const (
+	ActuatorWriteRequestStatePending  ActuatorWriteRequestState = "PENDING"  // Waiting for an org admin.
+	ActuatorWriteRequestStateApproved ActuatorWriteRequestState = "APPROVED" // Approved: an ALLOW grant was stored at the request's level.
+	ActuatorWriteRequestStateRejected ActuatorWriteRequestState = "REJECTED" // Rejected by an org admin. No grant was stored; the space may ask again.
 )
 
 // AdvisoryPlatformFilter represents possible Advisory filters.
@@ -346,6 +385,7 @@ const (
 	ApplyRemediationStatusActuatorTargetGroupRequired    ApplyRemediationStatus = "ACTUATOR_TARGET_GROUP_REQUIRED"    // The selected actuator cannot be pointed at an asset — `ASSET` is not in its `supportedGranularities` — and no `targetGroupId` was given. Nothing ran, and that is deliberate. The change would land on a group the actuating system owns, and Mondoo cannot yet enumerate what such a group contains — so choosing one for you would apply the fix to an unknown number of machines without ever saying so. Until delivery targets can be listed and expanded, naming the target is the caller's job, exactly as today's Intune dialog requires. Read `actuator.actuator.supportedGranularities` to know this is coming before you call: an actuator without `ASSET` in that set cannot be aimed at one machine. **Naming the target is the deliberate act, and it is the only gate.** The server does not require that a preview was fetched and does not remember that it was — this mutation is stateless by design (ADR-099 §4). Showing the operator what a group contains is therefore the caller's obligation, not something the server will enforce on its behalf. When `expandActuatorTargets` lands, that disclosure is **three buckets, never one number** (ADR-099 §3): 1. **selected** — members that are assets the caller chose. 2. **known, not selected** — members that are assets Mondoo has and the caller did not choose. Nameable, with their hostname, OS and last check-in. 3. **unidentified** — members we could not map to an asset at all. Bucket 3 is its own bucket and is never folded into bucket 2's "not yours". The two ask an operator for completely different things — grant a permission so we can identify them, versus accept a blast radius — and merging them turns a missing Entra `Device.Read.All` grant into what looks like collateral. The split is computed by INTERSECTING a group's membership with our assets, never by subtracting an asset count from a group size: an association says an asset is managed by an *integration*, and an integration owns many groups. Where membership cannot be read at all, `FleetHostGroup.deviceCount` supports only "total minus selected" — and that is all a caller should claim.
 	ApplyRemediationStatusActuatorAssetIdMissing         ApplyRemediationStatus = "ACTUATOR_ASSET_ID_MISSING"         // The selected actuator delivers to an asset by naming it, and its association with THIS asset carries no such name. There is nothing to address, so nothing ran. Refused here rather than dispatched, because dispatching is what used to happen and it fails in the worst available place: the trigger carries an empty handle, the workflow starts, this mutation answers STARTED, and the delivery dies inside a plugin activity minutes later with an error nobody is watching. "Started" then means "started failing". Read off the ROUTE, not off the asset: only a delivery path that addresses assets by the system's own id needs one — Intune device-direct does not, and a group-addressed apply does not either, because the group's own association carries the id in that case. The usual cause is an association made by hand, which records the actuator but not the system's name for the asset. Actuator discovery derives that name and re-running it restores the association with one.
 	ApplyRemediationStatusActuatorBusy                   ApplyRemediationStatus = "ACTUATOR_BUSY"                     // The asset has another delivery in flight and deliveries to one asset go one at a time (ADR-290 §2). Nothing was started; `detail` names the running execution. Retry when it has ended, or run the change through a plan, whose phase holds the step and starts it then.
+	ApplyRemediationStatusActuatorWriteNotGranted        ApplyRemediationStatus = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the asset's space has no write access to the target through it (RFC-234 "Write access"). Nothing was started; `detail` says why and what to do — `requestActuatorWrite` asks the org's admins. Until clients know this value, it is reported as `ACTUATOR_UNAVAILABLE` with the same detail.
 )
 
 // ArdAssetOrderField represents columns ArdEntity.assets can be ordered by: the asset's own name / platform, or a value on the entity's (entity, asset) link. A type whose links lack a key ranks every row as absent and a stable tiebreak decides. When an asset carries several of the entity's leaves (two installed versions), text and time keys take the greatest value, counts the largest and usage the sum.
@@ -9414,6 +9454,7 @@ const (
 	ICON_IDSYeslogic                                ICON_IDS = "YESLOGIC"
 	ICON_IDSYggdrasilNetwork                        ICON_IDS = "YGGDRASIL_NETWORK"
 	ICON_IDSYiaitool                                ICON_IDS = "YIAITOOL"
+	ICON_IDSYocto                                   ICON_IDS = "YOCTO"
 	ICON_IDSYojam                                   ICON_IDS = "YOJAM"
 	ICON_IDSYokogawa                                ICON_IDS = "YOKOGAWA"
 	ICON_IDSYou2mate                                ICON_IDS = "YOU2MATE"
@@ -10391,6 +10432,7 @@ const (
 	PlanOutOfScopeReasonActuatorUnavailable            PlanOutOfScopeReason = "ACTUATOR_UNAVAILABLE"              // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Resolution is unchanged and the actuator is still the right one; it is the integration that needs attention.
 	PlanOutOfScopeReasonActuatorTargetGroupRequired    PlanOutOfScopeReason = "ACTUATOR_TARGET_GROUP_REQUIRED"    // The selected actuator cannot be pointed at an asset, and the plan addressed one. The change would land on a group the actuating system owns, and choosing that blast radius is not something a plan does on a caller's behalf.
 	PlanOutOfScopeReasonActuatorAssetIdMissing         PlanOutOfScopeReason = "ACTUATOR_ASSET_ID_MISSING"         // The selected actuator addresses assets by the actuating system's own name for them, and its association with this asset carries no such name. Nothing could be addressed, so the step is not work the plan can offer. Worth its own value rather than folding into `NO_MATCHING_CAPABILITY`: the actuator is the right one, it accepts this change, and it reaches this asset. What is missing is one identifier on the association, which actuator discovery derives — so the fix is to re-run discovery, not to go shopping for an integration.
+	PlanOutOfScopeReasonActuatorWriteNotGranted        PlanOutOfScopeReason = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the plan's space has no write access to this target through it (RFC-234 "Write access"): the integration requires a grant and none is stored, an org admin denied it, or (GitHub) fix pull requests are off for the repository. The detail says which and what to do — `requestActuatorWrite` asks the org's admins. Only reachable from running a plan or applying a change. The step stays in the plan and is never dispatched; running the remainder after write access is granted delivers it. Until clients know this value, reads report it as `ACTUATOR_UNAVAILABLE` with the same detail.
 	PlanOutOfScopeReasonResolutionChanged              PlanOutOfScopeReason = "RESOLUTION_CHANGED"                // The change was re-resolved between the plan the caller reviewed and the run, so what would have been dispatched is not what was approved. Only reachable from running a plan: every step carries the resolution the plan was built on, and a step whose ActionSet was re-resolved since is refused at run time and again at hand-over. Refusing rather than dispatching is the point: a plan that grows or shifts at run time has moved the decision after the approval (RFC-234). Re-read the plan and confirm the change it now describes.
 	PlanOutOfScopeReasonDispatchFailed                 PlanOutOfScopeReason = "DISPATCH_FAILED"                   // Everything about the step was right and handing it to the actuating system failed. Only reachable from `runPlan`. Distinct from every reason above, which are answers about the fleet or about us: this one is a transport failure against a change that resolved, an actuator that was selected and a delivery path that accepted it. Retrying the same step unchanged is the correct response, which is true of no other value here except `ACTUATOR_UNAVAILABLE`.
 	PlanOutOfScopeReasonClosed                         PlanOutOfScopeReason = "CLOSED"                            // The phase was closed by hand before this step was handed over. Nothing was applied.
@@ -10419,6 +10461,7 @@ const (
 	PlanOutcomeBucketRemovedNotApplicable     PlanOutcomeBucket = "REMOVED_NOT_APPLICABLE"     // Removed from scope: the action no longer applies to this target.
 	PlanOutcomeBucketNeverDispatched          PlanOutcomeBucket = "NEVER_DISPATCHED"           // Never handed to an executor.
 	PlanOutcomeBucketExecutedDeferred         PlanOutcomeBucket = "EXECUTED_DEFERRED"          // Ran, and changed nothing: the software was in use and the run's `inUse` did not allow closing it (ADR-171). Retry it with `runPlanRemainder(retry: [EXECUTED_DEFERRED])` and `QUIT` or `FORCE_QUIT`. Returned on reads: an `ActionStep.outcome` reports such a step as `EXECUTED_DEFERRED`, no longer as `EXECUTED`, and `PlanOutcomeDistribution.executedDeferred` counts it.
+	PlanOutcomeBucketExecutedDeclined         PlanOutcomeBucket = "EXECUTED_DECLINED"          // Ran as far as a proposal, and a person declined it: a pull request closed without merging (ADR-333). Needs a person: a plain retry does not re-run it. Not returned on reads yet: an `ActionStep.outcome` reports such a step as `EXECUTED`, and `PlanOutcomeDistribution.executedDeclined` counts it within `executed`.
 )
 
 // PlanPhaseRebootState represents where an asset's restart in a phase stands.
@@ -10546,6 +10589,7 @@ const (
 	PlanStepExecutionDelivered     PlanStepExecution = "DELIVERED"      // The change reached the target and ran, whatever the script reported.
 	PlanStepExecutionNotDelivered  PlanStepExecution = "NOT_DELIVERED"  // It never ran: a channel or dispatch failure, a missing script or group, an unreachable device, or no evidence of a run.
 	PlanStepExecutionDeferred      PlanStepExecution = "DEFERRED"       // It ran and changed nothing because the software was in use (ADR-171).
+	PlanStepExecutionDeclined      PlanStepExecution = "DECLINED"       // The change was proposed and a person declined it: a pull request closed without merging (ADR-333). Not returned on reads yet: such a step reads as `DELIVERED`, and its outcome detail says who declined it.
 )
 
 // PlanStepManualSource represents where a manual step's instructions come from.
@@ -10783,6 +10827,7 @@ const (
 	RemediationMechanismKindIac      RemediationMechanismKind = "IAC"       // A declarative artifact, for an actuator that accepts that format.
 	RemediationMechanismKindPackage  RemediationMechanismKind = "PACKAGE"   // A package coordinate rather than content — "firefox to 128.0" — which an actuator applies its own way.
 	RemediationMechanismKindOsUpdate RemediationMechanismKind = "OS_UPDATE" // An OS update the management system's own update service delivers — a Windows quality update through Intune's Windows Updates deployment service (ADR-297).
+	RemediationMechanismKindSource   RemediationMechanismKind = "SOURCE"    // A dependency coordinate set for one repository's manifests — "lodash to 4.18.0" — delivered as a pull request through the system that holds the repository (ADR-333).
 )
 
 // RemediationScriptType represents remediation script type.
