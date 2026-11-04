@@ -7401,6 +7401,7 @@ const (
 	ICON_IDSQuest                                   ICON_IDS = "QUEST"
 	ICON_IDSQuestionmark                            ICON_IDS = "QUESTIONMARK"
 	ICON_IDSQuestsoft                               ICON_IDS = "QUESTSOFT"
+	ICON_IDSQuickdrop                               ICON_IDS = "QUICKDROP"
 	ICON_IDSQuickenCode                             ICON_IDS = "QUICKEN_CODE"
 	ICON_IDSQuicklook                               ICON_IDS = "QUICKLOOK"
 	ICON_IDSQuicklookase                            ICON_IDS = "QUICKLOOKASE"
