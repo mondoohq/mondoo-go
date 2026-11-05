@@ -135,6 +135,8 @@ type Action1ConfigurationOptionsInput struct {
 	FleetScanOptions *FleetScanOptionsInput `json:"fleetScanOptions,omitempty" tfgen:"required=0"`
 	// MRN of an existing Action1 typed credential (the API client id and secret) owned by the integration's own scope. Required on create: an Action1 integration has no inline secret. On update it re-points the integration at a different Action1 credential; omitting it keeps the current one. (Optional.)
 	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
+	// Which endpoints become Mondoo assets. SCANNED_GROUPS imports the endpoints of the host groups fleet scans target, when each scan starts; OFF imports none. ALL is refused: Action1 has no tenant-wide import. Omit to keep what is stored. (Optional.)
+	ImportAssetsScope *ImportAssetsScope `json:"importAssetsScope,omitempty" tfgen:"required=0"`
 }
 
 // Action1CredentialV2Input represents an Action1 API credential, created in the Action1 console. Its health check asks the token endpoint of the region that issued it.
