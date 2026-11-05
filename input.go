@@ -7403,6 +7403,8 @@ type TicketContextInput struct {
 	// The MRN of the scope for which the context is fetched. (Required.)
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
 
+	// The space asking, when scopeMrn is an organization ticketing integration. Required for an organization integration, ignored otherwise. (Optional.)
+	SpaceMrn *String `json:"spaceMrn,omitempty" tfgen:"required=0"`
 	// Jira ticket context parameters. (Optional.)
 	Jira *JiraTicketContextInput `json:"jira,omitempty" tfgen:"required=0"`
 	// Azure Devops ticket context parameters. (Optional.)
