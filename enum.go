@@ -552,6 +552,16 @@ const (
 	AssetOverviewReferenceTypeEnumIntegration AssetOverviewReferenceTypeEnum = "INTEGRATION"
 )
 
+// AssetPolicyOrderField represents asset policy order field.
+type AssetPolicyOrderField string
+
+// Asset policy order field.
+const (
+	AssetPolicyOrderFieldPolicyName AssetPolicyOrderField = "POLICY_NAME" // Policy name.
+	AssetPolicyOrderFieldAssetName  AssetPolicyOrderField = "ASSET_NAME"  // Asset name.
+	AssetPolicyOrderFieldScore      AssetPolicyOrderField = "SCORE"       // The policy's risk score on the asset. ASC puts the worst first.
+)
+
 // AssetReportQueryOrderField represents asset report query order field.
 type AssetReportQueryOrderField string
 
