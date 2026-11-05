@@ -16,12 +16,11 @@ fetching vulnerability and policy reports.
 
 ## Requirements
 
-Our libraries are compatible with at least the three most recent, major Go
-releases. They are currently compatible with:
+Our libraries are compatible with the two most recent, major Go releases,
+matching Go's own support policy. They are currently compatible with:
 
-- Go 1.21
-- Go 1.20
-- Go 1.19
+- Go 1.27
+- Go 1.26
 
 In addition, a Mondoo account with API access is required to use this library.
 
