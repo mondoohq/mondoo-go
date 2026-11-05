@@ -46,11 +46,20 @@ jobs:
 
   go-test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The two most recent major Go releases, as promised in the README.
+        go: ["1.26", "1.27"]
+    env:
+      # Run on the installed version only: never let go.mod's toolchain line
+      # pull in a newer Go, or the older leg would prove nothing.
+      GOTOOLCHAIN: local
     steps:
       - name: Install Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
-          go-version: ${{ env.GO_VERSION }}
+          go-version: ${{ matrix.go }}
           cache: false
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -60,12 +69,12 @@ jobs:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          key: ${{ runner.os }}-go${{ matrix.go }}-${{ hashFiles('**/go.sum') }}
           restore-keys: |
-            ${{ runner.os }}-go-
+            ${{ runner.os }}-go${{ matrix.go }}-
       - run: make test
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: success() || failure()        # run this step even if previous step failed
         with:
-          name: test-results
+          name: test-results-go${{ matrix.go }}
           path: report.xml
