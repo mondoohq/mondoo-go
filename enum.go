@@ -3983,6 +3983,7 @@ const (
 	ICON_IDSEndeavourOs                             ICON_IDS = "ENDEAVOUR_OS"
 	ICON_IDSEndelSound                              ICON_IDS = "ENDEL_SOUND"
 	ICON_IDSEndlessSky                              ICON_IDS = "ENDLESS_SKY"
+	ICON_IDSEndoflifeDate                           ICON_IDS = "ENDOFLIFE_DATE"
 	ICON_IDSEndressHauser                           ICON_IDS = "ENDRESS_HAUSER"
 	ICON_IDSEnercon                                 ICON_IDS = "ENERCON"
 	ICON_IDSEnergieBkk                              ICON_IDS = "ENERGIE_BKK"
