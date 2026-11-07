@@ -1164,6 +1164,7 @@ const (
 	CredentialV2KindJfrogAccessToken         CredentialV2Kind = "JFROG_ACCESS_TOKEN"          // JFrog access token.
 	CredentialV2KindAzureBlobSas             CredentialV2Kind = "AZURE_BLOB_SAS"              // Azure Blob Storage container SAS URL.
 	CredentialV2KindSnowflakePassword        CredentialV2Kind = "SNOWFLAKE_PASSWORD"          // Snowflake user and password.
+	CredentialV2KindSnowflakePat             CredentialV2Kind = "SNOWFLAKE_PAT"               // Snowflake programmatic access token (PAT).
 	CredentialV2KindSplunkHecToken           CredentialV2Kind = "SPLUNK_HEC_TOKEN"            // Splunk HTTP Event Collector token.
 	CredentialV2KindKandjiApiToken           CredentialV2Kind = "KANDJI_API_TOKEN"            // Kandji (Iru) API token.
 	CredentialV2KindOpenvasCloud             CredentialV2Kind = "OPENVAS_CLOUD"               // Greenbone Cloud API token.
@@ -1240,6 +1241,7 @@ const (
 	CredentialV2SecretFieldJfrogAccessToken         CredentialV2SecretField = "JFROG_ACCESS_TOKEN"
 	CredentialV2SecretFieldAzureBlobSas             CredentialV2SecretField = "AZURE_BLOB_SAS"
 	CredentialV2SecretFieldSnowflakePassword        CredentialV2SecretField = "SNOWFLAKE_PASSWORD"
+	CredentialV2SecretFieldSnowflakePat             CredentialV2SecretField = "SNOWFLAKE_PAT"
 	CredentialV2SecretFieldSplunkHecToken           CredentialV2SecretField = "SPLUNK_HEC_TOKEN"
 	CredentialV2SecretFieldKandjiApiToken           CredentialV2SecretField = "KANDJI_API_TOKEN"
 	CredentialV2SecretFieldOpenvasCloud             CredentialV2SecretField = "OPENVAS_CLOUD"
@@ -11319,6 +11321,15 @@ const (
 	SeverityMedium   Severity = "MEDIUM"
 	SeverityLow      Severity = "LOW"
 	SeverityNone     Severity = "NONE"
+)
+
+// SnowflakeAuthType represents the kind of secret a Snowflake export authenticates with.
+type SnowflakeAuthType string
+
+// The kind of secret a Snowflake export authenticates with.
+const (
+	SnowflakeAuthTypePassword SnowflakeAuthType = "PASSWORD" // A user and password. Snowflake blocks password sign-ins on most accounts.
+	SnowflakeAuthTypePat      SnowflakeAuthType = "PAT"      // A programmatic access token (PAT).
 )
 
 // SoftwareOrderField represents available ordering keys for the software inventory list.
