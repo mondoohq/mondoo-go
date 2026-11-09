@@ -463,6 +463,55 @@ const (
 	ArdRefreshStatusRunning ArdRefreshStatus = "RUNNING" // A refresh has been claimed and is running or about to run.
 )
 
+// AssessmentInputReason represents why inputs to an Assessment are in their state.
+type AssessmentInputReason string
+
+// Why inputs to an Assessment are in their state.
+const (
+	AssessmentInputReasonUnspecified        AssessmentInputReason = "UNSPECIFIED"         // No reason reported.
+	AssessmentInputReasonCredentialsInvalid AssessmentInputReason = "CREDENTIALS_INVALID" // The source's credentials are expired or invalid.
+	AssessmentInputReasonPermissionDenied   AssessmentInputReason = "PERMISSION_DENIED"   // The source refused the read.
+	AssessmentInputReasonTimedOut           AssessmentInputReason = "TIMED_OUT"           // The source did not finish in time.
+	AssessmentInputReasonUnreachable        AssessmentInputReason = "UNREACHABLE"         // The target or the source could not be reached, or is not set up here.
+	AssessmentInputReasonProcessingFailed   AssessmentInputReason = "PROCESSING_FAILED"   // The data arrived, but processing it failed.
+	AssessmentInputReasonReadFailed         AssessmentInputReason = "READ_FAILED"         // Reading the stored data failed.
+	AssessmentInputReasonInternal           AssessmentInputReason = "INTERNAL"            // Any other failure.
+	AssessmentInputReasonAbortedByUser      AssessmentInputReason = "ABORTED_BY_USER"     // A user aborted the work.
+	AssessmentInputReasonSuperseded         AssessmentInputReason = "SUPERSEDED"          // A newer run replaced this one.
+	AssessmentInputReasonPausedByUser       AssessmentInputReason = "PAUSED_BY_USER"      // A user paused the work.
+	AssessmentInputReasonModuleDisabled     AssessmentInputReason = "MODULE_DISABLED"     // A module or step is off in the source's configuration.
+	AssessmentInputReasonCapabilityAbsent   AssessmentInputReason = "CAPABILITY_ABSENT"   // The feature or capability is not available here.
+	AssessmentInputReasonUnsupported        AssessmentInputReason = "UNSUPPORTED"         // Mondoo does not support or does not manage the target.
+	AssessmentInputReasonSnoozed            AssessmentInputReason = "SNOOZED"             // The finding is snoozed.
+	AssessmentInputReasonRiskAccepted       AssessmentInputReason = "RISK_ACCEPTED"       // The risk is accepted.
+	AssessmentInputReasonWorkaround         AssessmentInputReason = "WORKAROUND"          // A workaround is in place.
+	AssessmentInputReasonFalsePositive      AssessmentInputReason = "FALSE_POSITIVE"      // The finding is a false positive.
+	AssessmentInputReasonCheckDisabled      AssessmentInputReason = "CHECK_DISABLED"      // The check is disabled.
+	AssessmentInputReasonAssetIgnored       AssessmentInputReason = "ASSET_IGNORED"       // The asset's results are ignored.
+	AssessmentInputReasonNotApplicable      AssessmentInputReason = "NOT_APPLICABLE"      // The target exposes nothing this source could evaluate.
+	AssessmentInputReasonTruncated          AssessmentInputReason = "TRUNCATED"           // A read hit a size cap; the inputs are incomplete.
+	AssessmentInputReasonDegraded           AssessmentInputReason = "DEGRADED"            // The source finished in a degraded mode.
+)
+
+// AssessmentInputState represents state of a source of inputs to an Assessment.
+type AssessmentInputState string
+
+// State of a source of inputs to an Assessment.
+const (
+	AssessmentInputStateUnspecified AssessmentInputState = "UNSPECIFIED" // State not reported.
+	AssessmentInputStateNotStarted  AssessmentInputState = "NOT_STARTED" // No input has been produced yet.
+	AssessmentInputStateScheduled   AssessmentInputState = "SCHEDULED"   // Producing the input is scheduled.
+	AssessmentInputStateRunning     AssessmentInputState = "RUNNING"     // Producing the input is running.
+	AssessmentInputStatePaused      AssessmentInputState = "PAUSED"      // Producing the input is paused.
+	AssessmentInputStateCompleted   AssessmentInputState = "COMPLETED"   // The input is present.
+	AssessmentInputStateNoResults   AssessmentInputState = "NO_RESULTS"  // The source ran and produced nothing.
+	AssessmentInputStateErrored     AssessmentInputState = "ERRORED"     // Producing or reading the input failed.
+	AssessmentInputStateAborted     AssessmentInputState = "ABORTED"     // Producing the input was aborted.
+	AssessmentInputStateDisabled    AssessmentInputState = "DISABLED"    // The source is out of scope by configuration.
+	AssessmentInputStateIgnored     AssessmentInputState = "IGNORED"     // The input is present but not counted.
+	AssessmentInputStateWarned      AssessmentInputState = "WARNED"      // The input is present, with warnings; it may be incomplete.
+)
+
 // AssessmentStatus represents lifecycle status of an Assessment.
 type AssessmentStatus string
 
@@ -5802,11 +5851,13 @@ const (
 	ICON_IDSLmms                                    ICON_IDS = "LMMS"
 	ICON_IDSLmStudio                                ICON_IDS = "LM_STUDIO"
 	ICON_IDSLnav                                    ICON_IDS = "LNAV"
+	ICON_IDSLobehub                                 ICON_IDS = "LOBEHUB"
 	ICON_IDSLocalai                                 ICON_IDS = "LOCALAI"
 	ICON_IDSLocalcan                                ICON_IDS = "LOCALCAN"
 	ICON_IDSLocalsend                               ICON_IDS = "LOCALSEND"
 	ICON_IDSLocalstack                              ICON_IDS = "LOCALSTACK"
 	ICON_IDSLocalxpose                              ICON_IDS = "LOCALXPOSE"
+	ICON_IDSLocalAiApp                              ICON_IDS = "LOCAL_AI_APP"
 	ICON_IDSLocationsimulator                       ICON_IDS = "LOCATIONSIMULATOR"
 	ICON_IDSLocklizard                              ICON_IDS = "LOCKLIZARD"
 	ICON_IDSLocktime                                ICON_IDS = "LOCKTIME"
@@ -9264,6 +9315,7 @@ const (
 	ICON_IDSVoicemod                                ICON_IDS = "VOICEMOD"
 	ICON_IDSVoicestack                              ICON_IDS = "VOICESTACK"
 	ICON_IDSVoidtools                               ICON_IDS = "VOIDTOOLS"
+	ICON_IDSVoidEditor                              ICON_IDS = "VOID_EDITOR"
 	ICON_IDSVoidLinux                               ICON_IDS = "VOID_LINUX"
 	ICON_IDSVolagSystem                             ICON_IDS = "VOLAG_SYSTEM"
 	ICON_IDSVolta                                   ICON_IDS = "VOLTA"
@@ -11323,13 +11375,14 @@ const (
 	SeverityNone     Severity = "NONE"
 )
 
-// SnowflakeAuthType represents the kind of secret a Snowflake export authenticates with.
+// SnowflakeAuthType represents the kind of secret a Snowflake integration authenticates with.
 type SnowflakeAuthType string
 
-// The kind of secret a Snowflake export authenticates with.
+// The kind of secret a Snowflake integration authenticates with.
 const (
 	SnowflakeAuthTypePassword SnowflakeAuthType = "PASSWORD" // A user and password. Snowflake blocks password sign-ins on most accounts.
 	SnowflakeAuthTypePat      SnowflakeAuthType = "PAT"      // A programmatic access token (PAT).
+	SnowflakeAuthTypeKeypair  SnowflakeAuthType = "KEYPAIR"  // Key-pair (JWT) authentication. Hosted scan integrations only.
 )
 
 // SoftwareOrderField represents available ordering keys for the software inventory list.
