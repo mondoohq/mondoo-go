@@ -10,8 +10,8 @@ import (
 	"errors"
 	"time"
 
-	jose "github.com/go-jose/go-jose/v3"
-	jwt "github.com/go-jose/go-jose/v3/jwt"
+	jose "github.com/go-jose/go-jose/v4"
+	jwt "github.com/go-jose/go-jose/v4/jwt"
 	"golang.org/x/oauth2"
 	"sigs.k8s.io/yaml"
 )
@@ -110,7 +110,7 @@ func (cap *serviceAccountTokenSource) sign() (*jwt.Claims, string, error) {
 		return nil, "", err
 	}
 
-	bearer, err := jwt.Signed(sig).Claims(cl).CompactSerialize()
+	bearer, err := jwt.Signed(sig).Claims(cl).Serialize()
 	if err != nil {
 		return nil, "", err
 	}
