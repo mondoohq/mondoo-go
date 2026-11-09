@@ -7061,9 +7061,11 @@ type SnowflakeScanConfigurationOptionsInput struct {
 	User *String `json:"user,omitempty" tfgen:"required=0"`
 	// Snowflake role to assume for the scan (optional). (Optional.)
 	Role *String `json:"role,omitempty" tfgen:"required=0"`
-	// PEM-encoded private key (identity file) used for key-pair authentication. Optional: supply either this or credentialMrn. (Optional.)
+	// PEM-encoded private key (identity file) used for key-pair authentication. Optional: supply this, token or credentialMrn. Mutually exclusive with the other two. (Optional.)
 	IdentityFile *String `json:"identityFile,omitempty" tfgen:"required=0"`
-	// MRN of an existing typed credential to authenticate with, instead of supplying identityFile inline. Mutually exclusive with it. The credential must be a Snowflake key-pair credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
+	// A Snowflake programmatic access token (PAT) for the user in user. Always stored as a typed credential, so supplying it makes the integration reference one: on create, and on an update of an integration that authenticates with a key pair, which moves it to the token. Mutually exclusive with identityFile and credentialMrn. (Optional.)
+	Token *String `json:"token,omitempty" tfgen:"required=0"`
+	// MRN of an existing typed credential to authenticate with, instead of supplying identityFile or token inline. Mutually exclusive with both. The credential must be a Snowflake key-pair or programmatic access token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly: a space-level integration cannot use a credential owned by its organization, or the reverse. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
 	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
 }
 
