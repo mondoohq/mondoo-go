@@ -608,7 +608,8 @@ type AssetPolicyOrderField string
 const (
 	AssetPolicyOrderFieldPolicyName AssetPolicyOrderField = "POLICY_NAME" // Policy name.
 	AssetPolicyOrderFieldAssetName  AssetPolicyOrderField = "ASSET_NAME"  // Asset name.
-	AssetPolicyOrderFieldScore      AssetPolicyOrderField = "SCORE"       // The policy's risk score on the asset. ASC puts the worst first.
+	AssetPolicyOrderFieldScore      AssetPolicyOrderField = "SCORE"       // The policy's risk score on the asset. ASC puts the worst first. Prefer RISK_VALUE.
+	AssetPolicyOrderFieldRiskValue  AssetPolicyOrderField = "RISK_VALUE"  // The policy's risk value on the asset (100 = most critical). DESC puts the worst first.
 )
 
 // AssetReportQueryOrderField represents asset report query order field.
