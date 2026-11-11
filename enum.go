@@ -2445,6 +2445,7 @@ const (
 	ICON_IDSArecaBackup                             ICON_IDS = "ARECA_BACKUP"
 	ICON_IDSArgoproj                                ICON_IDS = "ARGOPROJ"
 	ICON_IDSArgpStandalone                          ICON_IDS = "ARGP_STANDALONE"
+	ICON_IDSArgyllCms                               ICON_IDS = "ARGYLL_CMS"
 	ICON_IDSAria2Project                            ICON_IDS = "ARIA2_PROJECT"
 	ICON_IDSAribb24                                 ICON_IDS = "ARIBB24"
 	ICON_IDSAris                                    ICON_IDS = "ARIS"
@@ -2844,6 +2845,7 @@ const (
 	ICON_IDSBoehmeWeihs                             ICON_IDS = "BOEHME_WEIHS"
 	ICON_IDSBoldBrew                                ICON_IDS = "BOLD_BREW"
 	ICON_IDSBombichSoftware                         ICON_IDS = "BOMBICH_SOFTWARE"
+	ICON_IDSBomeSoftware                            ICON_IDS = "BOME_SOFTWARE"
 	ICON_IDSBonitasoft                              ICON_IDS = "BONITASOFT"
 	ICON_IDSBonitoApp                               ICON_IDS = "BONITO_APP"
 	ICON_IDSBookingHoldings                         ICON_IDS = "BOOKING_HOLDINGS"
@@ -3915,6 +3917,7 @@ const (
 	ICON_IDSEasyeda                                 ICON_IDS = "EASYEDA"
 	ICON_IDSEasymodo                                ICON_IDS = "EASYMODO"
 	ICON_IDSEasymorph                               ICON_IDS = "EASYMORPH"
+	ICON_IDSEasyqlik                                ICON_IDS = "EASYQLIK"
 	ICON_IDSEasysmartapps                           ICON_IDS = "EASYSMARTAPPS"
 	ICON_IDSEasysoft                                ICON_IDS = "EASYSOFT"
 	ICON_IDSEasytier                                ICON_IDS = "EASYTIER"
@@ -4904,6 +4907,7 @@ const (
 	ICON_IDSHhdSoftware                             ICON_IDS = "HHD_SOFTWARE"
 	ICON_IDSHi3gAccess                              ICON_IDS = "HI3G_ACCESS"
 	ICON_IDSHibaseGroup                             ICON_IDS = "HIBASE_GROUP"
+	ICON_IDSHibitsoft                               ICON_IDS = "HIBITSOFT"
 	ICON_IDSHiddenReflex                            ICON_IDS = "HIDDEN_REFLEX"
 	ICON_IDSHidock                                  ICON_IDS = "HIDOCK"
 	ICON_IDSHidockApp                               ICON_IDS = "HIDOCK_APP"
@@ -5812,6 +5816,7 @@ const (
 	ICON_IDSLindoApp                                ICON_IDS = "LINDO_APP"
 	ICON_IDSLinear                                  ICON_IDS = "LINEAR"
 	ICON_IDSLinearmouse                             ICON_IDS = "LINEARMOUSE"
+	ICON_IDSLinearGmbh                              ICON_IDS = "LINEAR_GMBH"
 	ICON_IDSLinebender                              ICON_IDS = "LINEBENDER"
 	ICON_IDSLingguang                               ICON_IDS = "LINGGUANG"
 	ICON_IDSLinino                                  ICON_IDS = "LININO"
@@ -6008,6 +6013,7 @@ const (
 	ICON_IDSMalgaveSolutions                        ICON_IDS = "MALGAVE_SOLUTIONS"
 	ICON_IDSMaltego                                 ICON_IDS = "MALTEGO"
 	ICON_IDSMalwarebytes                            ICON_IDS = "MALWAREBYTES"
+	ICON_IDSMamedev                                 ICON_IDS = "MAMEDEV"
 	ICON_IDSMamp                                    ICON_IDS = "MAMP"
 	ICON_IDSManaflowAi                              ICON_IDS = "MANAFLOW_AI"
 	ICON_IDSManageengine                            ICON_IDS = "MANAGEENGINE"
@@ -8646,6 +8652,7 @@ const (
 	ICON_IDSTalos                                   ICON_IDS = "TALOS"
 	ICON_IDSTalview                                 ICON_IDS = "TALVIEW"
 	ICON_IDSTana                                    ICON_IDS = "TANA"
+	ICON_IDSTangencyLabs                            ICON_IDS = "TANGENCY_LABS"
 	ICON_IDSTangibleLoop                            ICON_IDS = "TANGIBLE_LOOP"
 	ICON_IDSTango                                   ICON_IDS = "TANGO"
 	ICON_IDSTanium                                  ICON_IDS = "TANIUM"
@@ -9696,6 +9703,7 @@ const (
 	ICON_IDSZattoo                                  ICON_IDS = "ZATTOO"
 	ICON_IDSZauner                                  ICON_IDS = "ZAUNER"
 	ICON_IDSZazzu                                   ICON_IDS = "ZAZZU"
+	ICON_IDSZaUm                                    ICON_IDS = "ZA_UM"
 	ICON_IDSZbar                                    ICON_IDS = "ZBAR"
 	ICON_IDSZdf                                     ICON_IDS = "ZDF"
 	ICON_IDSZeal                                    ICON_IDS = "ZEAL"
@@ -10490,10 +10498,10 @@ const (
 	PackagesOrderFieldRiskFactors PackagesOrderField = "RISK_FACTORS"
 )
 
-// PlanActionKind represents what a plan does to one target. RFC-233 lets a plan pick among remediating a finding, mitigating it, and accepting it with an exception. Only the first is built; the other two are additive, and naming the axis now is what keeps them additive.
+// PlanActionKind represents what a plan does to one target. RFC-233 lets a plan pick among remediating a finding, mitigating it, and accepting it with an exception. Remediation and exception are built; mitigation is additive, and naming the axis now is what keeps it additive.
 type PlanActionKind string
 
-// What a plan does to one target. RFC-233 lets a plan pick among remediating a finding, mitigating it, and accepting it with an exception. Only the first is built; the other two are additive, and naming the axis now is what keeps them additive.
+// What a plan does to one target. RFC-233 lets a plan pick among remediating a finding, mitigating it, and accepting it with an exception. Remediation and exception are built; mitigation is additive, and naming the axis now is what keeps it additive.
 const (
 	PlanActionKindRemediation PlanActionKind = "REMEDIATION" // Apply the change and the finding goes away — an RFC-232 ChangeSet of type `remediation`, which a governed component's removal also is.
 	PlanActionKindException   PlanActionKind = "EXCEPTION"   // Accept the finding instead of changing anything: running the step's phase applies an exception through the Exceptions system, and the Exceptions review decides whether it stands. Only findings can be excepted. The step's `exception` carries the decision.
@@ -11383,7 +11391,7 @@ type SnowflakeAuthType string
 const (
 	SnowflakeAuthTypePassword SnowflakeAuthType = "PASSWORD" // A user and password. Snowflake blocks password sign-ins on most accounts.
 	SnowflakeAuthTypePat      SnowflakeAuthType = "PAT"      // A programmatic access token (PAT).
-	SnowflakeAuthTypeKeypair  SnowflakeAuthType = "KEYPAIR"  // Key-pair (JWT) authentication. Hosted scan integrations only.
+	SnowflakeAuthTypeKeypair  SnowflakeAuthType = "KEYPAIR"  // Key-pair (JWT) authentication.
 )
 
 // SoftwareOrderField represents available ordering keys for the software inventory list.
