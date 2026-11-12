@@ -5399,7 +5399,7 @@ type PlanAddStepsInput struct {
 	IncludeSelfApplied *Boolean `json:"includeSelfApplied,omitempty" tfgen:"required=0"`
 }
 
-// PlanCriterionInput represents one condition over a step fact: risk, exploitable, cvss, sla, fixable, risk_factors, group, actuator, platform, difficulty, change_risk, restart, reversible, durability, considerations, patch_state, subject_kind, change (an ActionSet MRN), package, phase or action. "unknown" is a value of its own, so a bound never matches a missing fact.
+// PlanCriterionInput represents one condition over a step fact: risk, exploitable, cvss, sla, fixable, risk_factors, group, actuator, platform, difficulty, change_risk, restart, reversible, durability, considerations, patch_state, subject_kind, change (an ActionSet MRN), package, phase, action or exception_ground (an exception step's `PlanExceptionGround`; `package` on an exception step is the software it is about). "unknown" is a value of its own, so a bound never matches a missing fact.
 type PlanCriterionInput struct {
 	// (Required.)
 	Axis String `json:"axis" tfgen:"required=1"`
@@ -5532,7 +5532,7 @@ type PlanRemovePhaseInput struct {
 	MoveTo *Int `json:"moveTo,omitempty" tfgen:"required=0"`
 }
 
-// PlanRemoveStepsInput represents take steps out of a draft, recording why. It may remove every step: an empty draft is valid, and only `finalizePlan` refuses it.
+// PlanRemoveStepsInput represents take steps out of a draft, recording why. It may remove every step: an empty draft is valid, and only `finalizePlan` refuses it. The steps are recorded as removed by hand, except an exception made from out-of-scope findings: it was never in scope, so its findings go back to the phase's out-of-scope record as they were.
 type PlanRemoveStepsInput struct {
 	// (Required.)
 	Select PlanStepSelectionInput `json:"select" tfgen:"required=1"`
@@ -5568,7 +5568,7 @@ type PlanSetActionInput struct {
 	OutOfScope *PlanOutOfScopeSelectionInput `json:"outOfScope,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	Exception *PlanStepExceptionInput `json:"exception,omitempty" tfgen:"required=0"`
-	// Remediate. upgradeTarget re-resolves software upgrades; omitted keeps the target. (Optional.)
+	// Remediate. upgradeTarget re-resolves software upgrades; omitted keeps the target. On an exception step this declines the exception, by its ground: a declined fix (`FIX_DECLINED`) goes back into the plan as its remediation, and an exception made from out-of-scope findings gives them back to the phase's out-of-scope record as they were. (Optional.)
 	Remediation *Boolean `json:"remediation,omitempty" tfgen:"required=0"`
 	// (Optional.)
 	UpgradeTarget *SoftwareUpgradeTarget `json:"upgradeTarget,omitempty" tfgen:"required=0"`
@@ -5596,8 +5596,10 @@ type PlanStepExceptionInput struct {
 	// (Required.)
 	Justification String `json:"justification" tfgen:"required=1"`
 
-	// When it lapses. Omitted means it does not. (Optional.)
+	// When it ends. `9999-12-31T23:59:59Z` chooses no end date, which a space that requires end dates refuses. Omitted, none is given: the exception is applied without one, or with the space's SLA term when the space requires an end date. (Optional.)
 	ValidUntil *DateTime `json:"validUntil,omitempty" tfgen:"required=0"`
+	// Why this end date, when there is a reason worth keeping. (Optional.)
+	TermWhy *String `json:"termWhy,omitempty" tfgen:"required=0"`
 }
 
 // PlanStepKeyInput represents one ActionStep, by the pair that identifies it.

@@ -4238,6 +4238,7 @@ const (
 	ICON_IDSFeigElectronic                          ICON_IDS = "FEIG_ELECTRONIC"
 	ICON_IDSFeishin                                 ICON_IDS = "FEISHIN"
 	ICON_IDSFeishu                                  ICON_IDS = "FEISHU"
+	ICON_IDSFelt                                    ICON_IDS = "FELT"
 	ICON_IDSFenaco                                  ICON_IDS = "FENACO"
 	ICON_IDSFences                                  ICON_IDS = "FENCES"
 	ICON_IDSFend                                    ICON_IDS = "FEND"
@@ -4451,6 +4452,7 @@ const (
 	ICON_IDSFreesshd                                ICON_IDS = "FREESSHD"
 	ICON_IDSFreetds                                 ICON_IDS = "FREETDS"
 	ICON_IDSFreetype                                ICON_IDS = "FREETYPE"
+	ICON_IDSFreezeapp                               ICON_IDS = "FREEZEAPP"
 	ICON_IDSFree3Of9                                ICON_IDS = "FREE_3_OF_9"
 	ICON_IDSFreeColors                              ICON_IDS = "FREE_COLORS"
 	ICON_IDSFreeConnectedLimited                    ICON_IDS = "FREE_CONNECTED_LIMITED"
@@ -4904,6 +4906,7 @@ const (
 	ICON_IDSHexFiend                                ICON_IDS = "HEX_FIEND"
 	ICON_IDSHexRays                                 ICON_IDS = "HEX_RAYS"
 	ICON_IDSHey                                     ICON_IDS = "HEY"
+	ICON_IDSHeyfocus                                ICON_IDS = "HEYFOCUS"
 	ICON_IDSHeynote                                 ICON_IDS = "HEYNOTE"
 	ICON_IDSHhdSoftware                             ICON_IDS = "HHD_SOFTWARE"
 	ICON_IDSHi3gAccess                              ICON_IDS = "HI3G_ACCESS"
@@ -6972,6 +6975,7 @@ const (
 	ICON_IDSOptimaSc                                ICON_IDS = "OPTIMA_SC"
 	ICON_IDSOptimidoc                               ICON_IDS = "OPTIMIDOC"
 	ICON_IDSOptimiliaStudios                        ICON_IDS = "OPTIMILIA_STUDIOS"
+	ICON_IDSOptimizely                              ICON_IDS = "OPTIMIZELY"
 	ICON_IDSOptisigns                               ICON_IDS = "OPTISIGNS"
 	ICON_IDSOptonic                                 ICON_IDS = "OPTONIC"
 	ICON_IDSOptris                                  ICON_IDS = "OPTRIS"
@@ -7458,6 +7462,7 @@ const (
 	ICON_IDSPungo                                   ICON_IDS = "PUNGO"
 	ICON_IDSPunkLabs                                ICON_IDS = "PUNK_LABS"
 	ICON_IDSPure                                    ICON_IDS = "PURE"
+	ICON_IDSPureftpd                                ICON_IDS = "PUREFTPD"
 	ICON_IDSPuremac                                 ICON_IDS = "PUREMAC"
 	ICON_IDSPuretext                                ICON_IDS = "PURETEXT"
 	ICON_IDSPureBatteryAnalytics                    ICON_IDS = "PURE_BATTERY_ANALYTICS"
@@ -8774,6 +8779,7 @@ const (
 	ICON_IDSTeSystems                               ICON_IDS = "TE_SYSTEMS"
 	ICON_IDSTfcmt                                   ICON_IDS = "TFCMT"
 	ICON_IDSTfswitch                                ICON_IDS = "TFSWITCH"
+	ICON_IDSTftpNow                                 ICON_IDS = "TFTP_NOW"
 	ICON_IDSTfupdate                                ICON_IDS = "TFUPDATE"
 	ICON_IDSTfutils                                 ICON_IDS = "TFUTILS"
 	ICON_IDSTgrmnSoftware                           ICON_IDS = "TGRMN_SOFTWARE"
@@ -9695,6 +9701,7 @@ const (
 	ICON_IDSYworks                                  ICON_IDS = "YWORKS"
 	ICON_IDSYyjson                                  ICON_IDS = "YYJSON"
 	ICON_IDSYSoft                                   ICON_IDS = "Y_SOFT"
+	ICON_IDSZ                                       ICON_IDS = "Z"
 	ICON_IDSZ3prover                                ICON_IDS = "Z3PROVER"
 	ICON_IDSZabbix                                  ICON_IDS = "ZABBIX"
 	ICON_IDSZabkat                                  ICON_IDS = "ZABKAT"
@@ -10424,8 +10431,9 @@ type OwnerSource string
 
 // Who set an owner.
 const (
-	OwnerSourceManual     OwnerSource = "MANUAL"     // Set through the API or the console.
-	OwnerSourceAnnotation OwnerSource = "ANNOTATION" // Set by the asset's mondoo.com/owners annotation. Read-only here.
+	OwnerSourceManual      OwnerSource = "MANUAL"      // Set through the API or the console.
+	OwnerSourceAnnotation  OwnerSource = "ANNOTATION"  // Set by the asset's mondoo.com/owners annotation. Read-only here.
+	OwnerSourceIntegration OwnerSource = "INTEGRATION" // Set by a device management integration from the person the device is assigned to. Read-only here; setting owners replaces it. Not returned yet: until clients handle this value, such an owner reads as MANUAL with integrationMrn set.
 )
 
 // OwnerType represents what kind of entity an owner is.
@@ -10539,6 +10547,37 @@ const (
 	PlanEditKindSetAction         PlanEditKind = "SET_ACTION"         // Changed what steps do: an exception, or a remediation again or to another target.
 	PlanEditKindRevert            PlanEditKind = "REVERT"             // Restored the plan as it was after an earlier revision: a revert, an undo or a redo.
 	PlanEditKindExpire            PlanEditKind = "EXPIRE"             // The draft expired, and the re-opened plan went back to the state it was finalized in.
+)
+
+// PlanExceptionGround represents why accepting a finding came up at all (RFC-233 § Exceptions: grounds, bundles and declining). Separate from the exception's kind, which is the Exceptions system's own. The ground decides where a declined exception goes.
+type PlanExceptionGround string
+
+// Why accepting a finding came up at all (RFC-233 § Exceptions: grounds, bundles and declining). Separate from the exception's kind, which is the Exceptions system's own. The ground decides where a declined exception goes.
+const (
+	PlanExceptionGroundNoFixAvailable    PlanExceptionGround = "NO_FIX_AVAILABLE"    // The software has no fixed version: no advisory names one. `createPlan` proposes these, one per software per asset. Declined, the findings go back out of scope.
+	PlanExceptionGroundFixNotDeliverable PlanExceptionGround = "FIX_NOT_DELIVERABLE" // A fix may exist, and this plan cannot make it on the asset: any other out-of-scope reason. Only made by hand. Declined, the findings go back out of scope.
+	PlanExceptionGroundFixDeclined       PlanExceptionGround = "FIX_DECLINED"        // The plan holds a fix, and a person chose not to apply it. Declined, the fix goes back into the plan as a remediation.
+)
+
+// PlanExceptionProblem represents why a run would not apply an exception step as planned.
+type PlanExceptionProblem string
+
+// Why a run would not apply an exception step as planned.
+const (
+	PlanExceptionProblemNeedsEndDate    PlanExceptionProblem = "NEEDS_END_DATE"   // The space accepts no exception without an end date, and the step has none. The run refuses it.
+	PlanExceptionProblemLapsed          PlanExceptionProblem = "LAPSED"           // The step's end date has passed. The run refuses it.
+	PlanExceptionProblemAlreadyExcepted PlanExceptionProblem = "ALREADY_EXCEPTED" // An exception in force covers every finding of the step. The run applies nothing and records that exception.
+	PlanExceptionProblemPartlyExcepted  PlanExceptionProblem = "PARTLY_EXCEPTED"  // An exception in force covers some of the step's findings. The run excepts the rest.
+)
+
+// PlanExceptionTermSource represents who chose an exception's end date.
+type PlanExceptionTermSource string
+
+// Who chose an exception's end date.
+const (
+	PlanExceptionTermSourceSla    PlanExceptionTermSource = "SLA"    // Plan mode, from the space's SLA for the findings' rating, counted from when the exception was proposed or made: the strictest among the findings it covers, or the shortest default SLA when none is known.
+	PlanExceptionTermSourcePerson PlanExceptionTermSource = "PERSON" // The person editing the plan.
+	PlanExceptionTermSourceAi     PlanExceptionTermSource = "AI"     // The model, editing the plan for the person.
 )
 
 // PlanExternalRefKind represents what an external reference opens. More kinds may be added: a client shows an unknown one as `OTHER`, a plain link.
@@ -10672,6 +10711,9 @@ const (
 	PlanOutOfScopeReasonClosed                         PlanOutOfScopeReason = "CLOSED"                            // The phase was closed by hand before this step was handed over. Nothing was applied.
 	PlanOutOfScopeReasonRemovedByHand                  PlanOutOfScopeReason = "REMOVED_BY_HAND"                   // Taken out of the draft by hand (`editPlan`). A decision not to deal with something is itself a decision worth keeping, so it is recorded — who, when and why — and can be restored while the phase is undispatched.
 	PlanOutOfScopeReasonExceptionFailed                PlanOutOfScopeReason = "EXCEPTION_FAILED"                  // An exception step whose exception the Exceptions system did not apply, e.g. because the person running the phase may not create exceptions. Nothing was changed; running the remainder tries again.
+	PlanOutOfScopeReasonExceptionNeedsEndDate          PlanOutOfScopeReason = "EXCEPTION_NEEDS_END_DATE"          // An exception step without an end date, in a space that accepts no exception without one. Nothing was applied. `PlanPhase.workflowPreview.exceptionChecks` shows it before the run. Until clients know this value, reads report it as `EXCEPTION_FAILED` with the same detail.
+	PlanOutOfScopeReasonExceptionLapsed                PlanOutOfScopeReason = "EXCEPTION_LAPSED"                  // An exception step whose end date passed before its phase ran. Nothing was applied. `PlanPhase.workflowPreview.exceptionChecks` shows it before the run. Until clients know this value, reads report it as `EXCEPTION_FAILED` with the same detail.
+	PlanOutOfScopeReasonAlreadyExcepted                PlanOutOfScopeReason = "ALREADY_EXCEPTED"                  // An exception step whose findings an exception in force already covers on the asset. Nothing was applied; the step records that exception. Until clients know this value, reads leave the reason empty: the step is EXECUTED and the detail says so.
 	PlanOutOfScopeReasonOutsideMaintenanceWindow       PlanOutOfScopeReason = "OUTSIDE_MAINTENANCE_WINDOW"        // The step's device was outside its REMEDIATION maintenance window, and the window did not open while the run could hold the step (ADR-245 § 10). Nothing was applied. Run the remainder inside the window, or override it.
 	PlanOutOfScopeReasonMaintenanceWindowsUnknown      PlanOutOfScopeReason = "MAINTENANCE_WINDOWS_UNKNOWN"       // The device's maintenance windows are unknown: an imported window Mondoo cannot evaluate, or an import with no successful read in 24 hours. Nothing is handed over until they are read again (fail closed, ADR-245 § 4). Nothing was applied.
 	PlanOutOfScopeReasonScheduledStart                 PlanOutOfScopeReason = "SCHEDULED_START"                   // The step's phase was scheduled (schedulePlan) and its start has not come yet: the plan rollout hands it over at the start (ActionStepHold.nextOpening). Nothing was applied. When the schedule was taken back (unschedulePlan), run the remainder to run it.
