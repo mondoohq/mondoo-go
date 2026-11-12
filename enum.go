@@ -385,7 +385,7 @@ const (
 	ApplyRemediationStatusActuatorTargetGroupRequired    ApplyRemediationStatus = "ACTUATOR_TARGET_GROUP_REQUIRED"    // The selected actuator cannot be pointed at an asset — `ASSET` is not in its `supportedGranularities` — and no `targetGroupId` was given. Nothing ran, and that is deliberate. The change would land on a group the actuating system owns, and Mondoo cannot yet enumerate what such a group contains — so choosing one for you would apply the fix to an unknown number of machines without ever saying so. Until delivery targets can be listed and expanded, naming the target is the caller's job, exactly as today's Intune dialog requires. Read `actuator.actuator.supportedGranularities` to know this is coming before you call: an actuator without `ASSET` in that set cannot be aimed at one machine. **Naming the target is the deliberate act, and it is the only gate.** The server does not require that a preview was fetched and does not remember that it was — this mutation is stateless by design (ADR-099 §4). Showing the operator what a group contains is therefore the caller's obligation, not something the server will enforce on its behalf. When `expandActuatorTargets` lands, that disclosure is **three buckets, never one number** (ADR-099 §3): 1. **selected** — members that are assets the caller chose. 2. **known, not selected** — members that are assets Mondoo has and the caller did not choose. Nameable, with their hostname, OS and last check-in. 3. **unidentified** — members we could not map to an asset at all. Bucket 3 is its own bucket and is never folded into bucket 2's "not yours". The two ask an operator for completely different things — grant a permission so we can identify them, versus accept a blast radius — and merging them turns a missing Entra `Device.Read.All` grant into what looks like collateral. The split is computed by INTERSECTING a group's membership with our assets, never by subtracting an asset count from a group size: an association says an asset is managed by an *integration*, and an integration owns many groups. Where membership cannot be read at all, `FleetHostGroup.deviceCount` supports only "total minus selected" — and that is all a caller should claim.
 	ApplyRemediationStatusActuatorAssetIdMissing         ApplyRemediationStatus = "ACTUATOR_ASSET_ID_MISSING"         // The selected actuator delivers to an asset by naming it, and its association with THIS asset carries no such name. There is nothing to address, so nothing ran. Refused here rather than dispatched, because dispatching is what used to happen and it fails in the worst available place: the trigger carries an empty handle, the workflow starts, this mutation answers STARTED, and the delivery dies inside a plugin activity minutes later with an error nobody is watching. "Started" then means "started failing". Read off the ROUTE, not off the asset: only a delivery path that addresses assets by the system's own id needs one — Intune device-direct does not, and a group-addressed apply does not either, because the group's own association carries the id in that case. The usual cause is an association made by hand, which records the actuator but not the system's name for the asset. Actuator discovery derives that name and re-running it restores the association with one.
 	ApplyRemediationStatusActuatorBusy                   ApplyRemediationStatus = "ACTUATOR_BUSY"                     // The asset has another delivery in flight and deliveries to one asset go one at a time (ADR-290 §2). Nothing was started; `detail` names the running execution. Retry when it has ended, or run the change through a plan, whose phase holds the step and starts it then.
-	ApplyRemediationStatusActuatorWriteNotGranted        ApplyRemediationStatus = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the asset's space has no write access to the target through it (RFC-234 "Write access"). Nothing was started; `detail` says why and what to do — `requestActuatorWrite` asks the org's admins. Until clients know this value, it is reported as `ACTUATOR_UNAVAILABLE` with the same detail.
+	ApplyRemediationStatusActuatorWriteNotGranted        ApplyRemediationStatus = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the asset's space has no write access to the target through it (RFC-234 "Write access"). Nothing was started; `detail` says why and what to do — `requestActuatorWrite` asks the org's admins.
 )
 
 // ArdAssetOrderField represents columns ArdEntity.assets can be ordered by: the asset's own name / platform, or a value on the entity's (entity, asset) link. A type whose links lack a key ranks every row as absent and a stable tiebreak decides. When an asset carries several of the entity's leaves (two installed versions), text and time keys take the greatest value, counts the largest and usage the sum.
@@ -2597,6 +2597,7 @@ const (
 	ICON_IDSAxcrypt                                 ICON_IDS = "AXCRYPT"
 	ICON_IDSAxelent                                 ICON_IDS = "AXELENT"
 	ICON_IDSAxes4                                   ICON_IDS = "AXES4"
+	ICON_IDSAxigen                                  ICON_IDS = "AXIGEN"
 	ICON_IDSAxiom                                   ICON_IDS = "AXIOM"
 	ICON_IDSAxiomaticDev                            ICON_IDS = "AXIOMATIC_DEV"
 	ICON_IDSAxiomaticLimited                        ICON_IDS = "AXIOMATIC_LIMITED"
@@ -6164,6 +6165,7 @@ const (
 	ICON_IDSMercedesBenz                            ICON_IDS = "MERCEDES_BENZ"
 	ICON_IDSMerciapp                                ICON_IDS = "MERCIAPP"
 	ICON_IDSMercurial                               ICON_IDS = "MERCURIAL"
+	ICON_IDSMercury32                               ICON_IDS = "MERCURY_32"
 	ICON_IDSMermaidJs                               ICON_IDS = "MERMAID_JS"
 	ICON_IDSMermarkEditor                           ICON_IDS = "MERMARK_EDITOR"
 	ICON_IDSMerriamWebster                          ICON_IDS = "MERRIAM_WEBSTER"
@@ -8061,6 +8063,7 @@ const (
 	ICON_IDSSfMonoNerdFontLigaturized               ICON_IDS = "SF_MONO_NERD_FONT_LIGATURIZED"
 	ICON_IDSShadow                                  ICON_IDS = "SHADOW"
 	ICON_IDSShadowexplorer                          ICON_IDS = "SHADOWEXPLORER"
+	ICON_IDSShadowlab                               ICON_IDS = "SHADOWLAB"
 	ICON_IDSShadowsocks                             ICON_IDS = "SHADOWSOCKS"
 	ICON_IDSShalafisoft                             ICON_IDS = "SHALAFISOFT"
 	ICON_IDSShanghaiRuiruiTechnology                ICON_IDS = "SHANGHAI_RUIRUI_TECHNOLOGY"
@@ -8201,6 +8204,7 @@ const (
 	ICON_IDSSmartbear                               ICON_IDS = "SMARTBEAR"
 	ICON_IDSSmartcad2d                              ICON_IDS = "SMARTCAD_2D"
 	ICON_IDSSmartersplayer                          ICON_IDS = "SMARTERSPLAYER"
+	ICON_IDSSmartertools                            ICON_IDS = "SMARTERTOOLS"
 	ICON_IDSSmartfusionlabs                         ICON_IDS = "SMARTFUSIONLABS"
 	ICON_IDSSmartmontools                           ICON_IDS = "SMARTMONTOOLS"
 	ICON_IDSSmartpls                                ICON_IDS = "SMARTPLS"
@@ -9227,6 +9231,7 @@ const (
 	ICON_IDSVcxsrv                                  ICON_IDS = "VCXSRV"
 	ICON_IDSVdmVideoDownloader                      ICON_IDS = "VDM_VIDEO_DOWNLOADER"
 	ICON_IDSVectorcam                               ICON_IDS = "VECTORCAM"
+	ICON_IDSVectorcamp                              ICON_IDS = "VECTORCAMP"
 	ICON_IDSVectorworks                             ICON_IDS = "VECTORWORKS"
 	ICON_IDSVeeam                                   ICON_IDS = "VEEAM"
 	ICON_IDSVeepn                                   ICON_IDS = "VEEPN"
@@ -10580,6 +10585,16 @@ const (
 	PlanExceptionTermSourceAi     PlanExceptionTermSource = "AI"     // The model, editing the plan for the person.
 )
 
+// PlanExternalRefHost represents the code host an external reference's URL points at.
+type PlanExternalRefHost string
+
+// The code host an external reference's URL points at.
+const (
+	PlanExternalRefHostGithub PlanExternalRefHost = "GITHUB" // github.com.
+	PlanExternalRefHostGitlab PlanExternalRefHost = "GITLAB" // gitlab.com, or any host with GitLab's `/-/` project separator.
+	PlanExternalRefHostOther  PlanExternalRefHost = "OTHER"  // Any other host.
+)
+
 // PlanExternalRefKind represents what an external reference opens. More kinds may be added: a client shows an unknown one as `OTHER`, a plain link.
 type PlanExternalRefKind string
 
@@ -10588,6 +10603,15 @@ const (
 	PlanExternalRefKindPullRequest PlanExternalRefKind = "PULL_REQUEST" // A pull request or merge request: a change waiting for review.
 	PlanExternalRefKindIssue       PlanExternalRefKind = "ISSUE"        // An issue or ticket in a tracker.
 	PlanExternalRefKindOther       PlanExternalRefKind = "OTHER"        // Any other page.
+)
+
+// PlanExternalRefOrder represents the order `Plan.externalRefs` lists a plan's external references in.
+type PlanExternalRefOrder string
+
+// The order `Plan.externalRefs` lists a plan's external references in.
+const (
+	PlanExternalRefOrderFirstSeen  PlanExternalRefOrder = "FIRST_SEEN" // Phase and step order: the order the plan's deliveries produced them.
+	PlanExternalRefOrderRepository PlanExternalRefOrder = "REPOSITORY" // Grouped by code host, GitHub first, then GitLab (gitlab.com, or any host with GitLab's `/-/` project separator), then any other host by name; within a host by repository path, then by the pull request or issue number, then by URL.
 )
 
 // PlanExternalRefState represents where an external reference's object stands. It moves forward, `OPEN` then `CLOSED` then `MERGED`, with one way back: a pull request reopened after a close without a merge reads `OPEN` again. A merged one stays `MERGED`. More states may be added; a client shows an unknown one without a state badge.
@@ -10705,15 +10729,15 @@ const (
 	PlanOutOfScopeReasonActuatorUnavailable            PlanOutOfScopeReason = "ACTUATOR_UNAVAILABLE"              // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Resolution is unchanged and the actuator is still the right one; it is the integration that needs attention.
 	PlanOutOfScopeReasonActuatorTargetGroupRequired    PlanOutOfScopeReason = "ACTUATOR_TARGET_GROUP_REQUIRED"    // The selected actuator cannot be pointed at an asset, and the plan addressed one. The change would land on a group the actuating system owns, and choosing that blast radius is not something a plan does on a caller's behalf.
 	PlanOutOfScopeReasonActuatorAssetIdMissing         PlanOutOfScopeReason = "ACTUATOR_ASSET_ID_MISSING"         // The selected actuator addresses assets by the actuating system's own name for them, and its association with this asset carries no such name. Nothing could be addressed, so the step is not work the plan can offer. Worth its own value rather than folding into `NO_MATCHING_CAPABILITY`: the actuator is the right one, it accepts this change, and it reaches this asset. What is missing is one identifier on the association, which actuator discovery derives — so the fix is to re-run discovery, not to go shopping for an integration.
-	PlanOutOfScopeReasonActuatorWriteNotGranted        PlanOutOfScopeReason = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the plan's space has no write access to this target through it (RFC-234 "Write access"): the integration requires a grant and none is stored, an org admin denied it, or (GitHub) fix pull requests are off for the repository. The detail says which and what to do — `requestActuatorWrite` asks the org's admins. Only reachable from running a plan or applying a change. The step stays in the plan and is never dispatched; running the remainder after write access is granted delivers it. Until clients know this value, reads report it as `ACTUATOR_UNAVAILABLE` with the same detail.
+	PlanOutOfScopeReasonActuatorWriteNotGranted        PlanOutOfScopeReason = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the plan's space has no write access to this target through it (RFC-234 "Write access"): the integration requires a grant and none is stored, an org admin denied it, or (GitHub) fix pull requests are off for the repository. The detail says which and what to do — `requestActuatorWrite` asks the org's admins. Only reachable from running a plan or applying a change. The step stays in the plan and is never dispatched; running the remainder after write access is granted delivers it.
 	PlanOutOfScopeReasonResolutionChanged              PlanOutOfScopeReason = "RESOLUTION_CHANGED"                // The change was re-resolved between the plan the caller reviewed and the run, so what would have been dispatched is not what was approved. Only reachable from running a plan: every step carries the resolution the plan was built on, and a step whose ActionSet was re-resolved since is refused at run time and again at hand-over. Refusing rather than dispatching is the point: a plan that grows or shifts at run time has moved the decision after the approval (RFC-234). Re-read the plan and confirm the change it now describes.
 	PlanOutOfScopeReasonDispatchFailed                 PlanOutOfScopeReason = "DISPATCH_FAILED"                   // Everything about the step was right and handing it to the actuating system failed. Only reachable from `runPlan`. Distinct from every reason above, which are answers about the fleet or about us: this one is a transport failure against a change that resolved, an actuator that was selected and a delivery path that accepted it. Retrying the same step unchanged is the correct response, which is true of no other value here except `ACTUATOR_UNAVAILABLE`.
 	PlanOutOfScopeReasonClosed                         PlanOutOfScopeReason = "CLOSED"                            // The phase was closed by hand before this step was handed over. Nothing was applied.
 	PlanOutOfScopeReasonRemovedByHand                  PlanOutOfScopeReason = "REMOVED_BY_HAND"                   // Taken out of the draft by hand (`editPlan`). A decision not to deal with something is itself a decision worth keeping, so it is recorded — who, when and why — and can be restored while the phase is undispatched.
-	PlanOutOfScopeReasonExceptionFailed                PlanOutOfScopeReason = "EXCEPTION_FAILED"                  // An exception step whose exception the Exceptions system did not apply, e.g. because the person running the phase may not create exceptions. Nothing was changed; running the remainder tries again.
-	PlanOutOfScopeReasonExceptionNeedsEndDate          PlanOutOfScopeReason = "EXCEPTION_NEEDS_END_DATE"          // An exception step without an end date, in a space that accepts no exception without one. Nothing was applied. `PlanPhase.workflowPreview.exceptionChecks` shows it before the run. Until clients know this value, reads report it as `EXCEPTION_FAILED` with the same detail.
-	PlanOutOfScopeReasonExceptionLapsed                PlanOutOfScopeReason = "EXCEPTION_LAPSED"                  // An exception step whose end date passed before its phase ran. Nothing was applied. `PlanPhase.workflowPreview.exceptionChecks` shows it before the run. Until clients know this value, reads report it as `EXCEPTION_FAILED` with the same detail.
-	PlanOutOfScopeReasonAlreadyExcepted                PlanOutOfScopeReason = "ALREADY_EXCEPTED"                  // An exception step whose findings an exception in force already covers on the asset. Nothing was applied; the step records that exception. Until clients know this value, reads leave the reason empty: the step is EXECUTED and the detail says so.
+	PlanOutOfScopeReasonExceptionFailed                PlanOutOfScopeReason = "EXCEPTION_FAILED"                  // An exception step whose exception the Exceptions system did not apply, e.g. because the person running the plan may not create exceptions. Nothing was changed; `runPlanExceptions` tries again.
+	PlanOutOfScopeReasonExceptionNeedsEndDate          PlanOutOfScopeReason = "EXCEPTION_NEEDS_END_DATE"          // An exception step without an end date, in a space that accepts no exception without one. Nothing was applied. The exception's `check` shows it before the run; afterwards `runPlanExceptions(validUntil:)` applies it with an end date.
+	PlanOutOfScopeReasonExceptionLapsed                PlanOutOfScopeReason = "EXCEPTION_LAPSED"                  // An exception step whose end date passed before the plan ran. Nothing was applied. The exception's `check` shows it before the run; afterwards `runPlanExceptions(validUntil:)` applies it with a new end date.
+	PlanOutOfScopeReasonAlreadyExcepted                PlanOutOfScopeReason = "ALREADY_EXCEPTED"                  // An exception step whose findings an exception in force already covers on the asset. Nothing was applied; the step is EXECUTED and records that exception, so the plan did not decide these findings.
 	PlanOutOfScopeReasonOutsideMaintenanceWindow       PlanOutOfScopeReason = "OUTSIDE_MAINTENANCE_WINDOW"        // The step's device was outside its REMEDIATION maintenance window, and the window did not open while the run could hold the step (ADR-245 § 10). Nothing was applied. Run the remainder inside the window, or override it.
 	PlanOutOfScopeReasonMaintenanceWindowsUnknown      PlanOutOfScopeReason = "MAINTENANCE_WINDOWS_UNKNOWN"       // The device's maintenance windows are unknown: an imported window Mondoo cannot evaluate, or an import with no successful read in 24 hours. Nothing is handed over until they are read again (fail closed, ADR-245 § 4). Nothing was applied.
 	PlanOutOfScopeReasonScheduledStart                 PlanOutOfScopeReason = "SCHEDULED_START"                   // The step's phase was scheduled (schedulePlan) and its start has not come yet: the plan rollout hands it over at the start (ActionStepHold.nextOpening). Nothing was applied. When the schedule was taken back (unschedulePlan), run the remainder to run it.
