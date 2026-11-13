@@ -3178,6 +3178,10 @@ type FindingsFilter struct {
 	Rating *[]ScoreRating `json:"rating,omitempty" tfgen:"required=0"`
 	// Only findings first seen at or after this RFC 3339 instant — first detection on the asset for CVEs/advisories/packages, check-row creation for checks. Combine with `state: OPEN` for "new open findings in the last 90 days". (Optional.)
 	FirstDetectedAfter *String `json:"firstDetectedAfter,omitempty" tfgen:"required=0"`
+	// Only findings that were open at any moment at or after this RFC 3339 instant (ADR-379): open now, or fixed or excepted at or after it. Each finding counts once, however often it flapped, and a scan error reads as the state before it. Combine with `outcome` for the findings that ended fixed, excepted or dropped in the window. The totalCount of each combination is the matching number in `Asset.findingsChange`. (Optional.)
+	ActiveSince *String `json:"activeSince,omitempty" tfgen:"required=0"`
+	// Only findings whose current outcome is this (ADR-379). Unlike `state`, a scan error reads as the state before it, and FIXED is truly fixed: excepted, skipped, disabled and out-of-scope findings are EXCEPTED. (Optional.)
+	Outcome *FindingOutcome `json:"outcome,omitempty" tfgen:"required=0"`
 	// Filter by finding type. (Optional.)
 	Types *[]FindingType `json:"types,omitempty" tfgen:"required=0"`
 	// Filter vulnerabilities by findingMrn of a versioned software package e.g., finding versions of bash 5.0.1 by searching for //.../software/.../name/bash/5.0.1. (Optional.)
@@ -3899,6 +3903,10 @@ type IntuneDeviceGroupsInput struct {
 
 	// Optional: The MRN of the asset. When provided, returns only groups the device belongs to. When omitted, returns all device groups from the Intune tenant. (Optional.)
 	AssetMrn *String `json:"assetMrn,omitempty" tfgen:"required=0"`
+	// Optional: narrows a tenant-wide listing (no assetMrn) to groups whose name has a word starting with every word typed. Ignored with assetMrn, and without first. (Optional.)
+	Search *String `json:"search,omitempty" tfgen:"required=0"`
+	// Optional: page size of a tenant-wide listing (no assetMrn), 1 to 100. When set the answer is ONE page sorted by name, nothing is dropped for lacking eligible devices, and totalCount/hasMore say how many more match. Unset keeps the full listing. Ignored with assetMrn. (Optional.)
+	First *Int `json:"first,omitempty" tfgen:"required=0"`
 }
 
 // InvitationOrder represents input for ordering invitations.
