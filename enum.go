@@ -10855,6 +10855,7 @@ const (
 	PlanScriptGapReasonNoDetectionGate        PlanScriptGapReason = "NO_DETECTION_GATE"        // The actuator runs a remediation only behind a detection gate, and no gate can be generated for this change. A missing gate is not an open gate, so it is not delivered.
 	PlanScriptGapReasonPerUserInstall         PlanScriptGapReason = "PER_USER_INSTALL"         // The software is installed per user, and the actuator runs as the machine's system account, which cannot see it.
 	PlanScriptGapReasonRenderFailed           PlanScriptGapReason = "RENDER_FAILED"            // Rendering failed on the server.
+	PlanScriptGapReasonBlockedByScriptGuard   PlanScriptGapReason = "BLOCKED_BY_SCRIPT_GUARD"  // The rendered script was blocked by the outbound script guard (ADR-373): it carries content the security screen flags as dangerous, so it is not delivered. The detail names the rules that fired.
 	PlanScriptGapReasonPlatformUnknown        PlanScriptGapReason = "PLATFORM_UNKNOWN"         // The actuator picks the script from the device's OS, and the inventory has no platform for the asset, or no longer has the asset, so which script would run cannot be shown.
 	PlanScriptGapReasonPlatformNotSupported   PlanScriptGapReason = "PLATFORM_NOT_SUPPORTED"   // The actuator picks the script from the device's OS, and delivers none to the asset's platform.
 	PlanScriptGapReasonUnknownInstallVariant  PlanScriptGapReason = "UNKNOWN_INSTALL_VARIANT"  // The scan reported an install of the software that matches none of the install variants its catalog entry declares (for example an MSI and a vendor EXE install, each updated its own way), so which update path manages it is not known. Nothing is sent: Mondoo never falls back to trying every path. The detail names the identity the scan reported.
@@ -11584,6 +11585,20 @@ const (
 	UIPageAttackSurfaceAssetCategory    UIPage = "ATTACK_SURFACE_ASSET_CATEGORY"   // Attack surface asset category detail page (exposed hosts + checks).
 )
 
+// UserErrorCode represents machine-readable error codes returned in mutation payloads. Extend this enum (never re-use a value) when introducing a new error class — clients switch on it.
+type UserErrorCode string
+
+// Machine-readable error codes returned in mutation payloads. Extend this enum (never re-use a value) when introducing a new error class — clients switch on it.
+const (
+	UserErrorCodeNameTaken        UserErrorCode = "NAME_TAKEN"        // A uniqueness constraint was violated (for example a name already in use).
+	UserErrorCodeNotFound         UserErrorCode = "NOT_FOUND"         // The referenced resource does not exist.
+	UserErrorCodePermissionDenied UserErrorCode = "PERMISSION_DENIED" // The caller is not allowed to perform the operation.
+	UserErrorCodeValidation       UserErrorCode = "VALIDATION"        // The input failed validation.
+	UserErrorCodeConflict         UserErrorCode = "CONFLICT"          // The operation conflicts with the current state of the resource.
+	UserErrorCodeRateLimited      UserErrorCode = "RATE_LIMITED"      // The caller has exceeded a rate limit.
+	UserErrorCodeInternal         UserErrorCode = "INTERNAL"          // An unexpected server-side error occurred.
+)
+
 // UserState represents state of a user.
 type UserState string
 
@@ -11826,6 +11841,41 @@ const (
 	WorkspaceSelectionConditionStringOperatorEqual    WorkspaceSelectionConditionStringOperator = "EQUAL"     // Equal operator.
 	WorkspaceSelectionConditionStringOperatorNotEqual WorkspaceSelectionConditionStringOperator = "NOT_EQUAL" // Not equal operator.
 	WorkspaceSelectionConditionStringOperatorContains WorkspaceSelectionConditionStringOperator = "CONTAINS"  // Contains operator.
+)
+
+// XgrepRuleMode represents the matching mode of an xgrep rule, mirroring xgrep's own rule modes.
+type XgrepRuleMode string
+
+// The matching mode of an xgrep rule, mirroring xgrep's own rule modes.
+const (
+	XgrepRuleModeUnspecified XgrepRuleMode = "UNSPECIFIED" // Mode was not specified (treated as search).
+	XgrepRuleModeSearch      XgrepRuleMode = "SEARCH"      // Pattern search.
+	XgrepRuleModeTaint       XgrepRuleMode = "TAINT"       // Taint tracking.
+	XgrepRuleModeExtract     XgrepRuleMode = "EXTRACT"     // Metavariable extraction.
+	XgrepRuleModeJoin        XgrepRuleMode = "JOIN"        // Join across matches.
+	XgrepRuleModeAbsence     XgrepRuleMode = "ABSENCE"     // Absence (no-match) rule.
+	XgrepRuleModeAnalysis    XgrepRuleMode = "ANALYSIS"    // Analysis rule.
+)
+
+// XgrepRuleSeverity represents the severity of an xgrep rule, mirroring xgrep's own rule severities.
+type XgrepRuleSeverity string
+
+// The severity of an xgrep rule, mirroring xgrep's own rule severities.
+const (
+	XgrepRuleSeverityUnspecified XgrepRuleSeverity = "UNSPECIFIED" // Severity was not specified.
+	XgrepRuleSeverityInfo        XgrepRuleSeverity = "INFO"        // Informational.
+	XgrepRuleSeverityWarning     XgrepRuleSeverity = "WARNING"     // A warning.
+	XgrepRuleSeverityError       XgrepRuleSeverity = "ERROR"       // An error.
+	XgrepRuleSeverityCritical    XgrepRuleSeverity = "CRITICAL"    // Critical.
+)
+
+// XgrepRuleSource represents where an xgrep rule comes from.
+type XgrepRuleSource string
+
+// Where an xgrep rule comes from.
+const (
+	XgrepRuleSourceCustom XgrepRuleSource = "CUSTOM" // A rule the organization authored and owns.
+	XgrepRuleSourceCorpus XgrepRuleSource = "CORPUS" // A rule from the global built-in corpus.
 )
 
 // ZendeskTicketContextType represents the type of the ticket context.
