@@ -386,6 +386,7 @@ const (
 	ApplyRemediationStatusActuatorAssetIdMissing         ApplyRemediationStatus = "ACTUATOR_ASSET_ID_MISSING"         // The selected actuator delivers to an asset by naming it, and its association with THIS asset carries no such name. There is nothing to address, so nothing ran. Refused here rather than dispatched, because dispatching is what used to happen and it fails in the worst available place: the trigger carries an empty handle, the workflow starts, this mutation answers STARTED, and the delivery dies inside a plugin activity minutes later with an error nobody is watching. "Started" then means "started failing". Read off the ROUTE, not off the asset: only a delivery path that addresses assets by the system's own id needs one — Intune device-direct does not, and a group-addressed apply does not either, because the group's own association carries the id in that case. The usual cause is an association made by hand, which records the actuator but not the system's name for the asset. Actuator discovery derives that name and re-running it restores the association with one.
 	ApplyRemediationStatusActuatorBusy                   ApplyRemediationStatus = "ACTUATOR_BUSY"                     // The asset has another delivery in flight and deliveries to one asset go one at a time (ADR-290 §2). Nothing was started; `detail` names the running execution. Retry when it has ended, or run the change through a plan, whose phase holds the step and starts it then.
 	ApplyRemediationStatusActuatorWriteNotGranted        ApplyRemediationStatus = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the asset's space has no write access to the target through it (RFC-234 "Write access"). Nothing was started; `detail` says why and what to do — `requestActuatorWrite` asks the org's admins.
+	ApplyRemediationStatusOrgDeliveryLimitReached        ApplyRemediationStatus = "ORG_DELIVERY_LIMIT_REACHED"        // The selected actuator is an organization's CrowdStrike Falcon integration, and the organization's delivery limit for it is reached (or could not be read). Nothing was started; retry later. `detail` says so without naming spaces or counts. Clients that do not know this value see an unknown enum value, so treat it as "retry later".
 )
 
 // ArdAssetOrderField represents columns ArdEntity.assets can be ordered by: the asset's own name / platform, or a value on the entity's (entity, asset) link. A type whose links lack a key ranks every row as absent and a stable tiebreak decides. When an asset carries several of the entity's leaves (two installed versions), text and time keys take the greatest value, counts the largest and usage the sum.
@@ -1771,6 +1772,17 @@ const (
 	FleetDeviceIssueCodeNotReachedRecently   FleetDeviceIssueCode = "NOT_REACHED_RECENTLY"   // The device did not answer most of this group's recent fleet scans: in at least two of its last three scans it was not reached by the deadline, was offline when the scan started, or its agent did not run the script, and it has not answered since. A hint only, taken from scan history; it does not exclude the device from a scan or a remediation. Expect the next run to leave it pending or not assessed too.
 )
 
+// FleetHostGroupDirectoryState represents where a host-group page with devices came from (ADR-385).
+type FleetHostGroupDirectoryState string
+
+// Where a host-group page with devices came from (ADR-385).
+const (
+	FleetHostGroupDirectoryStateNotRequested FleetHostGroupDirectoryState = "NOT_REQUESTED" // `withDevices` was not asked for, or the directory is not served for this integration.
+	FleetHostGroupDirectoryStateFresh        FleetHostGroupDirectoryState = "FRESH"         // The page is the directory's: only groups that held a scannable device at `directoryAsOf`.
+	FleetHostGroupDirectoryStateStale        FleetHostGroupDirectoryState = "STALE"         // A directory exists but is too old; the page is the management system's.
+	FleetHostGroupDirectoryStateMissing      FleetHostGroupDirectoryState = "MISSING"       // No directory yet; the page is the management system's.
+)
+
 // FleetScanAuthStrategy represents how cnspec authenticated to the Mondoo platform for this scan. WIF - cnspec exchanged a system-issued host identity for a Mondoo credential server-side. No Mondoo service account was created. SECRET_CHANNEL - server minted a scan-scoped service account and delivered it via the management system's out-of-band secret channel.
 type FleetScanAuthStrategy string
 
@@ -1961,6 +1973,15 @@ const (
 	GithubIntegrationTypeRepo GithubIntegrationType = "REPO"
 	GithubIntegrationTypeOrg  GithubIntegrationType = "ORG"
 	GithubIntegrationTypeUser GithubIntegrationType = "USER" // A personal GitHub account. Set by the GitHub App install flow when the app was installed on a user account rather than an organization; not selectable in setup forms.
+)
+
+// GithubRemediationKeyMode represents who handles a remediation repository's SSH key.
+type GithubRemediationKeyMode string
+
+// Who handles a remediation repository's SSH key.
+const (
+	GithubRemediationKeyModeMondooProvisioned GithubRemediationKeyMode = "MONDOO_PROVISIONED" // Mondoo generates the key pair, stores the private key as the repository's SSH_KEY secret without keeping it, and keeps the public key.
+	GithubRemediationKeyModeCustomerManaged   GithubRemediationKeyMode = "CUSTOMER_MANAGED"   // The customer sets the SSH_KEY secret. Mondoo stores no key.
 )
 
 // GithubRepoScanTypeSetting represents how a per-repo scan-type override is changed by setGithubRepoScanConfigs. A stored override is tri-state (inherit / on / off), so omitting the field — which means "leave it alone" — cannot also be the way to clear it; INHERIT is.
@@ -5976,6 +5997,7 @@ const (
 	ICON_IDSLogtag                                  ICON_IDS = "LOGTAG"
 	ICON_IDSLogtalk                                 ICON_IDS = "LOGTALK"
 	ICON_IDSLoguru                                  ICON_IDS = "LOGURU"
+	ICON_IDSLogViewer                               ICON_IDS = "LOG_VIEWER"
 	ICON_IDSLolcat                                  ICON_IDS = "LOLCAT"
 	ICON_IDSLometics                                ICON_IDS = "LOMETICS"
 	ICON_IDSLongbridge                              ICON_IDS = "LONGBRIDGE"
@@ -9106,6 +9128,7 @@ const (
 	ICON_IDSTomThielickeIt                          ICON_IDS = "TOM_THIELICKE_IT"
 	ICON_IDSTonec                                   ICON_IDS = "TONEC"
 	ICON_IDSToneGenerator                           ICON_IDS = "TONE_GENERATOR"
+	ICON_IDSToolinbox                               ICON_IDS = "TOOLINBOX"
 	ICON_IDSToolrules                               ICON_IDS = "TOOLRULES"
 	ICON_IDSToolshedLabs                            ICON_IDS = "TOOLSHED_LABS"
 	ICON_IDSTopala                                  ICON_IDS = "TOPALA"
@@ -9630,6 +9653,7 @@ const (
 	ICON_IDSWezFurlong                              ICON_IDS = "WEZ_FURLONG"
 	ICON_IDSWhale                                   ICON_IDS = "WHALE"
 	ICON_IDSWhalebird                               ICON_IDS = "WHALEBIRD"
+	ICON_IDSWhaledeck                               ICON_IDS = "WHALEDECK"
 	ICON_IDSWhatfont                                ICON_IDS = "WHATFONT"
 	ICON_IDSWhatnot                                 ICON_IDS = "WHATNOT"
 	ICON_IDSWhatpulse                               ICON_IDS = "WHATPULSE"
