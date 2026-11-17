@@ -1145,6 +1145,30 @@ const (
 	ControlsOrderFieldState      ControlsOrderField = "STATE" // Order by control state/status: Active, then the exception states (Disabled, Out of scope, Risk accepted, Workaround, False positive).
 )
 
+// CredentialPermissionStatus represents whether one permission is granted.
+type CredentialPermissionStatus string
+
+// Whether one permission is granted.
+const (
+	CredentialPermissionStatusGranted    CredentialPermissionStatus = "GRANTED"     // The provider granted the permission.
+	CredentialPermissionStatusNotGranted CredentialPermissionStatus = "NOT_GRANTED" // The provider did not grant the permission.
+	CredentialPermissionStatusUnknown    CredentialPermissionStatus = "UNKNOWN"     // The provider cannot tell without side effects, for example proving a write permission without writing to the customer's account. Not a sign that the permission is missing.
+)
+
+// CredentialPermissionsStatus represents outcome of a credential permission check.
+type CredentialPermissionsStatus string
+
+// Outcome of a credential permission check.
+const (
+	CredentialPermissionsStatusOk          CredentialPermissionsStatus = "OK"          // Every requested permission is granted.
+	CredentialPermissionsStatusMissing     CredentialPermissionsStatus = "MISSING"     // The credential works, but at least one permission is not granted.
+	CredentialPermissionsStatusIncomplete  CredentialPermissionsStatus = "INCOMPLETE"  // No permission is NOT_GRANTED, but at least one is UNKNOWN: the provider could not tell without side effects.
+	CredentialPermissionsStatusUnsupported CredentialPermissionsStatus = "UNSUPPORTED" // This credential kind cannot report its permissions.
+	CredentialPermissionsStatusExpired     CredentialPermissionsStatus = "EXPIRED"     // The credential has expired. Nothing was checked.
+	CredentialPermissionsStatusInvalid     CredentialPermissionsStatus = "INVALID"     // The provider rejected the credential.
+	CredentialPermissionsStatusError       CredentialPermissionsStatus = "ERROR"       // The check did not finish. Try again.
+)
+
 // CredentialTemplateTier represents support tier for a credential template. Supported providers have dedicated health-check testers; experimental providers are untested and hidden in the UI by default.
 type CredentialTemplateTier string
 
