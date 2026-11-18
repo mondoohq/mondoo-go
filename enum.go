@@ -745,6 +745,19 @@ const (
 	AssignAssetActuatorFailureReasonAssetNotFound                  AssignAssetActuatorFailureReason = "ASSET_NOT_FOUND" // The asset does not exist, or no longer does. There is nothing to associate with.
 )
 
+// AttackSurfaceDomainScanState represents the combined state of a domain scan and its subdomain scans.
+type AttackSurfaceDomainScanState string
+
+// The combined state of a domain scan and its subdomain scans.
+const (
+	AttackSurfaceDomainScanStateNotScanned          AttackSurfaceDomainScanState = "NOT_SCANNED"           // Configured but never scanned.
+	AttackSurfaceDomainScanStateScanningDomain      AttackSurfaceDomainScanState = "SCANNING_DOMAIN"       // The domain's own scan is queued or running.
+	AttackSurfaceDomainScanStateScanningSubdomains  AttackSurfaceDomainScanState = "SCANNING_SUBDOMAINS"   // The domain's scan finished; its subdomain scans are still running.
+	AttackSurfaceDomainScanStateCompleted           AttackSurfaceDomainScanState = "COMPLETED"             // The domain and all its subdomains were scanned.
+	AttackSurfaceDomainScanStateCompletedWithErrors AttackSurfaceDomainScanState = "COMPLETED_WITH_ERRORS" // Finished, but not every subdomain scan succeeded. Covers both cases: some subdomain scans failed, or the 12h cap settled the scan while some were still running. subdomains.failed > 0 distinguishes the first; subdomains.total - completed - failed > 0 shows the second.
+	AttackSurfaceDomainScanStateFailed              AttackSurfaceDomainScanState = "FAILED"                // The domain's own scan failed.
+)
+
 // AttackSurfaceScanStatus represents lifecycle of one domain's attack-surface scan. Mirrors the external scanner's scanner.v1.ScanJobStatus one-for-one, so the platform never invents a second vocabulary that could drift from the scanner's. COMPLETED and NO_RESULTS are BOTH successes: NO_RESULTS means the scan finished and found nothing, which is not a failure. Do not render them differently on that axis. ERRORED, TIMED_OUT and ABORTED are kept separate on the wire even though a client may choose to render them with one failure screen — the grouping is a UI decision, and splitting TIMED_OUT out later must not need a schema change.
 type AttackSurfaceScanStatus string
 
@@ -1909,6 +1922,7 @@ const (
 	FleetScanHostReasonStartUnknown        FleetScanHostReason = "START_UNKNOWN"        // The server dispatching the scan stopped while it sent the scan to this device, so whether the scan reached the device is unknown, and no result arrived before the scan's time ran out. Not assessed, not failed; the next scan tries the device again.
 	FleetScanHostReasonNoResult            FleetScanHostReason = "NO_RESULT"            // The management system started the run on the device, but returned no result to read (no task to follow, or a task that could not be read). Failed; what happened on the device is unknown.
 	FleetScanHostReasonPolicyRefused       FleetScanHostReason = "POLICY_REFUSED"       // The management system's policy for the device refused the run (CrowdStrike: the RTR Response Policy does not allow custom scripts). Failed; fix the policy in the management system.
+	FleetScanHostReasonNoRoutingRule       FleetScanHostReason = "NO_ROUTING_RULE"      // An organization-scoped scan reached the host, but no asset routing rule of the organization matched it, so its asset was not assigned to a space. Failed; add a routing rule that matches the host.
 )
 
 // FleetScanHostStatus represents bootstrap status on a single endpoint. PENDING — device received the policy but hasn't finished running it. SUCCESS — bootstrap script exited cleanly. TIMEOUT — bootstrap exceeded its budget without finishing. ERROR — bootstrap returned a non-zero exit code. SKIPPED — host wasn't targeted (unsupported platform, offline beyond window).
@@ -11772,6 +11786,16 @@ type SoftwareUpgradeTarget string
 const (
 	SoftwareUpgradeTargetLatestAvailable SoftwareUpgradeTarget = "LATEST_AVAILABLE" // The software catalog's latest known version within the installed version's release line, never below the advisory fix. Line-scoped rather than globally-latest, so an intentionally-pinned LTS is not told to jump a major. Floored at the advisory fix because the catalog and the vulnerability feed move independently, and a catalog that has not caught up would otherwise make "upgrade to latest" resolve BELOW the version that closes the known CVEs.
 	SoftwareUpgradeTargetLatestSecurity  SoftwareUpgradeTarget = "LATEST_SECURITY"  // The advisory fixed version alone — the security update and nothing more. RFC-232's "override down" smaller step, for a fleet that takes security updates only.
+)
+
+// StepChangePreviewState represents the state of a step's change preview.
+type StepChangePreviewState string
+
+// The state of a step's change preview.
+const (
+	StepChangePreviewStatePending StepChangePreviewState = "PENDING" // The dry run was asked for and has not reported.
+	StepChangePreviewStateReady   StepChangePreviewState = "READY"   // The dry run reported the change.
+	StepChangePreviewStateFailed  StepChangePreviewState = "FAILED"  // There is no preview; `reason` says why.
 )
 
 // Technology represents coarse technology bucket for filtering and grouping remediations.
