@@ -1509,6 +1509,16 @@ const (
 	EolKindHardware EolKind = "HARDWARE" // A hardware component. No producer yet.
 )
 
+// EvidenceFlowRole represents an evidence's part on a dataflow path.
+type EvidenceFlowRole string
+
+// An evidence's part on a dataflow path.
+const (
+	EvidenceFlowRoleSource EvidenceFlowRole = "SOURCE" // Where the input enters.
+	EvidenceFlowRoleStep   EvidenceFlowRole = "STEP"   // A hop the input crosses on its way.
+	EvidenceFlowRoleSink   EvidenceFlowRole = "SINK"   // Where the input does harm: the finding's own location.
+)
+
 // ExceptionFilterType represents exception filter type.
 type ExceptionFilterType string
 
@@ -1958,6 +1968,17 @@ const (
 	FleetScanWindowFitKindOutside      FleetScanWindowFitKind = "OUTSIDE"       // The next firing falls outside the effective window. It still runs (ADR-245 § 8).
 	FleetScanWindowFitKindUnconfinable FleetScanWindowFitKind = "UNCONFINABLE"  // A window applies but the schedule cannot be confined to it (an hourly native schedule).
 	FleetScanWindowFitKindNotScheduled FleetScanWindowFitKind = "NOT_SCHEDULED" // The schedule has no next firing (disabled, or not known).
+)
+
+// FlowProgressStatus represents where a flow stands.
+type FlowProgressStatus string
+
+// Where a flow stands.
+const (
+	FlowProgressStatusInProgress FlowProgressStatus = "IN_PROGRESS"
+	FlowProgressStatusWaiting    FlowProgressStatus = "WAITING"
+	FlowProgressStatusDone       FlowProgressStatus = "DONE"
+	FlowProgressStatusAbandoned  FlowProgressStatus = "ABANDONED"
 )
 
 // FormatType represents output format.
@@ -10975,7 +10996,7 @@ const (
 	PlanOutOfScopeReasonMechanismNotActuatable         PlanOutOfScopeReason = "MECHANISM_NOT_ACTUATABLE"          // Every mechanism this change can be expressed in is manual — prose a human applies. No actuator will ever match, here or anywhere, so there is no gap to close.
 	PlanOutOfScopeReasonActuatorNotExecutable          PlanOutOfScopeReason = "ACTUATOR_NOT_EXECUTABLE"           // An actuator was selected and Mondoo cannot run it. The normal answer for a DECLARED actuator — Ansible, Terraform, Puppet — which Mondoo holds no credentials for. Not a failure: the answer to "who applies this" is that system, and a human or a pipeline carries it.
 	PlanOutOfScopeReasonActuatorDeliveryNotImplemented PlanOutOfScopeReason = "ACTUATOR_DELIVERY_NOT_IMPLEMENTED" // An integration-backed actuator was selected and Mondoo has no delivery path wired for its type, or none for this KIND of change — an integration can have a fix path and no removal path. A gap on our side that will close, rather than a property of the system.
-	PlanOutOfScopeReasonActuatorUnavailable            PlanOutOfScopeReason = "ACTUATOR_UNAVAILABLE"              // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Resolution is unchanged and the actuator is still the right one; it is the integration that needs attention.
+	PlanOutOfScopeReasonActuatorUnavailable            PlanOutOfScopeReason = "ACTUATOR_UNAVAILABLE"              // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Resolution is unchanged and the actuator is still the right one; it is the integration that needs attention. Also the reason of a step held because remediation through the organization's integration is not enabled for the organization (the hold, not a refusal: the step is filed never dispatched and a later run picks it up once it is enabled).
 	PlanOutOfScopeReasonActuatorTargetGroupRequired    PlanOutOfScopeReason = "ACTUATOR_TARGET_GROUP_REQUIRED"    // The selected actuator cannot be pointed at an asset, and the plan addressed one. The change would land on a group the actuating system owns, and choosing that blast radius is not something a plan does on a caller's behalf.
 	PlanOutOfScopeReasonActuatorAssetIdMissing         PlanOutOfScopeReason = "ACTUATOR_ASSET_ID_MISSING"         // The selected actuator addresses assets by the actuating system's own name for them, and its association with this asset carries no such name. Nothing could be addressed, so the step is not work the plan can offer. Worth its own value rather than folding into `NO_MATCHING_CAPABILITY`: the actuator is the right one, it accepts this change, and it reaches this asset. What is missing is one identifier on the association, which actuator discovery derives — so the fix is to re-run discovery, not to go shopping for an integration.
 	PlanOutOfScopeReasonActuatorWriteNotGranted        PlanOutOfScopeReason = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the plan's space has no write access to this target through it (RFC-234 "Write access"): the integration requires a grant and none is stored, an org admin denied it, or (GitHub) fix pull requests are off for the repository. The detail says which and what to do — `requestActuatorWrite` asks the org's admins. Only reachable from running a plan or applying a change. The step stays in the plan and is never dispatched; running the remainder after write access is granted delivers it.
@@ -11344,6 +11365,16 @@ const (
 	QueryImpactMedium   QueryImpact = "MEDIUM"   // Impact is medium when between 40 - 69.
 	QueryImpactLow      QueryImpact = "LOW"      // Impact is low when between 1 - 39.
 	QueryImpactInfo     QueryImpact = "INFO"     // Impact is none when 0.
+)
+
+// ReachabilityVerdict represents a source's verdict on whether a finding can be reached.
+type ReachabilityVerdict string
+
+// A source's verdict on whether a finding can be reached.
+const (
+	ReachabilityVerdictReachable   ReachabilityVerdict = "REACHABLE"   // The source proved a path to the finding.
+	ReachabilityVerdictUnreachable ReachabilityVerdict = "UNREACHABLE" // The source proved there is no path to the finding.
+	ReachabilityVerdictUnknown     ReachabilityVerdict = "UNKNOWN"     // The source did not analyse reachability, or could not decide. This is not a statement that the finding is unreachable.
 )
 
 // RegistrationTokenOrderField represents field to order registration tokens by.
