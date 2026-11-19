@@ -7285,6 +7285,8 @@ type SoftwareFilter struct {
 	Vendors *[]String `json:"vendors,omitempty" tfgen:"required=0"`
 	// Keep rows whose OSV ecosystem (`SoftwareV2.ecosystem`, e.g. "AppX", "npm", "PyPI", "Debian") equals one of these, OR-ed. Asset scope only (see `governance`). Not the `ecosystem` filter above, which matches the raw package namespace. (Optional.)
 	Ecosystems *[]String `json:"ecosystems,omitempty" tfgen:"required=0"`
+	// Keep rows whose `SoftwareV2.type` is one of these, OR-ed. Rows with no type (libraries such as npm and PyPI, and anything not classified) never match. Works at asset and space scope, and at space scope it is the only column filter accepted. At space scope it reads the type stored when the asset's packages were last synced, so a row synced before that column existed matches nothing until the asset is scanned again. (Optional.)
+	Types *[]SoftwareType `json:"types,omitempty" tfgen:"required=0"`
 }
 
 // SoftwareOrder represents ordering spec for the software inventory list. Direction is required and field defaults to NAME at the server when omitted.
@@ -7841,14 +7843,14 @@ type UpdateOrganizationInput struct {
 
 // UpdateSLAsInput represents update SLAs input.
 type UpdateSLAsInput struct {
-	// SLAs for findings. (Required.)
+	// The default deadlines, which apply to an asset no rule matches. Read them back from `SLAs.findings`. (Required.)
 	Findings []UpdateFindingsSLAInput `json:"findings" tfgen:"required=1"`
 
 	// When the SLA timer should start (default: CVE_DETECTED). (Optional.)
 	StartDateConfig *SLAStartDateConfig `json:"startDateConfig,omitempty" tfgen:"required=0"`
 	// How findings are classified into SLA severity buckets (default: RISK). (Optional.)
 	RatingSource *SLARatingSource `json:"ratingSource,omitempty" tfgen:"required=0"`
-	// The SLA rules after the update: it replaces the stored rules with this list. Omitted, null or empty removes every rule. At most 100 rules, with unique names. A change reaches a finding on its asset's next scan. (Optional.)
+	// The custom SLA rules after the update: it replaces the stored custom rules with this list. Omitted, null or empty removes every custom rule. At most 100 rules, with unique names; "Default" is reserved and cannot be used. The default deadlines are not sent here: they are `findings`. A change reaches a finding on its asset's next scan. (Optional.)
 	Rules *[]SLARuleInput `json:"rules,omitempty" tfgen:"required=0"`
 }
 
