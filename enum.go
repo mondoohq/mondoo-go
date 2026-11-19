@@ -11779,6 +11779,17 @@ const (
 	SoftwarePatchStateUpToDate          SoftwarePatchState = "UP_TO_DATE"          // We hold a reference and the install is at or past it. Worth knowing, and still patchable on request: put it in scope and the change is produced, with the gate making it a no-op if we were right.
 )
 
+// SoftwareType represents what kind of software a row is. Derived from the MVD catalog product's type when the package resolves to one, else from the package URL and the scan (distro packages, Windows updates, macOS built-ins, desktop applications). Libraries (npm, PyPI, Go modules, ...) have no type on purpose: `SoftwareV2.type` is null for them. The set grows additively; a client must treat a value it does not know as unknown.
+type SoftwareType string
+
+// What kind of software a row is. Derived from the MVD catalog product's type when the package resolves to one, else from the package URL and the scan (distro packages, Windows updates, macOS built-ins, desktop applications). Libraries (npm, PyPI, Go modules, ...) have no type on purpose: `SoftwareV2.type` is null for them. The set grows additively; a client must treat a value it does not know as unknown.
+const (
+	SoftwareTypeApplication SoftwareType = "APPLICATION" // An application the user or an administrator installed.
+	SoftwareTypeDriver      SoftwareType = "DRIVER"      // A hardware driver.
+	SoftwareTypeFirmware    SoftwareType = "FIRMWARE"    // Firmware, or a firmware update package.
+	SoftwareTypeOs          SoftwareType = "OS"          // Software that ships with the operating system: distro packages, OS updates, built-in apps.
+)
+
 // SoftwareUpgradeTarget represents which newer version an upgrade moves to. RFC-232 gives a package's fix ladder two candidates at the top, and they are routinely different versions: the highest version that closes the known vulnerabilities, and the latest release the catalog knows — which may sit above it, carrying no additional security fix but being what is actually installable. This is the caller saying which of the two it meant.
 type SoftwareUpgradeTarget string
 
