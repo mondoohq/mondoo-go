@@ -2134,6 +2134,8 @@ type CreatePlanInput struct {
 	IncludeManualSteps *Boolean `json:"includeManualSteps,omitempty" tfgen:"required=0"`
 	// Also add, as MANUAL steps with source SELF_APPLIED, the fixes an actuator could carry but none covers on the asset (ADR-290 §8): the plan then holds the work a person applies from the exported script, and a scan completes it. Defaults to false: such a pair stays out of scope with its actuator-gap reason, as today. (Optional.)
 	IncludeSelfApplied *Boolean `json:"includeSelfApplied,omitempty" tfgen:"required=0"`
+	// Whether to wait for the assessments of the plan's steps (ADR-408). A repository fix that takes minutes to decide is created as a step in state `ASSESSING` and decided in the background. `ASYNC`, the default, returns at once; `WAIT` returns when every assessment has ended or after 60 seconds, whichever comes first. Read by createPlanV2 only. (Optional.)
+	Assessment *PlanAssessmentMode `json:"assessment,omitempty" tfgen:"required=0"`
 }
 
 // CreateSecurityPipelinePullRequestInput represents create a new security pipeline pull request input.
@@ -2804,6 +2806,9 @@ type EditPlanInput struct {
 	PlanMrn String `json:"planMrn" tfgen:"required=1"`
 	// Applied in order, all or none; each sees the plan as the edits before it left it. (Required.)
 	Edits []PlanEditInput `json:"edits" tfgen:"required=1"`
+
+	// The plan's `revision` the edits were made against. When the plan has moved on since — another change, or the AI planner's phases landed (`phasePlanning`) — nothing is applied and the call is refused: read the plan again and retry. Edits name phases by where they stand, so send it whenever the plan can change by itself. Omitted applies the edits to the plan as it is. (Optional.)
+	ExpectedRevision *Int `json:"expectedRevision,omitempty" tfgen:"required=0"`
 }
 
 // ElasticApiKeyCredentialV2Input represents an Elasticsearch API key. The address is part of the credential because a key exists inside one cluster. Give it in exactly one of the two spellings below — they are two ways to write the same address, and setting both is refused rather than resolved.
@@ -5900,6 +5905,9 @@ type PromptPlanInput struct {
 	PlanMrn String `json:"planMrn" tfgen:"required=1"`
 	// What to change, in the person's words. At most 2000 characters. (Required.)
 	Prompt String `json:"prompt" tfgen:"required=1"`
+
+	// The plan's `revision` the person was looking at. When the plan has moved on since — another change, or the AI planner's phases landed (`phasePlanning`) — the prompt is refused before a model is asked: read the plan again and send it again. Omitted prompts about the plan as it is. (Optional.)
+	ExpectedRevision *Int `json:"expectedRevision,omitempty" tfgen:"required=0"`
 }
 
 // PropertyQueryMutationInput represents property query mutation input.
@@ -6314,6 +6322,8 @@ type RevertPlanInput struct {
 	// (Required.)
 	PlanMrn String `json:"planMrn" tfgen:"required=1"`
 
+	// The plan's `revision` the caller was looking at. When the plan has moved on since, nothing is restored and the call is refused with the code `ABORTED`: an undo would undo another change than the one the caller saw. Omitted reverts the plan as it is. (Optional.)
+	ExpectedRevision *Int `json:"expectedRevision,omitempty" tfgen:"required=0"`
 	// Where to go. Omitted is TO with toRevision, or UNDO when toRevision is omitted too. (Optional.)
 	Direction *PlanRevertDirection `json:"direction,omitempty" tfgen:"required=0"`
 	// The revision whose state is restored, for TO. (Optional.)
@@ -6419,6 +6429,8 @@ type RunPlanInput struct {
 
 	// The phase to run. Omitted runs the first phase that has not been dispatched. (Optional.)
 	PhaseOrdinal *Int `json:"phaseOrdinal,omitempty" tfgen:"required=0"`
+	// The plan's `revision` the caller was looking at. When the plan is at another one, nothing is dispatched and the run is refused with the code `ABORTED`: read the plan again and show what will run. Omitted runs the plan as it is. (Optional.)
+	ExpectedRevision *Int `json:"expectedRevision,omitempty" tfgen:"required=0"`
 	// What every delivery this run dispatches may do to software that is in use (ADR-171). Omitted means `DEFER`: nothing in use is interrupted. It belongs to the run, not the plan, so the same plan can run with `DEFER` on a working day and `FORCE_QUIT` in a maintenance window. Recorded on each step's delivery. (Optional.)
 	InUse *RemediationInUse `json:"inUse,omitempty" tfgen:"required=0"`
 	// Override the maintenance windows for this run only (ADR-245 § 3.4). Needs the OverrideMaintenanceWindow permission on the plan's space (owners). Omitted: a step outside its window is held, and a run with nothing it could hand over is refused, naming the window and its next opening. A run where every step is held because remediation through an organization's integration is not enabled is refused with a plain error (the message only, no `extensions.code`): no window holds those steps and an override does not help. The window refusal (runPlan and runPlanRemainder alike) is a GraphQL error whose message is the sentence a person reads, and whose `extensions` carry it as data: `code: "OUTSIDE_MAINTENANCE_WINDOW"` and `maintenanceWindowRefusal`, an object with `phaseOrdinal` (Int), `windows` (a list of MaintenanceWindowRef: `mrn`, `name`, `timeZone`), `nextOpening` (the earliest opening, RFC 3339, or null when no held window opens within a year or every hold is unknown), `nextOpeningTimeZone` (the zone of the window that opens then, or null), `heldSteps` and `unknownSteps` (how many steps were held by a window, and how many of them because their windows are unknown). When some steps are held for that organization flag instead, they are not counted in either. (Optional.)

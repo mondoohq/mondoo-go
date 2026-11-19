@@ -536,6 +536,19 @@ const (
 	AssetActuatorRankingSkipReasonRankingNoRankedActuators     AssetActuatorRankingSkipReason = "RANKING_NO_RANKED_ACTUATORS" // The asset exists and carries none of the ranked actuators, so there was nothing to order. Not an error: a ranking is allowed to describe only part of a fleet.
 )
 
+// AssetAgentVersionState represents how current the Mondoo agent is. EOL comes from the agent support calendar, so an unchanged agent moves into it when a date passes.
+type AssetAgentVersionState string
+
+// How current the Mondoo agent is. EOL comes from the agent support calendar, so an unchanged agent moves into it when a date passes.
+const (
+	AssetAgentVersionStateEol            AssetAgentVersionState = "EOL" // On a major whose support has ended.
+	AssetAgentVersionStateMajorOutdated  AssetAgentVersionState = "MAJOR_OUTDATED"
+	AssetAgentVersionStateMinorOutdated  AssetAgentVersionState = "MINOR_OUTDATED"
+	AssetAgentVersionStatePatchAvailable AssetAgentVersionState = "PATCH_AVAILABLE"
+	AssetAgentVersionStateLatest         AssetAgentVersionState = "LATEST"
+	AssetAgentVersionStateExperimental   AssetAgentVersionState = "EXPERIMENTAL" // A pre-release or a local build.
+)
+
 // AssetDisposition represents asset disposition — whether the asset is active or has been dismissed.
 type AssetDisposition string
 
@@ -577,20 +590,41 @@ const (
 	AssetLinkTypeCi    AssetLinkType = "CI"
 )
 
+// AssetMondooManaged represents whether Mondoo (first-party) scans this asset: cnspec on the machine, a snapshot scan, a hosted or attack-surface scan, or a fleet scan. A third-party import never makes an asset managed.
+type AssetMondooManaged string
+
+// Whether Mondoo (first-party) scans this asset: cnspec on the machine, a snapshot scan, a hosted or attack-surface scan, or a fleet scan. A third-party import never makes an asset managed.
+const (
+	AssetMondooManagedUnsupported           AssetMondooManaged = "UNSUPPORTED"             // No first-party scan can reach this asset. A reclassification of some NOT_MANAGED assets, not a third answer to a question we cannot answer. Nothing produces it yet (RFC-237 Phase 3), so those assets read NOT_MANAGED until it lands -- true, but incomplete.
+	AssetMondooManagedNotManaged            AssetMondooManaged = "NOT_MANAGED"             // Mondoo is not scanning this asset.
+	AssetMondooManagedCnspecResultsReceived AssetMondooManaged = "CNSPEC_RESULTS_RECEIVED" // TEMPORARY (RFC-237 Phase 5). cnspec has reported results for this asset, but nothing configured on the server schedules its scans. Results arriving once do not make an asset managed, and the server cannot yet tell an agent running `cnspec serve` from one-off `cnspec scan` runs. Once it can, these assets move to MANAGED or NOT_MANAGED and this value is retired.
+	AssetMondooManagedManaged               AssetMondooManaged = "MANAGED"                 // Mondoo scans this asset on a schedule configured on the server: a hosted, operator, serverless, attack-surface or fleet integration in its space.
+)
+
+// AssetMondooMode represents how an asset's results are treated: counted towards its scope, or kept but excluded from every roll-up.
+type AssetMondooMode string
+
+// How an asset's results are treated: counted towards its scope, or kept but excluded from every roll-up.
+const (
+	AssetMondooModeScored  AssetMondooMode = "SCORED"  // Counts towards its scope's score and towards aggregate asset types.
+	AssetMondooModeIgnored AssetMondooMode = "IGNORED" // Results are kept and readable, but count towards nothing: not the space score, not aggregate asset types.
+)
+
 // AssetOrderField represents asset order field.
 type AssetOrderField string
 
 // Asset order field.
 const (
-	AssetOrderFieldId          AssetOrderField = "ID"
-	AssetOrderFieldName        AssetOrderField = "NAME"
-	AssetOrderFieldPlatform    AssetOrderField = "PLATFORM"
-	AssetOrderFieldScore       AssetOrderField = "SCORE"
-	AssetOrderFieldLastUpdated AssetOrderField = "LAST_UPDATED"
-	AssetOrderFieldRiskScore   AssetOrderField = "RISK_SCORE"
-	AssetOrderFieldRiskValue   AssetOrderField = "RISK_VALUE"
-	AssetOrderFieldEolDate     AssetOrderField = "EOL_DATE"     // Order by the per-asset end-of-life date (nulls last). Pairs with the eolStatus filter to build date-ordered "what goes EOL next" listings.
-	AssetOrderFieldLastScanned AssetOrderField = "LAST_SCANNED" // Order by when the asset was last scanned: lastCnspecScanTime, or lastUpstreamScanTime when cnspec never scanned it (nulls last).
+	AssetOrderFieldId           AssetOrderField = "ID"
+	AssetOrderFieldName         AssetOrderField = "NAME"
+	AssetOrderFieldPlatform     AssetOrderField = "PLATFORM"
+	AssetOrderFieldScore        AssetOrderField = "SCORE"
+	AssetOrderFieldLastUpdated  AssetOrderField = "LAST_UPDATED"
+	AssetOrderFieldRiskScore    AssetOrderField = "RISK_SCORE"
+	AssetOrderFieldRiskValue    AssetOrderField = "RISK_VALUE"
+	AssetOrderFieldEolDate      AssetOrderField = "EOL_DATE"      // Order by the per-asset end-of-life date (nulls last). Pairs with the eolStatus filter to build date-ordered "what goes EOL next" listings.
+	AssetOrderFieldLastScanned  AssetOrderField = "LAST_SCANNED"  // Order by when the asset was last scanned: lastCnspecScanTime, or lastUpstreamScanTime when cnspec never scanned it (nulls last).
+	AssetOrderFieldLastDetected AssetOrderField = "LAST_DETECTED" // Order by when we last saw the asset (RFC-237), nulls last. Pairs with the lastDetected filter for "what have we not seen lately" listings. Note what is NOT here: there is no order (and no filter) by the per-source scan state of `states.lastScan` (LAST_SCANNED orders by the asset row's own scan times). Reading that per page is cheap and `states.lastScan` does it; selecting a whole space BY them costs two to three orders of magnitude more, because the value is an aggregate over another table and no index can be added to fix it. That needs the per-source scan index specified as RFC-237 Phase 2 -- if you need it, that is the trigger to build it.
 )
 
 // AssetOverviewReferenceTypeEnum represents an enumeration of the possible reference types for a item for an asset overview.
@@ -734,6 +768,22 @@ const (
 	AssetUrlStatsScopeAll             AssetUrlStatsScope = "ALL"             // Score based on vulnerabilities and security.
 	AssetUrlStatsScopeVulnerabilities AssetUrlStatsScope = "VULNERABILITIES" // Score based on vulnerabilities.
 	AssetUrlStatsScopeSecurity        AssetUrlStatsScope = "SECURITY"        // Score based on security.
+)
+
+// AssetVersionState represents how current an asset's platform version is. UNTRACKED is the absence of an answer, never a claim that the version is current.
+type AssetVersionState string
+
+// How current an asset's platform version is. UNTRACKED is the absence of an answer, never a claim that the version is current.
+const (
+	AssetVersionStateUntracked       AssetVersionState = "UNTRACKED"        // We have no information about where this version sits. NOT a claim that it is current.
+	AssetVersionStateEol             AssetVersionState = "EOL"              // Past its published end-of-life date.
+	AssetVersionStateExtendedSupport AssetVersionState = "EXTENDED_SUPPORT" // Past its end-of-life date, but inside a published extended support period: still gets fixes where the asset is covered.
+	AssetVersionStateMajorOutdated   AssetVersionState = "MAJOR_OUTDATED"
+	AssetVersionStateMinorOutdated   AssetVersionState = "MINOR_OUTDATED"
+	AssetVersionStatePatchAvailable  AssetVersionState = "PATCH_AVAILABLE"
+	AssetVersionStateOutdated        AssetVersionState = "OUTDATED" // Behind, on a version scheme we cannot decompose, so we cannot say by how much.
+	AssetVersionStateLatest          AssetVersionState = "LATEST"
+	AssetVersionStateExperimental    AssetVersionState = "EXPERIMENTAL" // A pre-release. Detection ships separately (RFC-237 Phase 4).
 )
 
 // AssignAssetActuatorFailureReason represents why one asset in a bulk assign was skipped.
@@ -1960,6 +2010,7 @@ const (
 	FleetScanStatusFailed    FleetScanStatus = "FAILED"
 	FleetScanStatusTimeout   FleetScanStatus = "TIMEOUT"
 	FleetScanStatusCancelled FleetScanStatus = "CANCELLED"
+	FleetScanStatusPaused    FleetScanStatus = "PAUSED" // A user paused the run (RFC-237). Non-terminal, unlike every other status after RUNNING: nothing was torn down, the poll loop is simply waiting, and `pauseFleetScan(paused: false)` puts it back to RUNNING. The overall timeout keeps running, so a scan left paused ends up TIMEOUT.
 )
 
 // FleetScanTriggerKind represents how the scan was triggered.
@@ -2002,6 +2053,17 @@ type FormatType string
 const (
 	FormatTypeJson FormatType = "JSON"
 	FormatTypeCsv  FormatType = "CSV"
+)
+
+// Freshness represents the shared freshness scale (RFC-237). One scale for every "how recently" question -- last scan, third-party scans, the agent, the asset itself. The thresholds are configured per organization, and the enum is never stored: only the date is, so changing a threshold changes what the same stored dates mean with no re-stamping.
+type Freshness string
+
+// The shared freshness scale (RFC-237). One scale for every "how recently" question -- last scan, third-party scans, the agent, the asset itself. The thresholds are configured per organization, and the enum is never stored: only the date is, so changing a threshold changes what the same stored dates mean with no re-stamping.
+const (
+	FreshnessFresh        Freshness = "FRESH"         // Younger than the organization's stale threshold (default 7 days).
+	FreshnessStale        Freshness = "STALE"         // At or past it.
+	FreshnessZombie       Freshness = "ZOMBIE"        // At or past the zombie threshold (default 31 days).
+	FreshnessNotAvailable Freshness = "NOT_AVAILABLE" // There is no date. Never use this to mean "long ago": an asset no source has scanned has no scan freshness, which is a different statement.
 )
 
 // GitPipelineKind represents enum representing the different types of Git pipelines.
@@ -3368,6 +3430,7 @@ const (
 	ICON_IDSCoderlearn                              ICON_IDS = "CODERLEARN"
 	ICON_IDSCoderobo                                ICON_IDS = "CODEROBO"
 	ICON_IDSCodertainment                           ICON_IDS = "CODERTAINMENT"
+	ICON_IDSCodesphere                              ICON_IDS = "CODESPHERE"
 	ICON_IDSCodesys                                 ICON_IDS = "CODESYS"
 	ICON_IDSCodetwo                                 ICON_IDS = "CODETWO"
 	ICON_IDSCodeuxDesign                            ICON_IDS = "CODEUX_DESIGN"
@@ -10376,6 +10439,10 @@ type ListExceptionGroupsOrderField string
 const (
 	ListExceptionGroupsOrderFieldCreatedAt  ListExceptionGroupsOrderField = "CREATED_AT"
 	ListExceptionGroupsOrderFieldValidUntil ListExceptionGroupsOrderField = "VALID_UNTIL"
+	ListExceptionGroupsOrderFieldAction     ListExceptionGroupsOrderField = "ACTION" // Exception action (Disabled, False positive, Out of scope, Risk accepted, Workaround).
+	ListExceptionGroupsOrderFieldType       ListExceptionGroupsOrderField = "TYPE"   // Exception type of the group's findings. A group with findings of several types sorts by the first of them (ADVISORY, COMPLIANCE, CVE, FEX, SECURITY).
+	ListExceptionGroupsOrderFieldStatus     ListExceptionGroupsOrderField = "STATUS" // Exception status, as returned in the status field.
+	ListExceptionGroupsOrderFieldAuthor     ListExceptionGroupsOrderField = "AUTHOR" // Author display name, falling back to email. Authors that cannot be resolved sort last.
 )
 
 // ListFrameworksFilterState represents list frameworks filter state.
@@ -10808,6 +10875,15 @@ const (
 	PlanActionKindManual      PlanActionKind = "MANUAL"      // A fix no actuator can apply, which a person applies (ADR-226). Running the step's phase activates it and hands nothing to a delivery; a later scan that shows the finding closed completes it. Only created when the caller asks with `includeManualSteps`. The step's `manual` carries the instructions.
 )
 
+// PlanAssessmentMode represents whether createPlanV2 waits for the assessments of the plan's steps (ADR-408).
+type PlanAssessmentMode string
+
+// Whether createPlanV2 waits for the assessments of the plan's steps (ADR-408).
+const (
+	PlanAssessmentModeAsync PlanAssessmentMode = "ASYNC" // Return as soon as the plan is stored. Steps that need an assessment are `ASSESSING`.
+	PlanAssessmentModeWait  PlanAssessmentMode = "WAIT"  // Wait until no step is `ASSESSING`, for at most 60 seconds, then return the plan as it is. Steps still open come back `ASSESSING` and finish in the background; a slow assessment is never an error.
+)
+
 // PlanDeliveryBundleKind represents whether an asset's queued steps go out as one delivery (ADR-290 §3).
 type PlanDeliveryBundleKind string
 
@@ -11046,6 +11122,17 @@ const (
 	PlanOutcomeBucketNeverDispatched          PlanOutcomeBucket = "NEVER_DISPATCHED"           // Never handed to an executor.
 	PlanOutcomeBucketExecutedDeferred         PlanOutcomeBucket = "EXECUTED_DEFERRED"          // Ran, and changed nothing: the software was in use and the run's `inUse` did not allow closing it (ADR-171). Retry it with `runPlanRemainder(retry: [EXECUTED_DEFERRED])` and `QUIT` or `FORCE_QUIT`. Returned on reads: an `ActionStep.outcome` reports such a step as `EXECUTED_DEFERRED`, no longer as `EXECUTED`, and `PlanOutcomeDistribution.executedDeferred` counts it.
 	PlanOutcomeBucketExecutedDeclined         PlanOutcomeBucket = "EXECUTED_DECLINED"          // Ran as far as a proposal, and a person declined it: a pull request closed without merging (ADR-333). Needs a person: a plain retry does not re-run it. Not returned on reads yet: an `ActionStep.outcome` reports such a step as `EXECUTED`, and `PlanOutcomeDistribution.executedDeclined` counts it within `executed`.
+)
+
+// PlanPhasePlanningState represents where the AI planner's division of a plan stands.
+type PlanPhasePlanningState string
+
+// Where the AI planner's division of a plan stands.
+const (
+	PlanPhasePlanningStatePending PlanPhasePlanningState = "PENDING" // The AI planner is dividing the plan in the background, or waits for the plan's fixes to be assessed before it does. The plan holds the phases the strategies made.
+	PlanPhasePlanningStateDone    PlanPhasePlanningState = "DONE"    // The AI planner divided the plan: its phases, titles and descriptions are the plan's.
+	PlanPhasePlanningStateSkipped PlanPhasePlanningState = "SKIPPED" // The AI planner was not asked, or its answer was not used, and the plan keeps the phases it has. `reason` says why.
+	PlanPhasePlanningStateFailed  PlanPhasePlanningState = "FAILED"  // The AI planner gave no usable plan. The plan keeps the phases the strategies made.
 )
 
 // PlanPhaseRebootState represents where an asset's restart in a phase stands.
@@ -11799,6 +11886,17 @@ const (
 	SoftwareUpgradeTargetLatestSecurity  SoftwareUpgradeTarget = "LATEST_SECURITY"  // The advisory fixed version alone — the security update and nothing more. RFC-232's "override down" smaller step, for a fleet that takes security updates only.
 )
 
+// StepAssessmentState represents where the assessment of a step's fix stands (ADR-408).
+type StepAssessmentState string
+
+// Where the assessment of a step's fix stands (ADR-408).
+const (
+	StepAssessmentStateAssessing StepAssessmentState = "ASSESSING" // The fix is being assessed in the background. The step has no change yet.
+	StepAssessmentStateReady     StepAssessmentState = "READY"     // The assessment returned a change: the step has its ActionSet.
+	StepAssessmentStateNoFix     StepAssessmentState = "NO_FIX"    // The assessment offers no fix. A stored plan does not show this state: such a step leaves the plan's steps and is listed out of scope, with the reason.
+	StepAssessmentStateFailed    StepAssessmentState = "FAILED"    // The assessment failed or ran out of time; `reason` says why. The step has no change.
+)
+
 // StepChangePreviewState represents the state of a step's change preview.
 type StepChangePreviewState string
 
@@ -11992,6 +12090,21 @@ const (
 	WeekdayFriday    Weekday = "FRIDAY"
 	WeekdaySaturday  Weekday = "SATURDAY"
 	WeekdaySunday    Weekday = "SUNDAY"
+)
+
+// WorkState represents the state of one piece of work. The union of what the seven existing vocabularies already express, so nothing has to be dropped to adopt it.
+type WorkState string
+
+// The state of one piece of work. The union of what the seven existing vocabularies already express, so nothing has to be dropped to adopt it.
+const (
+	WorkStateNotStarted WorkState = "NOT_STARTED" // Nothing has run. A scan reads this as "unscanned"; the wording is a presentation choice.
+	WorkStateScheduled  WorkState = "SCHEDULED"
+	WorkStateRunning    WorkState = "RUNNING"
+	WorkStatePaused     WorkState = "PAUSED" // A user (or, later, the platform) paused it. It is not stalled.
+	WorkStateCompleted  WorkState = "COMPLETED"
+	WorkStateNoResults  WorkState = "NO_RESULTS" // It ran and produced nothing to report -- distinct from failing.
+	WorkStateErrored    WorkState = "ERRORED"
+	WorkStateAborted    WorkState = "ABORTED" // A user (or, later, the platform) stopped it before it finished.
 )
 
 // WorkflowExecutionKind represents the kind of job a workflow execution performs.
