@@ -173,13 +173,14 @@ type ActuatorUnresolvedReason string
 
 // The ways "nothing can deliver this" happens.
 const (
-	ActuatorUnresolvedReasonUnresolvedReasonUnspecified ActuatorUnresolvedReason = "UNRESOLVED_REASON_UNSPECIFIED" // An actuator was selected; there is nothing to explain.
-	ActuatorUnresolvedReasonNoActuators                 ActuatorUnresolvedReason = "NO_ACTUATORS"                  // The asset has no actuators at all. Nothing manages it — associate one.
-	ActuatorUnresolvedReasonNoMatchingCapability        ActuatorUnresolvedReason = "NO_MATCHING_CAPABILITY"        // The asset has actuators, but none accepts this vocabulary. The gap is a delivery path, not an association.
-	ActuatorUnresolvedReasonAllDisabled                 ActuatorUnresolvedReason = "ALL_DISABLED"                  // An actuator could have delivered it, but every candidate is switched off. The gap is a toggle, and it is the case an operator is most likely to have caused themselves.
-	ActuatorUnresolvedReasonMechanismNotActuatable      ActuatorUnresolvedReason = "MECHANISM_NOT_ACTUATABLE"      // Every requested mechanism is manual — prose a human applies. No actuator will ever match, on this asset or any other, so there is no gap to close. Distinct from NO_MATCHING_CAPABILITY on purpose: that one asks an operator to add an actuator, which for a manual mechanism is advice that can never be taken.
-	ActuatorUnresolvedReasonOrgRemediationNotGranted    ActuatorUnresolvedReason = "ORG_REMEDIATION_NOT_GRANTED"   // The asset has no actuator of its own or this space's, but the ORGANIZATION's CrowdStrike Falcon integration manages its host and the organization has not granted remediation through it to this space. The gap is the organization's decision: ask an organization admin (`requestActuatorWrite`). Names no other space, host group or integration. Additive: a client that does not know it should read it as `NO_ACTUATORS` (nothing here can deliver this). Only returned where `NO_ACTUATORS` was.
-	ActuatorUnresolvedReasonOrgRemediationPaused        ActuatorUnresolvedReason = "ORG_REMEDIATION_PAUSED"        // As `ORG_REMEDIATION_NOT_GRANTED`, but the space holds the grant and the organization paused remediation through the integration. Nothing for the space to change: the organization resumes it. Names nobody and no reason. Only returned where `NO_ACTUATORS` was.
+	ActuatorUnresolvedReasonUnresolvedReasonUnspecified  ActuatorUnresolvedReason = "UNRESOLVED_REASON_UNSPECIFIED"   // An actuator was selected; there is nothing to explain.
+	ActuatorUnresolvedReasonNoActuators                  ActuatorUnresolvedReason = "NO_ACTUATORS"                    // The asset has no actuators at all. Nothing manages it — associate one.
+	ActuatorUnresolvedReasonNoMatchingCapability         ActuatorUnresolvedReason = "NO_MATCHING_CAPABILITY"          // The asset has actuators, but none accepts this vocabulary. The gap is a delivery path, not an association.
+	ActuatorUnresolvedReasonAllDisabled                  ActuatorUnresolvedReason = "ALL_DISABLED"                    // An actuator could have delivered it, but every candidate is switched off. The gap is a toggle, and it is the case an operator is most likely to have caused themselves.
+	ActuatorUnresolvedReasonMechanismNotActuatable       ActuatorUnresolvedReason = "MECHANISM_NOT_ACTUATABLE"        // Every requested mechanism is manual — prose a human applies. No actuator will ever match, on this asset or any other, so there is no gap to close. Distinct from NO_MATCHING_CAPABILITY on purpose: that one asks an operator to add an actuator, which for a manual mechanism is advice that can never be taken.
+	ActuatorUnresolvedReasonOrgRemediationNotGranted     ActuatorUnresolvedReason = "ORG_REMEDIATION_NOT_GRANTED"     // The asset has no actuator of its own or this space's, but the ORGANIZATION's CrowdStrike Falcon integration manages its host and the organization has not granted remediation through it to this space. The gap is the organization's decision: ask an organization admin (`requestActuatorWrite`). Names no other space, host group or integration. Additive: a client that does not know it should read it as `NO_ACTUATORS` (nothing here can deliver this). Only returned where `NO_ACTUATORS` was.
+	ActuatorUnresolvedReasonOrgRemediationPaused         ActuatorUnresolvedReason = "ORG_REMEDIATION_PAUSED"          // As `ORG_REMEDIATION_NOT_GRANTED`, but the space holds the grant and the organization paused remediation through the integration. Nothing for the space to change: the organization resumes it. Names nobody and no reason. Only returned where `NO_ACTUATORS` was.
+	ActuatorUnresolvedReasonOrgRemediationNotDeliverable ActuatorUnresolvedReason = "ORG_REMEDIATION_NOT_DELIVERABLE" // The space holds a grant and the organization's CrowdStrike Falcon integration has scanned this host under it, but the host is not currently deliverable to this space: either a later scan moved it to another asset of this same space (re-scan to re-establish the link), or it is linked to a host already claimed elsewhere. Deliberately generic — it never reveals whether another space, host group or person is involved. Only returned where `NO_ACTUATORS` was; a client that does not know it should read it as `NO_ACTUATORS`.
 )
 
 // ActuatorWriteAccess represents how setActuatorWriteGrants changes one write grant.
@@ -289,25 +290,27 @@ type AggregateScoreOrderField string
 
 // Aggregate score order field.
 const (
-	AggregateScoreOrderFieldRiskScore       AggregateScoreOrderField = "RISK_SCORE"        // Risk score field.
-	AggregateScoreOrderFieldRiskValue       AggregateScoreOrderField = "RISK_VALUE"        // Risk value.
-	AggregateScoreOrderFieldCvss            AggregateScoreOrderField = "CVSS"              // Worst CVSS base score across the finding's packages — the same number the `cvss` field renders. Unlike RISK_VALUE this is not inverted: a higher CVSS is worse, so DESC surfaces the worst first. A finding carrying no CVSS sorts last descending and first ascending. Only SOFTWARE, INSTALLED_SOFTWARE, VULNERABILITY and ADVISORY findings carry a CVSS; every other score type reads 0. The value is populated on a scope's next aggregate-score refresh, so a scope that has not refreshed since this shipped sorts flat.
-	AggregateScoreOrderFieldRiskCategory    AggregateScoreOrderField = "RISK_CATEGORY"     // Risk category bucket (critical > high > medium > low > none), derived from the risk score. Unlike RISK_SCORE, this sorts by the discretized rating bucket, so a secondary order (e.g. ASSET_COUNT via thenBy) breaks ties within a category.
-	AggregateScoreOrderFieldRank            AggregateScoreOrderField = "RANK"              // Risk rank.
-	AggregateScoreOrderFieldBlastRadius     AggregateScoreOrderField = "BLAST_RADIUS"      // Risk score blast radius.
-	AggregateScoreOrderFieldTitle           AggregateScoreOrderField = "TITLE"             // Title.
-	AggregateScoreOrderFieldFirstDetectedAt AggregateScoreOrderField = "FIRST_DETECTED_AT" // First detected.
-	AggregateScoreOrderFieldSlaOverdueCount AggregateScoreOrderField = "SLA_OVERDUE_COUNT" // SLA overdue count.
-	AggregateScoreOrderFieldSlaAtRiskCount  AggregateScoreOrderField = "SLA_AT_RISK_COUNT" // SLA at risk count.
-	AggregateScoreOrderFieldCompletion      AggregateScoreOrderField = "COMPLETION"        // Completion percentage.
-	AggregateScoreOrderFieldAssetCount      AggregateScoreOrderField = "ASSET_COUNT"       // Total number of assets.
-	AggregateScoreOrderFieldWorkspaceCount  AggregateScoreOrderField = "WORKSPACE_COUNT"   // Number of workspaces containing this finding.
-	AggregateScoreOrderFieldNumChildren     AggregateScoreOrderField = "NUM_CHILDREN"      // Number of children (merged items).
-	AggregateScoreOrderFieldNumControls     AggregateScoreOrderField = "NUM_CONTROLS"      // Number of controls (frameworks).
-	AggregateScoreOrderFieldNumChecks       AggregateScoreOrderField = "NUM_CHECKS"        // Number of checks (policies).
-	AggregateScoreOrderFieldNumQueries      AggregateScoreOrderField = "NUM_QUERIES"       // Number of queries (policies).
-	AggregateScoreOrderFieldNumExceptions   AggregateScoreOrderField = "NUM_EXCEPTIONS"    // Number of exceptions (frameworks).
-	AggregateScoreOrderFieldOverallState    AggregateScoreOrderField = "OVERALL_STATE"     // Overall finding state, ranked by how much attention the finding needs rather than alphabetically: NEW, REGRESSED, DETECTED, FIX_AVAILABLE, TICKETED, IN_PROGRESS, EXCEPTIONS, WORKAROUND, FALSE_POSITIVE, RISK_ACCEPTED, DISABLED, FIXED. DESC surfaces the findings still needing action first, matching RISK_CATEGORY. Findings carrying no overall state sort last in DESC.
+	AggregateScoreOrderFieldRiskScore           AggregateScoreOrderField = "RISK_SCORE"             // Risk score field.
+	AggregateScoreOrderFieldRiskValue           AggregateScoreOrderField = "RISK_VALUE"             // Risk value.
+	AggregateScoreOrderFieldCvss                AggregateScoreOrderField = "CVSS"                   // Worst CVSS base score across the finding's packages — the same number the `cvss` field renders. Unlike RISK_VALUE this is not inverted: a higher CVSS is worse, so DESC surfaces the worst first. A finding carrying no CVSS sorts last descending and first ascending. Only SOFTWARE, INSTALLED_SOFTWARE, VULNERABILITY and ADVISORY findings carry a CVSS; every other score type reads 0. The value is populated on a scope's next aggregate-score refresh, so a scope that has not refreshed since this shipped sorts flat.
+	AggregateScoreOrderFieldRiskCategory        AggregateScoreOrderField = "RISK_CATEGORY"          // Risk category bucket (critical > high > medium > low > none), derived from the risk score. Unlike RISK_SCORE, this sorts by the discretized rating bucket, so a secondary order (e.g. ASSET_COUNT via thenBy) breaks ties within a category.
+	AggregateScoreOrderFieldRank                AggregateScoreOrderField = "RANK"                   // Risk rank.
+	AggregateScoreOrderFieldBlastRadius         AggregateScoreOrderField = "BLAST_RADIUS"           // Risk score blast radius.
+	AggregateScoreOrderFieldTitle               AggregateScoreOrderField = "TITLE"                  // Title.
+	AggregateScoreOrderFieldFirstDetectedAt     AggregateScoreOrderField = "FIRST_DETECTED_AT"      // First detected.
+	AggregateScoreOrderFieldLastScoreUpdateTime AggregateScoreOrderField = "LAST_SCORE_UPDATE_TIME" // When the finding's score last changed (the `lastScoreUpdateTime` field).
+	AggregateScoreOrderFieldScoreType           AggregateScoreOrderField = "SCORE_TYPE"             // Finding type in a fixed order: vulnerability, advisory, end of life (OS, software, hardware), check, policy, secret, malware, finding, then every other type. Ascending leads with vulnerabilities.
+	AggregateScoreOrderFieldSlaOverdueCount     AggregateScoreOrderField = "SLA_OVERDUE_COUNT"      // SLA overdue count.
+	AggregateScoreOrderFieldSlaAtRiskCount      AggregateScoreOrderField = "SLA_AT_RISK_COUNT"      // SLA at risk count.
+	AggregateScoreOrderFieldCompletion          AggregateScoreOrderField = "COMPLETION"             // Completion percentage.
+	AggregateScoreOrderFieldAssetCount          AggregateScoreOrderField = "ASSET_COUNT"            // Total number of assets.
+	AggregateScoreOrderFieldWorkspaceCount      AggregateScoreOrderField = "WORKSPACE_COUNT"        // Number of workspaces containing this finding.
+	AggregateScoreOrderFieldNumChildren         AggregateScoreOrderField = "NUM_CHILDREN"           // Number of children (merged items).
+	AggregateScoreOrderFieldNumControls         AggregateScoreOrderField = "NUM_CONTROLS"           // Number of controls (frameworks).
+	AggregateScoreOrderFieldNumChecks           AggregateScoreOrderField = "NUM_CHECKS"             // Number of checks (policies).
+	AggregateScoreOrderFieldNumQueries          AggregateScoreOrderField = "NUM_QUERIES"            // Number of queries (policies).
+	AggregateScoreOrderFieldNumExceptions       AggregateScoreOrderField = "NUM_EXCEPTIONS"         // Number of exceptions (frameworks).
+	AggregateScoreOrderFieldOverallState        AggregateScoreOrderField = "OVERALL_STATE"          // Overall finding state, ranked by how much attention the finding needs rather than alphabetically: NEW, REGRESSED, DETECTED, FIX_AVAILABLE, TICKETED, IN_PROGRESS, EXCEPTIONS, WORKAROUND, FALSE_POSITIVE, RISK_ACCEPTED, DISABLED, FIXED. DESC surfaces the findings still needing action first, matching RISK_CATEGORY. Findings carrying no overall state sort last in DESC.
 )
 
 // AggregateScoreRefreshStatus represents where a scope's aggregate-score refresh is in its lifecycle.
@@ -11111,6 +11114,7 @@ const (
 	PlanOutOfScopeReasonActuatorTargetGroupRequired    PlanOutOfScopeReason = "ACTUATOR_TARGET_GROUP_REQUIRED"    // The selected actuator cannot be pointed at an asset, and the plan addressed one. The change would land on a group the actuating system owns, and choosing that blast radius is not something a plan does on a caller's behalf.
 	PlanOutOfScopeReasonOrgRemediationNotGranted       PlanOutOfScopeReason = "ORG_REMEDIATION_NOT_GRANTED"       // Instead of `NO_ACTUATORS`: the organization's CrowdStrike Falcon integration manages this host, but the organization has not granted remediation through it to the plan's space. The detail says so and names no other space, host group or integration. Ask an organization admin (`requestActuatorWrite`). Additive: a client that does not know it should treat it as `NO_ACTUATORS` and show the detail.
 	PlanOutOfScopeReasonOrgRemediationPaused           PlanOutOfScopeReason = "ORG_REMEDIATION_PAUSED"            // Instead of `NO_ACTUATORS`: as `ORG_REMEDIATION_NOT_GRANTED`, but the space holds the grant and the organization paused remediation through the integration. The detail says so; the organization resumes it. Additive: treat it as `NO_ACTUATORS` and show the detail.
+	PlanOutOfScopeReasonOrgRemediationNotDeliverable   PlanOutOfScopeReason = "ORG_REMEDIATION_NOT_DELIVERABLE"   // Instead of `NO_ACTUATORS`: the space holds a grant and the organization's CrowdStrike Falcon integration has scanned this host under it, but the host is not currently deliverable to the plan's space — a later scan moved it to another asset of this same space (re-scan to re-establish the link), or it is linked to a host already claimed elsewhere. The detail says what to do and stays deliberately generic: it never reveals whether another space, host group or person is involved. Additive: treat it as `NO_ACTUATORS` and show the detail.
 	PlanOutOfScopeReasonActuatorAssetIdMissing         PlanOutOfScopeReason = "ACTUATOR_ASSET_ID_MISSING"         // The selected actuator addresses assets by the actuating system's own name for them, and its association with this asset carries no such name. Nothing could be addressed, so the step is not work the plan can offer. Worth its own value rather than folding into `NO_MATCHING_CAPABILITY`: the actuator is the right one, it accepts this change, and it reaches this asset. What is missing is one identifier on the association, which actuator discovery derives — so the fix is to re-run discovery, not to go shopping for an integration.
 	PlanOutOfScopeReasonActuatorWriteNotGranted        PlanOutOfScopeReason = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the plan's space has no write access to this target through it (RFC-234 "Write access"): the integration requires a grant and none is stored, an org admin denied it, or (GitHub) fix pull requests are off for the repository. The detail says which and what to do — `requestActuatorWrite` asks the org's admins. Only reachable from running a plan or applying a change. The step stays in the plan and is never dispatched; running the remainder after write access is granted delivers it.
 	PlanOutOfScopeReasonResolutionChanged              PlanOutOfScopeReason = "RESOLUTION_CHANGED"                // The change was re-resolved between the plan the caller reviewed and the run, so what would have been dispatched is not what was approved. Only reachable from running a plan: every step carries the resolution the plan was built on, and a step whose ActionSet was re-resolved since is refused at run time and again at hand-over. Refusing rather than dispatching is the point: a plan that grows or shifts at run time has moved the decision after the approval (RFC-234). Re-read the plan and confirm the change it now describes.
@@ -11318,6 +11322,15 @@ const (
 	PlanStepValidationPending   PlanStepValidation = "PENDING"    // The change is still needed. Whatever was dispatched has not taken — yet, or at all.
 	PlanStepValidationAssetGone PlanStepValidation = "ASSET_GONE" // The asset no longer exists. RFC-233's `removed_asset_gone`: not a failure and not a success, and reporting it as either would be a claim about a machine we cannot see.
 	PlanStepValidationUnknown   PlanStepValidation = "UNKNOWN"    // We could not determine it. Kept strictly apart from `CONVERGED`: a verdict standing in for "we did not look" is how a report claims work that never happened.
+)
+
+// PlanStepValidationReason represents what the validation of a step rests on when its change is a pull request (ADR-202611191525): a code fix, a dependency upgrade or a base-image bump. `VALIDATED` says that the finding is fixed on the asset, not who fixed it; this says which.
+type PlanStepValidationReason string
+
+// What the validation of a step rests on when its change is a pull request (ADR-202611191525): a code fix, a dependency upgrade or a base-image bump. `VALIDATED` says that the finding is fixed on the asset, not who fixed it; this says which.
+const (
+	PlanStepValidationReasonScanAfterMerge PlanStepValidationReason = "SCAN_AFTER_MERGE" // A scan of the repository, newer than the merge of the step's pull request, no longer reports the finding.
+	PlanStepValidationReasonFindingClosed  PlanStepValidationReason = "FINDING_CLOSED"   // The finding was closed by a scan that the merge does not explain: the pull request was open, closed, or merged only after the close.
 )
 
 // PlanStepValidationState represents whether cnspec confirms an ActionStep's change (ADR-190), as recorded on the step. Unlike `PlanStepValidation`, which `planValidation` computes on read, this is what the step's own delivery and later promotion concluded.
