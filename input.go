@@ -540,7 +540,7 @@ type ArdBrowseFilter struct {
 	Search *String `json:"search,omitempty" tfgen:"required=0"`
 	// Deprecated alias for `search`, with identical behavior. If both are given, `search` wins. (Optional.)
 	Name *String `json:"name,omitempty" tfgen:"required=0"`
-	// Per-field search terms, e.g. `{"vendor": "zilla"}`. Each is a case-insensitive substring matched against that field alone. They AND with each other and with `search`. A field you name is searched with the term you gave it; `search` covers everything you did not name. So `{fields: {vendor: "zilla"}, search: "fire"}` reads as "Mozilla software whose name says fire" — naming vendor does not make `search` hunt through vendors again, because you already said what to look for there. An empty value is the same as omitting the key, so clearing an input does not require dropping it. Supported keys are bounded by what the browse facet stores — today `name` and `vendor`. An unsupported key is an error rather than a silently empty page, and so is a `search` left with no field to cover because every supported field already has its own term. (Optional.)
+	// Per-field search terms, e.g. `{"vendor": "zilla"}`. Each is a case-insensitive substring matched against that field alone. They AND with each other and with `search`. A field you name is searched with the term you gave it; `search` covers everything you did not name. So `{fields: {vendor: "zilla"}, search: "fire"}` reads as "Mozilla software whose name says fire" — naming vendor does not make `search` hunt through vendors again, because you already said what to look for there. An empty value is the same as omitting the key, so clearing an input does not require dropping it. Supported keys are bounded by what the browse facet stores — today `name`, `vendor` and `type`. `type` is an exact (case-insensitive) match on one of `application`, `driver`, `firmware`, `os`, not a substring: a name matches when any of its in-scope versions has that type, and its versions list is not filtered. `search` never matches types. A name whose scope has not recomputed since the type was added to the facet matches no type. An unsupported key or an unknown type value is an error rather than a silently empty page, and so is a `search` left with no field to cover because every supported field already has its own term. (Optional.)
 	Fields *Map `json:"fields,omitempty" tfgen:"required=0"`
 	// Keep only names whose worst score is >= this (riskValue, 0-100, higher = worse). Read `totalCount` for the with-risk (1) or critical (90) counts without a separate call. (Optional.)
 	MinScore *Int `json:"minScore,omitempty" tfgen:"required=0"`
@@ -7662,6 +7662,8 @@ type TriggerActionOptionsInput struct {
 	Identifiers *[]String `json:"identifiers,omitempty" tfgen:"required=0"`
 	// Optional - AWS scan options. (Optional.)
 	AwsScanOptions *AwsScanOptions `json:"awsScanOptions,omitempty" tfgen:"required=0"`
+	// Optional, with the RUN action only: scan this one asset, not the whole integration. The asset must be one the integration reported. AWS serverless integrations on server scheduling only, for an account, an EC2 instance or an ECR image. (Optional.)
+	AssetMrn *String `json:"assetMrn,omitempty" tfgen:"required=0"`
 }
 
 // TriggerAuditLogExportInput represents input for triggering an ad-hoc audit log export.
