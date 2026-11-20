@@ -178,6 +178,8 @@ const (
 	ActuatorUnresolvedReasonNoMatchingCapability        ActuatorUnresolvedReason = "NO_MATCHING_CAPABILITY"        // The asset has actuators, but none accepts this vocabulary. The gap is a delivery path, not an association.
 	ActuatorUnresolvedReasonAllDisabled                 ActuatorUnresolvedReason = "ALL_DISABLED"                  // An actuator could have delivered it, but every candidate is switched off. The gap is a toggle, and it is the case an operator is most likely to have caused themselves.
 	ActuatorUnresolvedReasonMechanismNotActuatable      ActuatorUnresolvedReason = "MECHANISM_NOT_ACTUATABLE"      // Every requested mechanism is manual — prose a human applies. No actuator will ever match, on this asset or any other, so there is no gap to close. Distinct from NO_MATCHING_CAPABILITY on purpose: that one asks an operator to add an actuator, which for a manual mechanism is advice that can never be taken.
+	ActuatorUnresolvedReasonOrgRemediationNotGranted    ActuatorUnresolvedReason = "ORG_REMEDIATION_NOT_GRANTED"   // The asset has no actuator of its own or this space's, but the ORGANIZATION's CrowdStrike Falcon integration manages its host and the organization has not granted remediation through it to this space. The gap is the organization's decision: ask an organization admin (`requestActuatorWrite`). Names no other space, host group or integration. Additive: a client that does not know it should read it as `NO_ACTUATORS` (nothing here can deliver this). Only returned where `NO_ACTUATORS` was.
+	ActuatorUnresolvedReasonOrgRemediationPaused        ActuatorUnresolvedReason = "ORG_REMEDIATION_PAUSED"        // As `ORG_REMEDIATION_NOT_GRANTED`, but the space holds the grant and the organization paused remediation through the integration. Nothing for the space to change: the organization resumes it. Names nobody and no reason. Only returned where `NO_ACTUATORS` was.
 )
 
 // ActuatorWriteAccess represents how setActuatorWriteGrants changes one write grant.
@@ -608,6 +610,16 @@ type AssetMondooMode string
 const (
 	AssetMondooModeScored  AssetMondooMode = "SCORED"  // Counts towards its scope's score and towards aggregate asset types.
 	AssetMondooModeIgnored AssetMondooMode = "IGNORED" // Results are kept and readable, but count towards nothing: not the space score, not aggregate asset types.
+)
+
+// AssetMondooModeReason represents why an asset's results count towards nothing beyond it.
+type AssetMondooModeReason string
+
+// Why an asset's results count towards nothing beyond it.
+const (
+	AssetMondooModeReasonSetHere    AssetMondooModeReason = "SET_HERE"     // Someone set this asset to ignored.
+	AssetMondooModeReasonInherited  AssetMondooModeReason = "INHERITED"    // A grouping asset containing it is ignored (inheritedFrom names it).
+	AssetMondooModeReasonOutOfScope AssetMondooModeReason = "OUT_OF_SCOPE" // Its governance resolves to OUT_OF_SCOPE: nobody cares about it, so it does not weigh on any score (inheritedFrom names the asset or group decided on).
 )
 
 // AssetOrderField represents asset order field.
@@ -10945,6 +10957,15 @@ const (
 	PlanExceptionTermSourceAi     PlanExceptionTermSource = "AI"     // The model, editing the plan for the person.
 )
 
+// PlanExternalRefHoldReason represents what keeps an open external reference from going on. More reasons may be added; a client shows `detail` for one it does not know.
+type PlanExternalRefHoldReason string
+
+// What keeps an open external reference from going on. More reasons may be added; a client shows `detail` for one it does not know.
+const (
+	PlanExternalRefHoldReasonConflictsWithBase PlanExternalRefHoldReason = "CONFLICTS_WITH_BASE" // The pull request conflicts with its base branch and cannot be merged as it is.
+	PlanExternalRefHoldReasonOther             PlanExternalRefHoldReason = "OTHER"               // A reason this server version reports and this schema does not name yet.
+)
+
 // PlanExternalRefHost represents the code host an external reference's URL points at.
 type PlanExternalRefHost string
 
@@ -11088,6 +11109,8 @@ const (
 	PlanOutOfScopeReasonActuatorDeliveryNotImplemented PlanOutOfScopeReason = "ACTUATOR_DELIVERY_NOT_IMPLEMENTED" // An integration-backed actuator was selected and Mondoo has no delivery path wired for its type, or none for this KIND of change — an integration can have a fix path and no removal path. A gap on our side that will close, rather than a property of the system.
 	PlanOutOfScopeReasonActuatorUnavailable            PlanOutOfScopeReason = "ACTUATOR_UNAVAILABLE"              // An integration-backed actuator was selected and the integration cannot currently be used — expired credentials, paused, deleted, or setup never finished. Resolution is unchanged and the actuator is still the right one; it is the integration that needs attention. Also the reason of a step held because remediation through the organization's integration is not enabled for the organization (the hold, not a refusal: the step is filed never dispatched and a later run picks it up once it is enabled).
 	PlanOutOfScopeReasonActuatorTargetGroupRequired    PlanOutOfScopeReason = "ACTUATOR_TARGET_GROUP_REQUIRED"    // The selected actuator cannot be pointed at an asset, and the plan addressed one. The change would land on a group the actuating system owns, and choosing that blast radius is not something a plan does on a caller's behalf.
+	PlanOutOfScopeReasonOrgRemediationNotGranted       PlanOutOfScopeReason = "ORG_REMEDIATION_NOT_GRANTED"       // Instead of `NO_ACTUATORS`: the organization's CrowdStrike Falcon integration manages this host, but the organization has not granted remediation through it to the plan's space. The detail says so and names no other space, host group or integration. Ask an organization admin (`requestActuatorWrite`). Additive: a client that does not know it should treat it as `NO_ACTUATORS` and show the detail.
+	PlanOutOfScopeReasonOrgRemediationPaused           PlanOutOfScopeReason = "ORG_REMEDIATION_PAUSED"            // Instead of `NO_ACTUATORS`: as `ORG_REMEDIATION_NOT_GRANTED`, but the space holds the grant and the organization paused remediation through the integration. The detail says so; the organization resumes it. Additive: treat it as `NO_ACTUATORS` and show the detail.
 	PlanOutOfScopeReasonActuatorAssetIdMissing         PlanOutOfScopeReason = "ACTUATOR_ASSET_ID_MISSING"         // The selected actuator addresses assets by the actuating system's own name for them, and its association with this asset carries no such name. Nothing could be addressed, so the step is not work the plan can offer. Worth its own value rather than folding into `NO_MATCHING_CAPABILITY`: the actuator is the right one, it accepts this change, and it reaches this asset. What is missing is one identifier on the association, which actuator discovery derives — so the fix is to re-run discovery, not to go shopping for an integration.
 	PlanOutOfScopeReasonActuatorWriteNotGranted        PlanOutOfScopeReason = "ACTUATOR_WRITE_NOT_GRANTED"        // The selected actuator is an organization-level integration, and the plan's space has no write access to this target through it (RFC-234 "Write access"): the integration requires a grant and none is stored, an org admin denied it, or (GitHub) fix pull requests are off for the repository. The detail says which and what to do — `requestActuatorWrite` asks the org's admins. Only reachable from running a plan or applying a change. The step stays in the plan and is never dispatched; running the remainder after write access is granted delivers it.
 	PlanOutOfScopeReasonResolutionChanged              PlanOutOfScopeReason = "RESOLUTION_CHANGED"                // The change was re-resolved between the plan the caller reviewed and the run, so what would have been dispatched is not what was approved. Only reachable from running a plan: every step carries the resolution the plan was built on, and a step whose ActionSet was re-resolved since is refused at run time and again at hand-over. Refusing rather than dispatching is the point: a plan that grows or shifts at run time has moved the decision after the approval (RFC-234). Re-read the plan and confirm the change it now describes.
@@ -11105,6 +11128,7 @@ const (
 	PlanOutOfScopeReasonRunnerNotAuthorized            PlanOutOfScopeReason = "RUNNER_NOT_AUTHORIZED"             // The step waited for the plan rollout, and the identity that ran (or scheduled) its phase no longer held the authority the run needed when the rollout was to hand it over: the permission to run the plan, to act through the actuating system, or to execute the delivery Workflow (ADR-222 § 12). A deleted identity holds none. Nothing was applied; someone with that authority can run the remainder.
 	PlanOutOfScopeReasonOther                          PlanOutOfScopeReason = "OTHER"                             // None of the above. Present so a reason we have not yet named lands somewhere honest rather than being filed under a neighbouring one that would send a reader after the wrong fix.
 	PlanOutOfScopeReasonDeliveryInFlight               PlanOutOfScopeReason = "DELIVERY_IN_FLIGHT"                // The step is held because its asset has another delivery in flight (ADR-290 §2): deliveries to one asset go one at a time, and this one starts when that one ends. A hold reason, never an outcome.
+	PlanOutOfScopeReasonCentrallyManaged               PlanOutOfScopeReason = "CENTRALLY_MANAGED"                 // The check's fix must not be applied per host: the asset is centrally managed (a domain- or Entra/Intune-joined Windows host, whose configuration a local change would not hold), or the fix's risk class says it must be applied deliberately (an operator must choose its value, or it could sever the management channel). `createPlan` proposes it as a WORKAROUND exception to apply through that channel; the item's detail says which and why. A customer decision point, not a gap of ours to close.
 )
 
 // PlanOutcomeBucket represents where one ActionStep landed (RFC-233 § Progress, done-ness and outcomes).
