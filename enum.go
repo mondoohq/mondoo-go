@@ -1786,7 +1786,7 @@ const (
 	FindingScoreStateFailed             FindingScoreState = "FAILED"
 	FindingScoreStateFixed              FindingScoreState = "FIXED"
 	FindingScoreStatePassed             FindingScoreState = "PASSED"               // A policy check that is passing and has never failed on the asset. FIXED is reserved for findings that went from failing to passing.
-	FindingScoreStateNoLongerApplicable FindingScoreState = "NO_LONGER_APPLICABLE" // The terminal tombstone state: the check stopped resolving onto the asset (policy unassigned, resolved policy changed) and the finding was kept as evidence instead of deleted. Never remediation. Only check findings carry it.
+	FindingScoreStateNoLongerApplicable FindingScoreState = "NO_LONGER_APPLICABLE" // The finding no longer applies and was kept as evidence. Never remediation. A check carries it when it stopped resolving onto the asset (policy unassigned, resolved policy changed). A CVE or advisory carries it when it closed because our vulnerability data changed, not the asset (ADR-202611201526).
 )
 
 // FindingSecurityPipelineState represents the security pipeline state for a finding.
@@ -11779,7 +11779,7 @@ const (
 	ScoreStateFilterException          ScoreStateFilter = "EXCEPTION"            // Only scores with exceptions.
 	ScoreStateFilterScanError          ScoreStateFilter = "SCAN_ERROR"           // Only checks that errored during the scan; neither open nor fixed.
 	ScoreStateFilterPassed             ScoreStateFilter = "PASSED"               // Only policy checks whose score state is PASSED: passing, never failed. Findings list only.
-	ScoreStateFilterNoLongerApplicable ScoreStateFilter = "NO_LONGER_APPLICABLE" // Only tombstoned checks (ADR-107): the check stopped resolving onto the asset and the finding was kept as evidence. Every other bucket excludes these. Findings list only.
+	ScoreStateFilterNoLongerApplicable ScoreStateFilter = "NO_LONGER_APPLICABLE" // Findings that no longer apply, kept as evidence: tombstoned checks (ADR-107), and CVEs and advisories closed because our vulnerability data changed, not the asset (ADR-202611201526). Every other bucket excludes these. Findings list only.
 )
 
 // ScoreType represents score type.
