@@ -3303,6 +3303,8 @@ type FleetScanRunInput struct {
 	DebugKeepArtifacts *Boolean `json:"debugKeepArtifacts,omitempty" tfgen:"required=0"`
 	// With a recurrence, also start the group's first scan now (ADR-300): the schedule is saved, then one scan of the group is dispatched, and the returned FleetScanSchedule carries it as `initialScan` (or `initialScanError`). Without a recurrence it changes nothing: a one-shot run already starts now. Defaults to false. (Optional.)
 	RunNow *Boolean `json:"runNow,omitempty" tfgen:"required=0"`
+	// Narrows a one-off scan to these provider host ids (the ids FleetScanHost.hostId reports, such as a CrowdStrike AID or a SentinelOne agent uuid) within hostGroupId: a host outside the group is never scanned. At most 100. Not allowed with a recurrence. A provider that cannot narrow a scan rejects the run instead of scanning the whole group. Omit it to scan the whole group. (Optional.)
+	TargetHostIDs *[]String `json:"targetHostIds,omitempty" tfgen:"required=0"`
 }
 
 // FleetScanWeeklyInput represents a weekly cadence.
@@ -6754,6 +6756,12 @@ type SentinelOneConfigurationOptionsInput struct {
 	ImportAssetCriticality *Boolean `json:"importAssetCriticality,omitempty" tfgen:"required=0"`
 	// MRN of an existing typed credential to authenticate with, instead of supplying a secret inline. Mutually exclusive with certificate and clientSecret. The credential must be a SentinelOne API token credential owned by the integration's own scope — the same space, or the same organization for an org-level integration. Ownership is matched exactly. The credential owns the host; the account stays on the integration. Supplying this on create makes the integration reference the credential rather than hold a secret of its own; on update it re-points the integration at a different credential, and omitting it keeps the current one. An integration cannot be moved between the two models after it is created. (Optional.)
 	CredentialMrn *String `json:"credentialMrn,omitempty" tfgen:"required=0"`
+	// Which endpoints fleet scans import as Mondoo assets. SCANNED_GROUPS imports the endpoints of the groups fleet scans target, when each scan starts; OFF imports none. Unset means OFF. ALL is refused: the tenant-wide import is createAssets. Omit to keep what is stored. (Optional.)
+	ImportAssetsScope *ImportAssetsScope `json:"importAssetsScope,omitempty" tfgen:"required=0"`
+	// Opt-in. When true, imported endpoints carry the last logged-in user's name and Active Directory user principal name as labels (sentinelone/user-name, sentinelone/user-upn), and the UPN becomes the asset's owner when it is a valid email address. Off by default because it is personal data. Omit to keep what is stored. (Optional.)
+	ImportDeviceUser *Boolean `json:"importDeviceUser,omitempty" tfgen:"required=0"`
+	// Fleet-scan: stage cnspec and its providers in the SentinelOne script library as a script package, so each host receives them through the agent instead of downloading from install.mondoo.com, for hosts without internet access. Off by default: each host downloads cnspec itself. Omit to keep what is stored. (Optional.)
+	BinaryStaging *Boolean `json:"binaryStaging,omitempty" tfgen:"required=0"`
 }
 
 // SentineloneCredentialV2Input represents a SentinelOne console URL and API token. The integration also accepts a certificate today, but nothing downstream can use one — the import authenticates with an API token — so a token is what this holds.
