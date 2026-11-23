@@ -8,7 +8,7 @@ require (
 	github.com/go-jose/go-jose/v4 v4.1.9
 	github.com/shurcooL/graphql v0.0.0-20230722043721-ed46e5a46466
 	github.com/stretchr/testify v1.12.1
-	golang.org/x/oauth2 v0.37.0
+	golang.org/x/oauth2 v0.38.0
 	sigs.k8s.io/yaml v1.6.0
 )
 
