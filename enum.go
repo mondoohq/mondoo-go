@@ -112,6 +112,7 @@ const (
 	ActuatorCapabilityKindIacCloudformation ActuatorCapabilityKind = "IAC_CLOUDFORMATION" // Accepts CloudFormation content.
 	ActuatorCapabilityKindPackage           ActuatorCapabilityKind = "PACKAGE"            // Addresses the actuator's own package vocabulary — Intune's winget ids, opsi's depot products, a Jamf app catalog — so the actuator does its own detection and reporting rather than executing a script we wrote. Whether a given product is covered is a catalog question, not a capability one.
 	ActuatorCapabilityKindSource            ActuatorCapabilityKind = "SOURCE"             // Changes a repository's dependency manifests and lockfiles and proposes them for review — a pull request or merge request through the system that holds the repository (ADR-333). Nothing changes until a person merges it.
+	ActuatorCapabilityKindIacGpo            ActuatorCapabilityKind = "IAC_GPO"            // Accepts a Group Policy object: a backup the directory imports and applies to a group of computers. No actuator offers it yet.
 )
 
 // ActuatorDurability represents whether a change delivered this way stays.
@@ -10754,6 +10755,15 @@ const (
 	NvdStatusModifiedAfterEnrichment NvdStatus = "MODIFIED_AFTER_ENRICHMENT"
 	NvdStatusNotScheduled            NvdStatus = "NOT_SCHEDULED"
 	NvdStatusRejected                NvdStatus = "REJECTED"
+)
+
+// OAuthAuthorizationKind represents oAuth authorization kind.
+type OAuthAuthorizationKind string
+
+// OAuth authorization kind.
+const (
+	OAuthAuthorizationKindCode   OAuthAuthorizationKind = "CODE"   // Authorization code with PKCE (browser on the same machine).
+	OAuthAuthorizationKindDevice OAuthAuthorizationKind = "DEVICE" // Device authorization (the human types a code).
 )
 
 // OrderDirection represents defines the possible directions in which to sort a list of items.
