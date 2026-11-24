@@ -12213,6 +12213,17 @@ const (
 	WorkflowTaskTypeMonitorExecution  WorkflowTaskType = "MONITOR_EXECUTION"
 )
 
+// WorkflowTemplateStage represents where a workflow template stands in its lifecycle. It decides who the template gallery lists it for; workflowTemplates lists GA unless asked for others.
+type WorkflowTemplateStage string
+
+// Where a workflow template stands in its lifecycle. It decides who the template gallery lists it for; workflowTemplates lists GA unless asked for others.
+const (
+	WorkflowTemplateStageGa       WorkflowTemplateStage = "GA"       // Generally available.
+	WorkflowTemplateStageBeta     WorkflowTemplateStage = "BETA"     // Experimental. Customers may opt in to see it.
+	WorkflowTemplateStageLabs     WorkflowTemplateStage = "LABS"     // Under development at Mondoo.
+	WorkflowTemplateStageInternal WorkflowTemplateStage = "INTERNAL" // For Mondoo's own use.
+)
+
 // WorkspaceSelectionConditionIntField represents workspace selection condition int fields.
 type WorkspaceSelectionConditionIntField string
 
