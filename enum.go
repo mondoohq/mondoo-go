@@ -1124,6 +1124,7 @@ const (
 	ClientIntegrationTypeAtlassian                 ClientIntegrationType = "ATLASSIAN"
 	ClientIntegrationTypeAzureDevopsRepos          ClientIntegrationType = "AZURE_DEVOPS_REPOS"
 	ClientIntegrationTypeAction1                   ClientIntegrationType = "ACTION1"
+	ClientIntegrationTypeActiveDirectory           ClientIntegrationType = "ACTIVE_DIRECTORY"
 )
 
 // ComparisonOperator represents comparison operators for filtering.
@@ -10330,6 +10331,7 @@ const (
 	IntegrationTypeAtlassian                 IntegrationType = "ATLASSIAN"
 	IntegrationTypeAzureDevopsRepos          IntegrationType = "AZURE_DEVOPS_REPOS"
 	IntegrationTypeAction1                   IntegrationType = "ACTION1"
+	IntegrationTypeActiveDirectory           IntegrationType = "ACTIVE_DIRECTORY"
 )
 
 // InterconnectionEdgeType represents edge type in the asset interconnection graph.
@@ -10637,6 +10639,19 @@ const (
 	MvdEcosystemWindowsappx MvdEcosystem = "WINDOWSAPPX"
 )
 
+// MvdExploitationSource represents a source that reports a vulnerability as exploited.
+type MvdExploitationSource string
+
+// A source that reports a vulnerability as exploited.
+const (
+	MvdExploitationSourceCisaKev           MvdExploitationSource = "CISA_KEV"            // CISA Known Exploited Vulnerabilities catalog.
+	MvdExploitationSourceEuKev             MvdExploitationSource = "EU_KEV"              // ENISA's EU known-exploited list (EUVD).
+	MvdExploitationSourceVulncheckKev      MvdExploitationSource = "VULNCHECK_KEV"       // VulnCheck KEV.
+	MvdExploitationSourceInthewild         MvdExploitationSource = "INTHEWILD"           // inthewild.io exploitation reports.
+	MvdExploitationSourceGoogleProjectZero MvdExploitationSource = "GOOGLE_PROJECT_ZERO" // Google Project Zero's 0-day in-the-wild tracker.
+	MvdExploitationSourceMetasploit        MvdExploitationSource = "METASPLOIT"          // A Metasploit module: working public exploit code exists.
+)
+
 // MvdRangeType represents versioning scheme for an affected range.
 type MvdRangeType string
 
@@ -10764,6 +10779,16 @@ type OAuthAuthorizationKind string
 const (
 	OAuthAuthorizationKindCode   OAuthAuthorizationKind = "CODE"   // Authorization code with PKCE (browser on the same machine).
 	OAuthAuthorizationKindDevice OAuthAuthorizationKind = "DEVICE" // Device authorization (the human types a code).
+)
+
+// OAuthClientKind represents how an OAuth client was identified.
+type OAuthClientKind string
+
+// How an OAuth client was identified.
+const (
+	OAuthClientKindFirstParty OAuthClientKind = "FIRST_PARTY" // The Mondoo CLI (cnspec, mql, xgrep).
+	OAuthClientKindCimd       OAuthClientKind = "CIMD"        // A client whose client_id is the URL of a metadata document it publishes. The server fetched the document from that URL, so its host is verified; its name is not.
+	OAuthClientKindDcr        OAuthClientKind = "DCR"         // A client that registered itself. Nothing about it is verified.
 )
 
 // OrderDirection represents defines the possible directions in which to sort a list of items.
