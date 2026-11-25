@@ -10934,6 +10934,106 @@ const (
 	PlanAssessmentModeWait  PlanAssessmentMode = "WAIT"  // Wait until no step is `ASSESSING`, for at most 60 seconds, then return the plan as it is. Steps still open come back `ASSESSING` and finish in the background; a slow assessment is never an error.
 )
 
+// PlanCreationBasis represents what a plan is made from, which decides the stages its creation goes through.
+type PlanCreationBasis string
+
+// What a plan is made from, which decides the stages its creation goes through.
+const (
+	PlanCreationBasisGoals                PlanCreationBasis = "GOALS"                  // Goals alone: the goals choose the findings and the assets.
+	PlanCreationBasisFindingsAcrossAssets PlanCreationBasis = "FINDINGS_ACROSS_ASSETS" // Findings without assets: every asset in the space where each is open.
+	PlanCreationBasisAssets               PlanCreationBasis = "ASSETS"                 // Findings on named assets: nothing to choose.
+	PlanCreationBasisSoftwareUpgrade      PlanCreationBasis = "SOFTWARE_UPGRADE"       // Software to upgrade.
+	PlanCreationBasisSoftwareRemoval      PlanCreationBasis = "SOFTWARE_REMOVAL"       // Software or components to remove.
+	PlanCreationBasisPrompt               PlanCreationBasis = "PROMPT"                 // A prompt: a model decides what the plan holds.
+)
+
+// PlanCreationEventKind represents what one event of a creation reports.
+type PlanCreationEventKind string
+
+// What one event of a creation reports.
+const (
+	PlanCreationEventKindSelected      PlanCreationEventKind = "SELECTED"      // What the selection chose, per goal, finding or software.
+	PlanCreationEventKindRemediation   PlanCreationEventKind = "REMEDIATION"   // A change was resolved: one per ActionSet, with the assets it covers.
+	PlanCreationEventKindNoFix         PlanCreationEventKind = "NO_FIX"        // Pairs no change resolved for, by reason.
+	PlanCreationEventKindAssessing     PlanCreationEventKind = "ASSESSING"     // Pairs whose change is decided in the background (ADR-408).
+	PlanCreationEventKindConsideration PlanCreationEventKind = "CONSIDERATION" // An operational consideration of the plan's changes: a reboot, a restart, what a removal leaves.
+	PlanCreationEventKindActuator      PlanCreationEventKind = "ACTUATOR"      // The assets an actuator delivers to.
+	PlanCreationEventKindUndeliverable PlanCreationEventKind = "UNDELIVERABLE" // Pairs nothing can deliver, by reason.
+	PlanCreationEventKindSteps         PlanCreationEventKind = "STEPS"         // How the pairs became steps.
+	PlanCreationEventKindExceptions    PlanCreationEventKind = "EXCEPTIONS"    // Exceptions proposed for what has no fix.
+	PlanCreationEventKindPhases        PlanCreationEventKind = "PHASES"        // How the steps were divided into phases.
+	PlanCreationEventKindImpact        PlanCreationEventKind = "IMPACT"        // The plan's predicted impact.
+	PlanCreationEventKindPrompt        PlanCreationEventKind = "PROMPT"        // What a model made of the prompt.
+)
+
+// PlanCreationMode represents whether a mutation that creates a plan waits for it (RFC-233 § Creation progress).
+type PlanCreationMode string
+
+// Whether a mutation that creates a plan waits for it (RFC-233 § Creation progress).
+const (
+	PlanCreationModeAsync PlanCreationMode = "ASYNC" // Return the plan as soon as it is stored, with `creation.state` `RUNNING`.
+	PlanCreationModeWait  PlanCreationMode = "WAIT"  // Wait until the creation ended, for at most 60 seconds, then return the plan as it is. A creation still running comes back `RUNNING` and finishes in the background.
+)
+
+// PlanCreationRefKind represents what an event's reference names.
+type PlanCreationRefKind string
+
+// What an event's reference names.
+const (
+	PlanCreationRefKindAsset     PlanCreationRefKind = "ASSET"      // An asset.
+	PlanCreationRefKindFinding   PlanCreationRefKind = "FINDING"    // A finding: a CVE, an advisory or a check.
+	PlanCreationRefKindActionSet PlanCreationRefKind = "ACTION_SET" // A stored change.
+	PlanCreationRefKindActuator  PlanCreationRefKind = "ACTUATOR"   // An actuator that delivers changes.
+	PlanCreationRefKindGoal      PlanCreationRefKind = "GOAL"       // A goal of the plan.
+	PlanCreationRefKindPhase     PlanCreationRefKind = "PHASE"      // A phase of the plan.
+	PlanCreationRefKindSoftware  PlanCreationRefKind = "SOFTWARE"   // A piece of software or a component.
+)
+
+// PlanCreationStageKind represents one stage of a plan's creation, in the order they run.
+type PlanCreationStageKind string
+
+// One stage of a plan's creation, in the order they run.
+const (
+	PlanCreationStageKindQueued          PlanCreationStageKind = "QUEUED"            // Waiting for a slot: the server bounds how many plans it creates at once.
+	PlanCreationStageKindInterpretPrompt PlanCreationStageKind = "INTERPRET_PROMPT"  // A model reads the prompt and decides what to change.
+	PlanCreationStageKindSelect          PlanCreationStageKind = "SELECT"            // Choosing the (asset, subject) pairs. Counts: `matched`, `planned`, `assets`, `subjects`.
+	PlanCreationStageKindResolveFixes    PlanCreationStageKind = "RESOLVE_FIXES"     // Resolving the change each pair needs, stored as an ActionSet. Counts over pairs; counts: `changes`, `noFix`, `assessing`.
+	PlanCreationStageKindActuators       PlanCreationStageKind = "ACTUATORS"         // Finding the actuator that delivers each change. Counts: `deliverable`, `undeliverable`.
+	PlanCreationStageKindSteps           PlanCreationStageKind = "STEPS"             // Turning the pairs into steps. Counts: `steps`, `groupSteps`, `manualSteps`, `assessingSteps`, `outOfScope`.
+	PlanCreationStageKindConsiderations  PlanCreationStageKind = "CONSIDERATIONS"    // What the changes ask operationally: reboots, restarts, what a removal leaves. Counts: `considerations`, `assets`.
+	PlanCreationStageKindExceptions      PlanCreationStageKind = "EXCEPTIONS"        // Proposing exceptions for what has no fix. Counts: `proposed`.
+	PlanCreationStageKindPhases          PlanCreationStageKind = "PHASES"            // Dividing the steps into phases. Counts: `phases`, `steps`.
+	PlanCreationStageKindImpact          PlanCreationStageKind = "IMPACT"            // Predicting what the plan does to the space. Counts: `resolvedFindings`, `affectedAssets`.
+	PlanCreationStageKindStore           PlanCreationStageKind = "STORE"             // Storing the plan.
+	PlanCreationStageKindAssessFixes     PlanCreationStageKind = "ASSESS_FIXES"      // Deciding repository fixes in the background (ADR-408). Counts: `assessing`, `ready`, `noFix`, `failed`. Read from the plan's steps.
+	PlanCreationStageKindChangePreviews  PlanCreationStageKind = "CHANGE_PREVIEWS"   // Dry-running repository changes (ADR-404). Counts: `pending`, `ready`, `failed`. Read from the plan's steps.
+	PlanCreationStageKindAiPhasePlanning PlanCreationStageKind = "AI_PHASE_PLANNING" // The AI planner dividing the plan again (ADR-409). Read from `phasePlanning`.
+	PlanCreationStageKindSummary         PlanCreationStageKind = "SUMMARY"           // Writing the plan's AI summaries. Read from `text`.
+)
+
+// PlanCreationStageState represents where one stage of a creation stands.
+type PlanCreationStageState string
+
+// Where one stage of a creation stands.
+const (
+	PlanCreationStageStatePending PlanCreationStageState = "PENDING" // Not reached yet.
+	PlanCreationStageStateRunning PlanCreationStageState = "RUNNING" // Running now.
+	PlanCreationStageStateDone    PlanCreationStageState = "DONE"    // Ended.
+	PlanCreationStageStateSkipped PlanCreationStageState = "SKIPPED" // Does not apply to this plan.
+	PlanCreationStageStateFailed  PlanCreationStageState = "FAILED"  // The creation failed in it.
+)
+
+// PlanCreationState represents where a plan's creation stands.
+type PlanCreationState string
+
+// Where a plan's creation stands.
+const (
+	PlanCreationStateRunning       PlanCreationState = "RUNNING"         // The plan is being resolved. It cannot be edited, prompted, finalized or run yet.
+	PlanCreationStateDone          PlanCreationState = "DONE"            // The plan was resolved and holds its steps.
+	PlanCreationStateNothingToPlan PlanCreationState = "NOTHING_TO_PLAN" // The selection resolved no step. The plan stays an empty draft; `nothingToPlan` says why.
+	PlanCreationStateFailed        PlanCreationState = "FAILED"          // The creation failed, or the server creating it stopped. `failure` says why.
+)
+
 // PlanDeliveryBundleKind represents whether an asset's queued steps go out as one delivery (ADR-290 §3).
 type PlanDeliveryBundleKind string
 
