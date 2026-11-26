@@ -12079,6 +12079,28 @@ const (
 	StepChangePreviewStateFailed  StepChangePreviewState = "FAILED"  // There is no preview; `reason` says why.
 )
 
+// StepProtectionCoverage represents whether a step takes a protection (ADR-202611251344).
+type StepProtectionCoverage string
+
+// Whether a step takes a protection (ADR-202611251344).
+const (
+	StepProtectionCoverageYes         StepProtectionCoverage = "YES"          // Taken. For APP_BACKUP: without it the script changes nothing.
+	StepProtectionCoverageIfAvailable StepProtectionCoverage = "IF_AVAILABLE" // Taken where the device supports it; the change goes on without it otherwise.
+	StepProtectionCoverageNo          StepProtectionCoverage = "NO"           // Not taken.
+)
+
+// StepProtectionKind represents a kind of pre-change protection (ADR-202611251344).
+type StepProtectionKind string
+
+// A kind of pre-change protection (ADR-202611251344).
+const (
+	StepProtectionKindAppBackup           StepProtectionKind = "APP_BACKUP"            // A copy of the app's state (data, configuration) the script itself restores on failure.
+	StepProtectionKindServiceRestart      StepProtectionKind = "SERVICE_RESTART"       // The script stops the app's service, upgrades it and starts it again.
+	StepProtectionKindVolumeSnapshot      StepProtectionKind = "VOLUME_SNAPSHOT"       // A Volume Shadow Copy of the affected volumes before the install (Windows).
+	StepProtectionKindRunningVersionCheck StepProtectionKind = "RUNNING_VERSION_CHECK" // The script checks that the running version is the installed one before it reports success.
+	StepProtectionKindRollback            StepProtectionKind = "ROLLBACK"              // The script puts the previous version back when the change does not verify.
+)
+
 // Technology represents coarse technology bucket for filtering and grouping remediations.
 type Technology string
 

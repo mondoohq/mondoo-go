@@ -525,6 +525,9 @@ type ApproveOAuthAuthorizationInput struct {
 	RequestId ID `json:"requestId" tfgen:"required=1"`
 	// What the login is for: the MRN of a space or of an organization. (Required.)
 	ScopeMrn String `json:"scopeMrn" tfgen:"required=1"`
+
+	// The OAuth scopes the user approves, out of the ones the client asked for. Only mondoo:write can be left out. Without this field every requested scope except mondoo:write is approved: writing is approved only when it is named. (Optional.)
+	Scopes *[]String `json:"scopes,omitempty" tfgen:"required=0"`
 }
 
 // ApproveWorkflowStepInput represents input for approving a workflow step.
