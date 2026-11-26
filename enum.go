@@ -1884,6 +1884,7 @@ const (
 	FleetDeviceIssueCodeNotReporting         FleetDeviceIssueCode = "NOT_REPORTING"          // An earlier fleet scan of this group targeted the host, but the management system no longer lists it in the group — the agent was removed or is not approved yet, the host was renamed, or it left the group. An agent that never registered at all (e.g. a macOS system extension awaiting approval) is invisible to the management system and can only appear this way.
 	FleetDeviceIssueCodeMembershipPending    FleetDeviceIssueCode = "MEMBERSHIP_PENDING"     // The host's own agent record still names the group, but the management system's evaluated membership no longer contains it: the group's rule now excludes it, or it was removed from the group, and the agent has not checked in since. It is not a member, and fleet scans of the group do not target it.
 	FleetDeviceIssueCodeNotReachedRecently   FleetDeviceIssueCode = "NOT_REACHED_RECENTLY"   // The device did not answer most of this group's recent fleet scans: in at least two of its last three scans it was not reached by the deadline, was offline when the scan started, or its agent did not run the script, and it has not answered since. A hint only, taken from scan history; it does not exclude the device from a scan or a remediation. Expect the next run to leave it pending or not assessed too.
+	FleetDeviceIssueCodeImePolicyFetchStale  FleetDeviceIssueCode = "IME_POLICY_FETCH_STALE" // Intune only: the Intune Management Extension on the device last polled policy more than 24 hours before the device's latest result report was received, so it may not pick up a health script. Taken from the device's own report (read-only facts about its IME); a hint only, it does not exclude the device from a scan or a remediation.
 )
 
 // FleetHostGroupDirectoryState represents where a host-group page with devices came from (ADR-385).
@@ -10536,7 +10537,10 @@ type MembershipOrderField string
 
 // Field to order memberships by.
 const (
-	MembershipOrderFieldName MembershipOrderField = "NAME"
+	MembershipOrderFieldName   MembershipOrderField = "NAME"   // Order by name.
+	MembershipOrderFieldEmail  MembershipOrderField = "EMAIL"  // Order by email address.
+	MembershipOrderFieldStatus MembershipOrderField = "STATUS" // Order by status: active members before pending invitations when ascending.
+	MembershipOrderFieldRole   MembershipOrderField = "ROLE"   // Order by the highest primary role held: Viewer, Editor, then Owner when ascending.
 )
 
 // MembershipScopeKind represents what a membership was granted on.
@@ -11659,6 +11663,7 @@ const (
 	RegistrationTokenOrderFieldCreated     RegistrationTokenOrderField = "CREATED"     // Order by creation time.
 	RegistrationTokenOrderFieldDescription RegistrationTokenOrderField = "DESCRIPTION" // Order by description.
 	RegistrationTokenOrderFieldMrn         RegistrationTokenOrderField = "MRN"         // Order by MRN.
+	RegistrationTokenOrderFieldStatus      RegistrationTokenOrderField = "STATUS"      // Order by status: active, then expired, then revoked ascending. A revoked token counts as revoked even after it expires.
 )
 
 // RemediationInUse represents what a remediation run may do to software that is in use (ADR-171). One vocabulary for every platform; each platform maps it to what it can do.
