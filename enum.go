@@ -11830,8 +11830,9 @@ type SLAStartDateConfig string
 
 // SLA start date type.
 const (
-	SLAStartDateConfigCveDetected  SLAStartDateConfig = "CVE_DETECTED"  // SLA timer starts when Mondoo first discovers the vulnerability on an asset (default).
-	SLAStartDateConfigCvePublished SLAStartDateConfig = "CVE_PUBLISHED" // SLA timer starts from the original CVE publication date.
+	SLAStartDateConfigCveDetected             SLAStartDateConfig = "CVE_DETECTED"                // SLA timer starts when Mondoo first discovers the vulnerability on an asset (default).
+	SLAStartDateConfigCvePublished            SLAStartDateConfig = "CVE_PUBLISHED"               // SLA timer starts from the original CVE publication date.
+	SLAStartDateConfigFirstCveDetectedInSpace SLAStartDateConfig = "FIRST_CVE_DETECTED_IN_SPACE" // SLA timer starts when Mondoo first discovers the vulnerability on any asset in the space. An asset that registers again, or a new asset, does not restart it. Never later than the discovery on the asset itself.
 )
 
 // ScanProcessingStatus represents status of an asset scan upload as it moves through the processing pipeline.
