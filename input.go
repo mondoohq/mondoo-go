@@ -4127,7 +4127,7 @@ type JiraDataCenterPatCredentialV2Input struct {
 type JiraTicketConfigInput struct {
 	// The Jira project key. (Required.)
 	ProjectKey String `json:"projectKey" tfgen:"required=1"`
-	// The Jira issue type to create, e.g. "Task", "Story", "Bug" or "Epic". Defaults to "Task" when empty. (Required.)
+	// The name of the Jira issue type to create: a built-in one such as "Task", "Story", "Bug" or "Epic", or one of the project's custom types. Defaults to "Task" when empty. (Required.)
 	IssueType String `json:"issueType" tfgen:"required=1"`
 }
 
