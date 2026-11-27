@@ -64,6 +64,8 @@ const (
 	ActionSetConsiderationReasonNoFixInSeries          ActionSetConsiderationReason = "NO_FIX_IN_SERIES"         // No version in the installed release series fixes these vulnerabilities, so the upgrade within the series leaves them open. Moving to another series is a different change.
 	ActionSetConsiderationReasonFixNotReleased         ActionSetConsiderationReason = "FIX_NOT_RELEASED"         // A version in the installed release series fixes these vulnerabilities, but the vendor has not released it yet, so the upgrade leaves them open until it ships.
 	ActionSetConsiderationReasonReleaseLinePastEol     ActionSetConsiderationReason = "RELEASE_LINE_PAST_EOL"    // The option's target line is past end of life, so the asset's "Past EOL" finding stays open after it lands (ADR-302). Used in `PlanFixOption.residual` only.
+	ActionSetConsiderationReasonReleaseLineEnding      ActionSetConsiderationReason = "RELEASE_LINE_ENDING"      // The option's line ends within the window plan mode starts recommending an upgrade in (90 days unless the catalog row sets another), so it gets no fixes after that (ADR-202611261638). Used in `PlanFixOption.residual` and `clears` only.
+	ActionSetConsiderationReasonIntroducedByTarget     ActionSetConsiderationReason = "INTRODUCED_BY_TARGET"     // A finding the option's target introduces that the asset does not have now (ADR-202611261638). Used in `PlanFixOption.adds` only.
 	ActionSetConsiderationReasonOther                  ActionSetConsiderationReason = "OTHER"                    // A consideration stored before its cause was named. Its `summary` is the stored sentence.
 )
 
@@ -11169,6 +11171,17 @@ const (
 	PlanFindingKindCheck PlanFindingKind = "CHECK" // A failing check.
 )
 
+// PlanFixNetEffect represents how a fix option compares with the option in force (ADR-202611261638 §1.1).
+type PlanFixNetEffect string
+
+// How a fix option compares with the option in force (ADR-202611261638 §1.1).
+const (
+	PlanFixNetEffectBetter PlanFixNetEffect = "BETTER" // Leaves less open on some comparison and more on none.
+	PlanFixNetEffectWorse  PlanFixNetEffect = "WORSE"  // Leaves more open on some comparison and less on none.
+	PlanFixNetEffectMixed  PlanFixNetEffect = "MIXED"  // Leaves less open on one comparison and more on another, e.g. closes a High and adds Lows.
+	PlanFixNetEffectSame   PlanFixNetEffect = "SAME"   // Leaves the same open.
+)
+
 // PlanFixOptionKind represents how a fix option reaches its target (ADR-302; the ADR-216 candidate kinds).
 type PlanFixOptionKind string
 
@@ -11687,6 +11700,15 @@ const (
 	RemediationMechanismKindPackage  RemediationMechanismKind = "PACKAGE"   // A package coordinate rather than content — "firefox to 128.0" — which an actuator applies its own way.
 	RemediationMechanismKindOsUpdate RemediationMechanismKind = "OS_UPDATE" // An OS update the management system's own update service delivers — a Windows quality update through Intune's Windows Updates deployment service (ADR-297).
 	RemediationMechanismKindSource   RemediationMechanismKind = "SOURCE"    // A dependency coordinate set for one repository's manifests — "lodash to 4.18.0" — delivered as a pull request through the system that holds the repository (ADR-333).
+)
+
+// RemediationProtection represents what a remediation run requires of the app-aware backup a step takes before it changes anything (ADR-202611251344 §7).
+type RemediationProtection string
+
+// What a remediation run requires of the app-aware backup a step takes before it changes anything (ADR-202611251344 §7).
+const (
+	RemediationProtectionRequire     RemediationProtection = "REQUIRE"      // A backup that fails, or does not fit on the device, stops the run before anything changes, and the run reports failed (`backup_failed` or `insufficient_disk`). The default.
+	RemediationProtectionWaiveBackup RemediationProtection = "WAIVE_BACKUP" // A backup that fails, or does not fit, is a warning: the upgrade goes on without it. A rollback after a failed upgrade then puts the previous release back but cannot restore the data. The step's `protectionResults` records the waived backup. A client offering this value should say so next to it.
 )
 
 // RemediationScriptType represents remediation script type.
